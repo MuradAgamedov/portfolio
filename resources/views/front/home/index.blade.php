@@ -497,23 +497,23 @@
             @foreach($blogs as $index => $blog)
             <!-- Start Single blog -->
             <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true" class="col-lg-6 col-xl-4 mt--30 col-md-6 col-sm-12 col-12 mt--30">
-                <div class="rn-blog" data-bs-toggle="modal" data-bs-target="#exampleModalCenters">
+                <div class="rn-blog">
                     <div class="inner">
                         <div class="thumbnail">
-                            <a href="javascript:void(0)">
+                            <a href="{{ route('blog.show', $blog->getTranslation('slug', app()->getLocale())) }}">
                                 <img src="{{ $blog->getCardImageUrl() ?: 'assets/images/blog/blog-01.jpg' }}" alt="{{ $blog->getCardImageAltText() }}">
                             </a>
                         </div>
                         <div class="content">
                             <div class="category-info">
                                 <div class="category-list">
-                                    <a href="javascript:void(0)">{{__("Blog")}}</a>
+                                    <a href="{{ route('blogs') }}">{{__("Blog")}}</a>
                                 </div>
                                 <div class="meta">
                                     <span><i class="feather-clock"></i> {{ $blog->getFormattedPublishedDate() }}</span>
                                 </div>
                             </div>
-                            <h4 class="title"><a href="javascript:void(0)">{{ $blog->getTitle() }} <i class="feather-arrow-up-right"></i></a></h4>
+                            <h4 class="title"><a href="{{ route('blog.show', $blog->getTranslation('slug', app()->getLocale())) }}">{{ $blog->getTitle() }} <i class="feather-arrow-up-right"></i></a></h4>
                         </div>
                     </div>
                 </div>

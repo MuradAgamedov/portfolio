@@ -70,4 +70,28 @@ class FrontController extends Controller
 
         return redirect()->back()->with('success', 'Thank you for your message! We will get back to you soon.');
     }
+
+    public function blogs()
+    {
+        $blogs = Blog::where('status', true)
+                    ->orderBy('published_at', 'desc')
+                    ->paginate(9);
+        
+        return view('front.blogs.index', compact('blogs'));
+    }
+
+    public function blog($slug)
+    {
+        $blog = Blog::where('status', true)
+                   ->whereJsonContains('slug', [app()->getLocale() => $slug])
+                   ->firstOrFail();
+        
+        $recentBlogs = Blog::where('status', true)
+                          ->where('id', '!=', $blog->id)
+                          ->orderBy('published_at', 'desc')
+                          ->limit(3)
+                          ->get();
+        
+        return view('front.blogs.show', compact('blog', 'recentBlogs'));
+    }
 }

@@ -26,6 +26,8 @@ use App\Http\Controllers\FrontController;
 
 // Front-end Routes
 Route::get('/', [FrontController::class, 'index'])->name('home');
+Route::get('/blogs', [FrontController::class, 'blogs'])->name('blogs');
+Route::get('/blog/{slug}', [FrontController::class, 'blog'])->name('blog.show');
 Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
 
 // Admin Routes
