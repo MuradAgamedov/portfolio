@@ -1,0 +1,289 @@
+@extends('admin.layouts.master')
+
+@section('title', 'Xidməti Redaktə Et')
+
+@section('styles')
+<style>
+.icon-preview {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    margin: 0 auto 8px;
+}
+
+.icon-selector {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.icon-option {
+    display: inline-block;
+    padding: 10px;
+    margin: 5px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    min-width: 80px;
+}
+
+.icon-option:hover {
+    border-color: #667eea;
+    background-color: #f8f9fa;
+}
+
+.icon-option.selected {
+    border-color: #667eea;
+    background-color: #667eea;
+    color: white;
+}
+
+.icon-option i {
+    font-size: 20px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.icon-option span {
+    font-size: 12px;
+    display: block;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+    border-bottom-color: #667eea;
+    color: #667eea;
+    background: none;
+}
+
+.tab-content {
+    padding: 20px 0;
+}
+
+/* Validation Error Styles */
+.validation-errors {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    color: #721c24;
+}
+
+.validation-errors ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.validation-errors li {
+    margin-bottom: 5px;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.invalid-feedback {
+    display: block !important;
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+</style>
+@endsection
+
+@section('content')
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="h3 mb-0 text-gray-800">
+                <i class="fas fa-edit"></i> Xidməti Redaktə Et
+            </h1>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Xidmət Məlumatları</h6>
+        </div>
+        <div class="card-body">
+            <!-- Validation Errors Display -->
+            @if ($errors->any())
+                <div class="validation-errors">
+                    <h6 class="mb-2"><i class="fas fa-exclamation-triangle"></i> Aşağıdakı xətaları düzəldin:</h6>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('admin.services.update', $service) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                <!-- Icon Selection -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label">İkon Şəkli</label>
+                        <div class="icon-preview" id="iconPreview">
+                            @if($service->icon)
+                                <img src="{{ $service->getIconUrl() }}" 
+                                     alt="{{ $service->getIconAltText() }}" 
+                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            @else
+                                <i class="fas fa-image"></i>
+                            @endif
+                        </div>
+                        <input type="file" name="icon" id="iconInput" class="form-control @error('icon') is-invalid @enderror" accept="image/*">
+                        <small class="form-text text-muted">Yeni şəkil seçməsəniz mövcud şəkil saxlanılacaq. Dəstəklənən formatlar: JPEG, PNG, JPG, GIF, SVG. Maksimum ölçü: 2MB</small>
+                        @error('icon')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Şəkil Önizləmə</label>
+                        <div id="imagePreview" class="border rounded p-3 text-center" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
+                            @if($service->icon)
+                                <img src="{{ $service->getIconUrl() }}" 
+                                     alt="{{ $service->getIconAltText() }}" 
+                                     style="max-width: 100%; max-height: 120px; object-fit: contain;">
+                            @else
+                                <span class="text-muted">Şəkil seçildikdə burada görünəcək</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Language Tabs -->
+                <ul class="nav nav-tabs" id="languageTabs" role="tablist">
+                    @foreach($languages as $language)
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link {{ $loop->first ? 'active' : '' }}" 
+                                    id="tab-{{ $language->lang_code }}" 
+                                    data-bs-toggle="tab" 
+                                    data-bs-target="#content-{{ $language->lang_code }}" 
+                                    type="button" 
+                                    role="tab">
+                                <i class="fas fa-flag"></i> {{ $language->title }}
+                            </button>
+                        </li>
+                    @endforeach
+                </ul>
+
+                <div class="tab-content" id="languageTabContent">
+                    @foreach($languages as $language)
+                        <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" 
+                             id="content-{{ $language->lang_code }}" 
+                             role="tabpanel">
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Başlıq ({{ $language->title }}) <span class="text-danger">*</span></label>
+                                        <input type="text" 
+                                               name="title[{{ $language->lang_code }}]" 
+                                               class="form-control @error('title.' . $language->lang_code) is-invalid @enderror"
+                                               value="{{ old('title.' . $language->lang_code, $service->getTitle($language->lang_code)) }}"
+                                               required>
+                                        @error('title.' . $language->lang_code)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">İkon Alt Mətn ({{ $language->title }}) <span class="text-danger">*</span></label>
+                                        <input type="text" 
+                                               name="icon_alt_text[{{ $language->lang_code }}]" 
+                                               class="form-control @error('icon_alt_text.' . $language->lang_code) is-invalid @enderror"
+                                               value="{{ old('icon_alt_text.' . $language->lang_code, $service->getIconAltText($language->lang_code)) }}"
+                                               required>
+                                        @error('icon_alt_text.' . $language->lang_code)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Təsvir ({{ $language->title }}) <span class="text-danger">*</span></label>
+                                <textarea name="description[{{ $language->lang_code }}]" 
+                                          class="form-control @error('description.' . $language->lang_code) is-invalid @enderror"
+                                          rows="4"
+                                          required>{{ old('description.' . $language->lang_code, $service->getDescription($language->lang_code)) }}</textarea>
+                                @error('description.' . $language->lang_code)
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Status -->
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="status" id="status" {{ $service->status ? 'checked' : '' }}>
+                        <label class="form-check-label" for="status">
+                            Aktiv
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Buttons -->
+                <div class="d-flex justify-content-between">
+                    <a href="{{ route('admin.services.index') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Geri
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Yadda Saxla
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    // Image preview
+    $('#iconInput').on('change', function() {
+        var file = this.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#imagePreview').html('<img src="' + e.target.result + '" style="max-width: 100%; max-height: 120px; object-fit: contain;">');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            // Show current image if exists
+            @if($service->icon)
+                $('#imagePreview').html('<img src="{{ $service->getIconUrl() }}" style="max-width: 100%; max-height: 120px; object-fit: contain;">');
+            @else
+                $('#imagePreview').html('<span class="text-muted">Şəkil seçildikdə burada görünəcək</span>');
+            @endif
+        }
+    });
+});
+</script>
+@endsection 

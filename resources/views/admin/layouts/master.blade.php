@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Admin Panel') - Murad Portfolio</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 4px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+        
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 10px;
+        }
+        
+        .main-content {
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 12px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 8px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .table thead th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+        
+        .sidebar .nav-link.disabled {
+            color: rgba(255,255,255,0.4) !important;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        
+        .sidebar .nav-link.disabled:hover {
+            background: none !important;
+            transform: none !important;
+        }
+    </style>
+    
+    @yield('styles')
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 px-0">
+                <div class="sidebar p-3">
+                    <div class="text-center mb-4">
+                        <h4><i class="fas fa-user-tie"></i> Admin Panel</h4>
+                        <hr>
+                    </div>
+                    
+                    <nav class="nav flex-column">
+                        <a class="nav-link {{ request()->is('admin/dashboard*') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/languages*') ? 'active' : '' }}" href="{{ route('admin.languages.index') }}">
+                            <i class="fas fa-language"></i> Dillər
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/hero/edit*') ? 'active' : '' }}" href="{{ route('admin.hero.edit') }}">
+                            <i class="fas fa-home"></i> Hero Bölməsi
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/hero-professions*') ? 'active' : '' }}" href="{{ route('admin.hero-professions.index') }}">
+                            <i class="fas fa-briefcase"></i> Hero Peşələr
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/socials*') ? 'active' : '' }}" href="{{ route('admin.socials.edit') }}">
+                            <i class="fas fa-share-alt"></i> Sosial Şəbəkələr
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/services*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
+                            <i class="fas fa-cogs"></i> Xidmətlər
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/portfolio-categories*') ? 'active' : '' }}" href="{{ route('admin.portfolio-categories.index') }}">
+                            <i class="fas fa-tags"></i> Portfolio Kateqoriyaları
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/portfolios*') ? 'active' : '' }}" href="{{ route('admin.portfolios.index') }}">
+                            <i class="fas fa-briefcase"></i> Portfolio
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/certificates*') ? 'active' : '' }}" href="{{ route('admin.certificates.index') }}">
+                            <i class="fas fa-certificate"></i> Sertifikatlar
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/blogs*') ? 'active' : '' }}" href="{{ route('admin.blogs.index') }}">
+                            <i class="fas fa-blog"></i> Blog
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/education*') ? 'active' : '' }}" href="{{ route('admin.education.index') }}">
+                            <i class="fas fa-graduation-cap"></i> Təhsil
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/skills*') ? 'active' : '' }}" href="{{ route('admin.skills.index') }}">
+                            <i class="fas fa-chart-bar"></i> Bacarıqlar
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/experiences*') ? 'active' : '' }}" href="{{ route('admin.experiences.index') }}">
+                            <i class="fas fa-briefcase"></i> Təcrübələr
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/about*') ? 'active' : '' }}" href="{{ route('admin.about.edit') }}">
+                            <i class="fas fa-user"></i> Haqqımda
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/dictionary*') ? 'active' : '' }}" href="{{ route('admin.dictionary.index') }}">
+                            <i class="fas fa-book"></i> Tərcümə Sözlüyü
+                        </a>
+                        <a class="nav-link disabled" href="#" title="Tezliklə">
+                            <i class="fas fa-envelope"></i> Əlaqə
+                        </a>
+                        <a class="nav-link disabled" href="#" title="Tezliklə">
+                            <i class="fas fa-cog"></i> Tənzimləmələr
+                        </a>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 px-0">
+                <div class="main-content">
+                    <!-- Header -->
+                    <nav class="navbar navbar-expand-lg">
+                        <div class="container-fluid">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            
+                            <div class="navbar-nav ms-auto">
+                                <div class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                        <i class="fas fa-user-circle"></i> Admin
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profil</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Tənzimləmələr</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Çıxış</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                    
+                    <!-- Page Content -->
+                    <div class="p-4">
+                    
+                        
+                        @if(session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        @endif
+                        
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    @yield('scripts')
+</body>
+</html> 

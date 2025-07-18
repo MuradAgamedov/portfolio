@@ -1,0 +1,297 @@
+@extends('admin.layouts.master')
+
+@section('title', 'Portfolio-nu Redaktə Et')
+
+@section('styles')
+<style>
+.portfolio-preview {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    margin: 0 auto 8px;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+    border-bottom-color: #667eea;
+    color: #667eea;
+    background: none;
+}
+
+.tab-content {
+    padding: 20px 0;
+}
+
+/* Validation Error Styles */
+.validation-errors {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    color: #721c24;
+}
+
+.validation-errors ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.validation-errors li {
+    margin-bottom: 5px;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.invalid-feedback {
+    display: block !important;
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+</style>
+@endsection
+
+@section('content')
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="h3 mb-0 text-gray-800">
+                <i class="fas fa-edit"></i> Portfolio-nu Redaktə Et
+            </h1>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Portfolio Məlumatları</h6>
+        </div>
+        <div class="card-body">
+            <!-- Validation Errors Display -->
+            @if ($errors->any())
+                <div class="validation-errors">
+                    <h6 class="mb-2"><i class="fas fa-exclamation-triangle"></i> Aşağıdakı xətaları düzəldin:</h6>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('admin.portfolios.update', $portfolio) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                <!-- Image Upload -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label">Layihə Şəkli</label>
+                        <div class="portfolio-preview" id="imagePreview">
+                            @if($portfolio->image)
+                                <img src="{{ $portfolio->getImageUrl() }}" 
+                                     alt="{{ $portfolio->getTitle() }}" 
+                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
+                            @else
+                                <i class="fas fa-image"></i>
+                            @endif
+                        </div>
+                        <input type="file" name="image" id="imageInput" class="form-control @error('image') is-invalid @enderror" accept="image/*">
+                        <small class="form-text text-muted">Yeni şəkil seçməsəniz mövcud şəkil saxlanılacaq. Dəstəklənən formatlar: JPEG, PNG, JPG, GIF, SVG. Maksimum ölçü: 2MB</small>
+                        @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Şəkil Önizləmə</label>
+                        <div id="previewContainer" class="border rounded p-3 text-center" style="min-height: 120px; display: flex; align-items: center; justify-content: center;">
+                            @if($portfolio->image)
+                                <img src="{{ $portfolio->getImageUrl() }}" 
+                                     alt="{{ $portfolio->getTitle() }}" 
+                                     style="max-width: 100%; max-height: 120px; object-fit: contain;">
+                            @else
+                                <span class="text-muted">Şəkil seçildikdə burada görünəcək</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Selection -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Kateqoriya</label>
+                            <select name="category_id" class="form-select @error('category_id') is-invalid @enderror">
+                                <option value="">Kateqoriya seçin</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id', $portfolio->category_id) == $category->id ? 'selected' : '' }}>
+                                        {{ $category->title['az'] ?? $category->title['en'] ?? $category->title['ru'] ?? 'Unnamed Category' }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Company Information -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Şirkət Adı <span class="text-danger">*</span></label>
+                            <input type="text" 
+                                   name="company_name" 
+                                   class="form-control @error('company_name') is-invalid @enderror"
+                                   value="{{ old('company_name', $portfolio->company_name) }}"
+                                   required>
+                            @error('company_name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Şirkət Saytı</label>
+                            <input type="url" 
+                                   name="company_website" 
+                                   class="form-control @error('company_website') is-invalid @enderror"
+                                   value="{{ old('company_website', $portfolio->company_website) }}"
+                                   placeholder="https://example.com">
+                            @error('company_website')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Layihə Linki</label>
+                            <input type="url" 
+                                   name="project_link" 
+                                   class="form-control @error('project_link') is-invalid @enderror"
+                                   value="{{ old('project_link', $portfolio->project_link) }}"
+                                   placeholder="https://example.com">
+                            @error('project_link')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Language Tabs -->
+                <ul class="nav nav-tabs" id="languageTabs" role="tablist">
+                    @foreach($languages as $language)
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link {{ $loop->first ? 'active' : '' }}" 
+                                    id="tab-{{ $language->lang_code }}" 
+                                    data-bs-toggle="tab" 
+                                    data-bs-target="#content-{{ $language->lang_code }}" 
+                                    type="button" 
+                                    role="tab">
+                                <i class="fas fa-flag"></i> {{ $language->title }}
+                            </button>
+                        </li>
+                    @endforeach
+                </ul>
+
+                <div class="tab-content" id="languageTabContent">
+                    @foreach($languages as $language)
+                        <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" 
+                             id="content-{{ $language->lang_code }}" 
+                             role="tabpanel">
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Başlıq ({{ $language->title }}) <span class="text-danger">*</span></label>
+                                        <input type="text" 
+                                               name="title[{{ $language->lang_code }}]" 
+                                               class="form-control @error('title.' . $language->lang_code) is-invalid @enderror"
+                                               value="{{ old('title.' . $language->lang_code, $portfolio->getTitle($language->lang_code)) }}"
+                                               required>
+                                        @error('title.' . $language->lang_code)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Təsvir ({{ $language->title }}) <span class="text-danger">*</span></label>
+                                <textarea name="description[{{ $language->lang_code }}]" 
+                                          class="form-control @error('description.' . $language->lang_code) is-invalid @enderror"
+                                          rows="4"
+                                          required>{{ old('description.' . $language->lang_code, $portfolio->getDescription($language->lang_code)) }}</textarea>
+                                @error('description.' . $language->lang_code)
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Status -->
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="status" id="status" {{ $portfolio->status ? 'checked' : '' }}>
+                        <label class="form-check-label" for="status">
+                            Aktiv
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Buttons -->
+                <div class="d-flex justify-content-between">
+                    <a href="{{ route('admin.portfolios.index') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Geri
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Yadda Saxla
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    // Image preview
+    $('#imageInput').on('change', function() {
+        var file = this.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#previewContainer').html('<img src="' + e.target.result + '" style="max-width: 100%; max-height: 120px; object-fit: contain;">');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            // Show current image if exists
+            @if($portfolio->image)
+                $('#previewContainer').html('<img src="{{ $portfolio->getImageUrl() }}" style="max-width: 100%; max-height: 120px; object-fit: contain;">');
+            @else
+                $('#previewContainer').html('<span class="text-muted">Şəkil seçildikdə burada görünəcək</span>');
+            @endif
+        }
+    });
+});
+</script>
+@endsection 
