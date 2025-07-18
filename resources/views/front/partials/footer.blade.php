@@ -86,7 +86,7 @@
                 <h4 class="title">Portfolio Details</h4>
                 <p class="subtitle">View detailed information about my projects and work.</p>
             </div>
-            
+
             <!-- Portfolio Modal Content -->
             <div class="portfolio-modal-content">
                 <div class="row">
@@ -99,7 +99,7 @@
                         <div class="portfolio-details">
                             <h3 class="title" id="modal-portfolio-title">Project Title</h3>
                             <p class="description" id="modal-portfolio-description">Project description will appear here.</p>
-                            
+
                             <div class="project-info">
                                 <div class="info-item">
                                     <span class="label">Client:</span>
@@ -118,7 +118,7 @@
                                     <span class="value" id="modal-portfolio-tech">Technologies</span>
                                 </div>
                             </div>
-                            
+
                             <div class="project-links mt-4">
                                 <a href="#" class="btn btn-primary" id="modal-portfolio-link" target="_blank">
                                     <i class="feather-external-link"></i> View Project
@@ -133,12 +133,18 @@
 </div>
 <!-- End Modal Area  -->
 
-<!-- JS Files -->
+<!-- JS  -->
 <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
-<script src="{{ asset('assets/js/vendor/bootstrap.js') }}"></script>
-<script src="{{ asset('assets/js/vendor/slick.min.js') }}"></script>
-<script src="{{ asset('assets/js/vendor/aos.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/modernizer.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/feather.min.js') }}"></script>
-<script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/slick.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/bootstrap.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/text-type.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/wow.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/aos.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/particles.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/jquery-one-page-nav.js') }}"></script>
+<!-- main JS -->
+<script src="{{ asset('assets/js/main.js') }}"></script> <!-- script end -->
 
-@stack('scripts') 
+@stack('scripts')

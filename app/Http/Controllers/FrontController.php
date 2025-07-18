@@ -30,7 +30,7 @@ class FrontController extends Controller
             'socials' => Social::first(),
             'about' => About::first(),
         ];
-
+        
         return view('front.home.index', $data);
     }
 
@@ -46,7 +46,7 @@ class FrontController extends Controller
 
         // Here you can add logic to send email or save to database
         // For now, we'll just redirect back with success message
-        
+
         return redirect()->back()->with('success', 'Thank you for your message! We will get back to you soon.');
     }
-} 
+}
