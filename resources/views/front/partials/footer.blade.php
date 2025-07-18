@@ -1,68 +1,39 @@
 <!-- Start Footer Area -->
-<div id="footer" class="rn-footer-area footer-style-2 rn-section-gapTop section-separator">
-    <div class="container pb--80 pb_sm--40 plr_sm--20">
+<div class="rn-footer-area rn-section-gap section-separator">
+    <div class="container">
         <div class="row">
-            <div class="col-xl-3 col-12 col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="logo-thumbnail">
-                    <a href="{{ route('home') }}"><img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo-image"></a>
-                </div>
-                <div class="social-icone-wrapper">
-                    <ul class="social-share d-flex liststyle">
-                        <li class="facebook"><a href="#"><i data-feather="linkedin"></i></a></li>
-                        <li class="instagram"><a href="#"><i data-feather="instagram"></i></a></li>
-                        <li class="linkedin"><a href="#"><i data-feather="twitter"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sl-3 col-12 mt_sm--20 col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="menu-wrapper">
-                    <div class="menu-title">
-                        <h6>Services</h6>
+            <div class="col-lg-12">
+                <div class="footer-area text-center">
+
+                    <div class="logo">
+                        <a href="{{ route('home') }}">
+                            @php
+                                $footerLogo = \App\Models\SiteSetting::getByKey('footer_logo');
+                                $footerLogoAlt = \App\Models\SiteSetting::getByKey('footer_logo_alt');
+                            @endphp
+                            @if($footerLogo)
+                                <img src="{{ asset('storage/' . $footerLogo) }}" alt="{{ $footerLogoAlt ?: 'logo' }}">
+                            @else
+                                <img src="{{ asset('assets/images/logo/logo-vertical.png') }}" alt="logo">
+                            @endif
+                        </a>
                     </div>
-                    <ul class="menu-footer">
-                        <li><a href="#portfolio">Portfolio</a></li>
-                        <li><a href="#resume">Resume</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#about">About</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sl-3 col-12 mt_sm--20 col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="menu-wrapper">
-                    <div class="menu-title">
-                        <h6>Resources</h6>
-                    </div>
-                    <ul class="menu-footer">
-                        <li><a href="#experience">Experience</a></li>
-                        <li><a href="#education">Education</a></li>
-                        <li><a href="#skills">Skills</a></li>
-                        <li><a href="#certificates">Certificates</a></li>
-                        <li><a href="#testimonials">Testimonials</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sl-3 col-12 mt_sm--20 col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="menu-wrapper">
-                    <div class="menu-title">
-                        <h6>Contact</h6>
-                    </div>
-                    <ul class="menu-footer">
-                        <li><a href="mailto:contact@example.com">Email</a></li>
-                        <li><a href="tel:+1234567890">Phone</a></li>
-                        <li><a href="#contact">Contact Form</a></li>
-                        <li><a href="#">Location</a></li>
-                        <li><a href="#">Social Media</a></li>
-                    </ul>
+
+                    <p class="description mt--30">© <script>document.write(new Date().getFullYear());</script>2025. All rights reserved by <a target="_blank" href="https://themeforest.net/user/parvinfotech/portfolio">Parv infotech.</a></p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="copyright text-center ptb--40 section-separator">
-        <p class="description">© {{ date('Y') }}. All rights reserved by <a target="_blank" href="#">Murad Portfolio</a></p>
-    </div>
 </div>
 <!-- End Footer Area -->
+
+<!-- Page Footer Code -->
+@php
+    $seoSettings = \App\Models\SeoSite::first();
+@endphp
+@if($seoSettings && $seoSettings->page_footer)
+    {!! $seoSettings->page_footer !!}
+@endif
 
 <!-- Start Back To Top -->
 <!-- Back to  top Start -->
@@ -148,3 +119,4 @@
 <script src="{{ asset('assets/js/main.js') }}"></script> <!-- script end -->
 
 @stack('scripts')
+

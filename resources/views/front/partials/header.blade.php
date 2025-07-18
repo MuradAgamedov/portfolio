@@ -6,7 +6,15 @@
             <div class="header-left">
                 <div class="logo">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo">
+                        @php
+                            $headerLogo = \App\Models\SiteSetting::getByKey('header_logo');
+                            $headerLogoAlt = \App\Models\SiteSetting::getByKey('header_logo_alt');
+                        @endphp
+                        @if($headerLogo)
+                            <img src="{{ asset('storage/' . $headerLogo) }}" alt="{{ $headerLogoAlt ?: 'Logo' }}">
+                        @else
+                            <img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo">
+                        @endif
                     </a>
                 </div>
             </div>
@@ -19,7 +27,7 @@
                     <ul class="primary-menu">
                         <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">{{__("About")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#resume">Resume</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
                         <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
@@ -28,7 +36,7 @@
                 </nav>
                 <!-- Start Header Right  -->
                 <div class="header-right">
-                    <a class="rn-btn" href="#contact"><span>CONTACT ME</span></a>
+                    <a class="rn-btn" href="#contact"><span>{{__("CONTACT ME")}}</span></a>
 
                     <div class="hamberger-menu d-block d-xl-none">
                         <i id="menuBtn" class="feather-menu humberger-menu"></i>
@@ -55,7 +63,15 @@
         <div class="menu-top">
             <div class="menu-header">
                 <a class="logo" href="{{ route('home') }}">
-                    <img src="{{ asset('assets/images/logo/logos-circle.png') }}" alt="Personal Portfolio">
+                    @php
+                        $headerLogo = \App\Models\SiteSetting::getByKey('header_logo');
+                        $headerLogoAlt = \App\Models\SiteSetting::getByKey('header_logo_alt');
+                    @endphp
+                    @if($headerLogo)
+                        <img src="{{ asset('storage/' . $headerLogo) }}" alt="{{ $headerLogoAlt ?: 'Personal Portfolio' }}">
+                    @else
+                        <img src="{{ asset('assets/images/logo/logos-circle.png') }}" alt="Personal Portfolio">
+                    @endif
                 </a>
                 <div class="close-button">
                     <button class="close-menu-activation close"><i data-feather="x"></i></button>
@@ -67,7 +83,7 @@
             <ul class="primary-menu">
                 <li><a class="nav-link" href="#home">Home</a></li>
                 <li><a class="nav-link" href="#experience">Experience</a></li>
-                <li><a class="nav-link" href="#education">Education</a></li>
+                                        <li><a class="nav-link" href="#about">{{__("About")}}</a></li>
                 <li><a class="nav-link" href="#resume">Resume</a></li>
                 <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
                 <li><a class="nav-link" href="#blog">Blog</a></li>

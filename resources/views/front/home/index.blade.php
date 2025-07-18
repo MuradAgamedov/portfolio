@@ -1,11 +1,15 @@
 @extends('front.layouts.master')
 
-@section('title', 'Murad Portfolio - Home')
+@section('title', 'Home')
 
 @section('content')
+<!-- SEO Display Section -->
+@php
+    $seoSettings = \App\Models\SeoSite::first();
+@endphp
 
 
-<!-- Start Slider Area -->
+<!-- Start Header Area -->
 <div id="home" class="rn-slider-area">
     <div class="slide slider-style-1">
         <div class="container">
@@ -37,18 +41,20 @@
                         <div class="row">
                             <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12">
                                 <div class="social-share-inner-left">
-                                    <span class="title">find with me</span>
+                                    <span class="title">{{__("find with me")}}</span>
                                     <ul class="social-share d-flex liststyle">
-                                        <li class="facebook"><a href="#"><i data-feather="facebook"></i></a>
-                                        </li>
-                                        <li class="instagram"><a href="#"><i data-feather="instagram"></i></a>
-                                        </li>
-                                        <li class="linkedin"><a href="#"><i data-feather="linkedin"></i></a>
-                                        </li>
+                                        @foreach($socials as $social)
+                                            <li class="{{ $social->platform }}">
+                                                <a href="{{ $social->url }}" target="_blank" rel="noopener noreferrer">
+                                                    <i data-feather="{{ $social->platform }}"></i>
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12 mt_mobile--30">
+                      {{--
+                              <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12 mt_mobile--30">
                                 <div class="skill-share-inner">
                                     <span class="title">best skill on</span>
                                     <ul class="skill-share d-flex liststyle">
@@ -58,6 +64,8 @@
                                     </ul>
                                 </div>
                             </div>
+                        
+                        --}}
                         </div>
                     </div>
                 </div>
@@ -81,303 +89,38 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title text-left" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true">
-                    <span class="subtitle">Features</span>
-                    <h2 class="title">What I Do</h2>
+                    <span class="subtitle">{{__("features")}}</span>
+                    <h2 class="title">{{__("what i do")}}</h2>
                 </div>
             </div>
         </div>
         <div class="row row--25 mt_md--10 mt_sm--10">
 
+            @foreach($services as $index => $service)
             <!-- Start Single Service -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
+            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 200) }}" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
                 <div class="rn-service">
                     <div class="inner">
                         <div class="icon">
-                            <i data-feather="menu"></i>
+                            <img src="{{asset('storage/'.$service->icon)}}" alt="{{$service->icon_alt}}">
                         </div>
                         <div class="content">
-                            <h4 class="title"><a href="#">Business Stratagy</a></h4>
-                            <p class="description">I throw myself down among the tall grass by the stream as I
-                                lie close to the earth.</p>
+                            <h4 class="title"><a href="#">{{ $service->getTitle() }}</a></h4>
+                            <p class="description">{{ $service->getDescription() }}</p>
                             <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
                         </div>
                     </div>
                     <a class="over-link" href="#"></a>
                 </div>
             </div>
-            <!-- End SIngle Service -->
-            <!-- Start Single Service -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="300" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-service">
-                    <div class="inner">
-                        <div class="icon">
-                            <i data-feather="book-open"></i>
-                        </div>
-                        <div class="content">
-                            <h4 class="title"><a href="#">App Development</a></h4>
-                            <p class="description"> It uses a dictionary of over 200 Latin words, combined with
-                                a handful of model sentence.</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <a class="over-link" href="#"></a>
-                </div>
-            </div>
-            <!-- End SIngle Service -->
-            <!-- Start Single Service -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="500" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-service">
-                    <div class="inner">
-                        <div class="icon">
-                            <i data-feather="tv"></i>
-                        </div>
-                        <div class="content">
-                            <h4 class="title"><a href="#">App Development</a></h4>
-                            <p class="description">I throw myself down among the tall grass by the stream as I
-                                lie close to the earth.</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <a class="over-link" href="#"></a>
-                </div>
-            </div>
-            <!-- End SIngle Service -->
-            <!-- Start Single Service -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-service">
-                    <div class="inner">
-                        <div class="icon">
-                            <i data-feather="twitch"></i>
-                        </div>
-                        <div class="content">
-                            <h4 class="title"><a href="#">Mobile App</a></h4>
-                            <p class="description">There are many variations of passages of Lorem Ipsum
-                                available, but the majority.
-                            </p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <a class="over-link" href="#"></a>
-                </div>
-            </div>
-            <!-- End SIngle Service -->
-            <!-- Start Single Service -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="300" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-service">
-                    <div class="inner">
-                        <div class="icon">
-                            <i data-feather="wifi"></i>
-                        </div>
-                        <div class="content">
-                            <h4 class="title"><a href="#">CEO Marketing</a></h4>
-                            <p class="description">always free from repetition,
-                                injected humour, or non-characteristic words etc.</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <a class="over-link" href="#"></a>
-                </div>
-            </div>
-            <!-- End SIngle Service -->
-            <!-- Start Single Service -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="500" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-service">
-                    <div class="inner">
-                        <div class="icon">
-                            <i data-feather="slack"></i>
-                        </div>
-                        <div class="content">
-                            <h4 class="title"><a href="#">Personal Portfolio April</a></h4>
-                            <p class="description"> It uses a dictionary of over 200 Latin words, combined with
-                                a handful of model sentence.</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <a class="over-link" href="#"></a>
-                </div>
-            </div>
-            <!-- End SIngle Service -->
+            <!-- End Single Service -->
+            @endforeach
 
         </div>
     </div>
 </div>
 <!-- End Service Area  -->
 
-<!-- Start Portfolio Area -->
-<div class="rn-portfolio-area rn-section-gap section-separator" id="portfolio">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title text-center">
-                    <span class="subtitle">Visit my portfolio and keep your feedback</span>
-                    <h2 class="title">My Portfolio</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="row row--25 mt--10 mt_md--10 mt_sm--10">
-            <!-- Start Single Portfolio -->
-            <div data-aos="fade-up" data-aos-delay="100" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-portfolio" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                    <div class="inner">
-                        <div class="thumbnail">
-                            <a href="javascript:void(0)">
-                                <img src="assets/images/portfolio/portfolio-01.jpg" alt="Personal Portfolio Images">
-                            </a>
-                        </div>
-                        <div class="content">
-                            <div class="category-info">
-                                <div class="category-list">
-                                    <a href="javascript:void(0)">Development</a>
-                                </div>
-                                <div class="meta">
-                                    <span><a href="javascript:void(0)"><i class="feather-heart"></i></a>
-                                        600</span>
-                                </div>
-                            </div>
-                            <h4 class="title"><a href="javascript:void(0)">The services provide for design <i class="feather-arrow-up-right"></i></a></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Portfolio -->
-
-            <!-- Start Single Portfolio -->
-            <div data-aos="fade-up" data-aos-delay="300" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-portfolio" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                    <div class="inner">
-                        <div class="thumbnail">
-                            <a href="javascript:void(0)">
-                                <img src="assets/images/portfolio/portfolio-02.jpg" alt="Personal Portfolio Images">
-                            </a>
-                        </div>
-                        <div class="content">
-                            <div class="category-info">
-                                <div class="category-list">
-                                    <a href="javascript:void(0)">Application</a>
-                                </div>
-                                <div class="meta">
-                                    <span><a href="javascript:void(0)"><i class="feather-heart"></i></a>
-                                        750</span>
-                                </div>
-                            </div>
-                            <h4 class="title"><a href="javascript:void(0)">Mobile app landing design & app
-                                    maintain<i class="feather-arrow-up-right"></i></a></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Portfolio -->
-
-            <!-- Start Single Portfolio -->
-            <div data-aos="fade-up" data-aos-delay="500" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-portfolio" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                    <div class="inner">
-                        <div class="thumbnail">
-                            <a href="javascript:void(0)">
-                                <img src="assets/images/portfolio/portfolio-03.jpg" alt="Personal Portfolio Images">
-                            </a>
-                        </div>
-                        <div class="content">
-                            <div class="category-info">
-                                <div class="category-list">
-                                    <a href="javascript:void(0)">Photoshop</a>
-                                </div>
-                                <div class="meta">
-                                    <span><a href="javascript:void(0)"><i class="feather-heart"></i></a>
-                                        630</span>
-                                </div>
-                            </div>
-                            <h4 class="title"><a href="javascript:void(0)">Logo design creativity & Application
-                                    <i class="feather-arrow-up-right"></i></a></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Portfolio -->
-
-            <!-- Start Single Portfolio -->
-            <div data-aos="fade-up" data-aos-delay="100" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-portfolio" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                    <div class="inner">
-                        <div class="thumbnail">
-                            <a href="javascript:void(0)">
-                                <img src="assets/images/portfolio/portfolio-04.jpg" alt="Personal Portfolio Images">
-                            </a>
-                        </div>
-                        <div class="content">
-                            <div class="category-info">
-                                <div class="category-list">
-                                    <a href="javascript:void(0)">Figma</a>
-                                </div>
-                                <div class="meta">
-                                    <span><a href="javascript:void(0)"><i class="feather-heart"></i></a>
-                                        360</span>
-                                </div>
-                            </div>
-                            <h4 class="title"><a href="javascript:void(0)">Mobile app landing design &
-                                    Services<i class="feather-arrow-up-right"></i></a></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Portfolio -->
-
-            <!-- Start Single Portfolio -->
-            <div data-aos="fade-up" data-aos-delay="300" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-portfolio" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                    <div class="inner">
-                        <div class="thumbnail">
-                            <a href="javascript:void(0)">
-                                <img src="assets/images/portfolio/portfolio-05.jpg" alt="Personal Portfolio Images">
-                            </a>
-                        </div>
-                        <div class="content">
-                            <div class="category-info">
-                                <div class="category-list">
-                                    <a href="javascript:void(0)">Web Design</a>
-                                </div>
-                                <div class="meta">
-                                    <span><a href="javascript:void(0)"><i class="feather-heart"></i></a>
-                                        280</span>
-                                </div>
-                            </div>
-                            <h4 class="title"><a href="javascript:void(0)">Design for tecnology & services<i class="feather-arrow-up-right"></i></a></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Portfolio -->
-
-            <!-- Start Single Portfolio -->
-            <div data-aos="fade-up" data-aos-delay="500" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-portfolio" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-                    <div class="inner">
-                        <div class="thumbnail">
-                            <a href="javascript:void(0)">
-                                <img src="assets/images/portfolio/portfolio-06.jpg" alt="Personal Portfolio Images">
-                            </a>
-                        </div>
-                        <div class="content">
-                            <div class="category-info">
-                                <div class="category-list">
-                                    <a href="javascript:void(0)">Web Design</a>
-                                </div>
-                                <div class="meta">
-                                    <span><a href="javascript:void(0)"><i class="feather-heart"></i></a>
-                                        690</span>
-                                </div>
-                            </div>
-                            <h4 class="title"><a href="javascript:void(0)">App for tecnology & services<i class="feather-arrow-up-right"></i></a></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single Portfolio -->
-        </div>
-    </div>
-</div>
-<!-- End portfolio Area -->
 
 <!-- Start Resume Area -->
 <div class="rn-resume-area rn-section-gap section-separator" id="resume">
@@ -385,8 +128,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title text-center">
-                    <span class="subtitle">7+ Years of Experience</span>
-                    <h2 class="title">My Resume</h2>
+                    <span class="subtitle">{{__("7+ Years of Experience")}}</span>
+                    <h2 class="title">{{__("My Resume")}}</h2>
                 </div>
             </div>
         </div>
@@ -394,292 +137,82 @@
             <div class="col-lg-12">
                 <ul class="rn-nav-list nav nav-tabs" id="myTabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="education-tab" data-bs-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="true">education</a>
+                        <a class="nav-link active" id="about-tab" data-bs-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="true">{{__("About")}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="professional-tab" data-bs-toggle="tab" href="#professional" role="tab" aria-controls="professional" aria-selected="false">professional
-                            Skills</a>
+                        <a class="nav-link" id="education-tab" data-bs-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="false">{{__("Education")}}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="experience-tab" data-bs-toggle="tab" href="#experience" role="tab" aria-controls="experience" aria-selected="false">experience</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="interview-tab" data-bs-toggle="tab" href="#interview" role="tab" aria-controls="interview" aria-selected="false">interview</a>
+                        <a class="nav-link" id="skills-tab" data-bs-toggle="tab" href="#skills" role="tab" aria-controls="skills" aria-selected="false">{{__("Skills")}}</a>
                     </li>
                 </ul>
 
                 <!-- Start Tab Content Wrapper  -->
                 <div class="rn-nav-content tab-content" id="myTabContents">
                     <!-- Start Single Tab  -->
-                    <div class="tab-pane show active fade single-tab-area" id="education" role="tabpanel" aria-labelledby="education-tab">
+                    <div class="tab-pane show active fade single-tab-area" id="about" role="tabpanel" aria-labelledby="about-tab">
                         <div class="personal-experience-inner mt--40">
                             <div class="row">
-                                <!-- Start Skill List Area  -->
-                                <div class="col-lg-6 col-md-12 col-12">
+                                <div class="col-lg-12 col-md-12 col-12">
                                     <div class="content">
-                                        <span class="subtitle">2007 - 2010</span>
-                                        <h4 class="maintitle">Education Quality</h4>
-                                        <div class="experience-list">
-
-                                            <!-- Start Single List  -->
-                                            <div class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>Personal Portfolio April Fools</h4>
-                                                            <span>University of DVI (1997 - 2001)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.30/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">The education should be very
-                                                        interactual. Ut tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
+                                        <h4 class="maintitle">{{__("About Me")}}</h4>
+                                        <div class="about-content">
+                                            <div class="description">
+                                                {!! $about->getDescription() !!}
                                             </div>
-                                            <!-- End Single List  -->
-
-                                            <!-- Start Single List  -->
-                                            <div class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4> Examples Of Personal Portfolio</h4>
-                                                            <span>College of Studies (2000 - 2002)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.50/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">Maecenas finibus nec sem ut
-                                                        imperdiet. Ut tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
+                                            @if($about->getCvUrl())
+                                            <div class="cv-download mt-4">
+                                                <a href="{{ $about->getCvUrl() }}" class="rn-btn" download="{{ $about->cv_original_name }}">
+                                                    <span>{{__("Download CV")}}</span>
+                                                    <i data-feather="download"></i>
+                                                </a>
+                                                @if($about->getCvSize())
+                                                <small class="text-muted d-block mt-2">{{__("File size")}}: {{ $about->getCvSize() }} MB</small>
+                                                @endif
                                             </div>
-                                            <!-- End Single List  -->
-
-                                            <!-- Start Single List  -->
-                                            <div class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>Tips For Personal Portfolio</h4>
-                                                            <span>University of Studies (1997 - 2001)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.80/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description"> If you are going to use a passage.
-                                                        Ut tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Skill List Area  -->
-
-                                <!-- Start Skill List Area 2nd  -->
-                                <div class="col-lg-6 col-md-12 col-12 mt_md--60 mt_sm--60">
-                                    <div class="content">
-                                        <span class="subtitle">2007 - 2010</span>
-                                        <h4 class="maintitle">Job Experience</h4>
-                                        <div class="experience-list">
-
-                                            <!-- Start Single List  -->
-                                            <div class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>Diploma in Web Development</h4>
-                                                            <span>BSE In CSE (2004 - 2008)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.70/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">Contrary to popular belief. Ut
-                                                        tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
-                                            <!-- Start Single List  -->
-                                            <div class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>The Personal Portfolio Mystery</h4>
-                                                            <span>Job at Rainbow-Themes (2008 - 2016)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.95/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">Generate Lorem Ipsum which looks. Ut
-                                                        tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
-                                            <!-- Start Single List  -->
-                                            <div class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>Diploma in Computer Science</h4>
-                                                            <span>Works at Plugin Development (2016 -
-                                                                2020)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>5.00/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">Maecenas finibus nec sem ut
-                                                        imperdiet. Ut tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Skill List Area  -->
                             </div>
                         </div>
                     </div>
                     <!-- End Single Tab  -->
 
                     <!-- Start Single Tab  -->
-                    <div class="tab-pane fade " id="professional" role="tabpanel" aria-labelledby="professional-tab">
+                    <div class="tab-pane fade " id="education" role="tabpanel" aria-labelledby="education-tab">
                         <div class="personal-experience-inner mt--40">
-                            <div class="row row--40">
-
-                                <!-- Start Single Progressbar  -->
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="progress-wrapper">
-                                        <div class="content">
-                                            <span class="subtitle">Features</span>
-                                            <h4 class="maintitle">Design Skill</h4>
-                                            <!-- Start Single Progress Charts -->
-                                            <div class="progress-charts">
-                                                <h6 class="heading heading-h6">PHOTOSHOT</h6>
-                                                <div class="progress">
-                                                    <div class="progress-bar wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay=".3s" role="progressbar" style="width: 100%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="percent-label">100%</span></div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="content">
+                                        <h4 class="maintitle">{{__("Education")}}</h4>
+                                        <div class="row row--25 mt--30">
+                                            @foreach($education as $index => $edu)
+                                            <!-- Start Single Education -->
+                                            <div class="col-lg-6 col-md-6 col-12 mt--30">
+                                                <div class="education-card" style="background: #212428; border-radius: 10px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                                                    <div class="inner">
+                                                        <div class="heading">
+                                                            <div class="title">
+                                                                <h4 style="color: #ffffff; margin-bottom: 5px; font-size: 18px; font-weight: 600;">{{ $edu->getTitle() }}</h4>
+                                                                <span style="color: #c4cfde; font-size: 14px; font-weight: 500;">{{ $edu->getUniversityName() }}</span>
+                                                            </div>
+                                                            <div class="date-of-time">
+                                                                <span style="color: #ff014f; font-size: 12px; font-weight: 600; background: rgba(255,1,79,0.1); padding: 5px 10px; border-radius: 5px;">{{ $edu->getFormattedStartDate() }} - {{ $edu->getFormattedEndDate() }}</span>
+                                                            </div>
+                                                        </div>
+                                                        <p class="description" style="color: #c4cfde; margin-top: 15px; line-height: 1.6; font-size: 14px;">{{ $edu->getDescription() }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <!-- End Single Progress Charts -->
-
-                                            <!-- Start Single Progress Charts -->
-                                            <div class="progress-charts">
-                                                <h6 class="heading heading-h6">FIGMA</h6>
-                                                <div class="progress">
-                                                    <div class="progress-bar wow fadeInLeft" data-wow-duration="0.6s" data-wow-delay=".4s" role="progressbar" style="width: 95%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="percent-label">95%</span></div>
-                                                </div>
-                                            </div>
-                                            <!-- End Single Progress Charts -->
-
-                                            <!-- Start Single Progress Charts -->
-                                            <div class="progress-charts">
-                                                <h6 class="heading heading-h6">ADOBE XD</h6>
-                                                <div class="progress">
-                                                    <div class="progress-bar wow fadeInLeft" data-wow-duration="0.7s" data-wow-delay=".5s" role="progressbar" style="width: 60%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="percent-label">60%</span></div>
-                                                </div>
-                                            </div>
-                                            <!-- End Single Progress Charts -->
-
-                                            <!-- Start Single Progress Charts -->
-                                            <div class="progress-charts">
-                                                <h6 class="heading heading-h6">ADOBE ILLUSTRATOR</h6>
-                                                <div class="progress">
-                                                    <div class="progress-bar wow fadeInLeft" data-wow-duration="0.8s" data-wow-delay=".6s" role="progressbar" style="width: 70%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="percent-label">70%</span></div>
-                                                </div>
-                                            </div>
-                                            <!-- End Single Progress Charts -->
-
-                                            <!-- Start Single Progress Charts -->
-                                            <div class="progress-charts">
-                                                <h6 class="heading heading-h6">DESIGN</h6>
-                                                <div class="progress">
-                                                    <div class="progress-bar wow fadeInLeft" data-wow-duration="0.9s" data-wow-delay=".7s" role="progressbar" style="width: 90%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="percent-label">90%</span></div>
-                                                </div>
-                                            </div>
-                                            <!-- End Single Progress Charts -->
-
+                                            <!-- End Single Education -->
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Single Progressbar  -->
-
-                                <!-- Start Single Progressbar  -->
-                                <div class="col-lg-6 col-md-6 col-12 mt_sm--60">
-                                    <div class="progress-wrapper">
-                                        <div class="content">
-                                            <span class="subtitle">Features</span>
-                                            <h4 class="maintitle">Development Skill</h4>
-                                            <!-- Start Single Progress Charts -->
-                                            <div class="progress-charts">
-                                                <h6 class="heading heading-h6">HTML</h6>
-                                                <div class="progress">
-                                                    <div class="progress-bar wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay=".3s" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="percent-label">85%</span></div>
-                                                </div>
-                                            </div>
-                                            <!-- End Single Progress Charts -->
-
-                                            <!-- Start Single Progress Charts -->
-                                            <div class="progress-charts">
-                                                <h6 class="heading heading-h6">CSS</h6>
-                                                <div class="progress">
-                                                    <div class="progress-bar wow fadeInLeft" data-wow-duration="0.6s" data-wow-delay=".4s" role="progressbar" style="width: 80%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="percent-label">80%</span></div>
-                                                </div>
-                                            </div>
-                                            <!-- End Single Progress Charts -->
-
-                                            <!-- Start Single Progress Charts -->
-                                            <div class="progress-charts">
-                                                <h6 class="heading heading-h6">JAVASCRIPT</h6>
-                                                <div class="progress">
-                                                    <div class="progress-bar wow fadeInLeft" data-wow-duration="0.7s" data-wow-delay=".5s" role="progressbar" style="width: 90%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="percent-label">90%</span></div>
-                                                </div>
-                                            </div>
-                                            <!-- End Single Progress Charts -->
-
-                                            <!-- Start Single Progress Charts -->
-                                            <div class="progress-charts">
-                                                <h6 class="heading heading-h6">SOFTWARE</h6>
-                                                <div class="progress">
-                                                    <div class="progress-bar wow fadeInLeft" data-wow-duration="0.8s" data-wow-delay=".6s" role="progressbar" style="width: 75%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="percent-label">75%</span></div>
-                                                </div>
-                                            </div>
-                                            <!-- End Single Progress Charts -->
-
-                                            <!-- Start Single Progress Charts -->
-                                            <div class="progress-charts">
-                                                <h6 class="heading heading-h6">PLUGIN</h6>
-                                                <div class="progress">
-                                                    <div class="progress-bar wow fadeInLeft" data-wow-duration="0.9s" data-wow-delay=".7s" role="progressbar" style="width: 70%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><span class="percent-label">70%</span></div>
-                                                </div>
-                                            </div>
-                                            <!-- End Single Progress Charts -->
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Progressbar  -->
-
                             </div>
                         </div>
                     </div>
@@ -689,303 +222,78 @@
                     <div class="tab-pane fade" id="experience" role="tabpanel" aria-labelledby="experience-tab">
                         <div class="personal-experience-inner mt--40">
                             <div class="row">
-                                <!-- Start Skill List Area  -->
-                                <div class="col-lg-6 col-md-12 col-12">
+                                <div class="col-lg-12">
                                     <div class="content">
-                                        <span class="subtitle">2007 - 2010</span>
-                                        <h4 class="maintitle">Education Quality</h4>
-                                        <div class="experience-list">
-
-                                            <!-- Start Single List  -->
-                                            <div class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>Personal Portfolio April Fools</h4>
-                                                            <span>University of DVI (1997 - 2001)</span>
+                                        <h4 class="maintitle">{{__("Experience")}}</h4>
+                                        <div class="row row--25 mt--30">
+                                            @foreach($experiences as $index => $exp)
+                                            <!-- Start Single Experience -->
+                                            <div class="col-lg-6 col-md-6 col-12 mt--30">
+                                                <div class="experience-card" style="background: #212428; border-radius: 10px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                                                    <div class="inner">
+                                                        <div class="heading">
+                                                            <div class="title">
+                                                                <h4 style="color: #ffffff; margin-bottom: 5px; font-size: 18px; font-weight: 600;">{{ $exp->getTitle() }}</h4>
+                                                                <span style="color: #c4cfde; font-size: 14px; font-weight: 500;">{{ $exp->getCompanyName() }}</span>
+                                                            </div>
+                                                            <div class="date-of-time">
+                                                                <span style="color: #ff014f; font-size: 12px; font-weight: 600; background: rgba(255,1,79,0.1); padding: 5px 10px; border-radius: 5px;">{{ $exp->getFormattedStartDate() }} - {{ $exp->getFormattedEndDate() }}</span>
+                                                            </div>
                                                         </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.30/5</span>
-                                                        </div>
+                                                        <p class="description" style="color: #c4cfde; margin-top: 15px; line-height: 1.6; font-size: 14px;">{{ $exp->getDescription() }}</p>
                                                     </div>
-                                                    <p class="description">The education should be very
-                                                        interactual. Ut tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
                                                 </div>
                                             </div>
-                                            <!-- End Single List  -->
-
-                                            <!-- Start Single List  -->
-                                            <div class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4> Examples Of Personal Portfolio</h4>
-                                                            <span>College of Studies (2000 - 2002)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.50/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">Maecenas finibus nec sem ut
-                                                        imperdiet. Ut tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
-                                            <!-- Start Single List  -->
-                                            <div class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>Tips For Personal Portfolio</h4>
-                                                            <span>University of Studies (1997 - 2001)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.80/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description"> If you are going to use a passage.
-                                                        Ut tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
+                                            <!-- End Single Experience -->
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Skill List Area  -->
-
-                                <!-- Start Skill List Area 2nd  -->
-                                <div class="col-lg-6 col-md-12 col-12 mt_md--60 mt_sm--60">
-                                    <div class="content">
-                                        <span class="subtitle">2007 - 2010</span>
-                                        <h4 class="maintitle">Job Experience</h4>
-                                        <div class="experience-list">
-
-                                            <!-- Start Single List  -->
-                                            <div class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>Diploma in Web Development</h4>
-                                                            <span>BSE In CSE (2004 - 2008)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.70/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">Contrary to popular belief. Ut
-                                                        tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
-                                            <!-- Start Single List  -->
-                                            <div class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>The Personal Portfolio Mystery</h4>
-                                                            <span>Job at Rainbow-Themes (2008 - 2016)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.95/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">Generate Lorem Ipsum which looks. Ut
-                                                        tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
-                                            <!-- Start Single List  -->
-                                            <div class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>Diploma in Computer Science</h4>
-                                                            <span>Works at Plugin Development (2016 -
-                                                                2020)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>5.00/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">Maecenas finibus nec sem ut
-                                                        imperdiet. Ut tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Skill List Area  -->
                             </div>
                         </div>
                     </div>
                     <!-- End Single Tab  -->
 
                     <!-- Start Single Tab  -->
-                    <div class="tab-pane fade" id="interview" role="tabpanel" aria-labelledby="interview-tab">
+                    <div class="tab-pane fade" id="skills" role="tabpanel" aria-labelledby="skills-tab">
                         <div class="personal-experience-inner mt--40">
                             <div class="row">
-                                <!-- Start Skill List Area  -->
-                                <div class="col-lg-6 col-md-12 col-12">
+                                <div class="col-lg-12">
                                     <div class="content">
-                                        <span class="subtitle">2007 - 2010</span>
-                                        <h4 class="maintitle">Company Experience</h4>
-                                        <div class="experience-list">
-
-                                            <!-- Start Single List  -->
-                                            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="300" data-aos-once="true" class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>Personal Portfolio April Fools</h4>
-                                                            <span>University of DVI (1997 - 2001)</span>
+                                        <h4 class="maintitle">{{__("Skills")}}</h4>
+                                        <div class="row row--25 mt--30">
+                                            @foreach($skills as $index => $skill)
+                                            <!-- Start Single Skill -->
+                                            <div class="col-lg-6 col-md-6 col-12 mt--30">
+                                                <div class="skill-card" style="background: #212428; border-radius: 10px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                                                    <div class="inner">
+                                                        <div class="heading">
+                                                            <div class="title">
+                                                                <h4 style="color: #ffffff; margin-bottom: 15px; font-size: 18px; font-weight: 600;">{{ $skill->getTitle() }}</h4>
+                                                            </div>
+                                                            <div class="percent">
+                                                                <span style="color: #ff014f; font-size: 14px; font-weight: 600;">{{ $skill->getFormattedPercent() }}</span>
+                                                            </div>
                                                         </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.30/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">The education should be very
-                                                        interactual. Ut tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
-                                            <!-- Start Single List  -->
-                                            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="500" data-aos-once="true" class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4> Examples Of Personal Portfolio</h4>
-                                                            <span>College of Studies (2000 - 2002)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.50/5</span>
+                                                        <div class="progress-wrapper" style="margin-top: 15px;">
+                                                            <div class="progress" style="height: 8px; background: #1d1f23; border-radius: 4px; overflow: hidden;">
+                                                                <div class="progress-bar" 
+                                                                     style="background: linear-gradient(90deg, #ff014f 0%, #ff6b6b 100%); width: {{ $skill->percent }}%; height: 100%; border-radius: 4px; transition: width 1s ease-in-out;"
+                                                                     role="progressbar" 
+                                                                     aria-valuenow="{{ $skill->percent }}" 
+                                                                     aria-valuemin="0" 
+                                                                     aria-valuemax="100">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <p class="description">Maecenas finibus nec sem ut
-                                                        imperdiet. Ut tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
                                                 </div>
                                             </div>
-                                            <!-- End Single List  -->
-
-                                            <!-- Start Single List  -->
-                                            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="700" data-aos-once="true" class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>Tips For Personal Portfolio</h4>
-                                                            <span>University of Studies (1997 - 2001)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.80/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description"> If you are going to use a passage.
-                                                        Ut tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
+                                            <!-- End Single Skill -->
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Skill List Area  -->
-
-                                <!-- Start Skill List Area 2nd  -->
-                                <div class="col-lg-6 col-md-12 col-12 mt_md--60 mt_sm--60">
-                                    <div class="content">
-                                        <span class="subtitle">2007 - 2010</span>
-                                        <h4 class="maintitle">Job Experience</h4>
-                                        <div class="experience-list">
-
-                                            <!-- Start Single List  -->
-                                            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="500" data-aos-once="true" class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>Diploma in Web Development</h4>
-                                                            <span>BSE In CSE (2004 - 2008)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.70/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">Contrary to popular belief. Ut
-                                                        tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
-                                            <!-- Start Single List  -->
-                                            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="700" data-aos-once="true" class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>The Personal Portfolio Mystery</h4>
-                                                            <span>Job at Rainbow-Themes (2008 - 2016)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>4.95/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">Generate Lorem Ipsum which looks. Ut
-                                                        tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
-                                            <!-- Start Single List  -->
-                                            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="900" data-aos-once="true" class="resume-single-list">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
-                                                            <h4>Diploma in Computer Science</h4>
-                                                            <span>Works at Plugin Development (2016 -
-                                                                2020)</span>
-                                                        </div>
-                                                        <div class="date-of-time">
-                                                            <span>5.00/5</span>
-                                                        </div>
-                                                    </div>
-                                                    <p class="description">Maecenas finibus nec sem ut
-                                                        imperdiet. Ut tincidunt est ac dolor aliquam sodales.
-                                                        Phasellus sed mauris hendrerit, laoreet sem in, lobortis
-                                                        mauris hendrerit ante.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Single List  -->
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Skill List Area  -->
                             </div>
                         </div>
                     </div>
@@ -1003,206 +311,43 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title text-center">
-                    <span class="subtitle">What Clients Say</span>
-                    <h2 class="title">Testimonial</h2>
+                    <span class="subtitle">{{__("Certificates")}}</span>
+                    <h2 class="title">{{__("Certificates sub text")}}</h2>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="testimonial-activation testimonial-pb mb--30">
-                    <!-- Start Single testiminail -->
-                    <div class="testimonial mt--50 mt_md--40 mt_sm--40">
+                    @foreach($certificates as $certificate)
+                                <!-- Start Single testiminail -->
+                                <div class="testimonial mt--50 mt_md--40 mt_sm--40">
                         <div class="inner">
                             <div class="card-info">
-                                <div class="card-thumbnail">
-                                    <img src="assets/images/testimonial/final-home--1st.png" alt="Testimonial-image">
-                                </div>
-                                <div class="card-content">
-                                    <span class="subtitle mt--10">Rainbow-Themes</span>
-                                    <h3 class="title">Nevine Acotanza</h3>
-                                    <span class="designation">Chief Operating Officer</span>
-                                </div>
+                                                                  <div class="card-thumbnail">
+                                     <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" alt="{{$certificate->getImageAltText()}}">
+                                 
+                                    </div>
+                                    <span class="title">{{$certificate->getTitle()}}</h3>
+                      
                             </div>
                             <div class="card-description">
                                 <div class="title-area">
                                     <div class="title-info">
-                                        <h3 class="title">Android App Development</h3>
-                                        <span class="date">via Upwork - Mar 4, 2015 - Aug 30, 2021</span>
+                                        <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
                                     </div>
-                                    <div class="rating">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                    </div>
+                               
                                 </div>
                                 <div class="seperator"></div>
                                 <p class="discription">
-                                    Maecenas finibus nec sem ut imperdiet. Ut tincidunt est ac dolor aliquam
-                                    sodales. Phasellus sed mauris hendrerit, laoreet sem in, lobortis mauris
-                                    hendrerit ante. Ut tincidunt est ac dolor aliquam sodales phasellus smauris
-                                    .
+                                    {{$certificate->getDescription()}}
                                 </p>
                             </div>
                         </div>
                     </div>
                     <!--End Single testiminail -->
-                    <!-- Start Single testiminail -->
-                    <div class="testimonial mt--50 mt_md--40 mt_sm--40">
-                        <div class="inner">
-                            <div class="card-info">
-                                <div class="card-thumbnail">
-                                    <img src="assets/images/testimonial/final-home--2nd.png" alt="Testimonial-image">
-                                </div>
-                                <div class="card-content">
-                                    <span class="subtitle mt--10">Bound - Trolola</span>
-                                    <h3 class="title">Jone Duone Joe</h3>
-                                    <span class="designation">Operating Officer</span>
-                                </div>
-                            </div>
-                            <div class="card-description">
-                                <div class="title-area">
-                                    <div class="title-info">
-                                        <h3 class="title">Web App Development</h3>
-                                        <span class="date">Upwork - Mar 4, 2016 - Aug 30, 2021</span>
-                                    </div>
-                                    <div class="rating">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                    </div>
-                                </div>
-                                <div class="seperator"></div>
-                                <p class="discription">
-                                    Important fact to nec sem ut imperdiet. Ut tincidunt est ac dolor aliquam
-                                    sodales. Phasellus sed mauris hendrerit, laoreet sem in, lobortis mauris
-                                    hendrerit ante. Ut tincidunt est ac dolor aliquam sodales phasellus smauris
-                                    .
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single testiminail -->
-                    <!-- Start Single testiminail -->
-                    <div class="testimonial mt--50 mt_md--40 mt_sm--40">
-                        <div class="inner">
-                            <div class="card-info">
-                                <div class="card-thumbnail">
-                                    <img src="assets/images/testimonial/final-home--3rd.png" alt="Testimonial-image">
-                                </div>
-                                <div class="card-content">
-                                    <span class="subtitle mt--10">Glassfisom</span>
-                                    <h3 class="title">Nevine Dhawan</h3>
-                                    <span class="designation">CEO Of Officer</span>
-                                </div>
-                            </div>
-                            <div class="card-description">
-                                <div class="title-area">
-                                    <div class="title-info">
-                                        <h3 class="title">Android App Design</h3>
-                                        <span class="date">Fiver - Mar 4, 2015 - Aug 30, 2021</span>
-                                    </div>
-                                    <div class="rating">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                    </div>
-                                </div>
-                                <div class="seperator"></div>
-                                <p class="discription">
-                                    No more question for design. Ut tincidunt est ac dolor aliquam
-                                    sodales. Phasellus sed mauris hendrerit, laoreet sem in, lobortis mauris
-                                    hendrerit ante. Ut tincidunt est ac dolor aliquam sodales phasellus smauris
-                                    .
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single testiminail -->
-
-                    <!-- Start Single testiminail -->
-                    <div class="testimonial mt--50 mt_md--40 mt_sm--40">
-                        <div class="inner">
-                            <div class="card-info">
-                                <div class="card-thumbnail">
-                                    <img src="assets/images/testimonial/final-home--4th.png" alt="Testimonial-image">
-                                </div>
-                                <div class="card-content">
-                                    <span class="subtitle mt--10">NCD - Design</span>
-                                    <h3 class="title">Mevine Thoda</h3>
-                                    <span class="designation">Marketing Officer</span>
-                                </div>
-                            </div>
-                            <div class="card-description">
-                                <div class="title-area">
-                                    <div class="title-info">
-                                        <h3 class="title">CEO - Marketing</h3>
-                                        <span class="date">Thoda Department - Mar 4, 2018 - Aug 30, 2021</span>
-                                    </div>
-                                    <div class="rating">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                    </div>
-                                </div>
-                                <div class="seperator"></div>
-                                <p class="discription">
-                                    Marcent Of Vanice and treatment. Ut tincidunt est ac dolor aliquam
-                                    sodales. Phasellus sed mauris hendrerit, laoreet sem in, lobortis mauris
-                                    hendrerit ante. Ut tincidunt est ac dolor aliquam sodales phasellus smauris
-                                    .
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single testiminail -->
-
-                    <!-- Start Single testiminail -->
-                    <div class="testimonial mt--50 mt_md--40 mt_sm--40">
-                        <div class="inner">
-                            <div class="card-info">
-                                <div class="card-thumbnail">
-                                    <img src="assets/images/testimonial/final-home--5th.png" alt="Testimonial-image">
-                                </div>
-                                <div class="card-content">
-                                    <span class="subtitle mt--10">Default name</span>
-                                    <h3 class="title">Davei Luace</h3>
-                                    <span class="designation">Chief Operating Manager</span>
-                                </div>
-                            </div>
-                            <div class="card-description">
-                                <div class="title-area">
-                                    <div class="title-info">
-                                        <h3 class="title">Android App Development</h3>
-                                        <span class="date">via Upwork - Mar 4, 2015 - Aug 30, 2021</span>
-                                    </div>
-                                    <div class="rating">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                        <img src="assets/images/icons/rating.png" alt="rating-image">
-                                    </div>
-                                </div>
-                                <div class="seperator"></div>
-                                <p class="discription">
-                                    When managment is so important. Ut tincidunt est ac dolor aliquam
-                                    sodales. Phasellus sed mauris hendrerit, laoreet sem in, lobortis mauris
-                                    hendrerit ante. Ut tincidunt est ac dolor aliquam sodales phasellus smauris
-                                    .
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Single testiminail -->
+                    @endforeach
+        
                 </div>
             </div>
         </div>
@@ -1216,1033 +361,76 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <span class="subtitle">Popular Clients</span>
-                    <h2 class="title">Awesome Clients</h2>
+                    <span class="subtitle">{{__("my projects")}}</span>
+                    <h2 class="title">{{__("my projects")}}</h2>
                 </div>
             </div>
         </div>
-
         <div class="row row--25 mt--50 mt_md--40 mt_sm--40">
-            <div class="col-lg-4">
-                <div class="d-flex flex-wrap align-content-start h-100">
-                    <div class="position-sticky clients-wrapper sticky-top rbt-sticky-top-adjust">
-                        <ul class="nav tab-navigation-button flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
-
-                            <li class="nav-item">
-                                <a class="nav-link" id="v-pills-home-tab" data-bs-toggle="tab" href="#v-pills-Javascript" role="tab" aria-selected="true">JavaScript</a>
-                            </li>
-
-
-                            <li class="nav-item">
-                                <a class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="tab" href="#v-pills-Design" role="tab" aria-selected="true">Product Design</a>
-                            </li>
-
-
-                            <li class="nav-item">
-                                <a class="nav-link" id="v-pills-wordpress-tab" data-bs-toggle="tab" href="#v-pills-Wordpress" role="tab" aria-selected="true">Wordpress</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" id="v-pills-settings-tabs" data-bs-toggle="tab" href="#v-pills-settings" role="tab" aria-selected="true">HTML to React</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" id="v-pills-laravel-tabs" data-bs-toggle="tab" href="#v-pills-laravel" role="tab" aria-selected="true">React
-                                    To Laravel</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" id="v-pills-python-tabs" data-bs-toggle="tab" href="#v-pills-python" role="tab" aria-selected="true">Python</a>
-                            </li>
-
-
-                        </ul>
-                    </div>
-                </div>
+    <div class="col-lg-4">
+        <div class="d-flex flex-wrap align-content-start h-100">
+            <div class="position-sticky clients-wrapper sticky-top rbt-sticky-top-adjust">
+                <ul class="nav tab-navigation-button flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
+                    @foreach($portfolioCategories as $index => $category)
+                        <li class="nav-item">
+                            <a class="nav-link @if($index === 0) active @endif"
+                               id="v-pills-tab-{{ $category->id }}"
+                               data-bs-toggle="tab"
+                               href="#v-pills-content-{{ $category->id }}"
+                               role="tab"
+                               aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
+                                {{ $category->getTitle() }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
-
-            <div class="col-lg-8">
-                <div class="tab-area">
-                    <div class="d-flex align-items-start">
-                        <div class="tab-content" id="v-pills-tabContent">
-
-                            <div class="tab-pane fade" id="v-pills-Javascript" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                <div class="client-card">
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">John Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Smiths Marth</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Add Dev</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client4.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Jone Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">John Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Adon Smith</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Smitha Mila</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Sultana Mila</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Jannat</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Mila Dus</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Marth Smiths</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Marth Smiths</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade show active" id="v-pills-Design" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                                <div class="client-card">
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">John Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Smiths Marth</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Add Dev</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client4.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Jone Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">John Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Adon Smith</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Smitha Mila</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Sultana Mila</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Jannat</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Mila Dus</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Marth Smiths</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Marth Smiths</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="v-pills-Wordpress" role="tabpanel" aria-labelledby="v-pills-wordpress-tab">
-                                <div class="client-card">
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">John Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Smiths Marth</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Add Dev</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client4.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Jone Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">John Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Adon Smith</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Smitha Mila</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Sultana Mila</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Jannat</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Mila Dus</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Marth Smiths</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Marth Smiths</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tabs">
-                                <div class="client-card">
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">John Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Smiths Marth</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Add Dev</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client4.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Jone Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">John Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Adon Smith</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Smitha Mila</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Sultana Mila</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Jannat</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Mila Dus</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Marth Smiths</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Marth Smiths</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="v-pills-laravel" role="tabpanel" aria-labelledby="v-pills-laravel-tabs">
-                                <div class="client-card">
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">John Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Smiths Marth</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Add Dev</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client4.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Jone Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">John Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Adon Smith</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Smitha Mila</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Sultana Mila</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Jannat</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Mila Dus</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Marth Smiths</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Marth Smiths</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="v-pills-python" role="tabpanel" aria-labelledby="v-pills-python-tabs">
-                                <div class="client-card">
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">John Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Smiths Marth</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Add Dev</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client4.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Jone Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">John Due</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Adon Smith</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Smitha Mila</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client2.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Sultana Mila</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Jannat</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client5.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Mila Dus</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client1.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Marth Smiths</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                    <!-- Start Single Brand  -->
-                                    <div class="main-content">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail">
-                                                <a href="#"><img src="assets/images/client/png/client3.png" alt="Client-image"></a>
-                                            </div>
-                                            <div class="seperator"></div>
-                                            <div class="client-name"><span><a href="#">Marth Smiths</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Single Brand  -->
-
-                                </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="tab-area">
+            <div class="d-flex align-items-start">
+                <div class="tab-content w-100" id="v-pills-tabContent">
+                    @foreach($portfolioCategories as $index => $category)
+                        <div class="tab-pane fade @if($index === 0) show active @endif"
+                             id="v-pills-content-{{ $category->id }}"
+                             role="tabpanel"
+                             aria-labelledby="v-pills-tab-{{ $category->id }}">
+
+                            <div class="client-card d-flex flex-wrap gap-4">
+                                @foreach($portfolios->where('category_id', $category->id) as $portfolio)
+                                    <div class="main-content" style="width: calc(50% - 1rem);">
+                                        <div class="inner text-center">
+                                            <div class="thumbnail" style="width: 100%;padding:20px; height: 240px; overflow: hidden;">
+                                                                                         <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}"
+                                                         alt="{{ $portfolio->getTitle() }}"
+                                                         style="width: 100%; height: 100%; object-fit: cover;">
+                                               
+                                            </div>
+                                            <div class="seperator my-2"></div>
+                                            <div class="client-name">
+                                                <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
+                                                    {{ $portfolio->company_name }}
+                                                    </a>
+                                                    <span>-</span>
+                                                                                                         <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
+                                                     {{ $portfolio->getTitle() }}
+                                                    </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
 
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
     </div>
 </div>
 <!-- End client section -->
@@ -2251,317 +439,47 @@
 <div class="rn-pricing-area rn-section-gap section-separator" id="pricing">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-xl-5 mb_md--40 mb_sm--40 small-margin-pricing">
-                <div class="d-block d-lg-flex text-center d-lg-left section-flex flex-wrap align-content-start h-100">
-                    <div class="position-sticky sticky-top rbt-sticky-top-adjust">
-                        <div class="section-title text-left">
-                            <span class="subtitle text-center text-lg-left">Pricing</span>
-                            <h2 class="title text-center text-lg-left">My Pricing</h2>
+            <div class="col-lg-12">
+                <div class="section-title text-center">
+                    <span class="subtitle">{{__("Pricing")}}</span>
+                    <h2 class="title">{{__("My Pricing Plans")}}</h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt--50 pricing-area" data-cards="{{ $pricingPlans->count() }}">
+            @foreach($pricingPlans as $index => $plan)
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="pricing-card {{ $index == 1 ? 'featured' : '' }}">
+                    <div class="pricing-card-header">
+                        <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
+                        <div class="pricing-price">
+                            {!! $plan->getTranslation('price', app()->getLocale()) !!}
                         </div>
+                        <h3 class="pricing-title">{{ $plan->getTranslation('title', app()->getLocale()) }}</h3>
+                    </div>
+                    
+                    <div class="pricing-card-body">
+                        <ul class="pricing-features">
+                            @foreach($plan->activeFeatures as $feature)
+                            <li><i data-feather="check"></i> {{ $feature->getTranslation('title', app()->getLocale()) }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    
+                    <div class="pricing-card-footer">
+                        <a href="#contact" class="rn-btn d-block">
+                            <span>{{__("Get Started")}}</span>
+                            <i data-feather="arrow-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-8 col-xl-7">
-                <!-- Pricing Area -->
-                <div class="navigation-wrapper">
-                    <ul class="nav " id="myTab" role="tablist">
-                        <li class="nav-item ">
-                            <a class="nav-style" id="test-tab" data-bs-toggle="tab" href="#test" role="tab" aria-controls="test" aria-selected="false">Static</a>
-                        </li>
-
-                        <li class="nav-item  recommended">
-                            <a class="nav-style active" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Standard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-style" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Premium</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-
-                        <div class="tab-pane fade " id="test" role="tabpanel" aria-labelledby="test-tab">
-                            <!-- Pricing Start -->
-                            <div class="rn-pricing">
-                                <div class="pricing-header">
-                                    <div class="header-left">
-                                        <h2 class="title">Make Your Single Page</h2>
-                                        <span>Elementor</span>
-                                    </div>
-                                    <div class="header-right">
-                                        <span>$30.00</span>
-                                    </div>
-                                </div>
-                                <div class="pricing-body">
-                                    <p class="description">
-                                        All the Lorem Ipsum generators on the Internet tend to repeat predefined
-                                        chunks as necessary
-                                    </p>
-                                    <div class="check-wrapper">
-                                        <div class="left-area">
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>1 Page with Elementor</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Design Customization</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Responsive Design</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Content Upload</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Design Customization</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>2 Plugins/Extensions</p>
-                                            </div>
-                                        </div>
-                                        <div class="right-area">
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>multipage Elementor</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Design Figma</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>MAintaine Design</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Content Upload</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Design With XD</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>8 Plugins/Extensions</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pricing-footer">
-                                    <a href="#" class="rn-btn d-block">
-                                        <span>ORDER NOW</span>
-                                        <i data-feather="arrow-right"></i>
-                                    </a>
-                                    <div class="time-line">
-                                        <div class="single-cmt d-flex">
-                                            <i data-feather="clock"></i>
-                                            <span>2 Days Delivery</span>
-                                        </div>
-                                        <div class="single-cmt d-flex">
-                                            <i data-feather="activity"></i>
-                                            <span>Unlimited Revission</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End -->
-                        </div>
-
-                        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <!-- Pricing Start -->
-                            <div class="rn-pricing">
-                                <div class="pricing-header">
-                                    <div class="header-left">
-                                        <h2 class="title">Design Make this Page</h2>
-                                        <span>Elementor</span>
-                                    </div>
-                                    <div class="header-right">
-                                        <span>$50.00</span>
-                                    </div>
-                                </div>
-                                <div class="pricing-body">
-                                    <p class="description">
-                                        Making this the first true generator on the Internet. It uses a
-                                        dictionary & plugin Development.
-                                    </p>
-                                    <div class="check-wrapper">
-                                        <div class="left-area">
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>1 Page with Elementor</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Design Customization</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Responsive Design</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Content Upload</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Design Customization</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>2 Plugins/Extensions</p>
-                                            </div>
-                                        </div>
-                                        <div class="right-area">
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>multipage Elementor</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Design Figma</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>MAintaine Design</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Content Upload</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Design With XD</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>8 Plugins/Extensions</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pricing-footer">
-                                    <a href="#" class="rn-btn d-block">
-                                        <span>ORDER NOW</span>
-                                        <i data-feather="arrow-right"></i>
-                                    </a>
-                                    <div class="time-line d-flex">
-                                        <div class="single-cmt d-flex">
-                                            <i data-feather="clock"></i>
-                                            <span>2 Days Delivery</span>
-                                        </div>
-                                        <div class="single-cmt d-flex">
-                                            <i data-feather="activity"></i>
-                                            <span>Unlimited Revission</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End -->
-                        </div>
-
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                            <!-- Pricing Start -->
-                            <div class="rn-pricing">
-                                <div class="pricing-header">
-                                    <div class="header-left">
-                                        <h2 class="title">Customize Your Single Page</h2>
-                                        <span>Elementor</span>
-                                    </div>
-                                    <div class="header-right">
-                                        <span>$90.00</span>
-                                    </div>
-                                </div>
-                                <div class="pricing-body">
-                                    <p class="description">
-                                        I will install your desire theme and made like Theme demo and customize
-                                        your single page( homepage)
-                                    </p>
-                                    <div class="check-wrapper">
-                                        <div class="left-area">
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>1 Page with Elementor</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Design Customization</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Responsive Design</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Content Upload</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Design Customization</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>2 Plugins/Extensions</p>
-                                            </div>
-                                        </div>
-                                        <div class="right-area">
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>multipage Elementor</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Design Figma</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>MAintaine Design</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Content Upload</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>Design With XD</p>
-                                            </div>
-                                            <div class="check d-flex">
-                                                <i data-feather="check"></i>
-                                                <p>8 Plugins/Extensions</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pricing-footer">
-                                    <a href="#" class="rn-btn d-block">
-                                        <span>ORDER NOW</span>
-                                        <i data-feather="arrow-right"></i>
-                                    </a>
-                                    <div class="time-line d-flex">
-                                        <div class="single-cmt d-flex">
-                                            <i data-feather="clock"></i>
-                                            <span>2 Days Delivery</span>
-                                        </div>
-                                        <div class="single-cmt d-flex">
-                                            <i data-feather="activity"></i>
-                                            <span>Unlimited Revission</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End -->
-                        </div>
-                    </div>
-                </div>
-                <!-- End -->
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
-<!-- pricing area -->
+<!-- End Pricing Area -->
 
 <!-- Start News Area -->
 <div class="rn-blog-area rn-section-gap section-separator" id="blog">
@@ -2569,90 +487,39 @@
         <div class="row">
             <div class="col-lg-12">
                 <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title text-center">
-                    <span class="subtitle">Visit my blog and keep your feedback</span>
-                    <h2 class="title">My Blog</h2>
+                    <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
+                    <h2 class="title">{{__("My Blog")}}</h2>
                 </div>
             </div>
         </div>
         <div class="row row--25 mt--30 mt_md--10 mt_sm--10">
 
+            @foreach($blogs as $index => $blog)
             <!-- Start Single blog -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="col-lg-6 col-xl-4 mt--30 col-md-6 col-sm-12 col-12 mt--30">
+            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true" class="col-lg-6 col-xl-4 mt--30 col-md-6 col-sm-12 col-12 mt--30">
                 <div class="rn-blog" data-bs-toggle="modal" data-bs-target="#exampleModalCenters">
                     <div class="inner">
                         <div class="thumbnail">
                             <a href="javascript:void(0)">
-                                <img src="assets/images/blog/blog-01.jpg" alt="Personal Portfolio Images">
+                                <img src="{{ $blog->getCardImageUrl() ?: 'assets/images/blog/blog-01.jpg' }}" alt="{{ $blog->getCardImageAltText() }}">
                             </a>
                         </div>
                         <div class="content">
                             <div class="category-info">
                                 <div class="category-list">
-                                    <a href="javascript:void(0)">Canada</a>
+                                    <a href="javascript:void(0)">{{__("Blog")}}</a>
                                 </div>
                                 <div class="meta">
-                                    <span><i class="feather-clock"></i> 2 min read</span>
+                                    <span><i class="feather-clock"></i> {{ $blog->getFormattedPublishedDate() }}</span>
                                 </div>
                             </div>
-                            <h4 class="title"><a href="javascript:void(0)">T-shirt design is the part of design
-                                    <i class="feather-arrow-up-right"></i></a></h4>
+                            <h4 class="title"><a href="javascript:void(0)">{{ $blog->getTitle() }} <i class="feather-arrow-up-right"></i></a></h4>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- End Single blog -->
-
-            <!-- Start Single blog -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="150" data-aos-once="true" class="col-lg-6 col-xl-4 mt--30 col-md-6 col-sm-12 col-12 mt--30">
-                <div class="rn-blog" data-bs-toggle="modal" data-bs-target="#exampleModalCenters">
-                    <div class="inner">
-                        <div class="thumbnail">
-                            <a href="javascript:void(0)">
-                                <img src="assets/images/blog/blog-02.jpg" alt="Personal Portfolio Images">
-                            </a>
-                        </div>
-                        <div class="content">
-                            <div class="category-info">
-                                <div class="category-list">
-                                    <a href="javascript:void(0)">Development</a>
-                                </div>
-                                <div class="meta">
-                                    <span><i class="feather-clock"></i> 2 hour read</span>
-                                </div>
-                            </div>
-                            <h4 class="title"><a href="javascript:void(0)">The services provide for design <i
-                                        class="feather-arrow-up-right"></i></a></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single blog -->
-
-            <!-- Start Single blog -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="200" data-aos-once="true" class="col-lg-6 col-xl-4 mt--30 col-md-6 col-sm-12 col-12 mt--30">
-                <div class="rn-blog" data-bs-toggle="modal" data-bs-target="#exampleModalCenters">
-                    <div class="inner">
-                        <div class="thumbnail">
-                            <a href="javascript:void(0)">
-                                <img src="assets/images/blog/blog-03.jpg" alt="Personal Portfolio Images">
-                            </a>
-                        </div>
-                        <div class="content">
-                            <div class="category-info">
-                                <div class="category-list">
-                                    <a href="javascript:void(0)">Application</a>
-                                </div>
-                                <div class="meta">
-                                    <span><i class="feather-clock"></i> 5 min read</span>
-                                </div>
-                            </div>
-                            <h4 class="title"><a href="javascript:void(0)">Mobile app landing design & app
-                                    maintain<i class="feather-arrow-up-right"></i></a></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Single blog -->
+            @endforeach
 
         </div>
     </div>
@@ -2664,8 +531,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title text-center">
-                    <span class="subtitle">Contact</span>
-                    <h2 class="title">Contact With Me</h2>
+                    <span class="subtitle">{{__("Contact")}}</span>
+                    @php
+                        $contactTitle = \App\Models\SiteSetting::getByKey('title');
+                    @endphp
+                    <h2 class="title">{{ $contactTitle ?: __("Contact With Me") }}</h2>
                 </div>
             </div>
         </div>
@@ -2674,20 +544,31 @@
             <div class="col-lg-5">
                 <div class="contact-about-area">
                     <div class="thumbnail">
-                        <img src="assets/images/contact/contact1.png" alt="contact-img">
+                        @php
+                            $contactImage = \App\Models\SiteSetting::getByKey('contact_section_image');
+                            $contactImageAlt = \App\Models\SiteSetting::getByKey('contact_section_alt');
+                        @endphp
+                        @if($contactImage)
+                            <img src="{{ asset('storage/' . $contactImage) }}" alt="{{ $contactImageAlt ?: 'contact-img' }}">
+                        @else
+                            <img src="assets/images/contact/contact1.png" alt="contact-img">
+                        @endif
                     </div>
                     <div class="title-area">
-                        <h4 class="title">Nevine Acotanza</h4>
-                        <span>Chief Operating Officer</span>
+                        <h4 class="title">{{$contactTitle}}</h4>
                     </div>
                     <div class="description">
-                        <p>I am available for freelance work. Connect with me via and call in to my account.
-                        </p>
-                        <span class="phone">Phone: <a href="tel:01941043264">+01234567890</a></span>
-                        <span class="mail">Email: <a href="mailto:admin@example.com">admin@example.com</a></span>
+                        @php
+                            $contactText = \App\Models\SiteSetting::getByKey('contact_section_text');
+                            $phone = \App\Models\SiteSetting::getByKey('phone');
+                            $email = \App\Models\SiteSetting::getByKey('email');
+                        @endphp
+                        <p>{{ $contactText ?: __("I am available for freelance work. Connect with me via and call in to my account.") }}</p>
+                        <span class="phone">{{__("Phone")}}: <a href="tel:{{ $phone ?: '01941043264' }}">{{ $phone ?: '+01234567890' }}</a></span>
+                        <span class="mail">{{__("Email")}}: <a href="mailto:{{ $email ?: 'admin@example.com' }}">{{ $email ?: 'admin@example.com' }}</a></span>
                     </div>
                     <div class="social-area">
-                        <div class="name">FIND WITH ME</div>
+                        <div class="name">{{__("FIND WITH ME")}}</div>
                         <div class="social-icone">
                             <a href="#"><i data-feather="facebook"></i></a>
                             <a href="#"><i data-feather="linkedin"></i></a>
@@ -2700,46 +581,47 @@
                 <div class="contact-form-wrapper">
                     <div class="introduce">
 
-                        <form class="rnt-contact-form rwt-dynamic-form row" id="contact-form" method="POST" action="mail.php">
+                        <form class="rnt-contact-form rwt-dynamic-form row" id="contact-form" method="POST">
+                            @csrf
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="contact-name">Your Name</label>
+                                    <label for="contact-name">{{__("Your Name")}}</label>
                                     <input class="form-control form-control-lg" name="contact-name" id="contact-name" type="text">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="contact-phone">Phone Number</label>
+                                    <label for="contact-phone">{{__("Phone Number")}}</label>
                                     <input class="form-control" name="contact-phone" id="contact-phone" type="text">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="contact-email">Email</label>
+                                    <label for="contact-email">{{__("Email")}}</label>
                                     <input class="form-control form-control-sm" id="contact-email" name="contact-email" type="email">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="subject">subject</label>
+                                    <label for="subject">{{__("Subject")}}</label>
                                     <input class="form-control form-control-sm" id="subject" name="subject" type="text">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="contact-message">Your Message</label>
+                                    <label for="contact-message">{{__("Your Message")}}</label>
                                     <textarea name="contact-message" id="contact-message" cols="30" rows="10"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <button name="submit" type="submit" id="submit" class="rn-btn">
-                                    <span>SEND MESSAGE</span>
+                                    <span>{{__("SEND MESSAGE")}}</span>
                                     <i data-feather="arrow-right"></i>
                                 </button>
                             </div>
@@ -3561,5 +1443,162 @@
 </div>
 <!-- End Modal Area  --> <!-- End Modal Area  -->
 
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+<!-- Contact Form AJAX -->
+<script>
+$(document).ready(function() {
+    // Contact form submission
+    $('#contact-form').on('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        var formData = new FormData(this);
+        
+        // Show loading state
+        var submitBtn = $('#submit');
+        var originalText = submitBtn.html();
+        submitBtn.html('<i class="fas fa-spinner fa-spin"></i> {{__("Sending...")}}');
+        submitBtn.prop('disabled', true);
+        
+        // AJAX request
+        $.ajax({
+            url: '{{ route("contact") }}',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                // Show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: '{{__("Success!")}}',
+                    text: '{{__("Thank you for your message! We will get back to you soon.")}}',
+                    confirmButtonText: '{{__("OK")}}',
+                    confirmButtonColor: '#667eea'
+                });
+                
+                // Reset form
+                $('#contact-form')[0].reset();
+                
+                // Reset button
+                submitBtn.html(originalText);
+                submitBtn.prop('disabled', false);
+            },
+            error: function(xhr) {
+                var errorMessage = '{{__("An error occurred. Please try again.")}}';
+                
+                // Check if there are validation errors
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    var errorList = '';
+                    
+                    for (var field in errors) {
+                        errorList += errors[field][0] + '\n';
+                    }
+                    
+                    errorMessage = errorList;
+                }
+                
+                // Show error message
+                Swal.fire({
+                    icon: 'error',
+                    title: '{{__("Error!")}}',
+                    text: errorMessage,
+                    confirmButtonText: '{{__("OK")}}',
+                    confirmButtonColor: '#dc3545'
+                });
+                
+                // Reset button
+                submitBtn.html(originalText);
+                submitBtn.prop('disabled', false);
+            }
+        });
+    });
+    
+    // Form validation on input
+    $('#contact-form input, #contact-form textarea').on('blur', function() {
+        var field = $(this);
+        var value = field.val().trim();
+        var fieldName = field.attr('name');
+        
+        // Remove existing error styling
+        field.removeClass('is-invalid');
+        field.siblings('.invalid-feedback').remove();
+        
+        // Validate required fields
+        if (fieldName === 'contact-name' && value === '') {
+            showFieldError(field, '{{__("Name is required")}}');
+        } else if (fieldName === 'contact-email' && value === '') {
+            showFieldError(field, '{{__("Email is required")}}');
+        } else if (fieldName === 'contact-email' && value !== '' && !isValidEmail(value)) {
+            showFieldError(field, '{{__("Please enter a valid email address")}}');
+        } else if (fieldName === 'subject' && value === '') {
+            showFieldError(field, '{{__("Subject is required")}}');
+        } else if (fieldName === 'contact-message' && value === '') {
+            showFieldError(field, '{{__("Message is required")}}');
+        }
+    });
+    
+    function showFieldError(field, message) {
+        field.addClass('is-invalid');
+        field.after('<div class="invalid-feedback">' + message + '</div>');
+    }
+    
+    function isValidEmail(email) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+    
+    // Clear validation errors on input
+    $('#contact-form input, #contact-form textarea').on('input', function() {
+        $(this).removeClass('is-invalid');
+        $(this).siblings('.invalid-feedback').remove();
+    });
+});
+</script>
+
+<style>
+/* Custom styling for form validation */
+.is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+}
+
+/* Loading spinner for button */
+.fa-spinner {
+    margin-right: 5px;
+}
+
+/* SweetAlert customization */
+.swal2-popup {
+    border-radius: 15px;
+}
+
+.swal2-title {
+    color: #333;
+}
+
+.swal2-confirm {
+    border-radius: 8px !important;
+    padding: 12px 30px !important;
+    font-weight: 600 !important;
+}
+</style>
 
 @endsection

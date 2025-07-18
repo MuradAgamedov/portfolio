@@ -1,21 +1,51 @@
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Murad Portfolio')</title>
-    <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    @php
+        $favicon = \App\Models\SiteSetting::getByKey('favicon');
+        $seoSettings = \App\Models\SeoSite::first();
+    @endphp
+    
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}">
-    <!-- CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/slick-theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/vendor/aos.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/feature.css') }}">
-    <!-- Style css -->
+    @if($favicon)
+        <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $favicon) }}">
+    @endif
+    
+    <!-- SEO Meta Tags -->
+    @if($seoSettings)
+        @if($seoSettings->getTranslation('seo_title', app()->getLocale()))
+            <title>{{ $seoSettings->getTranslation('seo_title', app()->getLocale()) }}</title>
+        @endif
+        
+        @if($seoSettings->getTranslation('seo_description', app()->getLocale()))
+            <meta name="description" content="{{ $seoSettings->getTranslation('seo_description', app()->getLocale()) }}">
+        @endif
+        
+        @if($seoSettings->getTranslation('seo_keywords', app()->getLocale()))
+            <meta name="keywords" content="{{ $seoSettings->getTranslation('seo_keywords', app()->getLocale()) }}">
+        @endif
+        
+        <!-- Robots Meta Tag -->
+        @if(!$seoSettings->index || !$seoSettings->follow)
+            <meta name="robots" content="{{ $seoSettings->index ? 'index' : 'noindex' }},{{ $seoSettings->follow ? 'follow' : 'nofollow' }}">
+        @endif
+    @endif
+    
+    <!-- Page Header Code -->
+    @if($seoSettings && $seoSettings->page_header)
+        {!! $seoSettings->page_header !!}
+    @endif
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-
-    @stack('styles')
+    
+    @yield('styles')
 </head>

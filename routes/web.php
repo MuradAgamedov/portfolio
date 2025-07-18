@@ -16,12 +16,17 @@ use App\Http\Controllers\Admin\EducationController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\ExperienceController;
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DictionaryController;
+use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\SeoSiteController;
+use App\Http\Controllers\Admin\PricingPlanController;
+use App\Http\Controllers\Admin\PricingPlanFeatureController;
 use App\Http\Controllers\FrontController;
 
 // Front-end Routes
 Route::get('/', [FrontController::class, 'index'])->name('home');
-Route::post('/contact', [FrontController::class, 'contact'])->name('contact.send');
+Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
 
 // Admin Routes
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -81,4 +86,31 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Dictionary Routes
     Route::resource('dictionary', DictionaryController::class);
     Route::get('dictionary/generate-files', [DictionaryController::class, 'generateFiles'])->name('dictionary.generate-files');
+    
+    // Contact Routes
+    Route::resource('contacts', ContactController::class);
+    Route::patch('contacts/{contact}/mark-as-read', [ContactController::class, 'markAsRead'])->name('contacts.mark-as-read');
+    Route::post('contacts/{contact}/reply', [ContactController::class, 'markAsReplied'])->name('contacts.reply');
+    Route::get('contacts/filter/unread', [ContactController::class, 'unread'])->name('contacts.unread');
+    Route::get('contacts/filter/read', [ContactController::class, 'read'])->name('contacts.read');
+    Route::get('contacts/filter/replied', [ContactController::class, 'replied'])->name('contacts.replied');
+    
+    // Site Settings Routes
+    Route::get('site-settings', [SiteSettingController::class, 'index'])->name('site-settings.index');
+    Route::post('site-settings', [SiteSettingController::class, 'update'])->name('site-settings.update');
+    Route::get('site-settings/initialize', [SiteSettingController::class, 'initialize'])->name('site-settings.initialize');
+
+    // SEO Site Routes
+    Route::get('seo-site', [SeoSiteController::class, 'index'])->name('seo-site.index');
+    Route::post('seo-site', [SeoSiteController::class, 'update'])->name('seo-site.update');
+    
+    // Pricing Plans Routes
+    Route::resource('pricing-plans', PricingPlanController::class);
+    Route::post('pricing-plans/reorder', [PricingPlanController::class, 'updateOrder'])->name('pricing-plans.reorder');
+    Route::patch('pricing-plans/{pricingPlan}/toggle-status', [PricingPlanController::class, 'toggleStatus'])->name('pricing-plans.toggle-status');
+    
+    // Pricing Plan Features Routes
+    Route::resource('pricing-plans.features', PricingPlanFeatureController::class)->shallow();
+    Route::post('pricing-plans/{pricingPlan}/features/reorder', [PricingPlanFeatureController::class, 'updateOrder'])->name('pricing-plans.features.reorder');
+    Route::patch('pricing-plans/{pricingPlan}/features/{feature}/toggle-status', [PricingPlanFeatureController::class, 'toggleStatus'])->name('pricing-plans.features.toggle-status');
 });

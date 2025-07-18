@@ -86,6 +86,11 @@
             background: none !important;
             transform: none !important;
         }
+        
+        .sidebar .nav-link .badge {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+        }
     </style>
     
     @yield('styles')
@@ -147,8 +152,23 @@
                         <a class="nav-link {{ request()->is('admin/dictionary*') ? 'active' : '' }}" href="{{ route('admin.dictionary.index') }}">
                             <i class="fas fa-book"></i> Tərcümə Sözlüyü
                         </a>
-                        <a class="nav-link disabled" href="#" title="Tezliklə">
-                            <i class="fas fa-envelope"></i> Əlaqə
+                        <a class="nav-link {{ request()->is('admin/contacts*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">
+                            <i class="fas fa-envelope"></i> Əlaqə Mesajları
+                            @php
+                                $unreadCount = \App\Models\Contact::unread()->count();
+                            @endphp
+                            @if($unreadCount > 0)
+                                <span class="badge bg-warning text-dark ms-2">{{ $unreadCount }}</span>
+                            @endif
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/site-settings*') ? 'active' : '' }}" href="{{ route('admin.site-settings.index') }}">
+                            <i class="fas fa-cogs"></i> Sayt Tənzimləmələri
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/seo-site*') ? 'active' : '' }}" href="{{ route('admin.seo-site.index') }}">
+                            <i class="fas fa-search"></i> SEO Tənzimləmələri
+                        </a>
+                        <a class="nav-link {{ request()->is('admin/pricing-plans*') ? 'active' : '' }}" href="{{ route('admin.pricing-plans.index') }}">
+                            <i class="fas fa-dollar-sign"></i> Qiymət Planları
                         </a>
                         <a class="nav-link disabled" href="#" title="Tezliklə">
                             <i class="fas fa-cog"></i> Tənzimləmələr

@@ -23,9 +23,6 @@
                     <i class="fas fa-book"></i> Tərcümə Sözlüyü
                 </h1>
                 <div>
-                    <a href="{{ route('admin.dictionary.generate-files') }}" class="btn btn-success me-2">
-                        <i class="fas fa-file-code"></i> Faylları Yenilə
-                    </a>
                     <a href="{{ route('admin.dictionary.create') }}" class="btn btn-primary">
                         <i class="fas fa-plus"></i> Yeni Tərcümə
                     </a>

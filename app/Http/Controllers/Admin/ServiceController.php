@@ -38,7 +38,7 @@ class ServiceController extends Controller
             'title.*' => 'required|string|max:255',
             'description' => 'required|array',
             'description.*' => 'required|string',
-            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'icon' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'icon_alt_text' => 'required|array',
             'icon_alt_text.*' => 'required|string|max:255',
         ]);
@@ -81,7 +81,7 @@ class ServiceController extends Controller
             'title.*' => 'required|string|max:255',
             'description' => 'required|array',
             'description.*' => 'required|string',
-            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'icon' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'icon_alt_text' => 'required|array',
             'icon_alt_text.*' => 'required|string|max:255',
         ]);

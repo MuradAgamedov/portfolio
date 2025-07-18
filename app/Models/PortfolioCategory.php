@@ -41,4 +41,13 @@ class PortfolioCategory extends Model
     {
         return (bool) $value;
     }
+
+    /**
+     * Get title for specific language
+     */
+    public function getTitle($lang = null)
+    {
+        $lang = $lang ?: app()->getLocale();
+        return $this->title[$lang] ?? $this->title['az'] ?? '';
+    }
 }
