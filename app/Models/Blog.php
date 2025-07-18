@@ -176,4 +176,13 @@ class Blog extends Model
                     ->whereNotNull('published_at')
                     ->where('published_at', '<=', now());
     }
+
+    /**
+     * Get translation for specific field and language
+     */
+    public function getTranslation($field, $lang = null)
+    {
+        $lang = $lang ?: app()->getLocale();
+        return $this->$field[$lang] ?? $this->$field['az'] ?? '';
+    }
 }

@@ -22,13 +22,14 @@ use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\SeoSiteController;
 use App\Http\Controllers\Admin\PricingPlanController;
 use App\Http\Controllers\Admin\PricingPlanFeatureController;
+use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\FrontController;
 
 // Front-end Routes
 Route::get('/', [FrontController::class, 'index'])->name('home');
-Route::get('/blogs', [FrontController::class, 'blogs'])->name('blogs');
 Route::get('/blog/{slug}', [FrontController::class, 'blog'])->name('blog.show');
 Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
+Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
 
 // Admin Routes
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -115,4 +116,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('pricing-plans.features', PricingPlanFeatureController::class)->shallow();
     Route::post('pricing-plans/{pricingPlan}/features/reorder', [PricingPlanFeatureController::class, 'updateOrder'])->name('pricing-plans.features.reorder');
     Route::patch('pricing-plans/{pricingPlan}/features/{feature}/toggle-status', [PricingPlanFeatureController::class, 'toggleStatus'])->name('pricing-plans.features.toggle-status');
+    
+    // Newsletter Routes
+    Route::resource('newsletters', NewsletterController::class)->only(['index', 'destroy']);
+    Route::post('newsletters/{newsletter}/toggle-status', [NewsletterController::class, 'toggleStatus'])->name('newsletters.toggle-status');
 });

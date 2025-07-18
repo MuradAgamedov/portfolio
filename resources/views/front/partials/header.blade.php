@@ -30,7 +30,7 @@
                         <li class="nav-item"><a class="nav-link" href="#about">{{__("About")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#resume">Resume</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('blogs') }}">{{__("Blog")}}</a></li>
+
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     </ul>
                 </nav>
@@ -86,7 +86,7 @@
                                         <li><a class="nav-link" href="#about">{{__("About")}}</a></li>
                 <li><a class="nav-link" href="#resume">Resume</a></li>
                 <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                <li><a class="nav-link" href="{{ route('blogs') }}">{{__("Blog")}}</a></li>
+
                 <li><a class="nav-link" href="#contact">Contact</a></li>
             </ul>
             <!-- social sharea area -->

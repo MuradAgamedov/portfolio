@@ -170,9 +170,10 @@
                         <a class="nav-link {{ request()->is('admin/pricing-plans*') ? 'active' : '' }}" href="{{ route('admin.pricing-plans.index') }}">
                             <i class="fas fa-dollar-sign"></i> Qiymət Planları
                         </a>
-                        <a class="nav-link disabled" href="#" title="Tezliklə">
-                            <i class="fas fa-cog"></i> Tənzimləmələr
+                        <a class="nav-link {{ request()->is('admin/newsletters*') ? 'active' : '' }}" href="{{ route('admin.newsletters.index') }}">
+                            <i class="fas fa-envelope"></i> Newsletter
                         </a>
+                   
                     </nav>
                 </div>
             </div>

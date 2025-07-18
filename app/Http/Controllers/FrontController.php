@@ -16,6 +16,7 @@ use App\Models\About;
 use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\PricingPlan;
+use App\Models\Newsletter;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -71,19 +72,10 @@ class FrontController extends Controller
         return redirect()->back()->with('success', 'Thank you for your message! We will get back to you soon.');
     }
 
-    public function blogs()
-    {
-        $blogs = Blog::where('status', true)
-                    ->orderBy('published_at', 'desc')
-                    ->paginate(9);
-        
-        return view('front.blogs.index', compact('blogs'));
-    }
-
     public function blog($slug)
     {
         $blog = Blog::where('status', true)
-                   ->whereJsonContains('slug', [app()->getLocale() => $slug])
+                   ->where("slug->" . app()->getLocale(), $slug)
                    ->firstOrFail();
         
         $recentBlogs = Blog::where('status', true)
@@ -93,5 +85,43 @@ class FrontController extends Controller
                           ->get();
         
         return view('front.blogs.show', compact('blog', 'recentBlogs'));
+    }
+
+    public function newsletter(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'email' => 'required|email|unique:newsletters,email'
+            ], [
+                'email.required' => 'Email ünvanı tələb olunur!',
+                'email.email' => 'Zəhmət olmasa düzgün email ünvanı daxil edin!',
+                'email.unique' => 'Bu email ünvanı artıq abunədir!'
+            ]);
+
+            Newsletter::create([
+                'email' => $validated['email'],
+                'status' => true,
+                'subscribed_at' => now()
+            ]);
+
+            // Always return JSON for this endpoint
+            return response()->json([
+                'success' => true,
+                'message' => 'Newsletter-ə uğurla abunə oldunuz!'
+            ]);
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Always return JSON for this endpoint
+            return response()->json([
+                'success' => false,
+                'message' => $e->errors()['email'][0] ?? 'Validation xətası!'
+            ], 422);
+        } catch (\Exception $e) {
+            // Always return JSON for this endpoint
+            return response()->json([
+                'success' => false,
+                'message' => 'Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.'
+            ], 500);
+        }
     }
 }

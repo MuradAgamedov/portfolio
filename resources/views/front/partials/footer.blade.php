@@ -107,6 +107,8 @@
 <!-- JS  -->
 <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/modernizer.min.js') }}"></script>
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <script src="{{ asset('assets/js/vendor/feather.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/slick.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/bootstrap.js') }}"></script>

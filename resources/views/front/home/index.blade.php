@@ -48,13 +48,13 @@
                                                 <a href="{{ $social->url }}" target="_blank" rel="noopener noreferrer">
                                                     <i data-feather="{{ $social->platform }}"></i>
                                                 </a>
-                                            </li>
+                                        </li>
                                         @endforeach
                                     </ul>
                                 </div>
                             </div>
                       {{--
-                              <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12 mt_mobile--30">
+                            <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12 mt_mobile--30">
                                 <div class="skill-share-inner">
                                     <span class="title">best skill on</span>
                                     <ul class="skill-share d-flex liststyle">
@@ -162,7 +162,7 @@
                                         <div class="about-content">
                                             <div class="description">
                                                 {!! $about->getDescription() !!}
-                                            </div>
+                                                        </div>
                                             @if($about->getCvUrl())
                                             <div class="cv-download mt-4">
                                                 <a href="{{ $about->getCvUrl() }}" class="rn-btn" download="{{ $about->cv_original_name }}">
@@ -172,14 +172,14 @@
                                                 @if($about->getCvSize())
                                                 <small class="text-muted d-block mt-2">{{__("File size")}}: {{ $about->getCvSize() }} MB</small>
                                                 @endif
-                                            </div>
+                                                        </div>
                                             @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
                     <!-- End Single Tab  -->
 
                     <!-- Start Single Tab  -->
@@ -194,26 +194,26 @@
                                             <!-- Start Single Education -->
                                             <div class="col-lg-6 col-md-6 col-12 mt--30">
                                                 <div class="education-card" style="background: #212428; border-radius: 10px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.1); transition: all 0.3s ease;">
-                                                    <div class="inner">
-                                                        <div class="heading">
-                                                            <div class="title">
+                                                <div class="inner">
+                                                    <div class="heading">
+                                                        <div class="title">
                                                                 <h4 style="color: #ffffff; margin-bottom: 5px; font-size: 18px; font-weight: 600;">{{ $edu->getTitle() }}</h4>
                                                                 <span style="color: #c4cfde; font-size: 14px; font-weight: 500;">{{ $edu->getUniversityName() }}</span>
-                                                            </div>
-                                                            <div class="date-of-time">
-                                                                <span style="color: #ff014f; font-size: 12px; font-weight: 600; background: rgba(255,1,79,0.1); padding: 5px 10px; border-radius: 5px;">{{ $edu->getFormattedStartDate() }} - {{ $edu->getFormattedEndDate() }}</span>
-                                                            </div>
                                                         </div>
+                                                        <div class="date-of-time">
+                                                                <span style="color: #ff014f; font-size: 12px; font-weight: 600; background: rgba(255,1,79,0.1); padding: 5px 10px; border-radius: 5px;">{{ $edu->getFormattedStartDate() }} - {{ $edu->getFormattedEndDate() }}</span>
+                                                        </div>
+                                                    </div>
                                                         <p class="description" style="color: #c4cfde; margin-top: 15px; line-height: 1.6; font-size: 14px;">{{ $edu->getDescription() }}</p>
+                                                </div>
+                                            </div>
+                                                        </div>
+                                            <!-- End Single Education -->
+                                            @endforeach
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- End Single Education -->
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <!-- End Single Tab  -->
@@ -230,26 +230,26 @@
                                             <!-- Start Single Experience -->
                                             <div class="col-lg-6 col-md-6 col-12 mt--30">
                                                 <div class="experience-card" style="background: #212428; border-radius: 10px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.1); transition: all 0.3s ease;">
-                                                    <div class="inner">
-                                                        <div class="heading">
-                                                            <div class="title">
+                                                <div class="inner">
+                                                    <div class="heading">
+                                                        <div class="title">
                                                                 <h4 style="color: #ffffff; margin-bottom: 5px; font-size: 18px; font-weight: 600;">{{ $exp->getTitle() }}</h4>
                                                                 <span style="color: #c4cfde; font-size: 14px; font-weight: 500;">{{ $exp->getCompanyName() }}</span>
-                                                            </div>
-                                                            <div class="date-of-time">
-                                                                <span style="color: #ff014f; font-size: 12px; font-weight: 600; background: rgba(255,1,79,0.1); padding: 5px 10px; border-radius: 5px;">{{ $exp->getFormattedStartDate() }} - {{ $exp->getFormattedEndDate() }}</span>
-                                                            </div>
                                                         </div>
+                                                        <div class="date-of-time">
+                                                                <span style="color: #ff014f; font-size: 12px; font-weight: 600; background: rgba(255,1,79,0.1); padding: 5px 10px; border-radius: 5px;">{{ $exp->getFormattedStartDate() }} - {{ $exp->getFormattedEndDate() }}</span>
+                                                        </div>
+                                                    </div>
                                                         <p class="description" style="color: #c4cfde; margin-top: 15px; line-height: 1.6; font-size: 14px;">{{ $exp->getDescription() }}</p>
+                                                </div>
+                                            </div>
+                                                        </div>
+                                            <!-- End Single Experience -->
+                                            @endforeach
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- End Single Experience -->
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <!-- End Single Tab  -->
@@ -266,15 +266,15 @@
                                             <!-- Start Single Skill -->
                                             <div class="col-lg-6 col-md-6 col-12 mt--30">
                                                 <div class="skill-card" style="background: #212428; border-radius: 10px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.1); transition: all 0.3s ease;">
-                                                    <div class="inner">
-                                                        <div class="heading">
-                                                            <div class="title">
+                                                <div class="inner">
+                                                    <div class="heading">
+                                                        <div class="title">
                                                                 <h4 style="color: #ffffff; margin-bottom: 15px; font-size: 18px; font-weight: 600;">{{ $skill->getTitle() }}</h4>
-                                                            </div>
+                                                        </div>
                                                             <div class="percent">
                                                                 <span style="color: #ff014f; font-size: 14px; font-weight: 600;">{{ $skill->getFormattedPercent() }}</span>
-                                                            </div>
                                                         </div>
+                                                    </div>
                                                         <div class="progress-wrapper" style="margin-top: 15px;">
                                                             <div class="progress" style="height: 8px; background: #1d1f23; border-radius: 4px; overflow: hidden;">
                                                                 <div class="progress-bar" 
@@ -283,17 +283,17 @@
                                                                      aria-valuenow="{{ $skill->percent }}" 
                                                                      aria-valuemin="0" 
                                                                      aria-valuemax="100">
-                                                                </div>
-                                                            </div>
+                                                </div>
+                                            </div>
+                                                        </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             <!-- End Single Skill -->
                                             @endforeach
-                                        </div>
-                                    </div>
-                                </div>
+                                            </div>
+                                                        </div>
+                                                        </div>
                             </div>
                         </div>
                     </div>
@@ -320,14 +320,14 @@
             <div class="col-lg-12">
                 <div class="testimonial-activation testimonial-pb mb--30">
                     @foreach($certificates as $certificate)
-                                <!-- Start Single testiminail -->
-                                <div class="testimonial mt--50 mt_md--40 mt_sm--40">
+                    <!-- Start Single testiminail -->
+                    <div class="testimonial mt--50 mt_md--40 mt_sm--40">
                         <div class="inner">
                             <div class="card-info">
-                                                                  <div class="card-thumbnail">
+                                <div class="card-thumbnail">
                                      <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" alt="{{$certificate->getImageAltText()}}">
                                  
-                                    </div>
+                                </div>
                                     <span class="title">{{$certificate->getTitle()}}</h3>
                       
                             </div>
@@ -348,9 +348,9 @@
                     <!--End Single testiminail -->
                     @endforeach
         
-                </div>
-            </div>
-        </div>
+                                </div>
+                                </div>
+                            </div>
     </div>
 </div>
 <!-- End Testimonia Area  -->
@@ -367,12 +367,12 @@
             </div>
         </div>
         <div class="row row--25 mt--50 mt_md--40 mt_sm--40">
-    <div class="col-lg-4">
-        <div class="d-flex flex-wrap align-content-start h-100">
-            <div class="position-sticky clients-wrapper sticky-top rbt-sticky-top-adjust">
-                <ul class="nav tab-navigation-button flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
+            <div class="col-lg-4">
+                <div class="d-flex flex-wrap align-content-start h-100">
+                    <div class="position-sticky clients-wrapper sticky-top rbt-sticky-top-adjust">
+                        <ul class="nav tab-navigation-button flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
                     @foreach($portfolioCategories as $index => $category)
-                        <li class="nav-item">
+                            <li class="nav-item">
                             <a class="nav-link @if($index === 0) active @endif"
                                id="v-pills-tab-{{ $category->id }}"
                                data-bs-toggle="tab"
@@ -381,16 +381,16 @@
                                aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
                                 {{ $category->getTitle() }}
                             </a>
-                        </li>
+                            </li>
                     @endforeach
-                </ul>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="col-lg-8">
-        <div class="tab-area">
-            <div class="d-flex align-items-start">
+            <div class="col-lg-8">
+                <div class="tab-area">
+                    <div class="d-flex align-items-start">
                 <div class="tab-content w-100" id="v-pills-tabContent">
                     @foreach($portfolioCategories as $index => $category)
                         <div class="tab-pane fade @if($index === 0) show active @endif"
@@ -421,15 +421,15 @@
                                         </div>
                                     </div>
                                 @endforeach
-                            </div>
+                                            </div>
 
-                        </div>
+                                            </div>
                     @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                            </div>
+                                            </div>
 
     </div>
 </div>
@@ -443,10 +443,10 @@
                 <div class="section-title text-center">
                     <span class="subtitle">{{__("Pricing")}}</span>
                     <h2 class="title">{{__("My Pricing Plans")}}</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-        
+
         <div class="row mt--50 pricing-area" data-cards="{{ $pricingPlans->count() }}">
             @foreach($pricingPlans as $index => $plan)
             <div class="col-lg-4 col-md-6 col-sm-12">
@@ -455,30 +455,30 @@
                         <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
                         <div class="pricing-price">
                             {!! $plan->getTranslation('price', app()->getLocale()) !!}
-                        </div>
+                                    </div>
                         <h3 class="pricing-title">{{ $plan->getTranslation('title', app()->getLocale()) }}</h3>
-                    </div>
-                    
+                        </div>
+
                     <div class="pricing-card-body">
                         <ul class="pricing-features">
                             @foreach($plan->activeFeatures as $feature)
                             <li><i data-feather="check"></i> {{ $feature->getTranslation('title', app()->getLocale()) }}</li>
                             @endforeach
                         </ul>
-                    </div>
-                    
+                        </div>
+
                     <div class="pricing-card-footer">
                         <a href="#contact" class="rn-btn d-block">
                             <span>{{__("Get Started")}}</span>
-                            <i data-feather="arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+                                        <i data-feather="arrow-right"></i>
+                                    </a>
+                                        </div>
+                                        </div>
+                                    </div>
             @endforeach
-        </div>
-    </div>
-</div>
+                                </div>
+                            </div>
+                        </div>
 <!-- End Pricing Area -->
 
 <!-- Start News Area -->
@@ -500,20 +500,15 @@
                 <div class="rn-blog">
                     <div class="inner">
                         <div class="thumbnail">
-                            <a href="{{ route('blog.show', $blog->getTranslation('slug', app()->getLocale())) }}">
+                            <a href="{{ route('blog.show', $blog->getSlug()) }}">
                                 <img src="{{ $blog->getCardImageUrl() ?: 'assets/images/blog/blog-01.jpg' }}" alt="{{ $blog->getCardImageAltText() }}">
                             </a>
                         </div>
-                        <div class="content">
-                            <div class="category-info">
-                                <div class="category-list">
-                                    <a href="{{ route('blogs') }}">{{__("Blog")}}</a>
-                                </div>
-                                <div class="meta">
-                                    <span><i class="feather-clock"></i> {{ $blog->getFormattedPublishedDate() }}</span>
-                                </div>
-                            </div>
+                                                <div class="content">
                             <h4 class="title"><a href="{{ route('blog.show', $blog->getTranslation('slug', app()->getLocale())) }}">{{ $blog->getTitle() }} <i class="feather-arrow-up-right"></i></a></h4>
+                            <div class="meta">
+                                <span><i class="feather-clock"></i> {{ $blog->getFormattedPublishedDate() }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -521,9 +516,137 @@
             <!-- End Single blog -->
             @endforeach
 
-        </div>
-    </div>
-</div> <!-- ENd Mews Area -->
+                        </div>
+                                </div>
+</div> <!-- End News Area -->
+
+<style>
+/* Blog Card Hover Effects */
+.rn-blog {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.rn-blog:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.rn-blog .inner {
+    background: var(--background-color-1);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-1);
+    transition: all 0.3s ease;
+}
+
+.rn-blog:hover .inner {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.rn-blog .thumbnail {
+    position: relative;
+    overflow: hidden;
+}
+
+.rn-blog .thumbnail img {
+    transition: transform 0.4s ease;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.rn-blog:hover .thumbnail img {
+    transform: scale(1.1);
+}
+
+.rn-blog .thumbnail::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 1, 79, 0.8), rgba(209, 20, 20, 0.8));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.rn-blog:hover .thumbnail::after {
+    opacity: 0.3;
+}
+
+.rn-blog .content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.rn-blog .title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    flex: 1;
+}
+
+.rn-blog .meta {
+    font-size: 14px;
+    color: var(--color-body);
+    margin-top: auto;
+}
+
+.rn-blog .meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.rn-blog .meta i {
+    width: 16px;
+    height: 16px;
+}
+
+.rn-blog .title a {
+    color: var(--color-heading);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rn-blog .title a:hover {
+    color: var(--color-primary);
+}
+
+.rn-blog .title a i {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.rn-blog:hover .title a i {
+    transform: translateX(5px) translateY(-5px);
+}
+
+/* Responsive */
+@media only screen and (max-width: 767px) {
+    .rn-blog .content {
+        padding: 20px;
+    }
+    
+    .rn-blog .title {
+        font-size: 16px;
+    }
+    
+    .rn-blog .thumbnail img {
+        height: 180px;
+    }
+}
+</style>
 
 <!-- Start Contact section -->
 <div class="rn-contact-area rn-section-gap section-separator" id="contacts">
@@ -551,7 +674,7 @@
                         @if($contactImage)
                             <img src="{{ asset('storage/' . $contactImage) }}" alt="{{ $contactImageAlt ?: 'contact-img' }}">
                         @else
-                            <img src="assets/images/contact/contact1.png" alt="contact-img">
+                        <img src="assets/images/contact/contact1.png" alt="contact-img">
                         @endif
                     </div>
                     <div class="title-area">
