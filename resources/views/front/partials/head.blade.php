@@ -547,67 +547,6 @@
         margin: 0 auto !important;
     }
     
-    /* Sun Effect */
-    .sun-effect {
-        position: fixed;
-        top: 50px;
-        right: 50px;
-        width: 150px;
-        height: 150px;
-        background: radial-gradient(circle, #ff6b35 0%, #f7931e 30%, #ffd700 60%, transparent 100%);
-        border-radius: 50%;
-        box-shadow: 
-            0 0 50px #ff6b35,
-            0 0 100px #f7931e,
-            0 0 150px #ffd700,
-            inset 0 0 50px rgba(255, 255, 255, 0.3);
-        animation: sunGlow 4s ease-in-out infinite alternate;
-        z-index: 1;
-        pointer-events: none;
-    }
-    
-    @keyframes sunGlow {
-        0% {
-            transform: scale(1);
-            box-shadow: 
-                0 0 50px #ff6b35,
-                0 0 100px #f7931e,
-                0 0 150px #ffd700,
-                inset 0 0 50px rgba(255, 255, 255, 0.3);
-        }
-        100% {
-            transform: scale(1.1);
-            box-shadow: 
-                0 0 70px #ff6b35,
-                0 0 140px #f7931e,
-                0 0 200px #ffd700,
-                inset 0 0 70px rgba(255, 255, 255, 0.5);
-        }
-    }
-    
-    /* Sun rays effect */
-    .sun-effect::before {
-        content: '';
-        position: absolute;
-        top: -20px;
-        left: -20px;
-        right: -20px;
-        bottom: -20px;
-        background: conic-gradient(from 0deg, transparent, #ffd700, transparent, #ff6b35, transparent);
-        border-radius: 50%;
-        animation: sunRays 8s linear infinite;
-        z-index: -1;
-    }
-    
-    @keyframes sunRays {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-    
     .language-switcher .btn {
         background: transparent;
         border: 1px solid rgba(255,255,255,0.3);

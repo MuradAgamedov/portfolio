@@ -3,9 +3,6 @@
 @section('title', 'Home')
 
 @section('content')
-<!-- Sun Effect -->
-<div class="sun-effect"></div>
-
 <!-- SEO Display Section -->
 @php
     $seoSettings = \App\Models\SeoSite::first();
