@@ -260,6 +260,13 @@
         scroll-margin-top: 100px;
     }
     
+    /* Hide contact button on mobile */
+    @media (max-width: 991px) {
+        .buy-now-btn {
+            display: none !important;
+        }
+    }
+    
     .primary-menu .nav-item .nav-link {
         text-transform: uppercase !important;
         letter-spacing: 1px !important; /* Hərflər arası məsafə azaldıldı */
