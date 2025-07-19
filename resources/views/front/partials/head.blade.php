@@ -390,7 +390,7 @@
     /* Smooth scroll animation */
     html {
         scroll-behavior: smooth;
-        scroll-padding-top: 80px;
+        scroll-padding-top: 100px;
     }
     
     /* Custom smooth scroll for better performance */
@@ -405,9 +405,19 @@
     }
     
     .rn-header.scrolled {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
         background: rgba(0, 0, 0, 0.9);
         backdrop-filter: blur(10px);
         box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Add padding to body when header is fixed */
+    body.header-fixed {
+        padding-top: 80px;
     }
     
     /* Language Switcher Styles */
