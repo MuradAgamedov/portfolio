@@ -60,6 +60,7 @@
             imJs.activePopupDemo();
             imJs.onePageNav();
             imJs.certificateModal();
+            imJs.customTypingAnimation();
         },
 
         
@@ -540,6 +541,52 @@
         onePageNav: function () {
             // Removed smooth scrolling - using simple anchor links
             // Navbar links will work with simple #id navigation
+        },
+
+        customTypingAnimation: function () {
+            // Custom typing animation for hero section
+            var words = $('.cd-words-wrapper b');
+            var currentIndex = 0;
+            var animationInterval;
+            
+            function showNextWord() {
+                // Hide all words
+                words.removeClass('is-visible').addClass('is-hidden');
+                
+                // Show current word
+                words.eq(currentIndex).removeClass('is-hidden').addClass('is-visible');
+                
+                // Move to next word
+                currentIndex = (currentIndex + 1) % words.length;
+            }
+            
+            function startAnimation() {
+                // Clear any existing interval
+                if (animationInterval) {
+                    clearInterval(animationInterval);
+                }
+                
+                // Reset to first word
+                currentIndex = 0;
+                words.removeClass('is-visible is-hidden').addClass('is-hidden');
+                words.first().removeClass('is-hidden').addClass('is-visible');
+                
+                // Start the animation
+                showNextWord();
+                animationInterval = setInterval(showNextWord, 3000);
+            }
+            
+            // Start animation when page loads
+            $(document).ready(function() {
+                startAnimation();
+            });
+            
+            // Restart animation when scrolling to top
+            $(window).scroll(function() {
+                if ($(window).scrollTop() < 100) {
+                    startAnimation();
+                }
+            });
         },
 
 

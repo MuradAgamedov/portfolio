@@ -118,7 +118,8 @@
 <script src="{{ asset('assets/js/vendor/feather.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/slick.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/bootstrap.js') }}"></script>
-<script src="{{ asset('assets/js/vendor/text-type.js') }}"></script>
+<!-- Custom typing animation instead of text-type.js -->
+<!-- <script src="{{ asset('assets/js/vendor/text-type.js') }}"></script> -->
 <script src="{{ asset('assets/js/vendor/wow.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/aos.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/particles.js') }}"></script>
