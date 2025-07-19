@@ -494,7 +494,13 @@
         },
 
         awsActivation:function(e){
-            AOS.init();
+            // AOS disabled due to easing errors
+            // AOS.init({
+            //     duration: 800,
+            //     easing: 'ease-in-out',
+            //     once: true,
+            //     mirror: false
+            // });
         },
 
         onePageNav: function () {
