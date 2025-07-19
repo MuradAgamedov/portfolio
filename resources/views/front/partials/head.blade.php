@@ -390,7 +390,7 @@
     /* Smooth scroll animation */
     html {
         scroll-behavior: smooth;
-        scroll-padding-top: 100px;
+        scroll-padding-top: 80px;
     }
     
     /* Custom smooth scroll for better performance */
@@ -398,27 +398,16 @@
         scroll-behavior: smooth;
     }
     
-    /* Fixed Header Styles */
+    /* Header Scroll Effect Styles */
     .rn-header {
-        position: fixed !important;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 9999;
-        background: rgba(0, 0, 0, 0.9);
-        backdrop-filter: blur(10px);
         transition: all 0.3s ease;
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        background: transparent;
     }
     
     .rn-header.scrolled {
-        background: rgba(0, 0, 0, 0.95);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-    }
-    
-    /* Add padding to body to prevent content from hiding under fixed header */
-    body {
-        padding-top: 100px;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     }
     
     /* Language Switcher Styles */

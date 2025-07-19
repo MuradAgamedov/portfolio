@@ -168,7 +168,7 @@ $(document).ready(function() {
         var target = $(this.getAttribute('href'));
         if (target.length) {
                     $('html, body').animate({
-            scrollTop: target.offset().top - 100 // Offset for fixed header
+            scrollTop: target.offset().top - 80 // Offset for header
         }, {
             duration: 2000,
             easing: 'easeInOutQuart',
@@ -184,8 +184,8 @@ $(document).ready(function() {
     $(window).on('scroll', function() {
         var scrollDistance = $(window).scrollTop();
         
-        // Fixed header scroll effect
-        if (scrollDistance > 50) {
+        // Header scroll effect - change background when scrolling
+        if (scrollDistance > 100) {
             $('.rn-header').addClass('scrolled');
         } else {
             $('.rn-header').removeClass('scrolled');
