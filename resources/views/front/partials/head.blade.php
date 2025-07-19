@@ -677,7 +677,6 @@
         border: 2px solid rgba(220, 53, 69, 0.3);
         border-radius: 50%;
         color: #dc3545;
-        font-size: 18px;
         transition: all 0.3s ease;
         z-index: 10;
         cursor: pointer;
@@ -686,11 +685,21 @@
         justify-content: center;
     }
     
+    .slider-nav svg {
+        width: 20px;
+        height: 20px;
+        transition: all 0.3s ease;
+    }
+    
     .slider-nav:hover {
         background: #dc3545;
         color: white;
         border-color: #dc3545;
         transform: translateY(-50%) scale(1.1);
+    }
+    
+    .slider-nav:hover svg {
+        stroke: white;
     }
     
     .slider-nav.prev-btn {
