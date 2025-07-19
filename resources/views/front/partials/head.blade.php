@@ -245,6 +245,21 @@
         51%, 100% { opacity: 0; }
     }
     
+    /* Navbar link fixes */
+    .onepagenav a[href^="#"] {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .onepagenav a[href^="#"]:hover {
+        color: #ff014f !important;
+    }
+    
+    /* Ensure sections have proper IDs */
+    section[id] {
+        scroll-margin-top: 100px;
+    }
+    
     .primary-menu .nav-item .nav-link {
         text-transform: uppercase !important;
         letter-spacing: 1px !important; /* Hərflər arası məsafə azaldıldı */

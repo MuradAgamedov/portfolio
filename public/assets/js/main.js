@@ -548,8 +548,12 @@
             var words = $('.cd-words-wrapper b');
             var currentIndex = 0;
             var animationInterval;
+            var isAnimating = false;
             
             function showNextWord() {
+                if (isAnimating) return;
+                isAnimating = true;
+                
                 // Hide current word
                 words.eq(currentIndex).removeClass('is-visible').addClass('is-hidden');
                 
@@ -558,6 +562,11 @@
                 
                 // Show next word
                 words.eq(currentIndex).removeClass('is-hidden').addClass('is-visible');
+                
+                // Reset flag after animation
+                setTimeout(function() {
+                    isAnimating = false;
+                }, 800);
             }
             
             function startAnimation() {
@@ -568,14 +577,15 @@
                 
                 // Reset to first word
                 currentIndex = 0;
+                isAnimating = false;
                 words.removeClass('is-visible is-hidden').addClass('is-hidden');
                 words.first().removeClass('is-hidden').addClass('is-visible');
                 
-                // Start the animation after a delay
+                // Start the animation after a longer delay
                 setTimeout(function() {
                     showNextWord();
-                    animationInterval = setInterval(showNextWord, 4000); // 4 seconds interval
-                }, 1000);
+                    animationInterval = setInterval(showNextWord, 5000); // 5 seconds interval
+                }, 2000); // 2 seconds initial delay
             }
             
             // Start animation when page loads
@@ -583,11 +593,15 @@
                 startAnimation();
             });
             
-            // Restart animation when scrolling to top
+            // Restart animation when scrolling to top (less frequent)
+            var scrollTimeout;
             $(window).scroll(function() {
-                if ($(window).scrollTop() < 100) {
-                    startAnimation();
-                }
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(function() {
+                    if ($(window).scrollTop() < 100) {
+                        startAnimation();
+                    }
+                }, 500);
             });
         },
 
