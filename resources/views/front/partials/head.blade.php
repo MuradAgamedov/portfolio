@@ -412,9 +412,9 @@
         left: 0;
         right: 0;
         z-index: 9999;
-        background: transparent;
-        backdrop-filter: none;
-        box-shadow: none;
+        background: #212428;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     }
     
     /* Add padding to body when header is fixed */
