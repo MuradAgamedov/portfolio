@@ -776,15 +776,37 @@
         }
         
         .custom-certificates-slider {
-            padding: 0 40px;
+            padding: 0 20px;
+            padding-bottom: 80px;
+        }
+        
+        .slider-nav {
+            top: auto;
+            bottom: 20px;
+            transform: none;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .slider-nav svg {
+            width: 16px;
+            height: 16px;
         }
         
         .slider-nav.prev-btn {
-            left: -40px;
+            left: 20px;
         }
         
         .slider-nav.next-btn {
-            right: -40px;
+            right: 20px;
+        }
+        
+        .slider-nav:hover {
+            transform: scale(1.1);
+        }
+        
+        .slider-dots {
+            bottom: -60px;
         }
     }
     
