@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="mb-3">
-                                            <label class="form-label">Site Title:</label>
+                                            <label class="form-label">Contact Title:</label>
                                             <input type="text" name="title" class="form-control" 
                                                    value="{{ $settings->title }}" placeholder="Enter contact title">
                                             <small class="text-muted">This will be used as the contact title of your website</small>
