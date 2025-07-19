@@ -29,6 +29,7 @@
             imJs.demoActive();
             imJs.activePopupDemo();
             imJs.onePageNav();
+            imJs.certificateModal();
         },
 
         
