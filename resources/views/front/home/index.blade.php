@@ -328,16 +328,10 @@
                                     <div class="inner">
                                                                             <div class="certificate-image">
                                         <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" 
-                                             alt="{{$certificate->getImageAltText()}}">
-                                        <button class="view-certificate-btn certificate-modal-trigger"
-                                                data-image="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}"
-                                                data-title="{{$certificate->getTitle()}}">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            Baxla
-                                        </button>
+                                             alt="{{$certificate->getImageAltText()}}"
+                                             class="certificate-modal-trigger"
+                                             data-image="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}"
+                                             data-title="{{$certificate->getTitle()}}">
                                     </div>
                                         <div class="certificate-content">
                                             <h3 class="title">{{$certificate->getTitle()}}</h3>
@@ -388,7 +382,7 @@
         <div class="modal-header">
             <h3 class="modal-title"></h3>
             <button class="modal-close" id="closeModal">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
