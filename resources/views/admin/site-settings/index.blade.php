@@ -70,7 +70,7 @@
                         
                         <div class="row">
                             <!-- Contact Title -->
-                            <div class="col-md-12 mb-4">
+                            <div class="col-md-6 mb-4">
                                 <div class="card">
                                     <div class="card-header">
                                         <h6 class="card-title mb-0">Contact Title</h6>
