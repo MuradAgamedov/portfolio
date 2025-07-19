@@ -325,14 +325,14 @@
                         <div class="certificate-slide">
                             <div class="certificate-card">
                                 <div class="inner">
-                                    <div class="thumbnail">
+                                    <div class="certificate-image">
                                         <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" 
                                              alt="{{$certificate->getImageAltText()}}">
                                     </div>
-                                    <div class="content">
-                                        <h4 class="title">{{$certificate->getTitle()}}</h4>
+                                    <div class="certificate-content">
+                                        <h3 class="title">{{$certificate->getTitle()}}</h3>
                                         <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
-                                        <p class="description">{{ Str::limit($certificate->getDescription(), 120) }}</p>
+                                        <p class="description">{{ $certificate->getDescription() }}</p>
                                     </div>
                                 </div>
                             </div>
