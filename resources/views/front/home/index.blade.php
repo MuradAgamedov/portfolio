@@ -334,7 +334,6 @@
                                     <div class="title-info">
                                         <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
                                     </div>
-                               
                                 </div>
                                 <div class="seperator"></div>
                                 <p class="discription">
@@ -345,10 +344,9 @@
                     </div>
                     <!--End Single testiminail -->
                     @endforeach
-        
-                                </div>
-                                </div>
-                            </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- End Testimonia Area  -->
