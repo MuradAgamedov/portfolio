@@ -21,11 +21,8 @@
 
                     <p class="description mt--30">
                         © <script>document.write(new Date().getFullYear());</script>
-                        {!! __("copyright_text", [
-                            'site' => '<span><a target=\'_blank\' href=\'https://muraddev.com\'>Parv infotech.</a></span>'
-                        ]) !!}
+                        {!! __("All rights reserved by <a target='_blank' href='https://muraddev.com'>Parv infotech.</a>") !!}
                     </p>
-
 
                 </div>
             </div>
