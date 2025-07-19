@@ -621,16 +621,43 @@
         position: relative;
     }
     
+    .certificate-card .certificate-image {
+        position: relative;
+    }
+    
     .certificate-card .certificate-image img {
         width: 100%;
         height: 300px;
         object-fit: cover;
-        cursor: pointer;
-        transition: opacity 0.3s ease;
     }
     
-    .certificate-card .certificate-image img:hover {
-        opacity: 0.8;
+    .view-certificate-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(220, 53, 69, 0.9);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+    
+    .view-certificate-btn:hover {
+        background: rgba(220, 53, 69, 1);
+        transform: scale(1.05);
+    }
+    
+    .view-certificate-btn svg {
+        width: 16px;
+        height: 16px;
     }
     
     /* Certificate Modal Styles */
@@ -671,6 +698,7 @@
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         border: 1px solid rgba(255, 255, 255, 0.1);
         overflow: hidden;
+        margin-right: 50px;
     }
     
     .modal-header {
@@ -841,6 +869,18 @@
         
         .certificate-card .certificate-image img {
             height: 200px;
+        }
+        
+        .view-certificate-btn {
+            top: 10px;
+            right: 10px;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+        
+        .view-certificate-btn svg {
+            width: 14px;
+            height: 14px;
         }
         
         .certificate-card .title {
