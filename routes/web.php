@@ -23,7 +23,16 @@ use App\Http\Controllers\Admin\SeoSiteController;
 use App\Http\Controllers\Admin\PricingPlanController;
 use App\Http\Controllers\Admin\PricingPlanFeatureController;
 use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\FrontController;
+
+// Language Switch Route
+Route::get('/language/{lang}', function($lang) {
+    if (in_array($lang, ['en', 'az'])) {
+        session(['locale' => $lang]);
+    }
+    return redirect()->back();
+})->name('language.switch');
 
 // Front-end Routes
 Route::get('/', [FrontController::class, 'index'])->name('home');
@@ -31,8 +40,19 @@ Route::get('/blog/{slug}', [FrontController::class, 'blog'])->name('blog.show');
 Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
 Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
 
-// Admin Routes
+// Admin Auth Routes
 Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+
+// Admin Protected Routes
+Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+    // Redirect to admin login if not authenticated
+    Route::get('/', function () {
+        return redirect()->route('admin.login');
+    });
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('languages', AdminLanguageController::class);
     Route::post('languages/reorder', [AdminLanguageController::class, 'reorder'])->name('languages.reorder');

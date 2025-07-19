@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,6 +91,71 @@
             font-size: 0.7rem;
             padding: 0.25rem 0.5rem;
         }
+        
+        .nav-group-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 5px;
+        }
+        
+        .nav-group {
+            border-left: 2px solid rgba(255,255,255,0.1);
+            padding-left: 10px;
+            margin-left: 5px;
+        }
+        
+        .nav-group:last-child {
+            border-left: none;
+            padding-left: 0;
+            margin-left: 0;
+        }
+        
+        .nav-link.dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .nav-link.dropdown-toggle .fa-chevron-down {
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+        
+        .nav-link.dropdown-toggle[aria-expanded="true"] .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        
+        /* Hide Bootstrap's default dropdown icon */
+        .nav-link.dropdown-toggle::after {
+            display: none !important;
+        }
+        
+        .nav-submenu {
+            padding-left: 20px;
+            border-left: 2px solid rgba(255,255,255,0.1);
+            margin-left: 10px;
+        }
+        
+        .nav-submenu .nav-link {
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            margin: 2px 0;
+        }
+        
+        .collapse {
+            transition: all 0.3s ease;
+        }
+        
+        .collapse.show {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            margin: 5px 0;
+        }
     </style>
     
     @yield('styles')
@@ -107,73 +172,145 @@
                     </div>
                     
                     <nav class="nav flex-column">
+                        <!-- Dashboard -->
                         <a class="nav-link {{ request()->is('admin/dashboard*') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
                             <i class="fas fa-tachometer-alt"></i> Dashboard
                         </a>
-                        <a class="nav-link {{ request()->is('admin/languages*') ? 'active' : '' }}" href="{{ route('admin.languages.index') }}">
-                            <i class="fas fa-language"></i> Dillər
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/hero/edit*') ? 'active' : '' }}" href="{{ route('admin.hero.edit') }}">
-                            <i class="fas fa-home"></i> Hero Bölməsi
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/hero-professions*') ? 'active' : '' }}" href="{{ route('admin.hero-professions.index') }}">
-                            <i class="fas fa-briefcase"></i> Hero Peşələr
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/socials*') ? 'active' : '' }}" href="{{ route('admin.socials.edit') }}">
-                            <i class="fas fa-share-alt"></i> Sosial Şəbəkələr
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/services*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
-                            <i class="fas fa-cogs"></i> Xidmətlər
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/portfolio-categories*') ? 'active' : '' }}" href="{{ route('admin.portfolio-categories.index') }}">
-                            <i class="fas fa-tags"></i> Portfolio Kateqoriyaları
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/portfolios*') ? 'active' : '' }}" href="{{ route('admin.portfolios.index') }}">
-                            <i class="fas fa-briefcase"></i> Portfolio
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/certificates*') ? 'active' : '' }}" href="{{ route('admin.certificates.index') }}">
-                            <i class="fas fa-certificate"></i> Sertifikatlar
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/blogs*') ? 'active' : '' }}" href="{{ route('admin.blogs.index') }}">
-                            <i class="fas fa-blog"></i> Blog
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/education*') ? 'active' : '' }}" href="{{ route('admin.education.index') }}">
-                            <i class="fas fa-graduation-cap"></i> Təhsil
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/skills*') ? 'active' : '' }}" href="{{ route('admin.skills.index') }}">
-                            <i class="fas fa-chart-bar"></i> Bacarıqlar
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/experiences*') ? 'active' : '' }}" href="{{ route('admin.experiences.index') }}">
-                            <i class="fas fa-briefcase"></i> Təcrübələr
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/about*') ? 'active' : '' }}" href="{{ route('admin.about.edit') }}">
-                            <i class="fas fa-user"></i> Haqqımda
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/dictionary*') ? 'active' : '' }}" href="{{ route('admin.dictionary.index') }}">
-                            <i class="fas fa-book"></i> Tərcümə Sözlüyü
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/contacts*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">
-                            <i class="fas fa-envelope"></i> Əlaqə Mesajları
-                            @php
-                                $unreadCount = \App\Models\Contact::unread()->count();
-                            @endphp
-                            @if($unreadCount > 0)
-                                <span class="badge bg-warning text-dark ms-2">{{ $unreadCount }}</span>
-                            @endif
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/site-settings*') ? 'active' : '' }}" href="{{ route('admin.site-settings.index') }}">
-                            <i class="fas fa-cogs"></i> Sayt Tənzimləmələri
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/seo-site*') ? 'active' : '' }}" href="{{ route('admin.seo-site.index') }}">
-                            <i class="fas fa-search"></i> SEO Tənzimləmələri
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/pricing-plans*') ? 'active' : '' }}" href="{{ route('admin.pricing-plans.index') }}">
-                            <i class="fas fa-dollar-sign"></i> Qiymət Planları
-                        </a>
-                        <a class="nav-link {{ request()->is('admin/newsletters*') ? 'active' : '' }}" href="{{ route('admin.newsletters.index') }}">
-                            <i class="fas fa-envelope"></i> Newsletter
-                        </a>
-                   
+
+                        <!-- Content Management -->
+                        <div class="nav-item">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="collapse" href="#contentManagement" role="button">
+                                <i class="fas fa-file-alt"></i> Kontent İdarəetməsi
+                                <i class="fas fa-chevron-down ms-auto"></i>
+                            </a>
+                            <div class="collapse {{ request()->is('admin/hero*') || request()->is('admin/about*') ? 'show' : '' }}" id="contentManagement">
+                                <div class="nav-submenu">
+                                    <a class="nav-link {{ request()->is('admin/hero/edit*') ? 'active' : '' }}" href="{{ route('admin.hero.edit') }}">
+                                        <i class="fas fa-home"></i> Hero Bölməsi
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/hero-professions*') ? 'active' : '' }}" href="{{ route('admin.hero-professions.index') }}">
+                                        <i class="fas fa-briefcase"></i> Hero Peşələr
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/about*') ? 'active' : '' }}" href="{{ route('admin.about.edit') }}">
+                                        <i class="fas fa-user"></i> Haqqımda
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Portfolio & Services -->
+                        <div class="nav-item">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="collapse" href="#portfolioServices" role="button">
+                                <i class="fas fa-briefcase"></i> Portfolio & Xidmətlər
+                                <i class="fas fa-chevron-down ms-auto"></i>
+                            </a>
+                            <div class="collapse {{ request()->is('admin/services*') || request()->is('admin/portfolio*') || request()->is('admin/certificates*') ? 'show' : '' }}" id="portfolioServices">
+                                <div class="nav-submenu">
+                                    <a class="nav-link {{ request()->is('admin/services*') ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
+                                        <i class="fas fa-cogs"></i> Xidmətlər
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/portfolio-categories*') ? 'active' : '' }}" href="{{ route('admin.portfolio-categories.index') }}">
+                                        <i class="fas fa-tags"></i> Portfolio Kateqoriyaları
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/portfolios*') ? 'active' : '' }}" href="{{ route('admin.portfolios.index') }}">
+                                        <i class="fas fa-briefcase"></i> Portfolio
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/certificates*') ? 'active' : '' }}" href="{{ route('admin.certificates.index') }}">
+                                        <i class="fas fa-certificate"></i> Sertifikatlar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resume -->
+                        <div class="nav-item">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="collapse" href="#resume" role="button">
+                                <i class="fas fa-file-text"></i> CV & Təcrübə
+                                <i class="fas fa-chevron-down ms-auto"></i>
+                            </a>
+                            <div class="collapse {{ request()->is('admin/education*') || request()->is('admin/skills*') || request()->is('admin/experiences*') ? 'show' : '' }}" id="resume">
+                                <div class="nav-submenu">
+                                    <a class="nav-link {{ request()->is('admin/education*') ? 'active' : '' }}" href="{{ route('admin.education.index') }}">
+                                        <i class="fas fa-graduation-cap"></i> Təhsil
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/skills*') ? 'active' : '' }}" href="{{ route('admin.skills.index') }}">
+                                        <i class="fas fa-chart-bar"></i> Bacarıqlar
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/experiences*') ? 'active' : '' }}" href="{{ route('admin.experiences.index') }}">
+                                        <i class="fas fa-briefcase"></i> Təcrübələr
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Blog & Content -->
+                        <div class="nav-item">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="collapse" href="#blogContent" role="button">
+                                <i class="fas fa-blog"></i> Blog & Kontent
+                                <i class="fas fa-chevron-down ms-auto"></i>
+                            </a>
+                            <div class="collapse {{ request()->is('admin/blogs*') || request()->is('admin/pricing-plans*') ? 'show' : '' }}" id="blogContent">
+                                <div class="nav-submenu">
+                                    <a class="nav-link {{ request()->is('admin/blogs*') ? 'active' : '' }}" href="{{ route('admin.blogs.index') }}">
+                                        <i class="fas fa-blog"></i> Blog
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/pricing-plans*') ? 'active' : '' }}" href="{{ route('admin.pricing-plans.index') }}">
+                                        <i class="fas fa-dollar-sign"></i> Qiymət Planları
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Communication -->
+                        <div class="nav-item">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="collapse" href="#communication" role="button">
+                                <i class="fas fa-comments"></i> Əlaqə & Mesajlar
+                                <i class="fas fa-chevron-down ms-auto"></i>
+                            </a>
+                            <div class="collapse {{ request()->is('admin/socials*') || request()->is('admin/contacts*') || request()->is('admin/newsletters*') ? 'show' : '' }}" id="communication">
+                                <div class="nav-submenu">
+                                    <a class="nav-link {{ request()->is('admin/socials*') ? 'active' : '' }}" href="{{ route('admin.socials.edit') }}">
+                                        <i class="fas fa-share-alt"></i> Sosial Şəbəkələr
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/contacts*') ? 'active' : '' }}" href="{{ route('admin.contacts.index') }}">
+                                        <i class="fas fa-envelope"></i> Əlaqə Mesajları
+                                        @php
+                                            $unreadCount = \App\Models\Contact::unread()->count();
+                                        @endphp
+                                        @if($unreadCount > 0)
+                                            <span class="badge bg-warning text-dark ms-2">{{ $unreadCount }}</span>
+                                        @endif
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/newsletters*') ? 'active' : '' }}" href="{{ route('admin.newsletters.index') }}">
+                                        <i class="fas fa-envelope"></i> Newsletter
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Settings -->
+                        <div class="nav-item">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="collapse" href="#settings" role="button">
+                                <i class="fas fa-cog"></i> Tənzimləmələr
+                                <i class="fas fa-chevron-down ms-auto"></i>
+                            </a>
+                            <div class="collapse {{ request()->is('admin/languages*') || request()->is('admin/dictionary*') || request()->is('admin/site-settings*') || request()->is('admin/seo-site*') ? 'show' : '' }}" id="settings">
+                                <div class="nav-submenu">
+                                    <a class="nav-link {{ request()->is('admin/languages*') ? 'active' : '' }}" href="{{ route('admin.languages.index') }}">
+                                        <i class="fas fa-language"></i> Dillər
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/dictionary*') ? 'active' : '' }}" href="{{ route('admin.dictionary.index') }}">
+                                        <i class="fas fa-book"></i> Tərcümə Sözlüyü
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/site-settings*') ? 'active' : '' }}" href="{{ route('admin.site-settings.index') }}">
+                                        <i class="fas fa-cogs"></i> Sayt Tənzimləmələri
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/seo-site*') ? 'active' : '' }}" href="{{ route('admin.seo-site.index') }}">
+                                        <i class="fas fa-search"></i> SEO Tənzimləmələri
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </nav>
                 </div>
             </div>
@@ -189,17 +326,12 @@
                             </button>
                             
                             <div class="navbar-nav ms-auto">
-                                <div class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                        <i class="fas fa-user-circle"></i> Admin
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profil</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Tənzimləmələr</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Çıxış</a></li>
-                                    </ul>
-                                </div>
+                                <form method="POST" action="{{ route('admin.logout') }}" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-danger">
+                                        <i class="fas fa-sign-out-alt"></i> Çıxış
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </nav>

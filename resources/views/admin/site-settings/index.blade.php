@@ -69,24 +69,142 @@
                         @csrf
                         
                         <div class="row">
-                            <!-- Site Title -->
-                            <div class="col-md-6 mb-4">
+                            {{-- Contact Title --}}
+                            <div class="col-md-12 mb-4">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h6 class="card-title mb-0">Contact title</h6>
+                                        <h6 class="card-title mb-0">Contact Title</h6>
                                     </div>
                                     <div class="card-body">
-                                        <div class="mb-3">
-                                            <label class="form-label">Site Title:</label>
-                                            <input type="text" name="title" class="form-control" 
-                                                   value="{{ $settings->title }}" placeholder="Enter contact title">
-                                            <small class="text-muted">This will be used as the contact title of your website</small>
+                                        <ul class="nav nav-tabs" id="contactTitleTabs" role="tablist">
+                                            @foreach($languages as $language)
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link {{ $loop->first ? 'active' : '' }}" 
+                                                            id="tab-title-{{ $language->lang_code }}" 
+                                                            data-bs-toggle="tab" 
+                                                            data-bs-target="#content-title-{{ $language->lang_code }}" 
+                                                            type="button" role="tab">
+                                                        <i class="fas fa-flag"></i> {{ $language->title }}
+                                                    </button>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+
+                                        <div class="tab-content" id="contactTitleTabContent">
+                                            @foreach($languages as $language)
+                                                <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" 
+                                                     id="content-title-{{ $language->lang_code }}" role="tabpanel">
+                                                    <div class="mb-3 mt-3">
+                                                        <label class="form-label">Contact Title ({{ $language->title }})</label>
+                                                        <input type="text" 
+                                                               name="title_{{ $language->lang_code }}" 
+                                                               class="form-control"
+                                                               value="{{ $settings->getTranslation('title', $language->lang_code) }}"
+                                                               placeholder="Contact title in {{ $language->title }}">
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Favicon -->
+                            {{-- Contact Section Content (başlıq və mətn) --}}
+                            <div class="col-md-12 mb-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="card-title mb-0">Contact Section Content</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="nav nav-tabs" id="contactSectionTabs" role="tablist">
+                                            @foreach($languages as $language)
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link {{ $loop->first ? 'active' : '' }}" 
+                                                            id="tab-contact-{{ $language->lang_code }}" 
+                                                            data-bs-toggle="tab" 
+                                                            data-bs-target="#content-contact-{{ $language->lang_code }}" 
+                                                            type="button" role="tab">
+                                                        <i class="fas fa-flag"></i> {{ $language->title }}
+                                                    </button>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+
+                                        <div class="tab-content" id="contactSectionTabContent">
+                                            @foreach($languages as $language)
+                                                <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" 
+                                                     id="content-contact-{{ $language->lang_code }}" role="tabpanel">
+                                                    <div class="row mt-3">
+                                                        <div class="col-md-12">
+                                                            <label class="form-label">Section Text ({{ $language->title }})</label>
+                                                            <textarea name="contact_section_text_{{ $language->lang_code }}" 
+                                                                      class="form-control" rows="3"
+                                                                      placeholder="Text in {{ $language->title }}">{{ $settings->getTranslation('contact_section_text', $language->lang_code) }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Contact Information --}}
+                            <div class="col-md-6 mb-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="card-title mb-0">Contact Information</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label class="form-label">Phone:</label>
+                                            <input type="text" name="phone" class="form-control" 
+                                                   value="{{ $settings->phone }}" placeholder="Phone number">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Email:</label>
+                                            <input type="email" name="email" class="form-control" 
+                                                   value="{{ $settings->email }}" placeholder="Email address">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Contact Section Image --}}
+                            <div class="col-md-6 mb-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="card-title mb-0">Contact Section Image</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        @if($settings->contact_section_image)
+                                            <div class="mb-3">
+                                                <label class="form-label">Current Image:</label>
+                                                <img src="{{ asset('storage/' . $settings->contact_section_image) }}" 
+                                                     alt="Contact Section Image" 
+                                                     class="img-thumbnail" style="max-height: 100px;">
+                                            </div>
+                                        @endif
+                                        <div class="mb-3">
+                                            <label class="form-label">Upload New Image:</label>
+                                            <input type="file" name="contact_section_image" class="form-control" accept="image/*">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Image Alt Text:</label>
+                                            @foreach($languages as $language)
+                                                <div class="input-group mb-2">
+                                                    <span class="input-group-text">{{ strtoupper($language->lang_code) }}</span>
+                                                    <input type="text" name="contact_section_alt_{{ $language->lang_code }}" class="form-control" 
+                                                           value="{{ $settings->getTranslation('contact_section_alt', $language->lang_code) }}" 
+                                                           placeholder="Alt text in {{ $language->title }}">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Favicon --}}
                             <div class="col-md-6 mb-4">
                                 <div class="card">
                                     <div class="card-header">
@@ -111,7 +229,7 @@
                                 </div>
                             </div>
 
-                            <!-- Header Logo -->
+                            {{-- Header Logo --}}
                             <div class="col-md-6 mb-4">
                                 <div class="card">
                                     <div class="card-header">
@@ -134,24 +252,20 @@
                                         
                                         <div class="mb-3">
                                             <label class="form-label">Logo Alt Text:</label>
+                                            @foreach($languages as $language)
                                             <div class="input-group mb-2">
-                                                <span class="input-group-text">EN</span>
-                                                <input type="text" name="header_logo_alt_en" class="form-control" 
-                                                       value="{{ $settings->getTranslation('header_logo_alt', 'en') }}" 
-                                                       placeholder="Alt text in English">
+                                                <span class="input-group-text">{{ strtoupper($language->lang_code) }}</span>
+                                                <input type="text" name="header_logo_alt_{{ $language->lang_code }}" class="form-control" 
+                                                       value="{{ $settings->getTranslation('header_logo_alt', $language->lang_code) }}" 
+                                                       placeholder="Alt text in {{ $language->title }}">
                                             </div>
-                                            <div class="input-group mb-2">
-                                                <span class="input-group-text">AZ</span>
-                                                <input type="text" name="header_logo_alt_az" class="form-control" 
-                                                       value="{{ $settings->getTranslation('header_logo_alt', 'az') }}" 
-                                                       placeholder="Alt text in Azerbaijani">
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Footer Logo -->
+                            {{-- Footer Logo --}}
                             <div class="col-md-6 mb-4">
                                 <div class="card">
                                     <div class="card-header">
@@ -174,141 +288,20 @@
                                         
                                         <div class="mb-3">
                                             <label class="form-label">Logo Alt Text:</label>
-                                            <div class="input-group mb-2">
-                                                <span class="input-group-text">EN</span>
-                                                <input type="text" name="footer_logo_alt_en" class="form-control" 
-                                                       value="{{ $settings->getTranslation('footer_logo_alt', 'en') }}" 
-                                                       placeholder="Alt text in English">
-                                            </div>
-                                            <div class="input-group mb-2">
-                                                <span class="input-group-text">AZ</span>
-                                                <input type="text" name="footer_logo_alt_az" class="form-control" 
-                                                       value="{{ $settings->getTranslation('footer_logo_alt', 'az') }}" 
-                                                       placeholder="Alt text in Azerbaijani">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Contact Information -->
-                            <div class="col-md-6 mb-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h6 class="card-title mb-0">Contact Information</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <label class="form-label">Phone:</label>
-                                            <input type="text" name="phone" class="form-control" 
-                                                   value="{{ $settings->phone }}" placeholder="Phone number">
-                                        </div>
-                                        
-                                        <div class="mb-3">
-                                            <label class="form-label">Email:</label>
-                                            <input type="email" name="email" class="form-control" 
-                                                   value="{{ $settings->email }}" placeholder="Email address">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Contact Section Image -->
-                            <div class="col-md-6 mb-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h6 class="card-title mb-0">Contact Section Image</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        @if($settings->contact_section_image)
-                                            <div class="mb-3">
-                                                <label class="form-label">Current Image:</label>
-                                                <img src="{{ asset('storage/' . $settings->contact_section_image) }}" 
-                                                     alt="Contact Section Image" 
-                                                     class="img-thumbnail" 
-                                                     style="max-height: 100px;">
-                                            </div>
-                                        @endif
-                                        <div class="mb-3">
-                                            <label class="form-label">Upload New Image:</label>
-                                            <input type="file" name="contact_section_image" class="form-control" accept="image/*">
-                                        </div>
-                                        
-                                        <div class="mb-3">
-                                            <label class="form-label">Image Alt Text:</label>
-                                            <div class="input-group mb-2">
-                                                <span class="input-group-text">EN</span>
-                                                <input type="text" name="contact_section_alt_en" class="form-control" 
-                                                       value="{{ $settings->getTranslation('contact_section_alt', 'en') }}" 
-                                                       placeholder="Alt text in English">
-                                            </div>
-                                            <div class="input-group mb-2">
-                                                <span class="input-group-text">AZ</span>
-                                                <input type="text" name="contact_section_alt_az" class="form-control" 
-                                                       value="{{ $settings->getTranslation('contact_section_alt', 'az') }}" 
-                                                       placeholder="Alt text in Azerbaijani">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Contact Section Content -->
-                            <div class="col-md-12 mb-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h6 class="card-title mb-0">Contact Section Content</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <!-- Language Tabs -->
-                                        <ul class="nav nav-tabs" id="contactSectionTabs" role="tablist">
                                             @foreach($languages as $language)
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link {{ $loop->first ? 'active' : '' }}" 
-                                                            id="tab-contact-{{ $language->lang_code }}" 
-                                                            data-bs-toggle="tab" 
-                                                            data-bs-target="#content-contact-{{ $language->lang_code }}" 
-                                                            type="button" 
-                                                            role="tab">
-                                                        <i class="fas fa-flag"></i> {{ $language->title }}
-                                                    </button>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-
-                                        <div class="tab-content" id="contactSectionTabContent">
-                                            @foreach($languages as $language)
-                                                <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" 
-                                                     id="content-contact-{{ $language->lang_code }}" 
-                                                     role="tabpanel">
-                                                    
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Section Title ({{ $language->title }}) <span class="text-danger">*</span></label>
-                                                                <input type="text" 
-                                                                       name="contact_section_title_{{ $language->lang_code }}" 
-                                                                       class="form-control"
-                                                                       value="{{ $settings->getTranslation('contact_section_title', $language->lang_code) }}"
-                                                                       placeholder="Title in {{ $language->title }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Section Text ({{ $language->title }})</label>
-                                                                <textarea name="contact_section_text_{{ $language->lang_code }}" 
-                                                                          class="form-control" 
-                                                                          rows="3"
-                                                                          placeholder="Text in {{ $language->title }}">{{ $settings->getTranslation('contact_section_text', $language->lang_code) }}</textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div class="input-group mb-2">
+                                                <span class="input-group-text">{{ strtoupper($language->lang_code) }}</span>
+                                                <input type="text" name="footer_logo_alt_{{ $language->lang_code }}" class="form-control" 
+                                                       value="{{ $settings->getTranslation('footer_logo_alt', $language->lang_code) }}" 
+                                                       placeholder="Alt text in {{ $language->title }}">
+                                            </div>
                                             @endforeach
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
 
                         <!-- Submit Button -->

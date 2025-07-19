@@ -26,6 +26,7 @@ class SiteSetting extends Model
     ];
 
     public $translatable = [
+        'title',
         'header_logo_alt',
         'footer_logo_alt',
         'contact_section_alt',

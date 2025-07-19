@@ -107,8 +107,6 @@
 <!-- JS  -->
 <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/modernizer.min.js') }}"></script>
-<!-- SweetAlert2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <script src="{{ asset('assets/js/vendor/feather.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/slick.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/bootstrap.js') }}"></script>
@@ -117,8 +115,94 @@
 <script src="{{ asset('assets/js/vendor/aos.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/particles.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/jquery-one-page-nav.js') }}"></script>
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <!-- main JS -->
 <script src="{{ asset('assets/js/main.js') }}"></script> <!-- script end -->
 
+<!-- Ensure jQuery is loaded before any scripts -->
+<script>
+if (typeof jQuery === 'undefined') {
+    console.error('jQuery is not loaded!');
+} else {
+    console.log('jQuery loaded successfully');
+}
+</script>
+
 @stack('scripts')
+
+<!-- Custom Mobile Menu JavaScript -->
+<script>
+$(document).ready(function() {
+    // Mobile menu toggle
+    $('.mobile-menu-toggle').on('click', function() {
+        $('.custom-mobile-menu').addClass('active');
+        $('body').addClass('menu-open');
+    });
+    
+    // Close mobile menu
+    $('.mobile-menu-close, .mobile-menu-overlay').on('click', function() {
+        $('.custom-mobile-menu').removeClass('active');
+        $('body').removeClass('menu-open');
+    });
+    
+    // Close menu when clicking on menu items
+    $('.mobile-menu-list a').on('click', function() {
+        $('.custom-mobile-menu').removeClass('active');
+        $('body').removeClass('menu-open');
+    });
+    
+    // Close menu when clicking outside
+    $(document).on('click', function(e) {
+        if ($(e.target).closest('.custom-mobile-menu').length === 0 && 
+            $(e.target).closest('.mobile-menu-toggle').length === 0) {
+            $('.custom-mobile-menu').removeClass('active');
+            $('body').removeClass('menu-open');
+        }
+    });
+    
+    // Smooth scroll for navigation links
+    $('a[href^="#"]').on('click', function(e) {
+        e.preventDefault();
+        
+        var target = $(this.getAttribute('href'));
+        if (target.length) {
+                    $('html, body').animate({
+            scrollTop: target.offset().top - 100 // Offset for fixed header
+        }, {
+            duration: 2000,
+            easing: 'easeInOutQuart',
+            queue: false
+        });
+            
+            // Update URL hash
+            window.location.hash = this.getAttribute('href');
+        }
+    });
+    
+    // Active navigation highlighting
+    $(window).on('scroll', function() {
+        var scrollDistance = $(window).scrollTop();
+        
+        // Header scroll effect - make fixed when scrolling
+        if (scrollDistance > 100) {
+            $('.rn-header').addClass('scrolled');
+            $('body').addClass('header-fixed');
+        } else {
+            $('.rn-header').removeClass('scrolled');
+            $('body').removeClass('header-fixed');
+        }
+        
+        $('section[id]').each(function(i) {
+            if ($(this).position().top - 100 <= scrollDistance) {
+                $('.primary-menu .nav-link.active').removeClass('active');
+                $('.primary-menu .nav-link[href="#' + $(this).attr('id') + '"]').addClass('active');
+            }
+        });
+    });
+    
+    // Initialize header state on page load
+    $(window).trigger('scroll');
+});
+</script>
 
