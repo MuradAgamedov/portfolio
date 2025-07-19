@@ -66,18 +66,24 @@
         smothScroll: function () {
             $(document).on('click', '.smoth-animation', function (event) {
                 event.preventDefault();
-                $('html, body').animate({
-                    scrollTop: $($.attr(this, 'href')).offset().top - 50
-                }, 300);
+                var target = $($.attr(this, 'href'));
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 50
+                    }, 300);
+                }
             });
         },
         // two scroll spy
         smothScroll_Two: function () {
             $(document).on('click', '.smoth-animation-two', function (event) {
                 event.preventDefault();
-                $('html, body').animate({
-                    scrollTop: $($.attr(this, 'href')).offset().top - 0
-                }, 300);
+                var target = $($.attr(this, 'href'));
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 0
+                    }, 300);
+                }
             });
         },
 
@@ -407,8 +413,7 @@
             //Click event to scroll to top
             $(scrollTop).on('click', function () {
                 $('html, body').animate({
-                    scrollTop: 0,
-                    easingType: 'linear',
+                    scrollTop: 0
                 }, 500);
                 return false;
             });
