@@ -5,7 +5,7 @@
         <div class="col-lg-2 col-6">
             <div class="header-left">
                 <div class="logo">
-                    <a href="{{ route('home') }}" title="{{__("Go to homepage")}}">
+                    <a href="{{ route('home') }}" title="{{__("Sayt hazırlanması")}}">
                         @php
                             $headerLogo = \App\Models\SiteSetting::getByKey('header_logo');
                             $headerLogoAlt = \App\Models\SiteSetting::getByKey('header_logo_alt');
@@ -100,7 +100,7 @@
         
         <nav class="mobile-nav">
             <ul class="mobile-menu-list">
-                <li><a href="#home" title="{{__("Go to Home section - Let's get to know me")}}">{{__("LET'S KNOW ME")}}</a></li>
+                <li><a href="#home" title="{{__("Let's get to know me")}}">{{__("LET'S KNOW ME")}}</a></li>
                 <li><a href="#features" title="{{__("View my services and what I offer")}}">{{__("SERVICES")}}</a></li>
                 <li><a href="#resume" title="{{__("Check out my resume, education and experience")}}">{{__("RESUME")}}</a></li>
                 <li><a href="#contacts" title="{{__("Get in touch with me - Contact information")}}">{{__("CONTACTS")}}</a></li>
