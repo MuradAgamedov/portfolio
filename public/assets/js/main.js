@@ -107,24 +107,8 @@
                 nextArrow: '<button class="slide-arrow next-arrow"><i class="feather-arrow-right"></i></button>'
             });
 
-            // Certificates Slider
-            if ($('.certificates-slider').length > 0) {
-                $('.certificates-slider').slick({
-                    infinite: true,
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    dots: true,
-                    arrows: true,
-                    cssEase: 'linear',
-                    adaptiveHeight: false,
-                    autoplay: true,
-                    autoplaySpeed: 5000,
-                    pauseOnHover: true,
-                    fade: true,
-                    prevArrow: '<button class="slide-arrow prev-arrow"><i class="feather-arrow-left"></i></button>',
-                    nextArrow: '<button class="slide-arrow next-arrow"><i class="feather-arrow-right"></i></button>'
-                });
-            }
+            // Custom Certificates Slider
+            imJs.customCertificatesSlider();
 
             $('.testimonial-item-one').slick({
                 infinite: true,
@@ -292,7 +276,77 @@
         },
 
         featherAtcivation: function () {
-            feather.replace()
+            feather.replace();
+        },
+
+        customCertificatesSlider: function () {
+            const slider = $('.custom-certificates-slider');
+            if (slider.length === 0) return;
+
+            const slides = slider.find('.certificate-slide');
+            const dots = slider.find('.dot');
+            const prevBtn = slider.find('#prevBtn');
+            const nextBtn = slider.find('#nextBtn');
+            
+            let currentSlide = 0;
+            let autoplayInterval;
+
+            function showSlide(index) {
+                // Hide all slides
+                slides.removeClass('active');
+                dots.removeClass('active');
+                
+                // Show current slide
+                slides.eq(index).addClass('active');
+                dots.eq(index).addClass('active');
+                
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                const nextIndex = (currentSlide + 1) % slides.length;
+                showSlide(nextIndex);
+            }
+
+            function prevSlide() {
+                const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(prevIndex);
+            }
+
+            function startAutoplay() {
+                autoplayInterval = setInterval(nextSlide, 4000);
+            }
+
+            function stopAutoplay() {
+                clearInterval(autoplayInterval);
+            }
+
+            // Event listeners
+            nextBtn.on('click', function() {
+                stopAutoplay();
+                nextSlide();
+                startAutoplay();
+            });
+
+            prevBtn.on('click', function() {
+                stopAutoplay();
+                prevSlide();
+                startAutoplay();
+            });
+
+            dots.on('click', function() {
+                const slideIndex = $(this).data('slide');
+                stopAutoplay();
+                showSlide(slideIndex);
+                startAutoplay();
+            });
+
+            // Hover events
+            slider.on('mouseenter', stopAutoplay);
+            slider.on('mouseleave', startAutoplay);
+
+            // Start autoplay
+            startAutoplay();
         },
 
 

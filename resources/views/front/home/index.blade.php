@@ -319,26 +319,43 @@
         <div class="row">
             <div class="col-lg-12">
                 @if($certificates->count() > 0)
-                    <div class="certificates-slider">
-                        @foreach($certificates as $certificate)
-                        <!-- Start Single Certificate -->
-                        <div class="certificate-slide">
-                            <div class="certificate-card">
-                                <div class="inner">
-                                    <div class="certificate-image">
-                                        <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" 
-                                             alt="{{$certificate->getImageAltText()}}">
-                                    </div>
-                                    <div class="certificate-content">
-                                        <h3 class="title">{{$certificate->getTitle()}}</h3>
-                                        <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
-                                        <p class="description">{{ $certificate->getDescription() }}</p>
+                    <div class="custom-certificates-slider">
+                        <div class="slider-container">
+                            @foreach($certificates as $index => $certificate)
+                            <!-- Start Single Certificate -->
+                            <div class="certificate-slide {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}">
+                                <div class="certificate-card">
+                                    <div class="inner">
+                                        <div class="certificate-image">
+                                            <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" 
+                                                 alt="{{$certificate->getImageAltText()}}">
+                                        </div>
+                                        <div class="certificate-content">
+                                            <h3 class="title">{{$certificate->getTitle()}}</h3>
+                                            <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
+                                            <p class="description">{{ $certificate->getDescription() }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- End Single Certificate -->
+                            @endforeach
                         </div>
-                        <!-- End Single Certificate -->
-                        @endforeach
+                        
+                        <!-- Navigation -->
+                        <button class="slider-nav prev-btn" id="prevBtn">
+                            <i class="feather-arrow-left"></i>
+                        </button>
+                        <button class="slider-nav next-btn" id="nextBtn">
+                            <i class="feather-arrow-right"></i>
+                        </button>
+                        
+                        <!-- Dots -->
+                        <div class="slider-dots">
+                            @foreach($certificates as $index => $certificate)
+                            <button class="dot {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}"></button>
+                            @endforeach
+                        </div>
                     </div>
                 @else
                     <div class="text-center mt--50">

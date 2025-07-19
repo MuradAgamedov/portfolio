@@ -547,15 +547,28 @@
         margin: 0 auto !important;
     }
     
-    /* Certificate Slider Styles */
-    .certificates-slider {
+    /* Custom Certificate Slider Styles */
+    .custom-certificates-slider {
         margin-top: 50px;
         position: relative;
         padding: 0 60px;
     }
     
+    .slider-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+    }
+    
     .certificate-slide {
-        padding: 0 15px;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+    
+    .certificate-slide.active {
+        display: block;
+        opacity: 1;
     }
     
     .certificate-card {
@@ -654,7 +667,10 @@
     }
     
     /* Custom Slider Navigation */
-    .certificates-slider .slide-arrow {
+    .slider-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         width: 50px;
         height: 50px;
         background: #212428;
@@ -664,63 +680,59 @@
         font-size: 18px;
         transition: all 0.3s ease;
         z-index: 10;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
+        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer;
     }
     
-    .certificates-slider .slide-arrow:hover {
+    .slider-nav:hover {
         background: #dc3545;
         color: white;
         border-color: #dc3545;
         transform: translateY(-50%) scale(1.1);
     }
     
-    .certificates-slider .prev-arrow {
+    .slider-nav.prev-btn {
         left: -60px;
     }
     
-    .certificates-slider .next-arrow {
+    .slider-nav.next-btn {
         right: -60px;
     }
     
-    .certificates-slider .slick-dots {
-        bottom: -40px;
+    /* Custom Slider Dots */
+    .slider-dots {
         position: absolute;
-        width: 100%;
-        text-align: center;
-        list-style: none;
-        margin: 0;
-        padding: 0;
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 10;
     }
     
-    .certificates-slider .slick-dots li {
-        display: inline-block;
-        margin: 0 5px;
-    }
-    
-    .certificates-slider .slick-dots li button {
-        background: transparent;
-        border: none;
-        color: #dc3545;
-        font-size: 12px;
-        opacity: 0.3;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        width: 10px;
-        height: 10px;
+    .dot {
+        width: 12px;
+        height: 12px;
         border-radius: 50%;
-        background: #dc3545;
+        background: rgba(220, 53, 69, 0.3);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
     }
     
-    .certificates-slider .slick-dots li.slick-active button {
-        opacity: 1;
+    .dot.active {
+        background: #dc3545;
         transform: scale(1.2);
     }
+    
+    .dot:hover {
+        background: #dc3545;
+        transform: scale(1.1);
+    }
+    
+
     
     /* Responsive adjustments */
     @media (max-width: 768px) {
@@ -754,15 +766,15 @@
             font-size: 14px;
         }
         
-        .certificates-slider {
+        .custom-certificates-slider {
             padding: 0 40px;
         }
         
-        .certificates-slider .prev-arrow {
+        .slider-nav.prev-btn {
             left: -40px;
         }
         
-        .certificates-slider .next-arrow {
+        .slider-nav.next-btn {
             right: -40px;
         }
     }
