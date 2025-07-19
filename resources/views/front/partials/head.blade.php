@@ -523,6 +523,19 @@
         margin-right: 15px;
     }
     
+    /* Footer Copyright Styles */
+    .footer-copyright a span {
+        color: #dc3545 !important;
+        font-weight: 600 !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .footer-copyright a:hover span {
+        color: #c82333 !important;
+        transform: scale(1.05) !important;
+    }
+    
     .language-switcher .btn {
         background: transparent;
         border: 1px solid rgba(255,255,255,0.3);
