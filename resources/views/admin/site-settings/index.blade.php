@@ -69,20 +69,22 @@
                         @csrf
                         
                         <div class="row">
-                            {{-- Contact Title --}}
+
+
+                            {{-- Contact Section Content (başlıq və mətn) --}}
                             <div class="col-md-12 mb-4">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h6 class="card-title mb-0">Contact Title</h6>
+                                        <h6 class="card-title mb-0">Contact Section Content</h6>
                                     </div>
                                     <div class="card-body">
-                                        <ul class="nav nav-tabs" id="contactTitleTabs" role="tablist">
+                                        <ul class="nav nav-tabs" id="contactSectionTabs" role="tablist">
                                             @foreach($languages as $language)
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link {{ $loop->first ? 'active' : '' }}" 
-                                                            id="tab-title-{{ $language->lang_code }}" 
+                                                            id="tab-contact-{{ $language->lang_code }}" 
                                                             data-bs-toggle="tab" 
-                                                            data-bs-target="#content-title-{{ $language->lang_code }}" 
+                                                            data-bs-target="#content-contact-{{ $language->lang_code }}" 
                                                             type="button" role="tab">
                                                         <i class="fas fa-flag"></i> {{ $language->title }}
                                                     </button>
@@ -90,17 +92,25 @@
                                             @endforeach
                                         </ul>
 
-                                        <div class="tab-content" id="contactTitleTabContent">
+                                        <div class="tab-content" id="contactSectionTabContent">
                                             @foreach($languages as $language)
                                                 <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" 
-                                                     id="content-title-{{ $language->lang_code }}" role="tabpanel">
-                                                    <div class="mb-3 mt-3">
-                                                        <label class="form-label">Contact Title ({{ $language->title }})</label>
-                                                        <input type="text" 
-                                                               name="title_{{ $language->lang_code }}" 
-                                                               class="form-control"
-                                                               value="{{ $settings->getTranslation('title', $language->lang_code) }}"
-                                                               placeholder="Contact title in {{ $language->title }}">
+                                                     id="content-contact-{{ $language->lang_code }}" role="tabpanel">
+                                                    <div class="row mt-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Section Title ({{ $language->title }})</label>
+                                                            <input type="text" 
+                                                                   name="contact_section_title_{{ $language->lang_code }}" 
+                                                                   class="form-control"
+                                                                   value="{{ $settings->getTranslation('contact_section_title', $language->lang_code) }}"
+                                                                   placeholder="Title in {{ $language->title }}">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Section Text ({{ $language->title }})</label>
+                                                            <textarea name="contact_section_text_{{ $language->lang_code }}" 
+                                                                      class="form-control" rows="3"
+                                                                      placeholder="Text in {{ $language->title }}">{{ $settings->getTranslation('contact_section_text', $language->lang_code) }}</textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -108,9 +118,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            {{-- Contact Section Content (başlıq və mətn) --}}
-                   
 
                             {{-- Contact Information --}}
                             <div class="col-md-6 mb-4">
