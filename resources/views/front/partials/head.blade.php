@@ -551,6 +551,22 @@
     .certificates-slider {
         margin-top: 50px;
         position: relative;
+        padding: 0 60px;
+    }
+    
+    .certificates-slider .slick-track {
+        display: flex;
+        align-items: stretch;
+    }
+    
+    .certificates-slider .slick-slide {
+        height: auto;
+        display: flex;
+    }
+    
+    .certificates-slider .slick-slide > div {
+        display: flex;
+        height: 100%;
     }
     
     .certificate-slide {
@@ -651,8 +667,7 @@
     }
     
     /* Custom Slider Navigation */
-    .certificates-slider .slick-prev,
-    .certificates-slider .slick-next {
+    .certificates-slider .slide-arrow {
         width: 50px;
         height: 50px;
         background: #212428;
@@ -662,36 +677,60 @@
         font-size: 18px;
         transition: all 0.3s ease;
         z-index: 10;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
     }
     
-    .certificates-slider .slick-prev:hover,
-    .certificates-slider .slick-next:hover {
+    .certificates-slider .slide-arrow:hover {
         background: #dc3545;
         color: white;
         border-color: #dc3545;
-        transform: scale(1.1);
+        transform: translateY(-50%) scale(1.1);
     }
     
-    .certificates-slider .slick-prev {
+    .certificates-slider .prev-arrow {
         left: -60px;
     }
     
-    .certificates-slider .slick-next {
+    .certificates-slider .next-arrow {
         right: -60px;
     }
     
     .certificates-slider .slick-dots {
         bottom: -40px;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        list-style: none;
+        margin: 0;
+        padding: 0;
     }
     
-    .certificates-slider .slick-dots li button:before {
+    .certificates-slider .slick-dots li {
+        display: inline-block;
+        margin: 0 5px;
+    }
+    
+    .certificates-slider .slick-dots li button {
+        background: transparent;
+        border: none;
         color: #dc3545;
         font-size: 12px;
         opacity: 0.3;
         transition: all 0.3s ease;
+        cursor: pointer;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #dc3545;
     }
     
-    .certificates-slider .slick-dots li.slick-active button:before {
+    .certificates-slider .slick-dots li.slick-active button {
         opacity: 1;
         transform: scale(1.2);
     }
@@ -710,11 +749,15 @@
             font-size: 14px;
         }
         
-        .certificates-slider .slick-prev {
+        .certificates-slider {
+            padding: 0 40px;
+        }
+        
+        .certificates-slider .prev-arrow {
             left: -40px;
         }
         
-        .certificates-slider .slick-next {
+        .certificates-slider .next-arrow {
             right: -40px;
         }
     }
