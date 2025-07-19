@@ -540,9 +540,11 @@
     
     /* Service Icons Height */
     .rn-service .inner .icon img {
-        height: 80px !important;
+        height: 120px !important;
         width: auto !important;
         object-fit: contain !important;
+        display: block !important;
+        margin: 0 auto !important;
     }
     
     .language-switcher .btn {
