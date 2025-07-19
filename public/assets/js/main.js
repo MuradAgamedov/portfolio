@@ -60,7 +60,6 @@
             imJs.activePopupDemo();
             imJs.onePageNav();
             imJs.certificateModal();
-            imJs.fixTypingAnimation();
         },
 
         
@@ -543,59 +542,7 @@
             // Navbar links will work with simple #id navigation
         },
 
-        fixTypingAnimation: function () {
-            // Fix typing animation when scrolling
-            let typingAnimation = null;
-            
-            function restartTypingAnimation() {
-                if (typingAnimation) {
-                    clearTimeout(typingAnimation);
-                }
-                
-                // Reset typing animation
-                $('.cd-headline .cd-words-wrapper b').removeClass('is-visible is-hidden').addClass('is-hidden');
-                $('.cd-headline .cd-words-wrapper b:first').removeClass('is-hidden').addClass('is-visible');
-                
-                // Restart animation after a short delay
-                typingAnimation = setTimeout(function() {
-                    // Trigger the typing animation again
-                    $('.cd-headline').each(function() {
-                        var $headline = $(this);
-                        var $wordsWrapper = $headline.find('.cd-words-wrapper');
-                        var $words = $wordsWrapper.find('b');
-                        
-                        if ($words.length > 1) {
-                            // Simple typing animation restart
-                            var currentIndex = 0;
-                            
-                            function showNextWord() {
-                                $words.removeClass('is-visible').addClass('is-hidden');
-                                $words.eq(currentIndex).removeClass('is-hidden').addClass('is-visible');
-                                currentIndex = (currentIndex + 1) % $words.length;
-                            }
-                            
-                            // Start the animation
-                            showNextWord();
-                            
-                            // Set interval for word changes
-                            setInterval(showNextWord, 3000);
-                        }
-                    });
-                }, 100);
-            }
-            
-            // Restart animation when page loads
-            $(document).ready(function() {
-                restartTypingAnimation();
-            });
-            
-            // Restart animation when scrolling to top
-            $(window).scroll(function() {
-                if ($(window).scrollTop() < 100) {
-                    restartTypingAnimation();
-                }
-            });
-        },
+
 
     }
     imJs.m();
