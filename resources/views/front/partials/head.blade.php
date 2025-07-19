@@ -538,6 +538,13 @@
         transform: scale(1.05) !important;
     }
     
+    /* Service Icons Height */
+    .rn-service .inner .icon img {
+        height: 80px !important;
+        width: auto !important;
+        object-fit: contain !important;
+    }
+    
     .language-switcher .btn {
         background: transparent;
         border: 1px solid rgba(255,255,255,0.3);
