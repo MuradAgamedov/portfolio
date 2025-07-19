@@ -19,10 +19,24 @@
                         </a>
                     </div>
 
-                    <p class="description mt--30">
+                    <p class="description mt--30 footer-copyright">
                         © <script>document.write(new Date().getFullYear());</script>
                         {!! __("All rights reserved by <a target='_blank' href='https://muraddev.com'>Parv infotech.</a>") !!}
                     </p>
+
+                    <style>
+                        .footer-copyright a span {
+                            color: #dc3545 !important;
+                            font-weight: 600 !important;
+                            text-decoration: none !important;
+                            transition: all 0.3s ease !important;
+                        }
+                        
+                        .footer-copyright a:hover span {
+                            color: #c82333 !important;
+                            transform: scale(1.05) !important;
+                        }
+                    </style>
 
                 </div>
             </div>
