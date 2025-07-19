@@ -504,7 +504,6 @@
                 scrollSpeed: 800,
                 scrollThreshold: 0.5,
                 filter: ':not(.external)',
-                easing: 'easeInOutCubic',
                 scrollChange: function($currentListItem) {
                     // Remove active class from all nav items
                     $('.onepagenav .nav-link').removeClass('active');
