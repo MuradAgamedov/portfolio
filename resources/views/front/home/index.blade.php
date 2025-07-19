@@ -326,10 +326,8 @@
                             <div class="card-info">
                                 <div class="card-thumbnail">
                                      <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" alt="{{$certificate->getImageAltText()}}">
-                                 
                                 </div>
-                                    <span class="title">{{$certificate->getTitle()}}</h3>
-                      
+                                <span class="title">{{$certificate->getTitle()}}</span>
                             </div>
                             <div class="card-description">
                                 <div class="title-area">
@@ -1571,19 +1569,6 @@ $(document).ready(function() {
     $('#contact-form').on('submit', function(e) {
         e.preventDefault();
         
-        // Check reCAPTCHA
-        var recaptchaResponse = grecaptcha.getResponse();
-        if (!recaptchaResponse) {
-            Swal.fire({
-                icon: 'error',
-                title: '{{__("Error!")}}',
-                text: '{{__("Please complete the reCAPTCHA verification.")}}',
-                confirmButtonText: '{{__("OK")}}',
-                confirmButtonColor: '#dc3545'
-            });
-            return;
-        }
-        
         // Get form data
         var formData = new FormData(this);
         
@@ -1613,9 +1598,8 @@ $(document).ready(function() {
                     confirmButtonColor: '#667eea'
                 });
                 
-                // Reset form and reCAPTCHA
+                // Reset form
                 $('#contact-form')[0].reset();
-                grecaptcha.reset();
                 
                 // Reset button
                 submitBtn.html(originalText);
@@ -1644,9 +1628,6 @@ $(document).ready(function() {
                     confirmButtonText: '{{__("OK")}}',
                     confirmButtonColor: '#dc3545'
                 });
-                
-                // Reset reCAPTCHA
-                grecaptcha.reset();
                 
                 // Reset button
                 submitBtn.html(originalText);
