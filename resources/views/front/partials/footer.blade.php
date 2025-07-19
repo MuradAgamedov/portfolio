@@ -18,6 +18,10 @@
                             @endif
                         </a>
                     </div>
+                    
+                    <div class="footer-name" style="text-align: center; margin-bottom: 20px;">
+                        <h3 style="color: #ffffff; font-size: 24px; font-weight: 600; margin: 0; letter-spacing: 1px;">Murad Agamedov</h3>
+                    </div>
 
                     <p class="description mt--30 footer-copyright">
                         © <script>document.write(new Date().getFullYear());</script>
