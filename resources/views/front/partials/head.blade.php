@@ -145,22 +145,7 @@
         color: #dc3545 !important;
     }
     
-    /* Keep colors when header is scrolled */
-    .rn-header.scrolled .primary-menu .nav-item .nav-link {
-        color: #ffffff !important;
-    }
-    
-    .rn-header.scrolled .primary-menu .nav-item .nav-link:hover {
-        color: #dc3545 !important;
-    }
-    
-    .rn-header.scrolled .mobile-menu-toggle span {
-        background-color: #fff;
-    }
-    
-    .rn-header.scrolled .mobile-menu-toggle:hover span {
-        background-color: #dc3545;
-    }
+
     
     /* Custom Mobile Menu Toggle */
     .mobile-menu-toggle {
@@ -427,9 +412,9 @@
         left: 0;
         right: 0;
         z-index: 9999;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        background: transparent;
+        backdrop-filter: none;
+        box-shadow: none;
     }
     
     /* Add padding to body when header is fixed */
@@ -494,30 +479,7 @@
         font-size: 16px;
     }
     
-    /* Keep language switcher colors when scrolled */
-    .rn-header.scrolled .language-switcher .btn {
-        background: transparent;
-        border: 1px solid rgba(255,255,255,0.3);
-        color: white;
-    }
-    
-    .rn-header.scrolled .language-switcher .btn:hover {
-        background: rgba(255,255,255,0.1);
-        border-color: rgba(255,255,255,0.5);
-        color: white;
-    }
-    
-    /* Keep buy now button colors when scrolled */
-    .rn-header.scrolled .buy-now-btn {
-        background-color: #343a40 !important;
-        color: #dc3545 !important;
-        border: 1px solid #dc3545 !important;
-    }
-    
-    .rn-header.scrolled .buy-now-btn:hover {
-        background-color: #dc3545 !important;
-        color: white !important;
-    }
+
     
     /* Mobile responsive */
     @media (max-width: 768px) {
