@@ -625,6 +625,98 @@
         width: 100%;
         height: 300px;
         object-fit: cover;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+    }
+    
+    .certificate-card .certificate-image img:hover {
+        opacity: 0.8;
+    }
+    
+    /* Certificate Modal Styles */
+    .certificate-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .certificate-modal.active {
+        display: flex;
+    }
+    
+    .modal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+    }
+    
+    .modal-content {
+        position: relative;
+        background: #212428;
+        border-radius: 15px;
+        max-width: 90%;
+        max-height: 90%;
+        width: auto;
+        height: auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+    }
+    
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 25px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .modal-title {
+        color: #ffffff;
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0;
+    }
+    
+    .modal-close {
+        background: transparent;
+        border: none;
+        color: #c4cfde;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .modal-close:hover {
+        background: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+    }
+    
+    .modal-body {
+        padding: 25px;
+        text-align: center;
+    }
+    
+    .modal-image {
+        max-width: 100%;
+        max-height: 70vh;
+        object-fit: contain;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
     
     .certificate-card .certificate-content {

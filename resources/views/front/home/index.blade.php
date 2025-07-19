@@ -326,10 +326,13 @@
                             <div class="certificate-slide {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}">
                                 <div class="certificate-card">
                                     <div class="inner">
-                                        <div class="certificate-image">
-                                            <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" 
-                                                 alt="{{$certificate->getImageAltText()}}">
-                                        </div>
+                                                                            <div class="certificate-image">
+                                        <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" 
+                                             alt="{{$certificate->getImageAltText()}}"
+                                             class="certificate-modal-trigger"
+                                             data-image="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}"
+                                             data-title="{{$certificate->getTitle()}}">
+                                    </div>
                                         <div class="certificate-content">
                                             <h3 class="title">{{$certificate->getTitle()}}</h3>
                                             <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
@@ -371,6 +374,24 @@
     </div>
 </div>
 <!-- End Certificates Area -->
+
+<!-- Certificate Modal -->
+<div id="certificateModal" class="certificate-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title"></h3>
+            <button class="modal-close" id="closeModal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img class="modal-image" src="" alt="Certificate">
+        </div>
+    </div>
+</div>
 
 <!-- Start Client Area -->
 <div class="rn-client-area rn-section-gap section-separator" id="clients">

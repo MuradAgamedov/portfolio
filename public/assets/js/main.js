@@ -347,6 +347,45 @@
             startAutoplay();
         },
 
+        certificateModal: function () {
+            const modal = $('#certificateModal');
+            const modalImage = modal.find('.modal-image');
+            const modalTitle = modal.find('.modal-title');
+            const closeBtn = $('#closeModal');
+            const overlay = modal.find('.modal-overlay');
+
+            // Open modal when certificate image is clicked
+            $(document).on('click', '.certificate-modal-trigger', function(e) {
+                e.preventDefault();
+                const imageSrc = $(this).data('image');
+                const title = $(this).data('title');
+                
+                modalImage.attr('src', imageSrc);
+                modalTitle.text(title);
+                modal.addClass('active');
+                $('body').css('overflow', 'hidden');
+            });
+
+            // Close modal functions
+            function closeModal() {
+                modal.removeClass('active');
+                $('body').css('overflow', 'auto');
+            }
+
+            // Close on button click
+            closeBtn.on('click', closeModal);
+
+            // Close on overlay click
+            overlay.on('click', closeModal);
+
+            // Close on ESC key
+            $(document).on('keydown', function(e) {
+                if (e.key === 'Escape' && modal.hasClass('active')) {
+                    closeModal();
+                }
+            });
+        },
+
 
         backToTopInit: function () {
             // declare variable
