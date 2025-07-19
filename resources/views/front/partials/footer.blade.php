@@ -167,13 +167,13 @@ $(document).ready(function() {
         
         var target = $(this.getAttribute('href'));
         if (target.length) {
-            $('html, body').animate({
-                scrollTop: target.offset().top - 80 // Offset for fixed header
-            }, {
-                duration: 2000,
-                easing: 'easeInOutQuart',
-                queue: false
-            });
+                    $('html, body').animate({
+            scrollTop: target.offset().top - 100 // Offset for fixed header
+        }, {
+            duration: 2000,
+            easing: 'easeInOutQuart',
+            queue: false
+        });
             
             // Update URL hash
             window.location.hash = this.getAttribute('href');
@@ -184,6 +184,13 @@ $(document).ready(function() {
     $(window).on('scroll', function() {
         var scrollDistance = $(window).scrollTop();
         
+        // Fixed header scroll effect
+        if (scrollDistance > 50) {
+            $('.rn-header').addClass('scrolled');
+        } else {
+            $('.rn-header').removeClass('scrolled');
+        }
+        
         $('section[id]').each(function(i) {
             if ($(this).position().top - 100 <= scrollDistance) {
                 $('.primary-menu .nav-link.active').removeClass('active');
@@ -191,6 +198,9 @@ $(document).ready(function() {
             }
         });
     });
+    
+    // Initialize header state on page load
+    $(window).trigger('scroll');
 });
 </script>
 
