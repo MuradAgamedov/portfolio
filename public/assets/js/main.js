@@ -504,18 +504,28 @@
         },
 
         onePageNav: function () {
-            $('.onepagenav').onePageNav({
-                currentClass: 'current',
-                changeHash: false,
-                scrollSpeed: 800,
-                scrollThreshold: 0.5,
-                filter: ':not(.external)',
-                scrollChange: function($currentListItem) {
-                    // Remove active class from all nav items
-                    $('.onepagenav .nav-link').removeClass('active');
-                    // Add active class to current item
-                    $currentListItem.find('.nav-link').addClass('active');
+            // Simple smooth scrolling for navbar links
+            $('.onepagenav a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                
+                var target = $(this.getAttribute('href'));
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 80
+                    }, 800);
                 }
+            });
+            
+            // Simple active state management
+            $(window).scroll(function() {
+                var scrollDistance = $(window).scrollTop();
+                
+                $('section[id]').each(function(i) {
+                    if ($(this).position().top - 100 <= scrollDistance) {
+                        $('.onepagenav .nav-link.active').removeClass('active');
+                        $('.onepagenav a[href="#' + $(this).attr('id') + '"]').addClass('active');
+                    }
+                });
             });
         },
 
