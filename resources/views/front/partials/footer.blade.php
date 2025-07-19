@@ -160,6 +160,37 @@ $(document).ready(function() {
             $('body').removeClass('menu-open');
         }
     });
+    
+    // Smooth scroll for navigation links
+    $('a[href^="#"]').on('click', function(e) {
+        e.preventDefault();
+        
+        var target = $(this.getAttribute('href'));
+        if (target.length) {
+            $('html, body').animate({
+                scrollTop: target.offset().top - 80 // Offset for fixed header
+            }, {
+                duration: 2000,
+                easing: 'easeInOutQuart',
+                queue: false
+            });
+            
+            // Update URL hash
+            window.location.hash = this.getAttribute('href');
+        }
+    });
+    
+    // Active navigation highlighting
+    $(window).on('scroll', function() {
+        var scrollDistance = $(window).scrollTop();
+        
+        $('section[id]').each(function(i) {
+            if ($(this).position().top - 100 <= scrollDistance) {
+                $('.primary-menu .nav-link.active').removeClass('active');
+                $('.primary-menu .nav-link[href="#' + $(this).attr('id') + '"]').addClass('active');
+            }
+        });
+    });
 });
 </script>
 

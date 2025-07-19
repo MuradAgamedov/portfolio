@@ -25,14 +25,35 @@
             <div class="header-center">
                 <nav class="mainmenu-nav">
                     <ul class="primary-menu">
-                        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#resume">Resume</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contacts</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#home">{{__("Home")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#features">{{__("Services")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#resume">{{__("Resume")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contacts">{{__("Contacts")}}</a></li>
                     </ul>
                 </nav>
                 <!-- Start Header Right  -->
                 <div class="header-right">
+                    <!-- Language Switcher -->
+                    <div class="language-switcher">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-globe"></i>
+                                <span class="current-lang">{{ strtoupper(app()->getLocale()) }}</span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                                @foreach(\App\Models\Language::where('status', 1)->orderBy('order')->get() as $language)
+                                    <li>
+                                        <a class="dropdown-item {{ app()->getLocale() == $language->lang_code ? 'active' : '' }}" 
+                                           href="{{ route('language.switch', $language->lang_code) }}">
+                                            <span class="flag-icon flag-icon-{{ $language->lang_code }}"></span>
+                                            {{ strtoupper($language->lang_code) }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
                     <!-- BUY NOW Button -->
                     <a class="rn-btn buy-now-btn" href="#"><span>BUY NOW</span></a>
 
@@ -77,10 +98,10 @@
         
         <nav class="mobile-nav">
             <ul class="mobile-menu-list">
-                <li><a href="#home">HOME</a></li>
-                <li><a href="#portfolio">PORTFOLIO</a></li>
-                <li><a href="#resume">RESUME</a></li>
-                <li><a href="#contact">CONTACTS</a></li>
+                <li><a href="#home">{{__("HOME")}}</a></li>
+                <li><a href="#features">{{__("SERVICES")}}</a></li>
+                <li><a href="#resume">{{__("RESUME")}}</a></li>
+                <li><a href="#contacts">{{__("CONTACTS")}}</a></li>
             </ul>
         </nav>
         

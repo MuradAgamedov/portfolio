@@ -370,5 +370,112 @@
     body.menu-open {
         overflow: hidden;
     }
+    
+    /* Active navigation state */
+    .primary-menu .nav-link.active {
+        color: #dc3545 !important;
+        font-weight: 600;
+        position: relative;
+    }
+    
+    .primary-menu .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 2px;
+        background-color: #dc3545;
+        border-radius: 1px;
+    }
+    
+    /* Smooth scroll animation */
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+    }
+    
+    /* Custom smooth scroll for better performance */
+    body {
+        scroll-behavior: smooth;
+    }
+    
+    /* Language Switcher Styles */
+    .language-switcher {
+        margin-right: 15px;
+    }
+    
+    .language-switcher .btn {
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.3);
+        color: white;
+        padding: 6px 12px;
+        font-size: 13px;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+        min-width: auto;
+    }
+    
+    .language-switcher .btn:hover {
+        background: rgba(255,255,255,0.1);
+        border-color: rgba(255,255,255,0.5);
+        color: white;
+    }
+    
+    .language-switcher .dropdown-menu {
+        background: #2c3e50;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        min-width: 100px;
+        padding: 5px 0;
+    }
+    
+    .language-switcher .dropdown-item {
+        color: white;
+        padding: 6px 12px;
+        transition: all 0.3s ease;
+        font-size: 12px;
+    }
+    
+    .language-switcher .dropdown-item:hover {
+        background: rgba(255,255,255,0.1);
+        color: white;
+    }
+    
+    .language-switcher .dropdown-item.active {
+        background: #dc3545;
+        color: white;
+    }
+    
+    .current-lang {
+        margin-left: 4px;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    
+    .language-switcher .btn i {
+        font-size: 16px;
+    }
+    
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+        .language-switcher {
+            margin-right: 8px;
+        }
+        
+        .language-switcher .btn {
+            padding: 5px 10px;
+            font-size: 11px;
+        }
+        
+        .language-switcher .btn i {
+            font-size: 14px;
+        }
+        
+        .current-lang {
+            font-size: 12px;
+        }
+    }
     </style>
 </head>
