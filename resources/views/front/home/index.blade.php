@@ -318,33 +318,65 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="testimonial-activation testimonial-pb mb--30">
-                    @foreach($certificates as $certificate)
-                    <!-- Start Single testiminail -->
-                    <div class="testimonial mt--50 mt_md--40 mt_sm--40">
-                        <div class="inner">
-                            <div class="card-info">
-                                <div class="card-thumbnail">
-                                     <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" alt="{{$certificate->getImageAltText()}}">
+                @if($certificates->count() > 1)
+                    <div class="testimonial-activation testimonial-pb mb--30">
+                        @foreach($certificates as $certificate)
+                        <!-- Start Single testiminail -->
+                        <div class="testimonial mt--50 mt_md--40 mt_sm--40">
+                            <div class="inner">
+                                <div class="card-info">
+                                    <div class="card-thumbnail">
+                                         <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" alt="{{$certificate->getImageAltText()}}">
+                                    </div>
+                                    <span class="title">{{$certificate->getTitle()}}</span>
                                 </div>
-                                <span class="title">{{$certificate->getTitle()}}</span>
+                                <div class="card-description">
+                                    <div class="title-area">
+                                        <div class="title-info">
+                                            <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="seperator"></div>
+                                    <p class="discription">
+                                        {{$certificate->getDescription()}}
+                                    </p>
+                                </div>
                             </div>
-                            <div class="card-description">
-                                <div class="title-area">
-                                    <div class="title-info">
-                                        <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
+                        </div>
+                        <!--End Single testiminail -->
+                        @endforeach
+                    </div>
+                @elseif($certificates->count() == 1)
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="testimonial mt--50 mt_md--40 mt_sm--40">
+                                <div class="inner">
+                                    <div class="card-info">
+                                        <div class="card-thumbnail">
+                                             <img src="{{ $certificates->first()->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" alt="{{$certificates->first()->getImageAltText()}}">
+                                        </div>
+                                        <span class="title">{{$certificates->first()->getTitle()}}</span>
+                                    </div>
+                                    <div class="card-description">
+                                        <div class="title-area">
+                                            <div class="title-info">
+                                                <span class="date">{{ $certificates->first()->getFormattedIssueDate() }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="seperator"></div>
+                                        <p class="discription">
+                                            {{$certificates->first()->getDescription()}}
+                                        </p>
                                     </div>
                                 </div>
-                                <div class="seperator"></div>
-                                <p class="discription">
-                                    {{$certificate->getDescription()}}
-                                </p>
                             </div>
                         </div>
                     </div>
-                    <!--End Single testiminail -->
-                    @endforeach
-                </div>
+                @else
+                    <div class="text-center mt--50">
+                        <p class="text-muted">{{__("No certificates available at the moment.")}}</p>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
