@@ -5,16 +5,16 @@
             <div class="col-lg-12">
                 <div class="footer-area text-center">
 
-                    <div class="logo">
-                        <a href="{{ route('home') }}">
+                    <div class="logo" style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+                        <a href="{{ route('home') }}" style="display: inline-block;">
                             @php
                                 $footerLogo = \App\Models\SiteSetting::getByKey('footer_logo');
                                 $footerLogoAlt = \App\Models\SiteSetting::getByKey('footer_logo_alt');
                             @endphp
                             @if($footerLogo)
-                                <img src="{{ asset('storage/' . $footerLogo) }}" alt="{{ $footerLogoAlt ?: 'logo' }}">
+                                <img src="{{ asset('storage/' . $footerLogo) }}" alt="{{ $footerLogoAlt ?: 'logo' }}" style="max-width: 150px; height: auto;">
                             @else
-                                <img src="{{ asset('assets/images/logo/logo-vertical.png') }}" alt="logo">
+                                <img src="{{ asset('assets/images/logo/logo-vertical.png') }}" alt="logo" style="max-width: 150px; height: auto;">
                             @endif
                         </a>
                     </div>
