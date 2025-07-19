@@ -5,7 +5,7 @@
         <div class="col-lg-2 col-6">
             <div class="header-left">
                 <div class="logo">
-                    <a href="{{ route('home') }}">
+                    <a href="{{ route('home') }}" title="{{__("Go to homepage")}}">
                         @php
                             $headerLogo = \App\Models\SiteSetting::getByKey('header_logo');
                             $headerLogoAlt = \App\Models\SiteSetting::getByKey('header_logo_alt');
@@ -26,10 +26,10 @@
             <div class="header-center">
                 <nav class="mainmenu-nav">
                     <ul class="primary-menu">
-                        <li class="nav-item"><a class="nav-link" href="#home">{{__("LET'S KNOW ME")}}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#features">{{__("Services")}}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#resume">{{__("Resume")}}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contacts">{{__("Contacts")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#home" title="{{__("Let's get to know me")}}">{{__("LET'S KNOW ME")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#features" title="{{__("View my services and what I offer")}}">{{__("Services")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#resume" title="{{__("Check out my resume, education and experience")}}">{{__("Resume")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contacts" title="{{__("Get in touch with me - Contact information")}}">{{__("Contacts")}}</a></li>
                     </ul>
                 </nav>
                 <!-- Start Header Right  -->
@@ -37,7 +37,7 @@
                     <!-- Language Switcher -->
                     <div class="language-switcher">
                         <div class="dropdown">
-                            <button class="btn btn-outline-light dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-outline-light dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="{{__("Change language")}}">
                                 <i class="fas fa-globe"></i>
                                 <span class="current-lang">{{ strtoupper(app()->getLocale()) }}</span>
                             </button>
@@ -56,9 +56,9 @@
                     </div>
 
                     <!-- BUY NOW Button -->
-                    <a class="rn-btn buy-now-btn" href="#contacts"><span>{{__("CONTACT NOW")}}</span></a>
+                    <a class="rn-btn buy-now-btn" href="#contacts" title="{{__("Contact me now")}}"><span>{{__("CONTACT NOW")}}</span></a>
 
-                    <div class="mobile-menu-toggle">
+                    <div class="mobile-menu-toggle" title="{{__("Open mobile menu")}}">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -79,7 +79,7 @@
     <div class="mobile-menu-content">
         <div class="mobile-menu-header">
             <div class="mobile-logo">
-                <a href="{{ route('home') }}">
+                <a href="{{ route('home') }}" title="{{__("Go to homepage")}}">
                     @php
                         $headerLogo = \App\Models\SiteSetting::getByKey('header_logo');
                         $headerLogoAlt = \App\Models\SiteSetting::getByKey('header_logo_alt');
@@ -92,7 +92,7 @@
                     <span class="mobile-logo-text">Murad Agamedov</span>
                 </a>
             </div>
-            <button class="mobile-menu-close">
+            <button class="mobile-menu-close" title="{{__("Close mobile menu")}}">
                 <span></span>
                 <span></span>
             </button>
@@ -100,10 +100,10 @@
         
         <nav class="mobile-nav">
             <ul class="mobile-menu-list">
-                <li><a href="#home">{{__("LET'S KNOW ME")}}</a></li>
-                <li><a href="#features">{{__("SERVICES")}}</a></li>
-                <li><a href="#resume">{{__("RESUME")}}</a></li>
-                <li><a href="#contacts">{{__("CONTACTS")}}</a></li>
+                <li><a href="#home" title="{{__("Go to Home section - Let's get to know me")}}">{{__("LET'S KNOW ME")}}</a></li>
+                <li><a href="#features" title="{{__("View my services and what I offer")}}">{{__("SERVICES")}}</a></li>
+                <li><a href="#resume" title="{{__("Check out my resume, education and experience")}}">{{__("RESUME")}}</a></li>
+                <li><a href="#contacts" title="{{__("Get in touch with me - Contact information")}}">{{__("CONTACTS")}}</a></li>
             </ul>
         </nav>
         
@@ -111,7 +111,7 @@
             <h4>{{__("find with me")}}</h4>
             <div class="social-links">
                 @foreach($socials as $social)
-                    <a href="{{ $social->url }}" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <a href="{{ $social->url }}" target="_blank" rel="noopener noreferrer" class="social-link" title="{{__("Visit my")}} {{ ucfirst($social->platform) }} {{__("profile")}}">
                         <i data-feather="{{ $social->platform }}"></i>
                         <span>{{ ucfirst($social->platform) }}</span>
                     </a>
