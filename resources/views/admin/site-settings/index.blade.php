@@ -134,18 +134,14 @@
                                         
                                         <div class="mb-3">
                                             <label class="form-label">Logo Alt Text:</label>
+                                            @foreach($languages as $language)
                                             <div class="input-group mb-2">
-                                                <span class="input-group-text">EN</span>
-                                                <input type="text" name="header_logo_alt_en" class="form-control" 
-                                                       value="{{ $settings->getTranslation('header_logo_alt', 'en') }}" 
-                                                       placeholder="Alt text in English">
+                                                <span class="input-group-text">{{ strtoupper($language->lang_code) }}</span>
+                                                <input type="text" name="header_logo_alt_{{ $language->lang_code }}" class="form-control" 
+                                                       value="{{ $settings->getTranslation('header_logo_alt', $language->lang_code) }}" 
+                                                       placeholder="Alt text in {{ $language->title }}">
                                             </div>
-                                            <div class="input-group mb-2">
-                                                <span class="input-group-text">AZ</span>
-                                                <input type="text" name="header_logo_alt_az" class="form-control" 
-                                                       value="{{ $settings->getTranslation('header_logo_alt', 'az') }}" 
-                                                       placeholder="Alt text in Azerbaijani">
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -174,18 +170,14 @@
                                         
                                         <div class="mb-3">
                                             <label class="form-label">Logo Alt Text:</label>
+                                            @foreach($languages as $language)
                                             <div class="input-group mb-2">
-                                                <span class="input-group-text">EN</span>
-                                                <input type="text" name="footer_logo_alt_en" class="form-control" 
-                                                       value="{{ $settings->getTranslation('footer_logo_alt', 'en') }}" 
-                                                       placeholder="Alt text in English">
+                                                <span class="input-group-text">{{ strtoupper($language->lang_code) }}</span>
+                                                <input type="text" name="footer_logo_alt_{{ $language->lang_code }}" class="form-control" 
+                                                       value="{{ $settings->getTranslation('footer_logo_alt', $language->lang_code) }}" 
+                                                       placeholder="Alt text in {{ $language->title }}">
                                             </div>
-                                            <div class="input-group mb-2">
-                                                <span class="input-group-text">AZ</span>
-                                                <input type="text" name="footer_logo_alt_az" class="form-control" 
-                                                       value="{{ $settings->getTranslation('footer_logo_alt', 'az') }}" 
-                                                       placeholder="Alt text in Azerbaijani">
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -236,18 +228,14 @@
                                         
                                         <div class="mb-3">
                                             <label class="form-label">Image Alt Text:</label>
+                                            @foreach($languages as $language)
                                             <div class="input-group mb-2">
-                                                <span class="input-group-text">EN</span>
-                                                <input type="text" name="contact_section_alt_en" class="form-control" 
-                                                       value="{{ $settings->getTranslation('contact_section_alt', 'en') }}" 
-                                                       placeholder="Alt text in English">
+                                                <span class="input-group-text">{{ strtoupper($language->lang_code) }}</span>
+                                                <input type="text" name="contact_section_alt_{{ $language->lang_code }}" class="form-control" 
+                                                       value="{{ $settings->getTranslation('contact_section_alt', $language->lang_code) }}" 
+                                                       placeholder="Alt text in {{ $language->title }}">
                                             </div>
-                                            <div class="input-group mb-2">
-                                                <span class="input-group-text">AZ</span>
-                                                <input type="text" name="contact_section_alt_az" class="form-control" 
-                                                       value="{{ $settings->getTranslation('contact_section_alt', 'az') }}" 
-                                                       placeholder="Alt text in Azerbaijani">
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
