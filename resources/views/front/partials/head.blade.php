@@ -84,8 +84,24 @@
     }
     
     .logo a {
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 15px;
         transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
+    .logo-text {
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 600;
+        font-family: var(--font-secondary);
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+    
+    .logo:hover .logo-text {
+        color: #dc3545;
     }
     
     .logo img {
@@ -105,6 +121,14 @@
     }
     
     /* Mobile logo styles */
+    .mobile-logo a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
     .mobile-logo img {
         width: 60px;
         height: 60px;
@@ -119,11 +143,24 @@
         border-color: rgba(255, 255, 255, 0.5);
     }
     
+    .mobile-logo-text {
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: var(--font-secondary);
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-logo:hover .mobile-logo-text {
+        color: #dc3545;
+    }
+    
     /* Navigation Menu Typography Styles */
     .primary-menu {
         display: flex !important;
         align-items: center !important;
-        gap: 25px !important; /* Sözlər arası məsafə azaldıldı */
+        gap: 8px !important; /* Sözlər arası məsafə xeyli azaldıldı */
         
         list-style: none !important;
         padding: 0 !important;
@@ -162,13 +199,13 @@
     
     .primary-menu .nav-item .nav-link {
         text-transform: uppercase !important;
-        letter-spacing: 2px !important; /* Hərflər arası məsafə */
+        letter-spacing: 1px !important; /* Hərflər arası məsafə azaldıldı */
         font-weight: 600 !important; /* Qalın font */
-        font-size: 13px !important;
+        font-size: 12px !important;
         color: #ffffff !important; /* Ağ rəng */
         text-decoration: none !important;
         transition: all 0.3s ease !important;
-        padding: 10px 15px !important;
+        padding: 8px 12px !important; /* Padding azaldıldı */
         margin: 0 !important;
         display: flex !important;
         align-items: center !important;

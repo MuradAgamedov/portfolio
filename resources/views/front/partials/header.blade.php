@@ -15,6 +15,7 @@
                         @else
                             <img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo">
                         @endif
+                        <span class="logo-text">Murad Agamedov</span>
                     </a>
                 </div>
             </div>
@@ -88,6 +89,7 @@
                     @else
                         <img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo">
                     @endif
+                    <span class="mobile-logo-text">Murad Agamedov</span>
                 </a>
             </div>
             <button class="mobile-menu-close">
