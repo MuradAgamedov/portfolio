@@ -11,7 +11,7 @@
 
 <!-- Start Header Area -->
 <div id="home" class="rn-slider-area">
-    <div class="slide slider-style-1">
+    <div class="slide">
         <div class="container">
             <div class="row row--30 align-items-center">
                 <div class="order-2 order-lg-1 col-lg-7 mt_md--50 mt_sm--50 mt_lg--30">
@@ -917,12 +917,7 @@
 </div>
 <!-- Back to top end --> <!-- Back to top end -->
 
-<!-- Start Right Demo  -->
-<div class="rn-right-demo">
-    <button class="demo-button">
-        <span class="text">Demos</span>
-    </button>
-</div> <!-- End Right Demo  -->
+
 
 <!-- Start Modal Area  -->
 <!-- Start Modal Area  -->
@@ -1566,12 +1561,9 @@
 </div>
 <!-- End Modal Area  --> <!-- End Modal Area  -->
 
-<!-- SweetAlert2 CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+@endsection
 
-<!-- SweetAlert2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-
+@push('scripts')
 <!-- Contact Form AJAX -->
 <script>
 $(document).ready(function() {
@@ -1687,7 +1679,9 @@ $(document).ready(function() {
     });
 });
 </script>
+@endpush
 
+@push('styles')
 <style>
 /* Custom styling for form validation */
 .is-invalid {
@@ -1723,5 +1717,4 @@ $(document).ready(function() {
     font-weight: 600 !important;
 }
 </style>
-
-@endsection
+@endpush
