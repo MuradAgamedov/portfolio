@@ -69,7 +69,7 @@ class Education extends Model
      */
     public function getFormattedEndDate()
     {
-        return $this->end_date ? $this->end_date->format('d.m.Y') : null;
+        return $this->end_date ? $this->end_date->format('d.m.Y') : "aa";
     }
 
     /**
