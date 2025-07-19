@@ -143,7 +143,7 @@
                         <a class="nav-link" id="education-tab" data-bs-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="false">{{__("Education")}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="experience-tab" data-bs-toggle="tab" href="#experience" role="tab" aria-controls="experience" aria-selected="false">experience</a>
+                        <a class="nav-link" id="experience-tab" data-bs-toggle="tab" href="#experience" role="tab" aria-controls="experience" aria-selected="false">{{__("Experience")}}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="skills-tab" data-bs-toggle="tab" href="#skills" role="tab" aria-controls="skills" aria-selected="false">{{__("Skills")}}</a>
