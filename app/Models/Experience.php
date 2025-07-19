@@ -69,7 +69,7 @@ class Experience extends Model
      */
     public function getFormattedEndDate()
     {
-        return $this->end_date ? $this->end_date->format('d.m.Y') : '';
+        return $this->end_date ? $this->end_date->format('d.m.Y') : 's';
     }
 
     /**

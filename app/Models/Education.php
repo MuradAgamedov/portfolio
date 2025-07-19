@@ -69,13 +69,8 @@ class Education extends Model
      */
     public function getFormattedEndDate()
     {
-        if (empty($this->end_date) || $this->end_date == '0000-00-00') {
-            return "aa";
-        }
-    
-        return $this->end_date->format('d.m.Y');
+        return $this->end_date ? $this->end_date->format('d.m.Y') : '';
     }
-    
 
     /**
      * Check if education is ongoing
