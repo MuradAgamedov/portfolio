@@ -7,14 +7,14 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('education', function (Blueprint $table) {
-            $table->text('university_name')->nullable()->after('id'); // 'id' yerinə istədiyin sahənin adını yaza bilərsən
+            $table->text('university_name')->change();
         });
     }
 
     public function down(): void
     {
         Schema::table('education', function (Blueprint $table) {
-            $table->dropColumn('university_name');
+            $table->string('university_name', 255)->change();
         });
     }
 };
