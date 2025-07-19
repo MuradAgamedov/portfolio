@@ -341,9 +341,7 @@
                 startAutoplay();
             });
 
-            // Hover events
-            slider.on('mouseenter', stopAutoplay);
-            slider.on('mouseleave', startAutoplay);
+
 
             // Start autoplay
             startAutoplay();

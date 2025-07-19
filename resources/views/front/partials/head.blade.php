@@ -561,9 +561,7 @@
         transition: all 0.3s ease;
     }
     
-    .slider-container:hover {
-        transform: none;
-    }
+
     
     .certificate-slide {
         display: none;
@@ -576,9 +574,7 @@
         opacity: 1;
     }
     
-    .certificate-slide:hover {
-        transform: none;
-    }
+
     
     .certificate-card {
         background: #212428;
@@ -608,15 +604,7 @@
         transform: scaleX(1);
     }
     
-    .certificate-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 30px 60px rgba(0,0,0,0.25);
-        border-color: rgba(220, 53, 69, 0.4);
-    }
-    
-    .certificate-card:hover::before {
-        transform: scaleX(1);
-    }
+
     
     .certificate-card .inner {
         display: flex;
@@ -637,11 +625,6 @@
         width: 100%;
         height: 300px;
         object-fit: cover;
-        transition: transform 0.3s ease;
-    }
-    
-    .certificate-card:hover .certificate-image img {
-        transform: scale(1.05);
     }
     
     .certificate-card .certificate-content {
@@ -704,16 +687,7 @@
         transition: all 0.3s ease;
     }
     
-    .slider-nav:hover {
-        background: #dc3545;
-        color: white;
-        border-color: #dc3545;
-        transform: translateY(-50%) scale(1.1);
-    }
-    
-    .slider-nav:hover svg {
-        stroke: white;
-    }
+
     
     .slider-nav.prev-btn {
         left: -60px;
@@ -749,10 +723,7 @@
         transform: scale(1.2);
     }
     
-    .dot:hover {
-        background: #dc3545;
-        transform: scale(1.1);
-    }
+
     
 
     
@@ -814,17 +785,7 @@
             right: 20px;
         }
         
-        .slider-nav:hover {
-            transform: scale(1.1);
-        }
-        
-        .certificate-card:hover {
-            transform: none;
-        }
-        
-        .slider-container:hover {
-            transform: none;
-        }
+
         
         .slider-dots {
             bottom: -60px;
