@@ -558,6 +558,11 @@
         position: relative;
         overflow: hidden;
         border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .slider-container:hover {
+        transform: none;
     }
     
     .certificate-slide {
@@ -569,6 +574,10 @@
     .certificate-slide.active {
         display: block;
         opacity: 1;
+    }
+    
+    .certificate-slide:hover {
+        transform: none;
     }
     
     .certificate-card {
@@ -603,6 +612,10 @@
         transform: translateY(-5px);
         box-shadow: 0 30px 60px rgba(0,0,0,0.25);
         border-color: rgba(220, 53, 69, 0.4);
+    }
+    
+    .certificate-card:hover::before {
+        transform: scaleX(1);
     }
     
     .certificate-card .inner {
@@ -803,6 +816,14 @@
         
         .slider-nav:hover {
             transform: scale(1.1);
+        }
+        
+        .certificate-card:hover {
+            transform: none;
+        }
+        
+        .slider-container:hover {
+            transform: none;
         }
         
         .slider-dots {
