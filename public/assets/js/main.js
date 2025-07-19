@@ -539,29 +539,8 @@
         },
 
         onePageNav: function () {
-            // Simple smooth scrolling for navbar links
-            $('.onepagenav a[href^="#"]').on('click', function(e) {
-                e.preventDefault();
-                
-                var target = $(this.getAttribute('href'));
-                if (target.length) {
-                    $('html, body').animate({
-                        scrollTop: target.offset().top - 80
-                    }, 800);
-                }
-            });
-            
-            // Simple active state management
-            $(window).scroll(function() {
-                var scrollDistance = $(window).scrollTop();
-                
-                $('section[id]').each(function(i) {
-                    if ($(this).position().top - 100 <= scrollDistance) {
-                        $('.onepagenav .nav-link.active').removeClass('active');
-                        $('.onepagenav a[href="#' + $(this).attr('id') + '"]').addClass('active');
-                    }
-                });
-            });
+            // Removed smooth scrolling - using simple anchor links
+            // Navbar links will work with simple #id navigation
         },
 
         fixTypingAnimation: function () {
