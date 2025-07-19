@@ -743,7 +743,7 @@
                             </div>
                             <div class="col-lg-12">
                             <div class="g-recaptcha mb-3" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
-
+                                @dd({{ env('RECAPTCHA_SITE_KEY') }})
                                 <button name="submit" type="submit" id="submit" class="rn-btn">
                                     <span>{{__("SEND MESSAGE")}}</span>
                                     <i data-feather="arrow-right"></i>
