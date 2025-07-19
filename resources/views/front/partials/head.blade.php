@@ -77,6 +77,48 @@
         align-items: center;
     }
     
+    /* Logo Styles */
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+    
+    .logo a {
+        display: block;
+        transition: all 0.3s ease;
+    }
+    
+    .logo img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .logo:hover img {
+        transform: scale(1.1);
+        border-color: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Mobile logo styles */
+    .mobile-logo img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-logo:hover img {
+        transform: scale(1.1);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+    
     /* Navigation Menu Typography Styles */
     .primary-menu {
         display: flex !important;
@@ -247,10 +289,7 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
     
-    .mobile-logo img {
-        max-height: 40px;
-        width: auto;
-    }
+
     
     .mobile-menu-close {
         background: none;
