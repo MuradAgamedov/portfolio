@@ -547,21 +547,48 @@
         margin: 0 auto !important;
     }
     
-    /* Certificate Cards Styles */
+    /* Certificate Slider Styles */
+    .certificates-slider {
+        margin-top: 50px;
+        position: relative;
+    }
+    
+    .certificate-slide {
+        padding: 0 15px;
+    }
+    
     .certificate-card {
         background: #212428;
         border-radius: 15px;
-        padding: 25px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 30px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         transition: all 0.3s ease;
         height: 100%;
         border: 1px solid rgba(255,255,255,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .certificate-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #dc3545, #ff6b35);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+    
+    .certificate-card:hover::before {
+        transform: scaleX(1);
     }
     
     .certificate-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        border-color: rgba(220, 53, 69, 0.3);
+        transform: translateY(-8px);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        border-color: rgba(220, 53, 69, 0.4);
     }
     
     .certificate-card .inner {
@@ -571,10 +598,22 @@
     }
     
     .certificate-card .thumbnail {
-        margin-bottom: 20px;
-        border-radius: 10px;
+        margin-bottom: 25px;
+        border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        position: relative;
+    }
+    
+    .certificate-card .thumbnail img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    .certificate-card:hover .thumbnail img {
+        transform: scale(1.05);
     }
     
     .certificate-card .content {
@@ -585,9 +624,9 @@
     
     .certificate-card .title {
         color: #ffffff;
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 600;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         line-height: 1.3;
     }
     
@@ -595,30 +634,88 @@
         color: #dc3545;
         font-size: 14px;
         font-weight: 500;
-        margin-bottom: 15px;
+        margin-bottom: 18px;
         display: block;
+        padding: 6px 12px;
+        background: rgba(220, 53, 69, 0.1);
+        border-radius: 20px;
+        width: fit-content;
     }
     
     .certificate-card .description {
         color: #c4cfde;
-        font-size: 14px;
+        font-size: 15px;
         line-height: 1.6;
         margin: 0;
         flex: 1;
     }
     
+    /* Custom Slider Navigation */
+    .certificates-slider .slick-prev,
+    .certificates-slider .slick-next {
+        width: 50px;
+        height: 50px;
+        background: #212428;
+        border: 2px solid rgba(220, 53, 69, 0.3);
+        border-radius: 50%;
+        color: #dc3545;
+        font-size: 18px;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+    
+    .certificates-slider .slick-prev:hover,
+    .certificates-slider .slick-next:hover {
+        background: #dc3545;
+        color: white;
+        border-color: #dc3545;
+        transform: scale(1.1);
+    }
+    
+    .certificates-slider .slick-prev {
+        left: -60px;
+    }
+    
+    .certificates-slider .slick-next {
+        right: -60px;
+    }
+    
+    .certificates-slider .slick-dots {
+        bottom: -40px;
+    }
+    
+    .certificates-slider .slick-dots li button:before {
+        color: #dc3545;
+        font-size: 12px;
+        opacity: 0.3;
+        transition: all 0.3s ease;
+    }
+    
+    .certificates-slider .slick-dots li.slick-active button:before {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    
     /* Responsive adjustments */
     @media (max-width: 768px) {
         .certificate-card {
-            padding: 20px;
+            padding: 25px;
         }
         
         .certificate-card .title {
-            font-size: 16px;
+            font-size: 18px;
         }
         
         .certificate-card .description {
-            font-size: 13px;
+            font-size: 14px;
+        }
+        
+        .certificates-slider .slick-prev {
+            left: -40px;
+        }
+        
+        .certificates-slider .slick-next {
+            right: -40px;
         }
     }
     
