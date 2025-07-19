@@ -201,7 +201,7 @@
                                                                 <span style="color: #c4cfde; font-size: 14px; font-weight: 500;">{{ $edu->getUniversityName() }}</span>
                                                         </div>
                                                         <div class="date-of-time">
-                                                                <span style="color: #ff014f; font-size: 12px; font-weight: 600; background: rgba(255,1,79,0.1); padding: 5px 10px; border-radius: 5px;">{{ $edu->getFormattedStartDate() }} - {{ $edu->getFormattedEndDate() }}</span>
+                                                                <span style="color: #ff014f; font-size: 12px; font-weight: 600; background: rgba(255,1,79,0.1); padding: 5px 10px; border-radius: 5px;">{{ $edu->getFormattedStartDate() }} - {{ $exp->getFormattedEndDate() ?? __("Davam edir") }}</span>
                                                         </div>
                                                     </div>
                                                         <p class="description" style="color: #c4cfde; margin-top: 15px; line-height: 1.6; font-size: 14px;">{{ $edu->getDescription() }}</p>
