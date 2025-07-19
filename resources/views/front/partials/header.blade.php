@@ -55,7 +55,7 @@
                     </div>
 
                     <!-- BUY NOW Button -->
-                    <a class="rn-btn buy-now-btn" href="#contact"><span>{{__("CONTACT NOW")}}</span></a>
+                    <a class="rn-btn buy-now-btn" href="#contacts"><span>{{__("CONTACT NOW")}}</span></a>
 
                     <div class="mobile-menu-toggle">
                         <span></span>
