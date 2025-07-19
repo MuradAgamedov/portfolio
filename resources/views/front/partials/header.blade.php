@@ -25,7 +25,7 @@
             <div class="header-center">
                 <nav class="mainmenu-nav">
                     <ul class="primary-menu">
-                        <li class="nav-item"><a class="nav-link" href="#home">{{__("Home")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#home">{{__("Let's Know Me")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#features">{{__("Services")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#resume">{{__("Resume")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contacts">{{__("Contacts")}}</a></li>
@@ -98,7 +98,7 @@
         
         <nav class="mobile-nav">
             <ul class="mobile-menu-list">
-                <li><a href="#home">{{__("HOME")}}</a></li>
+                <li><a href="#home">{{__("LET'S KNOW ME")}}</a></li>
                 <li><a href="#features">{{__("SERVICES")}}</a></li>
                 <li><a href="#resume">{{__("RESUME")}}</a></li>
                 <li><a href="#contacts">{{__("CONTACTS")}}</a></li>
