@@ -550,14 +550,17 @@
             var animationInterval;
             
             function showNextWord() {
-                // Hide all words
-                words.removeClass('is-visible').addClass('is-hidden');
-                
-                // Show current word
-                words.eq(currentIndex).removeClass('is-hidden').addClass('is-visible');
-                
-                // Move to next word
-                currentIndex = (currentIndex + 1) % words.length;
+                // Fade out current word
+                words.eq(currentIndex).fadeOut(800, function() {
+                    // Hide all words
+                    words.removeClass('is-visible').addClass('is-hidden');
+                    
+                    // Move to next word
+                    currentIndex = (currentIndex + 1) % words.length;
+                    
+                    // Fade in next word
+                    words.eq(currentIndex).removeClass('is-hidden').addClass('is-visible').fadeIn(800);
+                });
             }
             
             function startAnimation() {
@@ -568,12 +571,14 @@
                 
                 // Reset to first word
                 currentIndex = 0;
-                words.removeClass('is-visible is-hidden').addClass('is-hidden');
-                words.first().removeClass('is-hidden').addClass('is-visible');
+                words.removeClass('is-visible is-hidden').addClass('is-hidden').hide();
+                words.first().removeClass('is-hidden').addClass('is-visible').show();
                 
-                // Start the animation
-                showNextWord();
-                animationInterval = setInterval(showNextWord, 3000);
+                // Start the animation after a delay
+                setTimeout(function() {
+                    showNextWord();
+                    animationInterval = setInterval(showNextWord, 4000); // 4 seconds interval
+                }, 1000);
             }
             
             // Start animation when page loads

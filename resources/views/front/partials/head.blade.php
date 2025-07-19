@@ -199,6 +199,48 @@
         height: 100%;
     }
     
+    /* Custom typing animation styles */
+    .cd-words-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .cd-words-wrapper b {
+        display: inline-block;
+        position: absolute;
+        white-space: nowrap;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+    }
+    
+    .cd-words-wrapper b.is-visible {
+        position: relative;
+        opacity: 1;
+    }
+    
+    .cd-words-wrapper b.is-hidden {
+        opacity: 0;
+    }
+    
+    /* Typing cursor effect */
+    .cd-words-wrapper::after {
+        content: '';
+        position: absolute;
+        right: -5px;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background-color: #ff014f;
+        animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+    
     .primary-menu .nav-item .nav-link {
         text-transform: uppercase !important;
         letter-spacing: 1px !important; /* Hərflər arası məsafə azaldıldı */
