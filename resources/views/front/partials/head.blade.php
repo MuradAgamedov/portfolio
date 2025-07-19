@@ -121,8 +121,8 @@
     .primary-menu .nav-item .nav-link {
         text-transform: uppercase !important;
         letter-spacing: 2px !important; /* Hərflər arası məsafə */
-        font-weight: 300 !important; /* İncə font */
-        font-size: 12px !important;
+        font-weight: 600 !important; /* Qalın font */
+        font-size: 13px !important;
         color: #ffffff !important; /* Ağ rəng */
         text-decoration: none !important;
         transition: all 0.3s ease !important;
@@ -139,10 +139,30 @@
     .primary-menu .nav-item .nav-link:hover {
         color: #dc3545 !important;
         background-color: rgba(255, 255, 255, 0.1) !important;
+        font-weight: 700 !important; /* Hover zamanı daha qalın */
     }
     
     .primary-menu .nav-item .nav-link:hover {
         color: #dc3545 !important;
+    }
+    
+    /* Active state for navigation links */
+    .primary-menu .nav-item .nav-link.active {
+        color: #dc3545 !important;
+        font-weight: 700 !important;
+        position: relative;
+    }
+    
+    .primary-menu .nav-item .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 2px;
+        background-color: #dc3545;
+        border-radius: 1px;
     }
     
 
