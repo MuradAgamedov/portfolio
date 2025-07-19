@@ -550,17 +550,14 @@
             var animationInterval;
             
             function showNextWord() {
-                // Fade out current word
-                words.eq(currentIndex).fadeOut(800, function() {
-                    // Hide all words
-                    words.removeClass('is-visible').addClass('is-hidden');
-                    
-                    // Move to next word
-                    currentIndex = (currentIndex + 1) % words.length;
-                    
-                    // Fade in next word
-                    words.eq(currentIndex).removeClass('is-hidden').addClass('is-visible').fadeIn(800);
-                });
+                // Hide current word
+                words.eq(currentIndex).removeClass('is-visible').addClass('is-hidden');
+                
+                // Move to next word
+                currentIndex = (currentIndex + 1) % words.length;
+                
+                // Show next word
+                words.eq(currentIndex).removeClass('is-hidden').addClass('is-visible');
             }
             
             function startAnimation() {
@@ -571,8 +568,8 @@
                 
                 // Reset to first word
                 currentIndex = 0;
-                words.removeClass('is-visible is-hidden').addClass('is-hidden').hide();
-                words.first().removeClass('is-hidden').addClass('is-visible').show();
+                words.removeClass('is-visible is-hidden').addClass('is-hidden');
+                words.first().removeClass('is-hidden').addClass('is-visible');
                 
                 // Start the animation after a delay
                 setTimeout(function() {

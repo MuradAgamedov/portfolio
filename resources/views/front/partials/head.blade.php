@@ -203,6 +203,7 @@
     .cd-words-wrapper {
         position: relative;
         display: inline-block;
+        min-width: 200px; /* Minimum genişlik */
     }
     
     .cd-words-wrapper b {
@@ -212,16 +213,19 @@
         left: 0;
         top: 0;
         opacity: 0;
-        transition: opacity 0.8s ease-in-out;
+        visibility: hidden;
+        transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
     }
     
     .cd-words-wrapper b.is-visible {
         position: relative;
         opacity: 1;
+        visibility: visible;
     }
     
     .cd-words-wrapper b.is-hidden {
         opacity: 0;
+        visibility: hidden;
     }
     
     /* Typing cursor effect */
