@@ -1571,6 +1571,19 @@ $(document).ready(function() {
     $('#contact-form').on('submit', function(e) {
         e.preventDefault();
         
+        // Check reCAPTCHA
+        var recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+            Swal.fire({
+                icon: 'error',
+                title: '{{__("Error!")}}',
+                text: '{{__("Please complete the reCAPTCHA verification.")}}',
+                confirmButtonText: '{{__("OK")}}',
+                confirmButtonColor: '#dc3545'
+            });
+            return;
+        }
+        
         // Get form data
         var formData = new FormData(this);
         
@@ -1600,8 +1613,9 @@ $(document).ready(function() {
                     confirmButtonColor: '#667eea'
                 });
                 
-                // Reset form
+                // Reset form and reCAPTCHA
                 $('#contact-form')[0].reset();
+                grecaptcha.reset();
                 
                 // Reset button
                 submitBtn.html(originalText);
@@ -1630,6 +1644,9 @@ $(document).ready(function() {
                     confirmButtonText: '{{__("OK")}}',
                     confirmButtonColor: '#dc3545'
                 });
+                
+                // Reset reCAPTCHA
+                grecaptcha.reset();
                 
                 // Reset button
                 submitBtn.html(originalText);

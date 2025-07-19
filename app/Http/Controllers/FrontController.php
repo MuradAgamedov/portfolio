@@ -17,10 +17,13 @@ use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\PricingPlan;
 use App\Models\Newsletter;
+use App\Traits\RecaptchaTrait;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
+    use RecaptchaTrait;
+
     public function index()
     {
         $data = [
@@ -44,6 +47,18 @@ class FrontController extends Controller
 
     public function contact(Request $request)
     {
+        // Validate reCAPTCHA first
+        if (!$this->validateRecaptcha($request)) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => __("Please complete the reCAPTCHA verification.")
+                ], 422);
+            }
+            
+            return redirect()->back()->withErrors(['recaptcha' => __("Please complete the reCAPTCHA verification.")]);
+        }
+
         $validated = $request->validate([
             'contact-name' => 'required|string|max:255',
             'contact-email' => 'required|email|max:255',

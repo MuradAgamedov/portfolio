@@ -11,5 +11,6 @@
     "Please enter a valid email address": "Please enter a valid email address",
     "Subject is required": "Subject is required",
     "Message is required": "Message is required",
-    "An error occurred. Please try again.": "An error occurred. Please try again."
+    "An error occurred. Please try again.": "An error occurred. Please try again.",
+    "Please complete the reCAPTCHA verification.": "Please complete the reCAPTCHA verification."
 }
