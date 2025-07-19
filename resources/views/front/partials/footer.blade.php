@@ -19,8 +19,11 @@
                         </a>
                     </div>
 
-                    <p class="description mt--30">© <script>document.write(new Date().getFullYear());</script>{!! __("All rights reserved by <a target="_blank" href="https://muraddev.com">Parv infotech.</a>") !!}
+                    <p class="description mt--30">
+                        © <script>document.write(new Date().getFullYear());</script>
+                        {!! __("All rights reserved by <a target='_blank' href='https://muraddev.com'>Parv infotech.</a>") !!}
                     </p>
+
                 </div>
             </div>
         </div>
