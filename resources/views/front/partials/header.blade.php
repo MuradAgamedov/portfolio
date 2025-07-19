@@ -25,7 +25,7 @@
             <div class="header-center">
                 <nav class="mainmenu-nav">
                     <ul class="primary-menu">
-                        <li class="nav-item"><a class="nav-link" href="#home">{{__("Let's Know Me")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#home">{{__("LET'S KNOW ME")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#features">{{__("Services")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#resume">{{__("Resume")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contacts">{{__("Contacts")}}</a></li>
