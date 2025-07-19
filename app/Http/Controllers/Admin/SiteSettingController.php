@@ -67,6 +67,7 @@ class SiteSettingController extends Controller
         // Update translatable fields for all languages
         $languages = Language::orderBy('order')->get();
         foreach ($languages as $language) {
+            $settings->setTranslation('title', $language->lang_code, $request->{"title_{$language->lang_code}"} ?? '');
             $settings->setTranslation('header_logo_alt', $language->lang_code, $request->{"header_logo_alt_{$language->lang_code}"} ?? '');
             $settings->setTranslation('footer_logo_alt', $language->lang_code, $request->{"footer_logo_alt_{$language->lang_code}"} ?? '');
             $settings->setTranslation('contact_section_alt', $language->lang_code, $request->{"contact_section_alt_{$language->lang_code}"} ?? '');
@@ -75,7 +76,6 @@ class SiteSettingController extends Controller
         // Update contact section content for all languages
         $languages = Language::orderBy('order')->get();
         foreach ($languages as $language) {
-            $settings->setTranslation('contact_section_title', $language->lang_code, $request->{"contact_section_title_{$language->lang_code}"} ?? '');
             $settings->setTranslation('contact_section_text', $language->lang_code, $request->{"contact_section_text_{$language->lang_code}"} ?? '');
         }
 
