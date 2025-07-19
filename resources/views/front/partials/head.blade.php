@@ -679,7 +679,6 @@
         align-items: center;
         padding: 20px 25px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        min-height: 60px;
     }
     
     .modal-title {
@@ -687,33 +686,24 @@
         font-size: 20px;
         font-weight: 600;
         margin: 0;
-        flex: 1;
     }
     
     .modal-close {
-        background: rgba(220, 53, 69, 0.1);
+        background: transparent;
         border: none;
-        color: #dc3545;
+        color: #c4cfde;
         cursor: pointer;
-        padding: 10px;
+        padding: 8px;
         border-radius: 8px;
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        min-width: 40px;
-        min-height: 40px;
     }
     
     .modal-close:hover {
-        background: rgba(220, 53, 69, 0.2);
+        background: rgba(220, 53, 69, 0.1);
         color: #dc3545;
-        transform: scale(1.05);
-    }
-    
-    .modal-close svg {
-        width: 18px;
-        height: 18px;
     }
     
     .modal-body {
