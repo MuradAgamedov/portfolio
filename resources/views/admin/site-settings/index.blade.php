@@ -69,18 +69,46 @@
                         @csrf
                         
                         <div class="row">
-                            <!-- Site Title -->
-                            <div class="col-md-6 mb-4">
+                            <!-- Contact Title -->
+                            <div class="col-md-12 mb-4">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h6 class="card-title mb-0">Contact title</h6>
+                                        <h6 class="card-title mb-0">Contact Title</h6>
                                     </div>
                                     <div class="card-body">
-                                        <div class="mb-3">
-                                            <label class="form-label">Contact Title:</label>
-                                            <input type="text" name="title" class="form-control" 
-                                                   value="{{ $settings->title }}" placeholder="Enter contact title">
-                                            <small class="text-muted">This will be used as the contact title of your website</small>
+                                        <!-- Language Tabs -->
+                                        <ul class="nav nav-tabs" id="contactTitleTabs" role="tablist">
+                                            @foreach($languages as $language)
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link {{ $loop->first ? 'active' : '' }}" 
+                                                            id="tab-title-{{ $language->lang_code }}" 
+                                                            data-bs-toggle="tab" 
+                                                            data-bs-target="#content-title-{{ $language->lang_code }}" 
+                                                            type="button" 
+                                                            role="tab">
+                                                        <i class="fas fa-flag"></i> {{ $language->title }}
+                                                    </button>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+
+                                        <div class="tab-content" id="contactTitleTabContent">
+                                            @foreach($languages as $language)
+                                                <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" 
+                                                     id="content-title-{{ $language->lang_code }}" 
+                                                     role="tabpanel">
+                                                    
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Contact Title ({{ $language->title }}) <span class="text-danger">*</span></label>
+                                                        <input type="text" 
+                                                               name="title_{{ $language->lang_code }}" 
+                                                               class="form-control"
+                                                               value="{{ $settings->getTranslation('title', $language->lang_code) }}"
+                                                               placeholder="Contact title in {{ $language->title }}">
+                                                        <small class="text-muted">This will be used as the contact title of your website in {{ $language->title }}</small>
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>

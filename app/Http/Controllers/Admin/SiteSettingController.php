@@ -67,6 +67,7 @@ class SiteSettingController extends Controller
         // Update translatable fields for all languages
         $languages = Language::orderBy('order')->get();
         foreach ($languages as $language) {
+            $settings->setTranslation('title', $language->lang_code, $request->{"title_{$language->lang_code}"} ?? '');
             $settings->setTranslation('header_logo_alt', $language->lang_code, $request->{"header_logo_alt_{$language->lang_code}"} ?? '');
             $settings->setTranslation('footer_logo_alt', $language->lang_code, $request->{"footer_logo_alt_{$language->lang_code}"} ?? '');
             $settings->setTranslation('contact_section_alt', $language->lang_code, $request->{"contact_section_alt_{$language->lang_code}"} ?? '');
@@ -80,7 +81,6 @@ class SiteSettingController extends Controller
         }
 
         // Update non-translatable fields
-        $settings->title = $request->title;
         $settings->phone = $request->phone;
         $settings->email = $request->email;
 
