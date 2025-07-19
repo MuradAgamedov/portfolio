@@ -305,83 +305,50 @@
 </div>
 <!-- End Resume Area -->
 
-<!-- Start Testimonia Area  -->
-<div class="rn-testimonial-area rn-section-gap section-separator" id="testimonial">
+<!-- Start Certificates Area -->
+<div class="rn-certificates-area rn-section-gap section-separator" id="certificates">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title text-center">
                     <span class="subtitle">{{__("Certificates")}}</span>
-                    <h2 class="title">{{__("Certificates sub text")}}</h2>
+                    <h2 class="title">{{__("My Certificates")}}</h2>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                @if($certificates->count() > 1)
-                    <div class="testimonial-activation testimonial-pb mb--30">
-                        @foreach($certificates as $certificate)
-                        <!-- Start Single testiminail -->
-                        <div class="testimonial mt--50 mt_md--40 mt_sm--40">
-                            <div class="inner">
-                                <div class="card-info">
-                                    <div class="card-thumbnail">
-                                         <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" alt="{{$certificate->getImageAltText()}}">
-                                    </div>
-                                    <span class="title">{{$certificate->getTitle()}}</span>
-                                </div>
-                                <div class="card-description">
-                                    <div class="title-area">
-                                        <div class="title-info">
-                                            <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="seperator"></div>
-                                    <p class="discription">
-                                        {{$certificate->getDescription()}}
-                                    </p>
-                                </div>
+        <div class="row row--25 mt--50 mt_md--40 mt_sm--40">
+            @if($certificates->count() > 0)
+                @foreach($certificates as $index => $certificate)
+                <!-- Start Single Certificate -->
+                <div class="col-lg-4 col-md-6 col-sm-12 mt--30" data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 200) }}" data-aos-once="true">
+                    <div class="certificate-card">
+                        <div class="inner">
+                            <div class="thumbnail">
+                                <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" 
+                                     alt="{{$certificate->getImageAltText()}}"
+                                     style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                             </div>
-                        </div>
-                        <!--End Single testiminail -->
-                        @endforeach
-                    </div>
-                @elseif($certificates->count() == 1)
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="testimonial mt--50 mt_md--40 mt_sm--40">
-                                <div class="inner">
-                                    <div class="card-info">
-                                        <div class="card-thumbnail">
-                                             <img src="{{ $certificates->first()->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" alt="{{$certificates->first()->getImageAltText()}}">
-                                        </div>
-                                        <span class="title">{{$certificates->first()->getTitle()}}</span>
-                                    </div>
-                                    <div class="card-description">
-                                        <div class="title-area">
-                                            <div class="title-info">
-                                                <span class="date">{{ $certificates->first()->getFormattedIssueDate() }}</span>
-                                            </div>
-                                        </div>
-                                        <div class="seperator"></div>
-                                        <p class="discription">
-                                            {{$certificates->first()->getDescription()}}
-                                        </p>
-                                    </div>
-                                </div>
+                            <div class="content">
+                                <h4 class="title">{{$certificate->getTitle()}}</h4>
+                                <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
+                                <p class="description">{{ Str::limit($certificate->getDescription(), 100) }}</p>
                             </div>
                         </div>
                     </div>
-                @else
-                    <div class="text-center mt--50">
+                </div>
+                <!-- End Single Certificate -->
+                @endforeach
+            @else
+                <div class="col-lg-12">
+                    <div class="text-center">
                         <p class="text-muted">{{__("No certificates available at the moment.")}}</p>
                     </div>
-                @endif
-            </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>
-<!-- End Testimonia Area  -->
+<!-- End Certificates Area -->
 
 <!-- Start Client Area -->
 <div class="rn-client-area rn-section-gap section-separator" id="clients">
