@@ -75,7 +75,7 @@
                     <div class="inner">
                         <div class="content">
                             <h4 class="title">{{ $exp->getTitle() }}</h4>
-                            <p class="company">{{ $exp->company_name }}</p>
+                            <p class="company">{{ $exp->getCompanyName() }}</p>
                             <p class="period">{{ $exp->start_date }} - {{ $exp->end_date ?? __('Present') }}</p>
                             <p class="description">{{ $exp->getDescription() }}</p>
                         </div>
