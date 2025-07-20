@@ -128,6 +128,17 @@
 
 @push('styles')
 <style>
+/* CSS Variables */
+:root {
+    --color-primary: #ff014f;
+    --color-primary-rgb: 255, 1, 79;
+    --color-body: #c4cfde;
+    --color-heading: #ffffff;
+    --background-color-1: #212428;
+    --background-color-2: #1d1f23;
+    --shadow-1: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* Pagination Styles */
 .pagination-container {
     display: flex;
