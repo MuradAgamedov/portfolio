@@ -383,5 +383,33 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Form submitted');
     });
 });
+
+// Function to select service from service cards
+function selectService(serviceId, serviceTitle) {
+    const serviceSelect = document.getElementById('service_select');
+    const subjectInput = document.getElementById('subject');
+    
+    // Set the service in select dropdown
+    serviceSelect.value = serviceId;
+    
+    // Update subject
+    subjectInput.value = `Service Request: ${serviceTitle}`;
+    
+    // Scroll to form
+    document.querySelector('.service-request-form').scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+    });
+    
+    // Add visual feedback
+    serviceSelect.style.borderColor = 'var(--color-primary)';
+    serviceSelect.style.boxShadow = '0 0 0 3px rgba(var(--color-primary-rgb), 0.1)';
+    
+    // Remove highlight after 2 seconds
+    setTimeout(() => {
+        serviceSelect.style.borderColor = '';
+        serviceSelect.style.boxShadow = '';
+    }, 2000);
+}
 </script>
 @endsection 

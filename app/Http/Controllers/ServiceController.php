@@ -16,17 +16,5 @@ class ServiceController extends Controller
         return view('front.services.index', compact('services'));
     }
 
-    public function show($slug)
-    {
-        $service = Service::where('slug', $slug)
-                         ->where('status', 1)
-                         ->firstOrFail();
-        
-        $services = Service::where('status', 1)
-                          ->where('id', '!=', $service->id)
-                          ->orderBy('order', 'asc')
-                          ->get();
-        
-        return view('front.services.show', compact('service', 'services'));
-    }
+
 } 
