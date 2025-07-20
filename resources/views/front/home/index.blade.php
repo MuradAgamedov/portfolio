@@ -578,30 +578,30 @@
                             @csrf
 
                             <div class="col-lg-6">
-                                <div class="form-group">
+                                <div class="form-group" style="width: 100%;">
                                     <label for="contact-name">{{__("Your Name")}}</label>
-                                    <input class="form-control form-control-lg" name="contact-name" id="contact-name" type="text">
+                                    <input class="form-control" name="contact-name" id="contact-name" type="text" style="width: 100%;">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
-                                <div class="form-group">
+                                <div class="form-group" style="width: 100%;">
                                     <label for="contact-phone">{{__("Phone Number")}}</label>
-                                    <input class="form-control" name="contact-phone" id="contact-phone" type="text">
+                                    <input class="form-control" name="contact-phone" id="contact-phone" type="text" style="width: 100%;">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
-                                <div class="form-group">
+                                <div class="form-group" style="width: 100%;">
                                     <label for="contact-email">{{__("Email")}}</label>
-                                    <input class="form-control" id="contact-email" name="contact-email" type="email">
+                                    <input class="form-control" id="contact-email" name="contact-email" type="email" style="width: 100%;">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
-                                <div class="form-group">
+                                <div class="form-group" style="width: 100%;">
                                     <label for="subject">{{__("Subject")}}</label>
-                                    <input class="form-control" id="subject" name="subject" type="text">
+                                    <input class="form-control" id="subject" name="subject" type="text" style="width: 100%;">
                                 </div>
                             </div>
 
