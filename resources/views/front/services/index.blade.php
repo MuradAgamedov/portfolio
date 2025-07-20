@@ -39,9 +39,10 @@
                         <p>{{__('Select a service and send us your request')}}</p>
                     </div>
                     
-                    <form class="service-form" id="serviceRequestForm">
+                    <form class="service-form" id="serviceRequestForm" action="{{ route('service-request.store') }}" method="POST">
+                        @csrf
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group">
                                     <label for="service_select">{{__('Select Service')}} *</label>
                                     <div class="select-wrapper">
@@ -70,7 +71,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="email">{{__('Email')}} *</label>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="{{__('Enter your email...')}}" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="phone">{{__('Phone')}}</label>
+                                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="{{__('Enter your phone...')}}">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="subject">{{__('Subject')}} *</label>
                                     <input type="text" id="subject" name="subject" class="form-control" placeholder="{{__('Enter subject...')}}" required>
@@ -399,12 +415,8 @@
 
 @push('scripts')
 <script>
-console.log('Services page JavaScript loaded');
-
 // Global function to select service from service cards
 window.selectService = function(serviceId, serviceTitle) {
-    console.log('selectService called with:', serviceId, serviceTitle);
-    
     const serviceSelect = document.getElementById('service_select');
     const subjectInput = document.getElementById('subject');
     const selectedServiceInfo = document.getElementById('selected-service-info');
@@ -412,15 +424,8 @@ window.selectService = function(serviceId, serviceTitle) {
     const selectedServiceTitle = document.getElementById('selected-service-title');
     const selectedServiceDescription = document.getElementById('selected-service-description');
     
-    console.log('Elements found:', {
-        serviceSelect: !!serviceSelect,
-        subjectInput: !!subjectInput,
-        selectedServiceInfo: !!selectedServiceInfo
-    });
-    
     // Set the service in select dropdown
     serviceSelect.value = serviceId;
-    console.log('Service select value set to:', serviceId);
     
     // Trigger change event to update form
     const event = new Event('change');
@@ -429,13 +434,10 @@ window.selectService = function(serviceId, serviceTitle) {
     // Scroll to form smoothly
     const formElement = document.querySelector('.service-request-form');
     if (formElement) {
-        console.log('Scrolling to form');
         formElement.scrollIntoView({ 
             behavior: 'smooth',
             block: 'center'
         });
-    } else {
-        console.error('Form element not found');
     }
     
     // Add visual feedback to select
@@ -524,8 +526,6 @@ window.showNotification = function(message, type = 'info') {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM Content Loaded - Services page');
-    
     const serviceSelect = document.getElementById('service_select');
     const subjectInput = document.getElementById('subject');
     const selectedServiceInfo = document.getElementById('selected-service-info');
@@ -533,16 +533,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedServiceTitle = document.getElementById('selected-service-title');
     const selectedServiceDescription = document.getElementById('selected-service-description');
     
-    console.log('Service elements found:', {
-        serviceSelect: !!serviceSelect,
-        subjectInput: !!subjectInput,
-        selectedServiceInfo: !!selectedServiceInfo
-    });
-    
     // Add event listeners to service links
     document.addEventListener('click', function(e) {
-        console.log('Click detected on:', e.target);
-        
         if (e.target.closest('.service-link')) {
             e.preventDefault();
             e.stopPropagation();
@@ -551,39 +543,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const serviceId = link.getAttribute('data-service-id');
             const serviceTitle = link.getAttribute('data-service-title');
             
-            console.log('Service link clicked:', serviceId, serviceTitle);
-            
             if (serviceId && serviceTitle) {
-                console.log('Calling selectService function');
                 selectService(serviceId, serviceTitle);
             }
         }
-    });
-    
-    // Alternative: Direct event listeners on service cards
-    const serviceLinks = document.querySelectorAll('.service-link');
-    console.log('Found service links:', serviceLinks.length);
-    
-    serviceLinks.forEach((link, index) => {
-        console.log(`Service link ${index}:`, {
-            serviceId: link.getAttribute('data-service-id'),
-            serviceTitle: link.getAttribute('data-service-title'),
-            href: link.getAttribute('href')
-        });
-        
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const serviceId = this.getAttribute('data-service-id');
-            const serviceTitle = this.getAttribute('data-service-title');
-            
-            console.log('Direct click on service link:', serviceId, serviceTitle);
-            
-            if (serviceId && serviceTitle) {
-                selectService(serviceId, serviceTitle);
-            }
-        });
     });
     
     // Update subject and show service info when service is selected
@@ -626,11 +589,69 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Form submission (for now, just prevent default)
+    // Form submission with AJAX
     document.getElementById('serviceRequestForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        // Form submission logic will be added later
-        console.log('Form submitted');
+        
+        const form = this;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Disable submit button and show loading
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
+        
+        // Get form data
+        const formData = new FormData(form);
+        
+        // Send AJAX request
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: data.message,
+                    confirmButtonColor: '#ff014f'
+                });
+                
+                // Reset form
+                form.reset();
+                document.getElementById('selected-service-info').style.display = 'none';
+                
+            } else {
+                // Show error message
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: data.message || 'An error occurred while submitting your request.',
+                    confirmButtonColor: '#ff014f'
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'An error occurred while submitting your request.',
+                confirmButtonColor: '#ff014f'
+            });
+        })
+        .finally(() => {
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        });
     });
 });
 </script>

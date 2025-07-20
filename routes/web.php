@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\BlogController as FrontBlogController;
 use App\Http\Controllers\ServiceController as FrontServiceController;
+use App\Http\Controllers\ServiceRequestController;
 
 // Language Switch Route
 Route::get('/language/{lang}', function($lang) {
@@ -42,6 +43,7 @@ Route::get('/', [FrontController::class, 'index'])->name('home');
 Route::get('/blogs', [FrontBlogController::class, 'index'])->name('blogs.index');
 Route::get('/blog/{slug}', [FrontBlogController::class, 'show'])->name('blog.show');
 Route::get('/services', [FrontServiceController::class, 'index'])->name('services.index');
+Route::post('/service-request', [ServiceRequestController::class, 'store'])->name('service-request.store');
 Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
 Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
 
@@ -149,4 +151,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     // Newsletter Routes
     Route::resource('newsletters', NewsletterController::class)->only(['index', 'destroy']);
     Route::post('newsletters/{newsletter}/toggle-status', [NewsletterController::class, 'toggleStatus'])->name('newsletters.toggle-status');
+    
+    // Service Requests Routes
+    Route::resource('service-requests', ServiceRequestController::class)->only(['index', 'show']);
+    Route::patch('service-requests/{serviceRequest}/status', [ServiceRequestController::class, 'updateStatus'])->name('service-requests.update-status');
 });

@@ -270,7 +270,7 @@
                                 <i class="fas fa-comments"></i> Əlaqə & Mesajlar
                                 <i class="fas fa-chevron-down ms-auto"></i>
                             </a>
-                            <div class="collapse {{ request()->is('admin/socials*') || request()->is('admin/contacts*') || request()->is('admin/newsletters*') ? 'show' : '' }}" id="communication">
+                            <div class="collapse {{ request()->is('admin/socials*') || request()->is('admin/contacts*') || request()->is('admin/newsletters*') || request()->is('admin/service-requests*') ? 'show' : '' }}" id="communication">
                                 <div class="nav-submenu">
                                     <a class="nav-link {{ request()->is('admin/socials*') ? 'active' : '' }}" href="{{ route('admin.socials.edit') }}">
                                         <i class="fas fa-share-alt"></i> Sosial Şəbəkələr
@@ -282,6 +282,15 @@
                                         @endphp
                                         @if($unreadCount > 0)
                                             <span class="badge bg-warning text-dark ms-2">{{ $unreadCount }}</span>
+                                        @endif
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/service-requests*') ? 'active' : '' }}" href="{{ route('admin.service-requests.index') }}">
+                                        <i class="fas fa-tasks"></i> Xidmət Tələbləri
+                                        @php
+                                            $pendingCount = \App\Models\ServiceRequest::where('status', 'pending')->count();
+                                        @endphp
+                                        @if($pendingCount > 0)
+                                            <span class="badge bg-warning text-dark ms-2">{{ $pendingCount }}</span>
                                         @endif
                                     </a>
                                     <a class="nav-link {{ request()->is('admin/newsletters*') ? 'active' : '' }}" href="{{ route('admin.newsletters.index') }}">
