@@ -30,7 +30,7 @@
                                     @foreach($serviceRequests as $request)
                                     <tr>
                                         <td>{{ $request->id }}</td>
-                                        <td>{{ $request->service_name }}</td>
+                                        <td>{{ $request->service->title }}</td>
                                         <td>{{ $request->email }}</td>
                                         <td>{{ $request->phone ?: 'N/A' }}</td>
                                         <td>{{ Str::limit($request->subject, 50) }}</td>
