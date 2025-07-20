@@ -132,6 +132,8 @@
     box-shadow: var(--shadow-1);
     border: 1px solid rgba(255, 255, 255, 0.1);
     margin-top: 50px;
+    position: relative;
+    z-index: 5;
 }
 
 .form-header {
@@ -166,7 +168,6 @@
 
 .service-form .form-control {
     width: 100%;
-    padding: 15px 20px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.1);
@@ -195,6 +196,7 @@
 /* Custom Select Styles */
 .select-wrapper {
     position: relative;
+    z-index: 20;
 }
 
 .custom-select {
@@ -203,6 +205,26 @@
     -moz-appearance: none;
     cursor: pointer;
     padding-right: 50px;
+    z-index: 10;
+    position: relative;
+}
+
+.custom-select option {
+    background: var(--background-color-1);
+    color: var(--color-heading);
+    padding: 12px 20px;
+    border: none;
+    font-size: 14px;
+}
+
+.custom-select option:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
+.custom-select option:checked {
+    background: var(--color-primary);
+    color: white;
 }
 
 .select-arrow {
