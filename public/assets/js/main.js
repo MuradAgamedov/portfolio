@@ -61,6 +61,7 @@
             imJs.onePageNav();
             imJs.certificateModal();
             imJs.customTypingAnimation();
+            imJs.languageSwitcher();
         },
 
         
@@ -603,6 +604,59 @@
                     }
                 }, 500);
             });
+        },
+
+        languageSwitcher: function () {
+            // Language switcher functionality
+            $(document).on('click', '.language-switcher .dropdown-item, .mobile-lang-option', function(e) {
+                e.preventDefault();
+                
+                const langCode = $(this).attr('href').split('/').pop();
+                const currentLang = $('.current-lang').text();
+                
+                // Show loading state
+                if ($(this).hasClass('dropdown-item')) {
+                    $('.current-lang').text('...');
+                }
+                
+                // Make AJAX request to switch language
+                $.ajax({
+                    url: $(this).attr('href'),
+                    method: 'GET',
+                    success: function(response) {
+                        // Reload page to apply new language
+                        window.location.reload();
+                    },
+                    error: function() {
+                        // Restore current language text on error
+                        if ($(this).hasClass('dropdown-item')) {
+                            $('.current-lang').text(currentLang);
+                        }
+                        
+                        // Show error message
+                        if (typeof Swal !== 'undefined') {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Language switch failed. Please try again.',
+                                confirmButtonText: 'OK'
+                            });
+                        } else {
+                            alert('Language switch failed. Please try again.');
+                        }
+                    }
+                });
+            });
+            
+            // Add hover effect for language options
+            $('.language-switcher .dropdown-item, .mobile-lang-option').hover(
+                function() {
+                    $(this).addClass('hover-effect');
+                },
+                function() {
+                    $(this).removeClass('hover-effect');
+                }
+            );
         },
 
 

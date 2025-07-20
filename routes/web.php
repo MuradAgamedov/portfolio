@@ -32,23 +32,28 @@ use App\Http\Controllers\ServiceRequestController;
 
 // Language Switch Route
 Route::get('/language/{lang}', function($lang) {
-    if (in_array($lang, ['en', 'az'])) {
+    // Get available languages from database
+    $availableLanguages = \App\Models\Language::where('status', 1)->pluck('lang_code')->toArray();
+    
+    if (in_array($lang, $availableLanguages)) {
         session(['locale' => $lang]);
     }
     return redirect()->back();
 })->name('language.switch');
 
 // Front-end Routes
-Route::get('/', [FrontController::class, 'index'])->name('home');
-Route::get('/blogs', [FrontBlogController::class, 'index'])->name('blogs.index');
-Route::get('/blog/{slug}', [FrontBlogController::class, 'show'])->name('blog.show');
-Route::get('/services', [FrontServiceController::class, 'index'])->name('services.index');
-Route::get('/portfolios', [App\Http\Controllers\PortfolioController::class, 'index'])->name('portfolios.index');
-Route::get('/about', [FrontController::class, 'about'])->name('about');
-Route::get('/contact', [FrontController::class, 'contactPage'])->name('contact');
-Route::post('/service-request', [ServiceRequestController::class, 'store'])->name('service-request.store');
-Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
-Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
+Route::middleware(['setlocale'])->group(function () {
+    Route::get('/', [FrontController::class, 'index'])->name('home');
+    Route::get('/blogs', [FrontBlogController::class, 'index'])->name('blogs.index');
+    Route::get('/blog/{slug}', [FrontBlogController::class, 'show'])->name('blog.show');
+    Route::get('/services', [FrontServiceController::class, 'index'])->name('services.index');
+    Route::get('/portfolios', [App\Http\Controllers\PortfolioController::class, 'index'])->name('portfolios.index');
+    Route::get('/about', [FrontController::class, 'about'])->name('about');
+    Route::get('/contact', [FrontController::class, 'contactPage'])->name('contact');
+    Route::post('/service-request', [ServiceRequestController::class, 'store'])->name('service-request.store');
+    Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
+    Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
+});
 
 // Admin Auth Routes
 Route::prefix('admin')->name('admin.')->group(function () {

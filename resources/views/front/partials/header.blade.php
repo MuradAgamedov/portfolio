@@ -42,7 +42,7 @@
                                 <span class="current-lang">{{ strtoupper(app()->getLocale()) }}</span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                                @foreach(\App\Models\Language::where('status', 1)->orderBy('order')->get() as $language)
+                                @foreach(get_available_languages() as $language)
                                     <li>
                                         <a class="dropdown-item {{ app()->getLocale() == $language->lang_code ? 'active' : '' }}" 
                                            href="{{ route('language.switch', $language->lang_code) }}">
@@ -106,6 +106,20 @@
                 <li><a href="{{ route('contact') }}" title="{{__("Get in touch with me")}}">{{__("CONTACT")}}</a></li>
             </ul>
         </nav>
+        
+        <!-- Mobile Language Switcher -->
+        <div class="mobile-language-switcher">
+            <h4>{{__("Language")}}</h4>
+            <div class="mobile-lang-options">
+                @foreach(get_available_languages() as $language)
+                    <a href="{{ route('language.switch', $language->lang_code) }}" 
+                       class="mobile-lang-option {{ app()->getLocale() == $language->lang_code ? 'active' : '' }}">
+                        <span class="flag-icon flag-icon-{{ $language->lang_code }}"></span>
+                        <span>{{ strtoupper($language->lang_code) }}</span>
+                    </a>
+                @endforeach
+            </div>
+        </div>
         
         <div class="mobile-social">
             <h4>{{__("find with me")}}</h4>

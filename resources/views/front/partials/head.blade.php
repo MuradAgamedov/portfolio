@@ -41,6 +41,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Flag Icons CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css">
 <!-- SweetAlert2 CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <!-- Google reCAPTCHA -->
@@ -594,6 +596,64 @@
     /* Language Switcher Styles */
     .language-switcher {
         margin-right: 15px;
+        position: relative;
+    }
+    
+    .language-switcher .dropdown-menu {
+        background: var(--background-color-2);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        backdrop-filter: blur(10px);
+        min-width: 120px;
+        margin-top: 5px;
+        animation: fadeInDown 0.3s ease;
+    }
+    
+    .language-switcher .dropdown-item {
+        color: white;
+        padding: 8px 12px;
+        transition: all 0.3s ease;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 4px;
+        margin: 2px 4px;
+    }
+    
+    .language-switcher .dropdown-item:hover {
+        background: rgba(255,255,255,0.1);
+        color: white;
+        transform: translateX(3px);
+    }
+    
+    .language-switcher .dropdown-item.active {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+        font-weight: 600;
+    }
+    
+    .current-lang {
+        margin-left: 4px;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    
+    .language-switcher .btn i {
+        font-size: 16px;
+    }
+    
+    /* Animation for dropdown */
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
     
     /* Footer Copyright Styles */
@@ -1029,5 +1089,71 @@
         .current-lang {
             font-size: 12px;
         }
+    }
+    
+    /* Mobile Language Switcher Styles */
+    .mobile-language-switcher {
+        margin: 20px 0;
+        padding: 20px 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .mobile-language-switcher h4 {
+        color: var(--color-heading);
+        font-size: 16px;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+    
+    .mobile-lang-options {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .mobile-lang-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 15px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        color: var(--color-body);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    .mobile-lang-option:hover {
+        background: rgba(255,255,255,0.1);
+        color: var(--color-heading);
+        transform: translateY(-2px);
+    }
+    
+    .mobile-lang-option.active {
+        background: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
+    }
+    
+    .mobile-lang-option .flag-icon {
+        width: 20px;
+        height: 15px;
+        border-radius: 2px;
+    }
+    
+    /* Hover effects for language switcher */
+    .language-switcher .dropdown-item.hover-effect,
+    .mobile-lang-option.hover-effect {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    /* Flag icon improvements */
+    .flag-icon {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        border: 1px solid rgba(255,255,255,0.2);
     }
     </style>
