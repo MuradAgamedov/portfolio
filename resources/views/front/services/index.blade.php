@@ -99,6 +99,10 @@
                             <textarea id="message" name="message" class="form-control" rows="6" placeholder="{{__('Describe your project requirements...')}}" required></textarea>
                         </div>
                         
+                        <div class="form-group">
+                            <div class="g-recaptcha mb-3" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                        </div>
+                        
                         <div class="form-actions">
                             <button type="submit" class="btn btn-primary">
                                 <i data-feather="send"></i>
@@ -597,6 +601,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         
+        // Check reCAPTCHA
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Verification Required',
+                text: 'Please complete the reCAPTCHA verification.',
+                confirmButtonColor: '#ff014f'
+            });
+            return;
+        }
+        
         // Disable submit button and show loading
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
@@ -628,6 +644,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 form.reset();
                 document.getElementById('selected-service-info').style.display = 'none';
                 
+                // Reset reCAPTCHA
+                grecaptcha.reset();
+                
             } else {
                 // Show error message
                 Swal.fire({
@@ -646,6 +665,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 text: 'An error occurred while submitting your request.',
                 confirmButtonColor: '#ff014f'
             });
+            
+            // Reset reCAPTCHA on error
+            grecaptcha.reset();
         })
         .finally(() => {
             // Re-enable submit button

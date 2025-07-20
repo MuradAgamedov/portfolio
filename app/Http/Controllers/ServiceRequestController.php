@@ -17,6 +17,7 @@ class ServiceRequestController extends Controller
             'phone' => 'nullable|string|max:20',
             'subject' => 'required|string|max:255',
             'message' => 'required|string|max:1000',
+            'g-recaptcha-response' => 'required|recaptcha',
         ]);
 
         try {
