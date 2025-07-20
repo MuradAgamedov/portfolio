@@ -162,7 +162,7 @@
         margin-left: 0 !important;
     }
         .mainmenu-nav .primary-menu {
-            margin -16px !important;
+            margin: -16px !important;
         }
     /* Header wrapper alignment */
     .header-wrapper {
