@@ -1684,12 +1684,14 @@ $(document).ready(function() {
     border-radius: 20px;
     padding: 25px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border: 3px solid #333333;
+    border: 4px solid #ff014f;
     transition: all 0.4s ease;
     height: 100%;
     position: relative;
     overflow: hidden;
     margin: 10px;
+    outline: 2px solid rgba(255, 1, 79, 0.3);
+    outline-offset: 3px;
 }
 
 .portfolio-card::before {
@@ -1712,7 +1714,9 @@ $(document).ready(function() {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     border-color: #ff014f;
-    border-width: 3px;
+    border-width: 5px;
+    outline-color: rgba(255, 1, 79, 0.6);
+    outline-width: 3px;
 }
 
 .portfolio-card .thumbnail {
@@ -1781,17 +1785,36 @@ $(document).ready(function() {
 
 /* Additional Card Styling */
 .portfolio-card {
-    outline: 2px solid transparent;
-    outline-offset: 2px;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 0 4px #ff014f,
+        0 0 0 8px rgba(255, 1, 79, 0.2);
 }
 
-.portfolio-card:focus-within {
-    outline-color: #ff014f;
+.portfolio-card:hover {
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 6px #ff014f,
+        0 0 0 12px rgba(255, 1, 79, 0.3);
 }
 
 /* Ensure cards are properly spaced */
 .col-lg-4.col-md-6.col-12.mt--30 {
     margin-bottom: 30px;
+}
+
+/* Card background with pattern */
+.portfolio-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 30%, rgba(255, 1, 79, 0.05) 50%, transparent 70%);
+    pointer-events: none;
+    border-radius: 20px;
 }
 
 /* SweetAlert customization */
