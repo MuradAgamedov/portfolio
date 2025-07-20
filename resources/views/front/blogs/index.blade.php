@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title">
-                    <div class="title-row">
+                    <div class="title-column">
                         <span class="subtitle">{{__("Welcome to the space where I share my thoughts")}}</span>
                         <h2 class="title">{{__("My Blog")}}</h2>
                     </div>
@@ -165,18 +165,19 @@
 @section('styles')
 <style>
 /* Section Title Styles */
-.section-title .title-row {
+.section-title .title-column {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    text-align: left;
 }
 
 .section-title .subtitle {
     font-size: 16px;
     color: var(--color-body);
     font-weight: 400;
-    flex: 1;
+    margin: 0;
 }
 
 .section-title .title {
@@ -184,14 +185,13 @@
     font-weight: 700;
     color: var(--color-heading);
     margin: 0;
-    flex-shrink: 0;
 }
 
-/* Responsive for title row */
+/* Responsive for title column */
 @media only screen and (max-width: 767px) {
-    .section-title .title-row {
-        flex-direction: column;
+    .section-title .title-column {
         text-align: center;
+        align-items: center;
         gap: 10px;
     }
     
