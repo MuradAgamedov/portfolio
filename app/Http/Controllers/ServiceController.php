@@ -9,7 +9,7 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        $services = Service::where('is_active', true)
+        $services = Service::where('status', 1)
                           ->orderBy('order', 'asc')
                           ->get();
         
@@ -19,10 +19,10 @@ class ServiceController extends Controller
     public function show($slug)
     {
         $service = Service::where('slug', $slug)
-                         ->where('is_active', true)
+                         ->where('status', 1)
                          ->firstOrFail();
         
-        $services = Service::where('is_active', true)
+        $services = Service::where('status', 1)
                           ->where('id', '!=', $service->id)
                           ->orderBy('order', 'asc')
                           ->get();

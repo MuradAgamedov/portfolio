@@ -524,12 +524,12 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title text-left d-flex justify-content-between align-items-center">
-                    <div>
+                <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title d-flex justify-content-between align-items-center">
+                    <div class="title-column">
                         <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
                         <h2 class="title">{{__("My Blog")}}</h2>
                     </div>
-                    <div>
+                    <div class="view-all-btn">
                         <a href="{{ route('blogs.index') }}" class="rn-btn">
                             <span>{{__("View All")}}</span>
                             <i data-feather="arrow-right"></i>
@@ -1606,6 +1606,92 @@ $(document).ready(function() {
 
 @push('styles')
 <style>
+/* Blog Section Title Styles */
+.section-title .title-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    text-align: left;
+}
+
+.section-title .subtitle {
+    font-size: 16px;
+    color: var(--color-body);
+    font-weight: 400;
+    margin: 0;
+}
+
+.section-title .title {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin: 0;
+}
+
+.view-all-btn {
+    flex-shrink: 0;
+}
+
+.view-all-btn .rn-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--color-primary);
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.view-all-btn .rn-btn:hover {
+    background: var(--color-primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.3);
+}
+
+.view-all-btn .rn-btn i {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.view-all-btn .rn-btn:hover i {
+    transform: translateX(3px);
+}
+
+/* Responsive */
+@media only screen and (max-width: 767px) {
+    .section-title {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .section-title .title-column {
+        align-items: center;
+    }
+    
+    .section-title .title {
+        font-size: 36px;
+    }
+    
+    .view-all-btn {
+        align-self: center;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .section-title .title {
+        font-size: 28px;
+    }
+}
+
 /* Custom styling for form validation */
 .is-invalid {
     border-color: #dc3545 !important;
