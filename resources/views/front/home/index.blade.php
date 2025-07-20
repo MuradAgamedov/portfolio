@@ -2,6 +2,22 @@
 
 @section('title', __('seo_home_title'))
 
+@section('meta')
+@if($seoSettings)
+    @if($seoSettings->getTranslation('seo_title', app()->getLocale()))
+        <title>{{ $seoSettings->getTranslation('seo_title', app()->getLocale()) }}</title>
+    @endif
+    
+    @if($seoSettings->getTranslation('seo_description', app()->getLocale()))
+        <meta name="description" content="{{ $seoSettings->getTranslation('seo_description', app()->getLocale()) }}">
+    @endif
+    
+    @if($seoSettings->getTranslation('seo_keywords', app()->getLocale()))
+        <meta name="keywords" content="{{ $seoSettings->getTranslation('seo_keywords', app()->getLocale()) }}">
+    @endif
+@endif
+@endsection
+
 @section('content')
 <!-- SEO Display Section -->
 @php

@@ -12,24 +12,9 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $favicon) }}">
 @endif
 
-<!-- SEO Meta Tags -->
-@if($seoSettings)
-    @if($seoSettings->getTranslation('seo_title', app()->getLocale()))
-        <title>{{ $seoSettings->getTranslation('seo_title', app()->getLocale()) }}</title>
-    @endif
-    
-    @if($seoSettings->getTranslation('seo_description', app()->getLocale()))
-        <meta name="description" content="{{ $seoSettings->getTranslation('seo_description', app()->getLocale()) }}">
-    @endif
-    
-    @if($seoSettings->getTranslation('seo_keywords', app()->getLocale()))
-        <meta name="keywords" content="{{ $seoSettings->getTranslation('seo_keywords', app()->getLocale()) }}">
-    @endif
-    
-    <!-- Robots Meta Tag -->
-    @if(!$seoSettings->index || !$seoSettings->follow)
-        <meta name="robots" content="{{ $seoSettings->index ? 'index' : 'noindex' }},{{ $seoSettings->follow ? 'follow' : 'nofollow' }}">
-    @endif
+<!-- Robots Meta Tag -->
+@if($seoSettings && (!$seoSettings->index || !$seoSettings->follow))
+    <meta name="robots" content="{{ $seoSettings->index ? 'index' : 'noindex' }},{{ $seoSettings->follow ? 'follow' : 'nofollow' }}">
 @endif
 
 <!-- Page Header Code -->
