@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\BlogController as FrontBlogController;
+use App\Http\Controllers\ServiceController as FrontServiceController;
 
 // Language Switch Route
 Route::get('/language/{lang}', function($lang) {
@@ -40,6 +41,8 @@ Route::get('/language/{lang}', function($lang) {
 Route::get('/', [FrontController::class, 'index'])->name('home');
 Route::get('/blogs', [FrontBlogController::class, 'index'])->name('blogs.index');
 Route::get('/blog/{slug}', [FrontBlogController::class, 'show'])->name('blog.show');
+Route::get('/services', [FrontServiceController::class, 'index'])->name('services.index');
+Route::get('/services/{slug}', [FrontServiceController::class, 'show'])->name('services.show');
 Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
 Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
 
