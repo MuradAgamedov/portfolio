@@ -44,6 +44,7 @@ Route::get('/blogs', [FrontBlogController::class, 'index'])->name('blogs.index')
 Route::get('/blog/{slug}', [FrontBlogController::class, 'show'])->name('blog.show');
 Route::get('/services', [FrontServiceController::class, 'index'])->name('services.index');
 Route::get('/portfolios', [App\Http\Controllers\PortfolioController::class, 'index'])->name('portfolios.index');
+Route::get('/about', [FrontController::class, 'about'])->name('about');
 Route::post('/service-request', [ServiceRequestController::class, 'store'])->name('service-request.store');
 Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
 Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');

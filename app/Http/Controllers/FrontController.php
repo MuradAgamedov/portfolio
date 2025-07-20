@@ -45,6 +45,19 @@ class FrontController extends Controller
         return view('front.home.index', $data);
     }
 
+    public function about()
+    {
+        $data = [
+            'about' => About::firstOrCreate(),
+            'education' => Education::where('status', true)->orderBy('order')->get(),
+            'experiences' => Experience::where('status', true)->orderBy('order')->get(),
+            'skills' => Skill::where('status', true)->orderBy('order')->get(),
+            'socials' => $this->getSocials(),
+        ];
+        
+        return view('front.about.index', $data);
+    }
+
     public function contact(Request $request)
     {
         // Validate reCAPTCHA first

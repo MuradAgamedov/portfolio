@@ -27,6 +27,7 @@
                 <nav class="mainmenu-nav">
                     <ul class="primary-menu">
                         <li class="nav-item"><a class="nav-link" href="#home" title="{{__("Let's get to know me")}}">{{__("LET'S KNOW ME")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('about') }}" title="{{__("Learn more about me")}}">{{__("About")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('services.index') }}" title="{{__("View my services and what I offer")}}">{{__("Services")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('portfolios.index') }}" title="{{__("View my portfolio projects")}}">{{__("Portfolio")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#resume" title="{{__("Check out my resume, education and experience")}}">{{__("Resume")}}</a></li>
@@ -103,6 +104,7 @@
         <nav class="mobile-nav">
             <ul class="mobile-menu-list">
                 <li><a href="#home" title="{{__("Let's get to know me")}}">{{__("LET'S KNOW ME")}}</a></li>
+                <li><a href="{{ route('about') }}" title="{{__("Learn more about me")}}">{{__("ABOUT")}}</a></li>
                 <li><a href="{{ route('services.index') }}" title="{{__("View my services and what I offer")}}">{{__("SERVICES")}}</a></li>
                 <li><a href="{{ route('portfolios.index') }}" title="{{__("View my portfolio projects")}}">{{__("PORTFOLIO")}}</a></li>
                 <li><a href="#resume" title="{{__("Check out my resume, education and experience")}}">{{__("RESUME")}}</a></li>
