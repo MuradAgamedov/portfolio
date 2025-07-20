@@ -611,7 +611,7 @@
             $(document).on('click', '.language-switcher .dropdown-item, .mobile-lang-option', function(e) {
                 e.preventDefault();
                 
-                const langCode = $(this).attr('href').split('/').pop();
+                const newUrl = $(this).attr('href');
                 const currentLang = $('.current-lang').text();
                 
                 // Show loading state
@@ -619,33 +619,8 @@
                     $('.current-lang').text('...');
                 }
                 
-                // Make AJAX request to switch language
-                $.ajax({
-                    url: $(this).attr('href'),
-                    method: 'GET',
-                    success: function(response) {
-                        // Reload page to apply new language
-                        window.location.reload();
-                    },
-                    error: function() {
-                        // Restore current language text on error
-                        if ($(this).hasClass('dropdown-item')) {
-                            $('.current-lang').text(currentLang);
-                        }
-                        
-                        // Show error message
-                        if (typeof Swal !== 'undefined') {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error!',
-                                text: 'Language switch failed. Please try again.',
-                                confirmButtonText: 'OK'
-                            });
-                        } else {
-                            alert('Language switch failed. Please try again.');
-                        }
-                    }
-                });
+                // Navigate to new URL directly
+                window.location.href = newUrl;
             });
             
             // Add hover effect for language options

@@ -5,7 +5,7 @@
         <div class="col-lg-2 col-6">
             <div class="header-left">
                 <div class="logo">
-                    <a href="{{ route('home') }}" title="{{__("Sayt hazırlanması")}}">
+                    <a href="{{ localized_route('home') }}" title="{{__("Sayt hazırlanması")}}">
                         @php
                             $headerLogo = \App\Models\SiteSetting::getByKey('header_logo');
                             $headerLogoAlt = \App\Models\SiteSetting::getByKey('header_logo_alt');
@@ -26,10 +26,10 @@
             <div class="header-center">
                 <nav class="mainmenu-nav">
                     <ul class="primary-menu">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('services.index') }}" title="{{__("View my services and what I offer")}}">{{__("Services")}}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('portfolios.index') }}" title="{{__("View my portfolio projects")}}">{{__("Portfolio")}}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('blogs.index') }}" title="{{__("Read my blog posts")}}">{{__("Blog")}}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}" title="{{__("Get in touch with me")}}">{{__("Contact")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ localized_route('services.index') }}" title="{{__("View my services and what I offer")}}">{{__("Services")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ localized_route('portfolios.index') }}" title="{{__("View my portfolio projects")}}">{{__("Portfolio")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ localized_route('blogs.index') }}" title="{{__("Read my blog posts")}}">{{__("Blog")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ localized_route('contact') }}" title="{{__("Get in touch with me")}}">{{__("Contact")}}</a></li>
                     </ul>
                 </nav>
                 <!-- Start Header Right  -->
@@ -45,7 +45,7 @@
                                 @foreach(get_available_languages() as $language)
                                     <li>
                                         <a class="dropdown-item {{ app()->getLocale() == $language->lang_code ? 'active' : '' }}" 
-                                           href="{{ route('language.switch', $language->lang_code) }}">
+                                           href="{{ switch_language_url($language->lang_code) }}">
                                             <span class="flag-icon flag-icon-{{ $language->lang_code }}"></span>
                                             {{ strtoupper($language->lang_code) }}
                                         </a>
@@ -79,7 +79,7 @@
     <div class="mobile-menu-content">
         <div class="mobile-menu-header">
             <div class="mobile-logo">
-                <a href="{{ route('home') }}" title="{{__("Go to homepage")}}">
+                <a href="{{ localized_route('home') }}" title="{{__("Go to homepage")}}">
                     @php
                         $headerLogo = \App\Models\SiteSetting::getByKey('header_logo');
                         $headerLogoAlt = \App\Models\SiteSetting::getByKey('header_logo_alt');
@@ -100,10 +100,10 @@
         
         <nav class="mobile-nav">
             <ul class="mobile-menu-list">
-                <li><a href="{{ route('services.index') }}" title="{{__("View my services and what I offer")}}">{{__("SERVICES")}}</a></li>
-                <li><a href="{{ route('portfolios.index') }}" title="{{__("View my portfolio projects")}}">{{__("PORTFOLIO")}}</a></li>
-                <li><a href="{{ route('blogs.index') }}" title="{{__("Read my blog posts")}}">{{__("BLOG")}}</a></li>
-                <li><a href="{{ route('contact') }}" title="{{__("Get in touch with me")}}">{{__("CONTACT")}}</a></li>
+                <li><a href="{{ localized_route('services.index') }}" title="{{__("View my services and what I offer")}}">{{__("SERVICES")}}</a></li>
+                <li><a href="{{ localized_route('portfolios.index') }}" title="{{__("View my portfolio projects")}}">{{__("PORTFOLIO")}}</a></li>
+                <li><a href="{{ localized_route('blogs.index') }}" title="{{__("Read my blog posts")}}">{{__("BLOG")}}</a></li>
+                <li><a href="{{ localized_route('contact') }}" title="{{__("Get in touch with me")}}">{{__("CONTACT")}}</a></li>
             </ul>
         </nav>
         
@@ -112,7 +112,7 @@
             <h4>{{__("Language")}}</h4>
             <div class="mobile-lang-options">
                 @foreach(get_available_languages() as $language)
-                    <a href="{{ route('language.switch', $language->lang_code) }}" 
+                    <a href="{{ switch_language_url($language->lang_code) }}" 
                        class="mobile-lang-option {{ app()->getLocale() == $language->lang_code ? 'active' : '' }}">
                         <span class="flag-icon flag-icon-{{ $language->lang_code }}"></span>
                         <span>{{ strtoupper($language->lang_code) }}</span>

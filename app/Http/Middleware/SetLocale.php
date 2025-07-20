@@ -15,12 +15,30 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Set locale from session if exists
-        if (session()->has('locale')) {
-            app()->setLocale(session('locale'));
+        // Get locale from URL parameter
+        $locale = $request->route('locale');
+        
+        if ($locale) {
+            // Check if locale is valid
+            $availableLanguages = \App\Models\Language::where('status', 1)->pluck('lang_code')->toArray();
+            
+            if (in_array($locale, $availableLanguages)) {
+                app()->setLocale($locale);
+                session(['locale' => $locale]);
+            } else {
+                // Redirect to default language if invalid
+                $defaultLanguage = \App\Models\Language::where('is_main_lang', 1)->first();
+                $defaultLang = $defaultLanguage ? $defaultLanguage->lang_code : 'en';
+                return redirect('/' . $defaultLang);
+            }
         } else {
-            // Set default locale from config
-            app()->setLocale(config('app.locale'));
+            // Set locale from session if exists
+            if (session()->has('locale')) {
+                app()->setLocale(session('locale'));
+            } else {
+                // Set default locale from config
+                app()->setLocale(config('app.locale'));
+            }
         }
 
         return $next($request);

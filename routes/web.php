@@ -30,7 +30,14 @@ use App\Http\Controllers\BlogController as FrontBlogController;
 use App\Http\Controllers\ServiceController as FrontServiceController;
 use App\Http\Controllers\ServiceRequestController;
 
-// Language Switch Route
+// Redirect root to default language
+Route::get('/', function () {
+    $defaultLanguage = \App\Models\Language::where('is_main_lang', 1)->first();
+    $defaultLang = $defaultLanguage ? $defaultLanguage->lang_code : 'en';
+    return redirect('/' . $defaultLang);
+});
+
+// Language Switch Route (for AJAX)
 Route::get('/language/{lang}', function($lang) {
     // Get available languages from database
     $availableLanguages = \App\Models\Language::where('status', 1)->pluck('lang_code')->toArray();
@@ -41,8 +48,8 @@ Route::get('/language/{lang}', function($lang) {
     return redirect()->back();
 })->name('language.switch');
 
-// Front-end Routes
-Route::middleware(['setlocale'])->group(function () {
+// Localized Front-end Routes
+Route::prefix('{locale}')->where(['locale' => '[a-z]{2}'])->middleware(['setlocale'])->group(function () {
     Route::get('/', [FrontController::class, 'index'])->name('home');
     Route::get('/blogs', [FrontBlogController::class, 'index'])->name('blogs.index');
     Route::get('/blog/{slug}', [FrontBlogController::class, 'show'])->name('blog.show');
