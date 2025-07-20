@@ -397,7 +397,7 @@
 </style>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
 console.log('Services page JavaScript loaded');
 
