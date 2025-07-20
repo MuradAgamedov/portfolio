@@ -1681,6 +1681,9 @@ $(document).ready(function() {
         margin-left: 0;
         margin-top: 20px;
     }
+    .align-items-center {
+        justify-content: space-between;
+    }
 }
 
 @media only screen and (max-width: 575px) {
