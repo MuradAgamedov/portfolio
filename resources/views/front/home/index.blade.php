@@ -606,7 +606,7 @@
                             </div>
 
                             <div class="col-lg-12">
-                                <div class="form-group">
+                                <div class="form-group" style="width: 100%;">
                                     <label for="contact-message">{{__("Your Message")}}</label>
                                     <textarea class="form-control" name="contact-message" id="contact-message" cols="30" rows="8"></textarea>
                                 </div>
