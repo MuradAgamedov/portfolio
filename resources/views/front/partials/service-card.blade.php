@@ -22,9 +22,9 @@
             </div>
         </div>
         @if(isset($isServicesPage) && $isServicesPage)
-            <a class="over-link service-link" href="#" data-service-id="{{ $service->id }}" data-service-title="{{ $service->getTitle() }}"></a>
+            <a class="over-link service-link" href="javascript:void(0)" data-service-id="{{ $service->id }}" data-service-title="{{ $service->getTitle() }}"></a>
         @else
-            <a class="over-link" href="#"></a>
+            <a class="over-link" href="javascript:void(0)"></a>
         @endif
     </div>
 </div>
