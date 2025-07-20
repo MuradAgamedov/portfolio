@@ -145,10 +145,11 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-top: 40px;
 }
 
 .pagination {
-    gap: 8px;
+    gap: 10px;
     margin: 0 auto;
     padding: 0;
     list-style: none;
@@ -164,48 +165,54 @@
 
 .pagination .page-link {
     border: none;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--color-body);
-    border-radius: 12px;
-    padding: 14px 18px;
-    min-width: 50px;
-    height: 50px;
+    background: #2a2d31;
+    color: #c4cfde;
+    border-radius: 8px;
+    padding: 12px 16px;
+    min-width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     text-decoration: none;
+    font-family: 'Inter', sans-serif;
 }
 
 .pagination .page-link:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: var(--color-heading);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    background: #3a3d41;
+    color: #ffffff;
+    transform: translateY(-1px);
 }
 
 .pagination .page-item.active .page-link {
-    background: var(--color-primary);
+    background: #ff014f;
     color: white;
-    box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.4);
-    border-color: var(--color-primary);
+    border: none;
 }
 
 .pagination .page-item.disabled .page-link {
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.3);
+    background: #2a2d31;
+    color: #6c757d;
     cursor: not-allowed;
-    border-color: rgba(255, 255, 255, 0.05);
+    border: none;
 }
 
 .pagination .page-link i {
-    width: 20px;
-    height: 20px;
-    stroke-width: 2.5px;
+    width: 16px;
+    height: 16px;
+    stroke-width: 2px;
+}
+
+/* Previous/Next buttons special styling */
+.pagination .page-item:first-child .page-link {
+    border-radius: 20px 8px 8px 20px;
+}
+
+.pagination .page-item:last-child .page-link {
+    border-radius: 8px 20px 20px 8px;
 }
 
 /* Portfolio Filter Styles */
