@@ -6,7 +6,7 @@
                 <div class="footer-area text-center">
 
                     <div class="logo" style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
-                        <a href="{{ route('home') }}" style="display: inline-block;">
+                        <a href="{{ localized_route('home') }}" style="display: inline-block;">
                             @php
                                 $footerLogo = \App\Models\SiteSetting::getByKey('footer_logo');
                                 $footerLogoAlt = \App\Models\SiteSetting::getByKey('footer_logo_alt');

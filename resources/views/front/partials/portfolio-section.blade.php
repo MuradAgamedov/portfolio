@@ -9,7 +9,7 @@
                         <h2 class="title">{{__("my projects")}}</h2>
                     </div>
                     <div class="view-all-btn ms-auto">
-                        <a href="{{ route('portfolios.index') }}" class="rn-btn">
+                        <a href="{{ localized_route('portfolios.index') }}" class="rn-btn">
                             <span>{{__("View All")}}</span>
                             <i data-feather="arrow-right"></i>
                         </a>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="content">
                             <h4 class="title">
-                                <a href="{{ route('portfolios.index') }}#portfolio-{{ $portfolio->id }}">{{ $portfolio->getTitle() }}</a>
+                                <a href="{{ localized_route('portfolios.index') }}#portfolio-{{ $portfolio->id }}">{{ $portfolio->getTitle() }}</a>
                             </h4>
                             @if($portfolio->company_name)
                                 <p class="company">

@@ -39,7 +39,7 @@
                         <p>{{__('Select a service and send us your request')}}</p>
                     </div>
                     
-                    <form class="service-form" id="serviceRequestForm" action="{{ route('service-request.store') }}" method="POST">
+                    <form class="service-form" id="serviceRequestForm" action="{{ localized_route('service-request.store') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-lg-4">

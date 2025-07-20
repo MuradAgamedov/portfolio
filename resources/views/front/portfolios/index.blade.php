@@ -20,12 +20,12 @@
             <div class="col-lg-12">
                 <div class="portfolio-filter text-center mb-5 mt-5">
                     <div class="filter-buttons">
-                        <a href="{{ route('portfolios.index') }}" 
+                        <a href="{{ localized_route('portfolios.index') }}" 
                            class="filter-btn {{ $selectedCategory == 'all' ? 'active' : '' }}">
                             {{__("All")}}
                         </a>
                         @foreach($categories as $category)
-                            <a href="{{ route('portfolios.index', ['category' => $category->getSlug()]) }}" 
+                            <a href="{{ localized_route('portfolios.index', ['category' => $category->getSlug()]) }}" 
                                class="filter-btn {{ $selectedCategory == $category->getSlug() ? 'active' : '' }}">
                                 {{ $category->getTitle() }}
                             </a>
