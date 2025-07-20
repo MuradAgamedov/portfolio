@@ -51,6 +51,11 @@ if (!function_exists('localized_route')) {
     {
         $locale = app()->getLocale();
         
+        // Ensure parameters is an array
+        if (!is_array($parameters)) {
+            $parameters = [$parameters];
+        }
+        
         // Add locale to parameters
         $parameters['locale'] = $locale;
         
@@ -67,6 +72,11 @@ if (!function_exists('switch_language_url')) {
         // Get current route name and parameters
         $routeName = request()->route()->getName();
         $routeParameters = request()->route()->parameters();
+        
+        // Ensure parameters is an array
+        if (!is_array($routeParameters)) {
+            $routeParameters = [];
+        }
         
         // Remove locale from parameters and add new locale
         unset($routeParameters['locale']);
