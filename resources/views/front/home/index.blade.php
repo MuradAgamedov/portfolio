@@ -1720,5 +1720,40 @@
 }
 
 /* Contact form styles are now in external CSS file */
+
+/* View All Button Styles */
+.view-all-btn .rn-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #ff014f, #ff6b9d);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
+}
+
+.view-all-btn .rn-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 1, 79, 0.4);
+    color: white;
+    border-radius: 25px;
+}
+
+.view-all-btn .rn-btn i {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.view-all-btn .rn-btn:hover i {
+    transform: translateX(3px);
+}
 </style>
 @endpush
