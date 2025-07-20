@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Traits\SocialTrait;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
+    use SocialTrait;
+
     public function index()
     {
         $services = Service::where('status', 1)
