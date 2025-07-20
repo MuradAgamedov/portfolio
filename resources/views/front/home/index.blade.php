@@ -583,40 +583,40 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="contact-name">{{__("Your Name")}}</label>
-                                    <input class="form-control form-control-lg" name="contact-name" id="contact-name" type="text">
+                                    <label for="contact-name">{{__("YOUR NAME")}}</label>
+                                    <input class="form-control" name="contact-name" id="contact-name" type="text" placeholder="{{__('Enter your name')}}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="contact-phone">{{__("Phone Number")}}</label>
-                                    <input class="form-control" name="contact-phone" id="contact-phone" type="text">
+                                    <label for="contact-phone">{{__("PHONE NUMBER")}}</label>
+                                    <input class="form-control" name="contact-phone" id="contact-phone" type="text" placeholder="{{__('Enter your phone')}}">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="contact-email">{{__("Email")}}</label>
-                                    <input class="form-control form-control-sm" id="contact-email" name="contact-email" type="email">
+                                    <label for="contact-email">{{__("EMAIL")}}</label>
+                                    <input class="form-control" id="contact-email" name="contact-email" type="email" placeholder="{{__('Enter your email')}}">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="subject">{{__("Subject")}}</label>
-                                    <input class="form-control form-control-sm" id="subject" name="subject" type="text">
+                                    <label for="subject">{{__("SUBJECT")}}</label>
+                                    <input class="form-control" id="subject" name="subject" type="text" placeholder="{{__('Enter subject')}}">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="contact-message">{{__("Your Message")}}</label>
-                                    <textarea name="contact-message" id="contact-message" cols="30" rows="10"></textarea>
+                                    <label for="contact-message">{{__("YOUR MESSAGE")}}</label>
+                                    <textarea name="contact-message" id="contact-message" cols="30" rows="8" placeholder="{{__('Enter your message')}}"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                            <div class="g-recaptcha mb-3" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                                <div class="g-recaptcha mb-3" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
                                 <button name="submit" type="submit" id="submit" class="rn-btn">
                                     <span>{{__("SEND MESSAGE")}}</span>
                                     <i data-feather="arrow-right"></i>
