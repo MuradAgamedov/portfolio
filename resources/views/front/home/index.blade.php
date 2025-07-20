@@ -524,9 +524,17 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title text-left">
-                    <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
-                    <h2 class="title">{{__("My Blog")}}</h2>
+                <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title text-left d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
+                        <h2 class="title">{{__("My Blog")}}</h2>
+                    </div>
+                    <div>
+                        <a href="{{ route('blogs.index') }}" class="rn-btn">
+                            <span>{{__("View All")}}</span>
+                            <i data-feather="arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

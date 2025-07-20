@@ -29,6 +29,7 @@
                         <li class="nav-item"><a class="nav-link" href="#home" title="{{__("Let's get to know me")}}">{{__("LET'S KNOW ME")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#features" title="{{__("View my services and what I offer")}}">{{__("Services")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#resume" title="{{__("Check out my resume, education and experience")}}">{{__("Resume")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('blogs.index') }}" title="{{__("Read my blog posts")}}">{{__("Blog")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contacts" title="{{__("Get in touch with me - Contact information")}}">{{__("Contacts")}}</a></li>
                     </ul>
                 </nav>
@@ -103,6 +104,7 @@
                 <li><a href="#home" title="{{__("Let's get to know me")}}">{{__("LET'S KNOW ME")}}</a></li>
                 <li><a href="#features" title="{{__("View my services and what I offer")}}">{{__("SERVICES")}}</a></li>
                 <li><a href="#resume" title="{{__("Check out my resume, education and experience")}}">{{__("RESUME")}}</a></li>
+                <li><a href="{{ route('blogs.index') }}" title="{{__("Read my blog posts")}}">{{__("BLOG")}}</a></li>
                 <li><a href="#contacts" title="{{__("Get in touch with me - Contact information")}}">{{__("CONTACTS")}}</a></li>
             </ul>
         </nav>
