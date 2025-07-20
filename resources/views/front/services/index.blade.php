@@ -211,7 +211,7 @@
 
 .custom-select option {
     background: var(--background-color-1);
-    color: var(--color-heading);
+ 
     padding: 12px 20px;
     border: none;
     font-size: 14px;
