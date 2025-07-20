@@ -377,85 +377,55 @@
     </div>
 </div>
 
-<!-- Start Client Area -->
-<div class="rn-client-area rn-section-gap section-separator" id="clients">
+<!-- Start Portfolio Area -->
+<div class="rn-portfolio-area rn-section-gap section-separator" id="portfolio">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="section-title">
+                <div class="section-title text-center">
                     <span class="subtitle">{{__("my projects")}}</span>
                     <h2 class="title">{{__("my projects")}}</h2>
                 </div>
             </div>
         </div>
         <div class="row row--25 mt--50 mt_md--40 mt_sm--40">
-            <div class="col-lg-4">
-                <div class="d-flex flex-wrap align-content-start h-100">
-                    <div class="position-sticky clients-wrapper sticky-top rbt-sticky-top-adjust">
-                        <ul class="nav tab-navigation-button flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
-                    @foreach($portfolioCategories as $index => $category)
-                            <li class="nav-item">
-                            <a class="nav-link @if($index === 0) active @endif"
-                               id="v-pills-tab-{{ $category->id }}"
-                               data-bs-toggle="tab"
-                               href="#v-pills-content-{{ $category->id }}"
-                               role="tab"
-                               aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
-                                {{ $category->getTitle() }}
+            @foreach($portfolios as $index => $portfolio)
+            <!-- Start Single Portfolio -->
+            <div class="col-lg-4 col-md-6 col-12 mt--30" data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true">
+                <div class="portfolio-card">
+                    <div class="inner">
+                        <div class="thumbnail">
+                            <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
+                                <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}" 
+                                     alt="{{ $portfolio->getTitle() }}"
+                                     style="width: 100%; height: 240px; object-fit: cover; border-radius: 10px;">
                             </a>
-                            </li>
-                    @endforeach
-                        </ul>
+                        </div>
+                        <div class="content">
+                            <div class="portfolio-info">
+                                <h4 class="title">
+                                    <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
+                                        {{ $portfolio->getTitle() }}
+                                    </a>
+                                </h4>
+                                @if($portfolio->company_name)
+                                <p class="company">
+                                    <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
+                                        {{ $portfolio->company_name }}
+                                    </a>
+                                </p>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-8">
-                <div class="tab-area">
-                    <div class="d-flex align-items-start">
-                <div class="tab-content w-100" id="v-pills-tabContent">
-                    @foreach($portfolioCategories as $index => $category)
-                        <div class="tab-pane fade @if($index === 0) show active @endif"
-                             id="v-pills-content-{{ $category->id }}"
-                             role="tabpanel"
-                             aria-labelledby="v-pills-tab-{{ $category->id }}">
-
-                            <div class="client-card d-flex flex-wrap gap-4">
-                                @foreach($portfolios->where('category_id', $category->id) as $portfolio)
-                                    <div class="main-content" style="width: calc(50% - 1rem);">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail" style="width: 100%;padding:20px; height: 240px; overflow: hidden;">
-                                                                                         <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}"
-                                                         alt="{{ $portfolio->getTitle() }}"
-                                                         style="width: 100%; height: 100%; object-fit: cover;">
-                                               
-                                            </div>
-                                            <div class="seperator my-2"></div>
-                                            <div class="client-name">
-                                                <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
-                                                    {{ $portfolio->company_name }}
-                                                    </a>
-                                                    <span>-</span>
-                                                                                                         <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
-                                                     {{ $portfolio->getTitle() }}
-                                                    </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                                            </div>
-
-                                            </div>
-                    @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                            </div>
-                                            </div>
-
+            <!-- End Single Portfolio -->
+            @endforeach
+        </div>
     </div>
 </div>
-<!-- End client section -->
+<!-- End Portfolio Area -->
 
 <!-- Pricing Area -->
 <div class="rn-pricing-area rn-section-gap section-separator" id="pricing">
@@ -1707,6 +1677,80 @@ $(document).ready(function() {
 /* Loading spinner for button */
 .fa-spinner {
     margin-right: 5px;
+}
+
+/* Portfolio Card Styles */
+.portfolio-card {
+    background: var(--background-color-1);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: var(--shadow-1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    border-color: var(--color-primary);
+}
+
+.portfolio-card .thumbnail {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.portfolio-card .thumbnail img {
+    transition: transform 0.3s ease;
+}
+
+.portfolio-card:hover .thumbnail img {
+    transform: scale(1.05);
+}
+
+.portfolio-card .content {
+    padding: 0;
+}
+
+.portfolio-card .portfolio-info {
+    text-align: center;
+}
+
+.portfolio-card .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-heading);
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.portfolio-card .title a {
+    color: var(--color-heading);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.portfolio-card .title a:hover {
+    color: var(--color-primary);
+}
+
+.portfolio-card .company {
+    font-size: 14px;
+    color: var(--color-body);
+    margin: 0;
+}
+
+.portfolio-card .company a {
+    color: var(--color-body);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.portfolio-card .company a:hover {
+    color: var(--color-primary);
 }
 
 /* SweetAlert customization */
