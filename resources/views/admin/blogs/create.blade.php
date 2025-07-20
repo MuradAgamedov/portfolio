@@ -216,17 +216,7 @@
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Daxili Təsvir ({{ $language->title }}) <span class="text-danger">*</span></label>
-                                <textarea name="inner_description[{{ $language->lang_code }}]" 
-                                          class="form-control ckeditor @error('inner_description.' . $language->lang_code) is-invalid @enderror"
-                                          data-lang="{{ $language->lang_code }}"
-                                          rows="8"
-                                          required>{{ old('inner_description.' . $language->lang_code) }}</textarea>
-                                @error('inner_description.' . $language->lang_code)
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                      
 
                             <!-- SEO Section -->
                             <div class="card mt-4">
