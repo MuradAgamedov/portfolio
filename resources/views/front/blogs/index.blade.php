@@ -340,10 +340,8 @@
 }
 .search-box {
     display: flex;
-    flex-wrap: wrap;
     gap: 15px;
     align-items: center;
-    justify-content: space-between;
 }
 
 .search-input-wrapper {
@@ -389,6 +387,9 @@
     gap: 8px;
     box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
     transition: all 0.3s ease;
+    width: 150px;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .search-btn:hover {
