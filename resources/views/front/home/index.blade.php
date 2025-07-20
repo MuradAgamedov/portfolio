@@ -598,13 +598,23 @@
     position: relative;
     overflow: hidden;
     flex-shrink: 0;
+    width: 100% !important;
+    height: 220px !important;
+    max-height: 220px !important;
+    min-height: 220px !important;
+    background: #f8f9fa;
 }
 
 .rn-blog .thumbnail img {
     transition: transform 0.4s ease;
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
+    width: 100% !important;
+    height: 220px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    max-height: 220px !important;
+    min-height: 220px !important;
 }
 
 .rn-blog:hover .thumbnail img {
@@ -705,8 +715,16 @@
         -webkit-line-clamp: 2;
     }
     
+    .rn-blog .thumbnail {
+        height: 180px !important;
+        max-height: 180px !important;
+        min-height: 180px !important;
+    }
+    
     .rn-blog .thumbnail img {
-        height: 180px;
+        height: 180px !important;
+        max-height: 180px !important;
+        min-height: 180px !important;
     }
 }
 
@@ -720,8 +738,16 @@
         padding: 15px;
     }
     
+    .rn-blog .thumbnail {
+        height: 160px !important;
+        max-height: 160px !important;
+        min-height: 160px !important;
+    }
+    
     .rn-blog .thumbnail img {
-        height: 160px;
+        height: 160px !important;
+        max-height: 160px !important;
+        min-height: 160px !important;
     }
 }
 
@@ -738,6 +764,34 @@
 
 .rn-blog-area .row > div > .rn-blog {
     width: 100%;
+}
+
+/* Force all images to be exactly the same size */
+.rn-blog .thumbnail img,
+.rn-blog .thumbnail a img {
+    width: 100% !important;
+    height: 220px !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    max-height: 220px !important;
+    min-height: 220px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+}
+
+/* Override any other CSS that might affect image sizes */
+.rn-blog .thumbnail img[src*="blog"],
+.rn-blog .thumbnail a img[src*="blog"] {
+    width: 100% !important;
+    height: 220px !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    max-height: 220px !important;
+    min-height: 220px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
 }
 </style>
 
