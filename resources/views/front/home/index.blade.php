@@ -388,7 +388,7 @@
                 </div>
             </div>
         </div>
-        <div class="row row--25 mt--50 mt_md--40 mt_sm--40">
+        <div class="row mt--50 mt_md--40 mt_sm--40">
             @foreach($portfolios as $index => $portfolio)
             <!-- Start Single Portfolio -->
             <div class="col-lg-4 col-md-6 col-12 mt--30" data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true">
@@ -1684,11 +1684,12 @@ $(document).ready(function() {
     border-radius: 20px;
     padding: 25px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 3px solid #333333;
     transition: all 0.4s ease;
     height: 100%;
     position: relative;
     overflow: hidden;
+    margin: 10px;
 }
 
 .portfolio-card::before {
@@ -1710,7 +1711,8 @@ $(document).ready(function() {
 .portfolio-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    border-color: var(--color-primary);
+    border-color: #ff014f;
+    border-width: 3px;
 }
 
 .portfolio-card .thumbnail {
@@ -1775,6 +1777,21 @@ $(document).ready(function() {
 
 .portfolio-card .company a:hover {
     color: var(--color-primary);
+}
+
+/* Additional Card Styling */
+.portfolio-card {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.portfolio-card:focus-within {
+    outline-color: #ff014f;
+}
+
+/* Ensure cards are properly spaced */
+.col-lg-4.col-md-6.col-12.mt--30 {
+    margin-bottom: 30px;
 }
 
 /* SweetAlert customization */
