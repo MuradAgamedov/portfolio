@@ -47,6 +47,8 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <!-- Custom CSS -->
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+<!-- Blog Cards CSS -->
+<link rel="stylesheet" href="{{ asset('assets/css/blog-cards.css') }}">
 
 @yield('styles')
     
