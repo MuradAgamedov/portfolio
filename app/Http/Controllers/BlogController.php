@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\BlogCategory;
-use App\Models\Social;
+use App\Traits\SocialTrait;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
+    use SocialTrait;
     /**
      * Display a listing of blogs with pagination
      */
@@ -35,8 +36,9 @@ class BlogController extends Controller
         
         $blogs = $query->paginate(9);
         $categories = BlogCategory::where('status', true)->orderBy('order')->get();
+        $socials = $this->getSocials();
         
-        return view('front.blogs.index', compact('blogs', 'categories'));
+        return view('front.blogs.index', compact('blogs', 'categories', 'socials'));
     }
     
     /**
@@ -54,6 +56,8 @@ class BlogController extends Controller
                           ->limit(3)
                           ->get();
         
-        return view('front.blogs.show', compact('blog', 'recentBlogs'));
+        $socials = $this->getSocials();
+        
+        return view('front.blogs.show', compact('blog', 'recentBlogs', 'socials'));
     }
 } 

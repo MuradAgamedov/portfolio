@@ -11,18 +11,18 @@ use App\Models\PortfolioCategory;
 use App\Models\Education;
 use App\Models\Experience;
 use App\Models\Skill;
-use App\Models\Social;
 use App\Models\About;
 use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\PricingPlan;
 use App\Models\Newsletter;
 use App\Traits\RecaptchaTrait;
+use App\Traits\SocialTrait;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
-    use RecaptchaTrait;
+    use RecaptchaTrait, SocialTrait;
 
     public function index()
     {
@@ -35,7 +35,7 @@ class FrontController extends Controller
             'education' => Education::where('status', true)->orderBy('order')->get(),
             'experiences' => Experience::where('status', true)->orderBy('order')->get(),
             'skills' => Skill::where('status', true)->orderBy('order')->get(),
-            'socials' => Social::where('status', true)->orderBy('order')->get(),
+            'socials' => $this->getSocials(),
             'certificates' => Certificate::where('status', true)->orderBy('order')->get(),
             'about' => About::firstOrCreate(),
             'blogs' => Blog::where('status', true)->orderBy('published_at', 'desc')->limit(6)->get(),
