@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="section-title text-center">
+                <div style="flex-direction: column; align-items: flex-start; " class="section-title text-center">
                     <span class="subtitle">{{__("Contact")}}</span>
                     @php
                         $contactTitle = \App\Models\SiteSetting::getByKey('title');
