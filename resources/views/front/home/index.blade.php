@@ -1607,12 +1607,20 @@ $(document).ready(function() {
 @push('styles')
 <style>
 /* Blog Section Title Styles */
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
 .section-title .title-column {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
     text-align: left;
+    flex: 1;
 }
 
 .section-title .subtitle {
@@ -1631,6 +1639,7 @@ $(document).ready(function() {
 
 .view-all-btn {
     flex-shrink: 0;
+    margin-left: auto;
 }
 
 .view-all-btn .rn-btn {
@@ -1671,10 +1680,12 @@ $(document).ready(function() {
         flex-direction: column;
         gap: 20px;
         text-align: center;
+        align-items: center;
     }
     
     .section-title .title-column {
         align-items: center;
+        flex: none;
     }
     
     .section-title .title {
@@ -1683,6 +1694,7 @@ $(document).ready(function() {
     
     .view-all-btn {
         align-self: center;
+        margin-left: 0;
     }
 }
 
