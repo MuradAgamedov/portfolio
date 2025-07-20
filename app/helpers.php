@@ -82,6 +82,14 @@ if (!function_exists('localized_route')) {
                         if ($blogModel) {
                             return $baseUrl . $path . '/blog/' . $blogModel->id . '/' . $blogModel->getSlug();
                         }
+                    } elseif (is_string($blog)) {
+                        // If slug is provided, find blog by slug and return with ID
+                        $blogModel = \App\Models\Blog::where('status', true)
+                            ->where("slug->" . app()->getLocale(), $blog)
+                            ->first();
+                        if ($blogModel) {
+                            return $baseUrl . $path . '/blog/' . $blogModel->id . '/' . $blogModel->getSlug();
+                        }
                     }
                     return $baseUrl . $path . '/blog/' . $blog;
                 case 'services.index':
