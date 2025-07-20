@@ -16,52 +16,53 @@
         </div>
 
         <!-- Search and Filter Section -->
-        <div class="search-filter-section mb-5">
-            <div class="search-filter-container">
-                <form action="{{ route('blogs.index') }}" method="GET" class="search-filter-form">
-                    <div class="search-box">
-                        <div class="search-input-wrapper">
-                            <i class="search-icon" data-feather="search"></i>
-                            <input type="text" 
-                                   name="search" 
-                                   class="search-input" 
-                                   placeholder="{{__('Search blogs...')}}"
-                                   value="{{ request('search') }}">
-                            @if(request('search'))
-                                <button type="button" class="clear-search" onclick="clearSearch()">
-                                    <i data-feather="x"></i>
-                                </button>
-                            @endif
-                        </div>
-                        <button type="submit" class="search-btn">
-                            <i data-feather="search"></i>
-                            <span>{{__('Search')}}</span>
+<div class="search-filter-section mb-5">
+    <div class="search-filter-container">
+        <form action="{{ route('blogs.index') }}" method="GET" class="search-filter-form">
+            <div class="search-box">
+                <div class="search-input-wrapper">
+                    <i class="search-icon" data-feather="search"></i>
+                    <input type="text" 
+                           name="search" 
+                           class="search-input" 
+                           placeholder="{{__('Search blogs...')}}"
+                           value="{{ request('search') }}">
+                    @if(request('search'))
+                        <button type="button" class="clear-search" onclick="clearSearch()">
+                            <i data-feather="x"></i>
                         </button>
-                    </div>
-                    
-                    <div class="filter-section">
-                        <div class="filter-label">
-                            <i data-feather="filter"></i>
-                            <span>{{__('Filter by Category')}}</span>
-                        </div>
-                        <div class="category-filters">
-                            <a href="{{ route('blogs.index', array_merge(request()->query(), ['category' => ''])) }}" 
-                               class="category-filter {{ !request('category') ? 'active' : '' }}">
-                                <i data-feather="grid"></i>
-                                <span>{{__('All Categories')}}</span>
-                            </a>
-                            @foreach($categories as $category)
-                                <a href="{{ route('blogs.index', array_merge(request()->query(), ['category' => $category->getSlug()])) }}" 
-                                   class="category-filter {{ request('category') == $category->getSlug() ? 'active' : '' }}">
-                                    <i data-feather="folder"></i>
-                                    <span>{{ $category->getTitle() }}</span>
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                </form>
+                    @endif
+                </div>
+                <button type="submit" class="search-btn">
+                    <i data-feather="search"></i>
+                    <span>{{__('Search')}}</span>
+                </button>
             </div>
-        </div>
+
+            <div class="filter-section">
+                <div class="filter-label">
+                    <i data-feather="filter"></i>
+                    <span>{{__('Filter by Category')}}</span>
+                </div>
+                <div class="category-filters">
+                    <a href="{{ route('blogs.index', array_merge(request()->query(), ['category' => ''])) }}" 
+                       class="category-filter {{ !request('category') ? 'active' : '' }}">
+                        <i data-feather="grid"></i>
+                        <span>{{__('All Categories')}}</span>
+                    </a>
+                    @foreach($categories as $category)
+                        <a href="{{ route('blogs.index', array_merge(request()->query(), ['category' => $category->getSlug()])) }}" 
+                           class="category-filter {{ request('category') == $category->getSlug() ? 'active' : '' }}">
+                            <i data-feather="folder"></i>
+                            <span>{{ $category->getTitle() }}</span>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 
         <div class="row row--25 mt--30 mt_md--10 mt_sm--10" style="align-items: stretch;">
             @forelse($blogs as $index => $blog)
@@ -337,154 +338,122 @@
     flex-direction: column;
     gap: 25px;
 }
-
 .search-box {
     display: flex;
+    flex-wrap: wrap;
     gap: 15px;
-    align-items: stretch;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .search-input-wrapper {
     position: relative;
     flex: 1;
-    display: flex;
-    align-items: center;
+    min-width: 250px;
 }
 
 .search-icon {
     position: absolute;
     left: 15px;
-    width: 20px;
-    height: 20px;
+    top: 50%;
+    transform: translateY(-50%);
     color: var(--color-body);
-    z-index: 2;
 }
 
 .search-input {
     width: 100%;
-    padding: 15px 45px 15px 45px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    padding: 12px 45px 12px 45px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     background: rgba(255, 255, 255, 0.05);
     color: var(--color-heading);
-    font-size: 16px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    font-size: 15px;
+    backdrop-filter: blur(6px);
+    transition: 0.3s;
 }
 
 .search-input::placeholder {
     color: var(--color-body);
 }
 
-.search-input:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 0 0.2rem rgba(var(--color-primary-rgb), 0.25);
+.search-btn {
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
 }
 
 .clear-search {
     position: absolute;
     right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
     background: none;
     border: none;
     color: var(--color-body);
     cursor: pointer;
-    padding: 5px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.clear-search:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--color-heading);
-}
-
-.search-btn {
-    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
-    border: none;
-    border-radius: 15px;
-    padding: 15px 25px;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-    box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.3);
-}
-
-.search-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.4);
-}
-
-.search-btn i {
-    width: 18px;
-    height: 18px;
 }
 
 .filter-section {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    margin-top: 25px;
 }
 
 .filter-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    font-size: 15px;
     color: var(--color-heading);
     font-weight: 600;
-    font-size: 16px;
-}
-
-.filter-label i {
-    width: 20px;
-    height: 20px;
-    color: var(--color-primary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .category-filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
 }
 
 .category-filter {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    padding: 10px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
     color: var(--color-body);
+    font-size: 14px;
+    transition: all 0.2s ease;
     text-decoration: none;
-    transition: all 0.3s ease;
-    font-weight: 500;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
 }
 
 .category-filter:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.08);
     color: var(--color-heading);
-    transform: translateY(-2px);
-    text-decoration: none;
+    border-color: var(--color-primary);
 }
 
 .category-filter.active {
-    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
-    border-color: var(--color-primary);
+    background: var(--color-primary);
     color: white;
-    box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.3);
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 10px rgba(var(--color-primary-rgb), 0.3);
 }
+
 
 .category-filter i {
     width: 16px;
@@ -594,16 +563,12 @@
 @section('scripts')
 <script>
 function clearSearch() {
-    const searchInput = document.querySelector('.search-input');
-    if (searchInput) {
-        searchInput.value = '';
-        // Remove search parameter from URL and reload
-        const url = new URL(window.location);
-        url.searchParams.delete('search');
-        window.location.href = url.toString();
-    }
+    const input = document.querySelector('.search-input');
+    input.value = '';
+    const url = new URL(window.location);
+    url.searchParams.delete('search');
+    window.location.href = url.toString();
 }
-
 // Auto-submit form when Enter is pressed
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.querySelector('.search-input');
