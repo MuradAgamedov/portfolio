@@ -1,16 +1,21 @@
 @extends('front.layouts.master')
 
-@section('title', __('seo_home_title'))
+@section('title')
+@php
+    $seoSettings = \App\Models\SeoSite::first();
+@endphp
+@if($seoSettings && $seoSettings->getTranslation('seo_title', app()->getLocale()))
+    {{ $seoSettings->getTranslation('seo_title', app()->getLocale()) }}
+@else
+    {{ __('seo_home_title') }}
+@endif
+@endsection
 
 @section('meta')
 @php
     $seoSettings = \App\Models\SeoSite::first();
 @endphp
 @if($seoSettings)
-    @if($seoSettings->getTranslation('seo_title', app()->getLocale()))
-        <title>{{ $seoSettings->getTranslation('seo_title', app()->getLocale()) }}</title>
-    @endif
-    
     @if($seoSettings->getTranslation('seo_description', app()->getLocale()))
         <meta name="description" content="{{ $seoSettings->getTranslation('seo_description', app()->getLocale()) }}">
     @endif

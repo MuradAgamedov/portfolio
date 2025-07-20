@@ -7,6 +7,9 @@
     $seoSettings = \App\Models\SeoSite::first();
 @endphp
 
+<!-- Default Title -->
+<title>@yield('title', 'Portfolio')</title>
+
 <!-- Favicon -->
 @if($favicon)
     <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $favicon) }}">
