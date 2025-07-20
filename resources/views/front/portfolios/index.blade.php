@@ -48,7 +48,7 @@
                             </a>
                         </div>
                         <div class="content">
-                            <div style="margin-top: 10px;" class="portfolio-info">
+                            <div class="portfolio-info">
                                 <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
                                     {{ $portfolio->getTitle() }}
                                 </a>
@@ -258,7 +258,7 @@
 .portfolio-card {
     background: linear-gradient(135deg, #212428 0%, #1d1f23 100%);
     border-radius: 20px;
-    padding: 25px;
+    padding: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     border: 4px solid #ff014f;
     transition: all 0.4s ease;
@@ -325,13 +325,13 @@
 }
 
 .portfolio-card .portfolio-info a {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
     color: #ffffff;
     text-decoration: none;
     transition: color 0.3s ease;
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .portfolio-card .portfolio-info a:hover {
@@ -339,7 +339,7 @@
 }
 
 .portfolio-card .company {
-    font-size: 13px;
+    font-size: 14px;
     color: #c4cfde;
     margin: 0;
     font-weight: 400;
