@@ -3,10 +3,16 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title">
+                <div style="width: 100%;" class="section-title d-flex justify-content-between align-items-center flex-wrap" data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true">
                     <div class="title-column">
-                        <span class="subtitle">{{__("Portfolio")}}</span>
-                        <h2 class="title">{{__("My Latest Work")}}</h2>
+                        <span class="subtitle">{{__("my projects")}}</span>
+                        <h2 class="title">{{__("my projects")}}</h2>
+                    </div>
+                    <div class="view-all-btn ms-auto">
+                        <a href="{{ route('portfolios.index') }}" class="rn-btn">
+                            <span>{{__("View All")}}</span>
+                            <i data-feather="arrow-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -42,16 +48,7 @@
             @endforeach
         </div>
 
-        <!-- View All Button -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="text-center mt--50">
-                    <a href="{{ route('portfolios.index') }}" class="rn-btn">
-                        <span>{{__("View All Projects")}}</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 <!-- End Portfolio Area -->
