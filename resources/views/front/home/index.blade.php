@@ -506,6 +506,9 @@
                         <img src="assets/images/contact/contact1.png" alt="contact-img">
                         @endif
                     </div>
+                    <div class="title-area">
+                        <h4 class="title">{{$contactTitle}}</h4>
+                    </div>
                     <div class="description">
                         @php
                             $contactText = \App\Models\SiteSetting::getByKey('contact_section_text');
@@ -513,16 +516,8 @@
                             $email = \App\Models\SiteSetting::getByKey('email');
                         @endphp
                         <p>{{ $contactText ?: __("I am available for freelance work. Connect with me via and call in to my account.") }}</p>
-                        <div class="contact-info">
-                            <div class="contact-item">
-                                <span class="label">{{__("Phone")}}:</span>
-                                <a href="tel:{{ $phone ?: '01941043264' }}">{{ $phone ?: '+01234567890' }}</a>
-                            </div>
-                            <div class="contact-item">
-                                <span class="label">{{__("Email")}}:</span>
-                                <a href="mailto:{{ $email ?: 'admin@example.com' }}">{{ $email ?: 'admin@example.com' }}</a>
-                            </div>
-                        </div>
+                        <span class="phone">{{__("Phone")}}: <a href="tel:{{ $phone ?: '01941043264' }}">{{ $phone ?: '+01234567890' }}</a></span>
+                        <span class="mail">{{__("Email")}}: <a href="mailto:{{ $email ?: 'admin@example.com' }}">{{ $email ?: 'admin@example.com' }}</a></span>
                     </div>
                     <div class="social-area">
                         <div class="name">{{__("FIND WITH ME")}}</div>
