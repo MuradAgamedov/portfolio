@@ -608,7 +608,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="contact-message">{{__("Your Message")}}</label>
-                                    <textarea name="contact-message" id="contact-message" cols="30" rows="10"></textarea>
+                                    <textarea class="form-control" name="contact-message" id="contact-message" cols="30" rows="8"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
