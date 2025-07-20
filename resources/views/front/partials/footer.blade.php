@@ -174,18 +174,21 @@ $(document).ready(function() {
     $('a[href^="#"]').on('click', function(e) {
         e.preventDefault();
         
-        var target = $(this.getAttribute('href'));
-        if (target.length) {
-                    $('html, body').animate({
-            scrollTop: target.offset().top - 100 // Offset for fixed header
-        }, {
-            duration: 2000,
-            easing: 'easeInOutQuart',
-            queue: false
-        });
-            
-            // Update URL hash
-            window.location.hash = this.getAttribute('href');
+        var href = this.getAttribute('href');
+        if (href && href !== '#') {
+            var target = $(href);
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 100 // Offset for fixed header
+                }, {
+                    duration: 2000,
+                    easing: 'easeInOutQuart',
+                    queue: false
+                });
+                
+                // Update URL hash
+                window.location.hash = href;
+            }
         }
     });
     

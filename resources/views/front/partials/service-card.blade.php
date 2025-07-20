@@ -8,16 +8,16 @@
             <div class="content">
                 <h4 class="title">
                     @if(isset($isServicesPage) && $isServicesPage)
-                        <a href="#" class="service-link" data-service-id="{{ $service->id }}" data-service-title="{{ $service->getTitle() }}">{{ $service->getTitle() }}</a>
+                        <a href="javascript:void(0)" class="service-link" data-service-id="{{ $service->id }}" data-service-title="{{ $service->getTitle() }}">{{ $service->getTitle() }}</a>
                     @else
-                        <a href="#">{{ $service->getTitle() }}</a>
+                        <a href="javascript:void(0)">{{ $service->getTitle() }}</a>
                     @endif
                 </h4>
                 <p class="description">{{ $service->getDescription() }}</p>
                 @if(isset($isServicesPage) && $isServicesPage)
-                    <a class="read-more-button service-link" href="#" data-service-id="{{ $service->id }}" data-service-title="{{ $service->getTitle() }}"><i class="feather-arrow-right"></i></a>
+                    <a class="read-more-button service-link" href="javascript:void(0)" data-service-id="{{ $service->id }}" data-service-title="{{ $service->getTitle() }}"><i class="feather-arrow-right"></i></a>
                 @else
-                    <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
+                    <a class="read-more-button" href="javascript:void(0)"><i class="feather-arrow-right"></i></a>
                 @endif
             </div>
         </div>
