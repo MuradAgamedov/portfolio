@@ -377,7 +377,60 @@
     </div>
 </div>
 
-@include('front.partials.portfolio-section')
+<!-- Start Portfolio Area -->
+<div class="rn-portfolio-area rn-section-gap section-separator" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div style="width: 100%;" class="section-title d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="title-column">
+                        <span class="subtitle">{{__("my projects")}}</span>
+                        <h2 class="title">{{__("my projects")}}</h2>
+                    </div>
+                    <div class="view-all-btn ms-auto">
+                        <a href="{{ route('portfolios.index') }}" class="rn-btn">
+                            <span>{{__("View All")}}</span>
+                            <i data-feather="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt--50 mt_md--40 mt_sm--40">
+            @foreach($portfolios as $index => $portfolio)
+            <!-- Start Single Portfolio -->
+            <div class="col-lg-4 col-md-6 col-12 mt--30" data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true">
+                <div class="portfolio-card">
+                    <div class="inner">
+                        <div class="thumbnail">
+                            <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
+                                <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}" 
+                                     alt="{{ $portfolio->getTitle() }}">
+                            </a>
+                        </div>
+                        <div class="content">
+                            <div style="margin-top: 10px;" class="portfolio-info">
+                                    <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
+                                        {{ $portfolio->getTitle() }}
+                                    </a>
+                                @if($portfolio->company_name)
+                                <p class="company">
+                                    <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
+                                        {{ $portfolio->company_name }}
+                                    </a>
+                                </p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Single Portfolio -->
+            @endforeach
+        </div>
+    </div>
+</div>
+<!-- End Portfolio Area -->
 
 <!-- Pricing Area -->
 <div class="rn-pricing-area rn-section-gap section-separator" id="pricing">
@@ -1631,7 +1684,144 @@ $(document).ready(function() {
     margin-right: 5px;
 }
 
+/* Portfolio Card Styles */
+.portfolio-card {
+    background: linear-gradient(135deg, #212428 0%, #1d1f23 100%);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 4px solid #ff014f;
+    transition: all 0.4s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+    outline: 2px solid rgba(255, 1, 79, 0.3);
+    outline-offset: 3px;
+}
 
+.portfolio-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 1, 79, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.portfolio-card:hover::before {
+    opacity: 1;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: #ff014f;
+    border-width: 5px;
+    outline-color: rgba(255, 1, 79, 0.6);
+    outline-width: 3px;
+}
+
+.portfolio-card .thumbnail {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.portfolio-card .thumbnail img {
+    transition: transform 0.4s ease;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.portfolio-card:hover .thumbnail img {
+    transform: scale(1.1);
+}
+
+.portfolio-card .content {
+    padding: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.portfolio-card .portfolio-info {
+    text-align: center;
+}
+
+.portfolio-card .title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 6px;
+    line-height: 1.2;
+}
+
+.portfolio-card .title a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.portfolio-card .title a:hover {
+    color: var(--color-primary);
+}
+
+.portfolio-card .company {
+    font-size: 13px;
+    color: #c4cfde;
+    margin: 0;
+    font-weight: 400;
+}
+
+.portfolio-card .company a {
+    color: #c4cfde;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.portfolio-card .company a:hover {
+    color: var(--color-primary);
+}
+
+/* Additional Card Styling */
+.portfolio-card {
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 0 4px #ff014f,
+        0 0 0 8px rgba(255, 1, 79, 0.2);
+}
+
+.portfolio-card:hover {
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 6px #ff014f,
+        0 0 0 12px rgba(255, 1, 79, 0.3);
+}
+
+/* Ensure cards are properly spaced */
+.col-lg-4.col-md-6.col-12.mt--30 {
+    margin-bottom: 30px;
+}
+
+/* Card background with pattern */
+.portfolio-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 30%, rgba(255, 1, 79, 0.05) 50%, transparent 70%);
+    pointer-events: none;
+    border-radius: 20px;
+}
 
 /* SweetAlert customization */
 .swal2-popup {
