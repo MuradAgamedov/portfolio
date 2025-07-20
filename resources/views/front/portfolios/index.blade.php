@@ -38,7 +38,7 @@
         <div class="row row--25 mt--30 mt_md--10 mt_sm--10">
             @foreach($portfolios as $index => $portfolio)
             <!-- Start Single Portfolio -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 200) }}" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
+            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 200) }}" data-aos-once="true" class="col-lg-4 col-md-6 col-12 mt--30">
                 <div class="rn-service">
                     <div class="inner">
                         <div class="">
@@ -50,18 +50,14 @@
                                 <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">{{ $portfolio->getTitle() }}</a>
                             </h4>
                             @if($portfolio->company_name)
-                            <p class="description">
-                                <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
-                                    {{ $portfolio->company_name }}
-                                </a>
-                            </p>
+                                <p class="company">
+                                    <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
+                                        {{ $portfolio->company_name }}
+                                    </a>
+                                </p>
                             @endif
-                            <a class="read-more-button" href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
-                                <i class="feather-arrow-right"></i>
-                            </a>
                         </div>
                     </div>
-                    <a class="over-link" href="{{ $portfolio->project_link ?? '#' }}" target="_blank"></a>
                 </div>
             </div>
             <!-- End Single Portfolio -->
@@ -254,56 +250,75 @@
     border-color: var(--color-primary);
 }
 
-/* Portfolio Service Card Customization */
-.rn-service .icon {
-    padding: 0;
+/* Portfolio Service Card Styles */
+.rn-service {
+    background: linear-gradient(135deg, var(--background-color-1) 0%, var(--background-color-2) 100%);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: var(--shadow-1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.rn-service:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.rn-service img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.rn-service:hover img {
+    transform: scale(1.05);
+}
+
+.rn-service .content {
+    text-align: center;
+}
+
+.rn-service .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-heading);
+    margin-bottom: 10px;
+}
+
+.rn-service .title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.rn-service .title a:hover {
+    color: var(--color-primary);
+}
+
+.rn-service .company {
+    font-size: 13px;
+    color: var(--color-body);
     margin: 0;
+    font-weight: 400;
 }
 
-
-
-.rn-service:hover .icon img {
-    transform: scale(1.1);
-}
-
-.rn-service .description a {
+.rn-service .company a {
     color: var(--color-body);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.rn-service .description a:hover {
+.rn-service .company a:hover {
     color: var(--color-primary);
 }
 
-/* Additional Card Styling */
-.portfolio-card {
-    box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.3),
-        0 0 0 4px #ff014f,
-        0 0 0 8px rgba(255, 1, 79, 0.2);
-}
 
-.portfolio-card:hover {
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        0 0 0 6px #ff014f,
-        0 0 0 12px rgba(255, 1, 79, 0.3);
-}
-
-/* Card background with pattern */
-.portfolio-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        linear-gradient(45deg, transparent 30%, rgba(255, 1, 79, 0.05) 50%, transparent 70%);
-    pointer-events: none;
-    border-radius: 20px;
-}
 
 /* Pagination Styles */
 .pagination-wrapper .pagination {
@@ -340,6 +355,16 @@
     .filter-btn {
         padding: 8px 16px;
         font-size: 13px;
+    }
+    
+    .rn-service {
+        padding: 20px;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .rn-service {
+        padding: 15px;
     }
 }
 </style>
