@@ -28,7 +28,7 @@
                         </div>
                         <div class="content">
                             <h4 class="title">
-                                <a href="{{ route('services.show', $service->getSlug()) }}">
+                                <a href="#" onclick="selectService({{ $service->id }}, '{{ $service->getTitle() }}')">
                                     {{ $service->getTitle() }}
                                     <i class="feather-arrow-up-right"></i>
                                 </a>

@@ -531,13 +531,14 @@
                     </div>
                   
                 </div>
-                <div class="view-all-btn">
+              
+            </div>
+            <div class="view-all-btn">
                         <a href="{{ route('blogs.index') }}" class="rn-btn">
                             <span>{{__("View All")}}</span>
                             <i data-feather="arrow-right"></i>
                         </a>
                     </div>
-            </div>
         </div>
         <div class="row row--25 mt--30 mt_md--10 mt_sm--10" style="align-items: stretch;">
 
