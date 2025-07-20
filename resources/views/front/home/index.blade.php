@@ -182,7 +182,7 @@
                                                     <div class="heading">
                                                         <div class="title">
                                                                 <h4 style="color: #ffffff; margin-bottom: 5px; font-size: 18px; font-weight: 600;">{{ $edu->getTitle() }}</h4>
-                                                                <span style="color: #c4cfde; font-size: 14px; font-weight: 500;">{{ $edu->getUniversityName() }}</span>
+                                                                <span style="color: #c4cfde; font-size: 14px; font-weight: 500;">{{ $edu->university_name }}</span>
                                                         </div>
                                                         <div class="date-of-time">
                                                                 <span style="color: #ff014f; font-size: 12px; font-weight: 600; background: rgba(255,1,79,0.1); padding: 5px 10px; border-radius: 5px;">{{ $edu->getFormattedStartDate() }} - {{ $edu->getFormattedEndDate() }}</span>
