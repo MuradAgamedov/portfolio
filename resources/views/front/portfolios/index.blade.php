@@ -147,11 +147,7 @@
     width: 100%;
     margin-top: 40px;
 }
-.rn-service .inner .icon img {
-    width: 100% !important;
-    height: 100% !important;
 
-}
 .pagination {
     gap: 8px;
     padding: 0;
@@ -264,15 +260,7 @@
     margin: 0;
 }
 
-.rn-service .icon img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 15px;
-    transition: transform 0.4s ease;
-    margin: 0;
-    padding: 0;
-}
+
 
 .rn-service:hover .icon img {
     transform: scale(1.1);
