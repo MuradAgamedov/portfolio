@@ -1369,6 +1369,11 @@ $(document).ready(function() {
                 // Reset form
                 $('#contact-form')[0].reset();
                 
+                // Reset reCAPTCHA
+                if (typeof grecaptcha !== 'undefined' && grecaptcha.reset) {
+                    grecaptcha.reset();
+                }
+                
                 // Reset button
                 submitBtn.html(originalText);
                 submitBtn.prop('disabled', false);
