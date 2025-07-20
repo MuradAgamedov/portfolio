@@ -1660,7 +1660,9 @@ $(document).ready(function() {
 .view-all-btn .rn-btn:hover i {
     transform: translateX(3px);
 }
-
+.align-items-center {
+        justify-content: space-between;
+    }
 /* Responsive */
 @media only screen and (max-width: 767px) {
     .section-title {
@@ -1681,9 +1683,7 @@ $(document).ready(function() {
         margin-left: 0;
         margin-top: 20px;
     }
-    .align-items-center {
-        justify-content: space-between;
-    }
+  
 }
 
 @media only screen and (max-width: 575px) {
