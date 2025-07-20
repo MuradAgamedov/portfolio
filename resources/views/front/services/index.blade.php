@@ -399,6 +399,113 @@
 
 @section('scripts')
 <script>
+// Global function to select service from service cards
+window.selectService = function(serviceId, serviceTitle) {
+    const serviceSelect = document.getElementById('service_select');
+    const subjectInput = document.getElementById('subject');
+    const selectedServiceInfo = document.getElementById('selected-service-info');
+    const selectedServiceIcon = document.getElementById('selected-service-icon');
+    const selectedServiceTitle = document.getElementById('selected-service-title');
+    const selectedServiceDescription = document.getElementById('selected-service-description');
+    
+    // Set the service in select dropdown
+    serviceSelect.value = serviceId;
+    
+    // Trigger change event to update form
+    const event = new Event('change');
+    serviceSelect.dispatchEvent(event);
+    
+    // Scroll to form smoothly
+    document.querySelector('.service-request-form').scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+    });
+    
+    // Add visual feedback to select
+    serviceSelect.style.borderColor = 'var(--color-primary)';
+    serviceSelect.style.boxShadow = '0 0 0 3px rgba(var(--color-primary-rgb), 0.1)';
+    
+    // Add visual feedback to the clicked service card
+    const serviceCards = document.querySelectorAll('.rn-service');
+    serviceCards.forEach(card => {
+        card.style.transform = 'scale(1)';
+        card.style.boxShadow = '';
+    });
+    
+    // Highlight the clicked service card
+    const clickedCard = document.querySelector(`[onclick*="selectService(${serviceId}"]`);
+    if (clickedCard) {
+        clickedCard.style.transform = 'scale(1.05)';
+        clickedCard.style.boxShadow = '0 20px 40px rgba(var(--color-primary-rgb), 0.3)';
+    }
+    
+    // Remove highlight after 3 seconds
+    setTimeout(() => {
+        serviceSelect.style.borderColor = '';
+        serviceSelect.style.boxShadow = '';
+        if (clickedCard) {
+            clickedCard.style.transform = '';
+            clickedCard.style.boxShadow = '';
+        }
+    }, 3000);
+    
+    // Show success message
+    showNotification('Service selected successfully!', 'success');
+};
+
+// Global function to show notification
+window.showNotification = function(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i data-feather="${type === 'success' ? 'check-circle' : 'info'}"></i>
+            <span>${message}</span>
+        </div>
+    `;
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? 'linear-gradient(45deg, #28a745, #20c997)' : 'linear-gradient(45deg, var(--color-primary), var(--color-secondary))'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        z-index: 1000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        font-size: 14px;
+        font-weight: 500;
+    `;
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+    
+    // Initialize feather icons
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     const serviceSelect = document.getElementById('service_select');
     const subjectInput = document.getElementById('subject');
@@ -454,110 +561,5 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Form submitted');
     });
 });
-
-// Function to select service from service cards
-function selectService(serviceId, serviceTitle) {
-    const serviceSelect = document.getElementById('service_select');
-    const subjectInput = document.getElementById('subject');
-    const selectedServiceInfo = document.getElementById('selected-service-info');
-    const selectedServiceIcon = document.getElementById('selected-service-icon');
-    const selectedServiceTitle = document.getElementById('selected-service-title');
-    const selectedServiceDescription = document.getElementById('selected-service-description');
-    
-    // Set the service in select dropdown
-    serviceSelect.value = serviceId;
-    
-    // Trigger change event to update form
-    const event = new Event('change');
-    serviceSelect.dispatchEvent(event);
-    
-    // Scroll to form smoothly
-    document.querySelector('.service-request-form').scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'center'
-    });
-    
-    // Add visual feedback to select
-    serviceSelect.style.borderColor = 'var(--color-primary)';
-    serviceSelect.style.boxShadow = '0 0 0 3px rgba(var(--color-primary-rgb), 0.1)';
-    
-    // Add visual feedback to the clicked service card
-    const serviceCards = document.querySelectorAll('.rn-service');
-    serviceCards.forEach(card => {
-        card.style.transform = 'scale(1)';
-        card.style.boxShadow = '';
-    });
-    
-    // Highlight the clicked service card
-    const clickedCard = document.querySelector(`[onclick*="selectService(${serviceId}"]`);
-    if (clickedCard) {
-        clickedCard.style.transform = 'scale(1.05)';
-        clickedCard.style.boxShadow = '0 20px 40px rgba(var(--color-primary-rgb), 0.3)';
-    }
-    
-    // Remove highlight after 3 seconds
-    setTimeout(() => {
-        serviceSelect.style.borderColor = '';
-        serviceSelect.style.boxShadow = '';
-        if (clickedCard) {
-            clickedCard.style.transform = '';
-            clickedCard.style.boxShadow = '';
-        }
-    }, 3000);
-    
-    // Show success message
-    showNotification('Service selected successfully!', 'success');
-}
-
-// Function to show notification
-function showNotification(message, type = 'info') {
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <i data-feather="${type === 'success' ? 'check-circle' : 'info'}"></i>
-            <span>${message}</span>
-        </div>
-    `;
-    
-    // Add styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${type === 'success' ? 'linear-gradient(45deg, #28a745, #20c997)' : 'linear-gradient(45deg, var(--color-primary), var(--color-secondary))'};
-        color: white;
-        padding: 15px 20px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        z-index: 1000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        font-size: 14px;
-        font-weight: 500;
-    `;
-    
-    // Add to page
-    document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Remove after 3 seconds
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            document.body.removeChild(notification);
-        }, 300);
-    }, 3000);
-    
-    // Initialize feather icons
-    if (typeof feather !== 'undefined') {
-        feather.replace();
-    }
-}
 </script>
 @endsection 
