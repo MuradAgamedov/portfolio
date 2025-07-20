@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SocialController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\PortfolioCategoryController;
+use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\EducationController;
@@ -84,6 +85,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     // Certificate Routes
     Route::resource('certificates', CertificateController::class);
     Route::post('certificates/reorder', [CertificateController::class, 'reorder'])->name('certificates.reorder');
+    
+    // Blog Categories Routes
+    Route::resource('blog-categories', BlogCategoryController::class);
+    Route::post('blog-categories/reorder', [BlogCategoryController::class, 'reorder'])->name('blog-categories.reorder');
     
     // Blog Routes
     Route::resource('blogs', BlogController::class);

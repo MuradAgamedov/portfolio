@@ -249,8 +249,11 @@
                                 <i class="fas fa-blog"></i> Blog & Kontent
                                 <i class="fas fa-chevron-down ms-auto"></i>
                             </a>
-                            <div class="collapse {{ request()->is('admin/blogs*') || request()->is('admin/pricing-plans*') ? 'show' : '' }}" id="blogContent">
+                            <div class="collapse {{ request()->is('admin/blogs*') || request()->is('admin/blog-categories*') || request()->is('admin/pricing-plans*') ? 'show' : '' }}" id="blogContent">
                                 <div class="nav-submenu">
+                                    <a class="nav-link {{ request()->is('admin/blog-categories*') ? 'active' : '' }}" href="{{ route('admin.blog-categories.index') }}">
+                                        <i class="fas fa-tags"></i> Blog Kateqoriyaları
+                                    </a>
                                     <a class="nav-link {{ request()->is('admin/blogs*') ? 'active' : '' }}" href="{{ route('admin.blogs.index') }}">
                                         <i class="fas fa-blog"></i> Blog
                                     </a>

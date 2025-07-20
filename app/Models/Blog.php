@@ -14,6 +14,7 @@ class Blog extends Model
         'title',
         'slug',
         'card_image_alt_text',
+        'main_image_alt_text',
         'main_description',
         'inner_description',
         'seo_title',
@@ -21,6 +22,7 @@ class Blog extends Model
         'seo_description',
         'card_image',
         'main_image',
+        'category_id',
         'status',
         'published_at',
         'order'
@@ -30,6 +32,7 @@ class Blog extends Model
         'title' => 'array',
         'slug' => 'array',
         'card_image_alt_text' => 'array',
+        'main_image_alt_text' => 'array',
         'main_description' => 'array',
         'inner_description' => 'array',
         'seo_title' => 'array',
@@ -39,6 +42,11 @@ class Blog extends Model
         'published_at' => 'datetime',
         'order' => 'integer'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(BlogCategory::class, 'category_id');
+    }
 
     /**
      * Get title for specific language
@@ -65,6 +73,15 @@ class Blog extends Model
     {
         $lang = $lang ?: app()->getLocale();
         return $this->card_image_alt_text[$lang] ?? $this->card_image_alt_text['az'] ?? '';
+    }
+
+    /**
+     * Get main image alt text for specific language
+     */
+    public function getMainImageAltText($lang = null)
+    {
+        $lang = $lang ?: app()->getLocale();
+        return $this->main_image_alt_text[$lang] ?? $this->main_image_alt_text['az'] ?? '';
     }
 
     /**

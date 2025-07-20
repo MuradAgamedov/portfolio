@@ -206,6 +206,19 @@
                             </div>
 
                             <div class="mb-3">
+                                <label class="form-label">Əsas Şəkil Alt Mətni ({{ $language->title }}) <span class="text-danger">*</span></label>
+                                <input type="text" 
+                                       name="main_image_alt_text[{{ $language->lang_code }}]" 
+                                       class="form-control @error('main_image_alt_text.' . $language->lang_code) is-invalid @enderror"
+                                       value="{{ old('main_image_alt_text.' . $language->lang_code, $blog->getMainImageAltText($language->lang_code)) }}"
+                                       placeholder="Əsas şəkil üçün alt mətn..."
+                                       required>
+                                @error('main_image_alt_text.' . $language->lang_code)
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
                                 <label class="form-label">Əsas Təsvir ({{ $language->title }}) <span class="text-danger">*</span></label>
                                 <textarea name="main_description[{{ $language->lang_code }}]" 
                                           class="form-control ckeditor @error('main_description.' . $language->lang_code) is-invalid @enderror"
@@ -311,7 +324,25 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="category_id" class="form-label">Kateqoriya</label>
+                                    <select class="form-control @error('category_id') is-invalid @enderror" 
+                                            id="category_id" 
+                                            name="category_id">
+                                        <option value="">Kateqoriya seçin...</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" {{ old('category_id', $blog->category_id) == $category->id ? 'selected' : '' }}>
+                                                {{ $category->getTitle() }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="published_at" class="form-label">Nəşr Tarixi</label>
                                     <input type="datetime-local" 
@@ -324,7 +355,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="mb-3">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="status" name="status" value="1" {{ $blog->status ? 'checked' : '' }}>
