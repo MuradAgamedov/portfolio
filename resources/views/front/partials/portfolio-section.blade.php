@@ -12,24 +12,12 @@
             </div>
         </div>
 
-        <!-- Portfolio Filter -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="portfolio-filter text-center mb-5 mt-5">
-                    <div class="filter-buttons">
-                        <a href="#portfolio" class="filter-btn active" data-filter="all">{{__("All")}}</a>
-                        @foreach($portfolioCategories as $category)
-                            <a href="#portfolio" class="filter-btn" data-filter="{{ $category->getSlug() }}">{{ $category->getTitle() }}</a>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <!-- Portfolio Items -->
         <div class="row">
             @foreach($portfolios as $portfolio)
-            <div class="col-lg-4 col-md-6 col-12 mt--30 portfolio-item" data-category="{{ $portfolio->category ? $portfolio->category->getSlug() : '' }}" data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 200 + ($loop->index * 100) }}" data-aos-once="true">
+            <div class="col-lg-4 col-md-6 col-12 mt--30" data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 200 + ($loop->index * 100) }}" data-aos-once="true">
                 <div class="rn-service">
                     <div class="inner">
                         <div class="">
@@ -40,12 +28,6 @@
                             <h4 class="title">
                                 <a href="{{ route('portfolios.index') }}#portfolio-{{ $portfolio->id }}">{{ $portfolio->getTitle() }}</a>
                             </h4>
-                            <p class="description">{{ $portfolio->getDescription() }}</p>
-                            @if($portfolio->category)
-                                <div class="category">
-                                    <span class="badge bg-primary">{{ $portfolio->category->getTitle() }}</span>
-                                </div>
-                            @endif
                         </div>
                     </div>
                 </div>
@@ -69,46 +51,7 @@
 
 @push('styles')
 <style>
-/* Portfolio Filter Styles */
-.portfolio-filter {
-    margin-bottom: 50px;
-}
 
-.filter-buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.filter-btn {
-    padding: 12px 25px;
-    background: linear-gradient(135deg, var(--background-color-1) 0%, var(--background-color-2) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 25px;
-    color: var(--color-body);
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.filter-btn:hover,
-.filter-btn.active {
-    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-/* Portfolio Item Styles */
-.portfolio-item {
-    display: block;
-}
-
-.portfolio-item.hidden {
-    display: none;
-}
 
 .rn-service {
     background: linear-gradient(135deg, var(--background-color-1) 0%, var(--background-color-2) 100%);
@@ -199,30 +142,12 @@
 
 /* Responsive */
 @media only screen and (max-width: 767px) {
-    .filter-buttons {
-        gap: 10px;
-    }
-    
-    .filter-btn {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-    
     .rn-service {
         padding: 20px;
     }
 }
 
 @media only screen and (max-width: 575px) {
-    .filter-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .filter-btn {
-        width: 200px;
-    }
-    
     .rn-service {
         padding: 15px;
     }
@@ -230,38 +155,4 @@
 </style>
 @endpush
 
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Portfolio filtering
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Remove active class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            const filter = this.getAttribute('data-filter');
-            
-            portfolioItems.forEach(item => {
-                const category = item.getAttribute('data-category');
-                
-                if (filter === 'all' || category === filter) {
-                    item.classList.remove('hidden');
-                    item.style.display = 'block';
-                } else {
-                    item.classList.add('hidden');
-                    item.style.display = 'none';
-                }
-            });
-        });
-    });
-});
-</script>
-@endpush 
+ 

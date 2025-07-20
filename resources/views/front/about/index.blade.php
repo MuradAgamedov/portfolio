@@ -21,9 +21,9 @@
         <div class="row mt--30">
             <div class="col-lg-12">
                 <div class="about-content" data-aos="fade-up" data-aos-duration="500" data-aos-delay="200" data-aos-once="true">
-                    @if($about->getTranslation('description', app()->getLocale()))
+                    @if($about->getDescription())
                         <div class="about-description">
-                            {!! $about->getTranslation('description', app()->getLocale()) !!}
+                            {!! $about->getDescription() !!}
                         </div>
                     @endif
                 </div>
