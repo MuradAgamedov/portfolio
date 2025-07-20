@@ -20,24 +20,19 @@
         <div class="row row--25 mt--30 mt_md--10 mt_sm--10">
             @forelse($services as $index => $service)
             <!-- Start Single Service -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true" class="col-lg-6 col-xl-4 mt--30 col-md-6 col-sm-12 col-12">
+            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 200) }}" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
                 <div class="rn-service">
                     <div class="inner">
                         <div class="icon">
-                            <i class="{{ $service->icon ?? 'feather-settings' }}"></i>
+                            <img src="{{asset('storage/'.$service->icon)}}" alt="{{$service->icon_alt}}">
                         </div>
                         <div class="content">
-                            <h4 class="title">
-                                <a href="#" onclick="selectService({{ $service->id }}, '{{ $service->getTitle() }}')">
-                                    {{ $service->getTitle() }}
-                                    <i class="feather-arrow-up-right"></i>
-                                </a>
-                            </h4>
-                            <p class="description">
-                                {{ Str::limit($service->getDescription(), 120) }}
-                            </p>
+                            <h4 class="title"><a href="#" onclick="selectService({{ $service->id }}, '{{ $service->getTitle() }}')">{{ $service->getTitle() }}</a></h4>
+                            <p class="description">{{ $service->getDescription() }}</p>
+                            <a class="read-more-button" href="#" onclick="selectService({{ $service->id }}, '{{ $service->getTitle() }}')"><i class="feather-arrow-right"></i></a>
                         </div>
                     </div>
+                    <a class="over-link" href="#" onclick="selectService({{ $service->id }}, '{{ $service->getTitle() }}')"></a>
                 </div>
             </div>
             <!-- End Single Service -->
@@ -129,6 +124,7 @@
 
 /* Service Card Styles */
 .rn-service {
+    position: relative;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     border-radius: 15px;
     overflow: hidden;
@@ -149,6 +145,8 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 2;
 }
 
 .rn-service:hover .inner {
@@ -171,6 +169,12 @@
     transform: scale(1.1);
 }
 
+.rn-service .icon img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
 .rn-service .icon i {
     font-size: 24px;
     color: white;
@@ -178,6 +182,7 @@
 
 .rn-service .content {
     flex: 1;
+    position: relative;
 }
 
 .rn-service .title {
@@ -191,32 +196,58 @@
     color: var(--color-heading);
     text-decoration: none;
     transition: color 0.3s ease;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 10px;
 }
 
 .rn-service .title a:hover {
     color: var(--color-primary);
 }
 
-.rn-service .title a i {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.3s ease;
-    flex-shrink: 0;
-    margin-top: 2px;
-}
-
-.rn-service:hover .title a i {
-    transform: translateX(5px) translateY(-5px);
-}
-
 .rn-service .description {
     color: var(--color-body);
     line-height: 1.6;
-    margin: 0;
+    margin: 0 0 20px 0;
+}
+
+.rn-service .read-more-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.rn-service:hover .read-more-button {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.rn-service .read-more-button i {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.rn-service:hover .read-more-button i {
+    transform: translateX(2px);
+}
+
+.rn-service .over-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
 /* Service Request Form Styles */
