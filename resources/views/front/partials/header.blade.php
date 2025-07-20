@@ -27,9 +27,9 @@
                 <nav class="mainmenu-nav">
                     <ul class="primary-menu">
                         <li class="nav-item"><a class="nav-link" href="{{ localized_route('services.index') }}" title="{{__("View my services and what I offer")}}">{{__("Services")}}</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ localized_route('portfolios.index') }}" title="{{__("View my portfolio projects")}}">{{__("PORTFOLIO</li>
-                        <li class="nav-item"><a class="nav-link" href="{{ localized_route('blogs.index') }}" title="{{__("Read my blog posts")}}">{{__("BLOG")}}</li>
-                        <li class="nav-item"><a class="nav-link" href="{{ localized_route('contact') }}" title="{{__("Get in touch with me")}}">{{__("CONTACT")}}</li>
+                        <li class="nav-item"><a class="nav-link" href="{{ localized_route('portfolios.index') }}" title="{{__("View my portfolio projects")}}">{{__("PORTFOLIO")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ localized_route('blogs.index') }}" title="{{__("Read my blog posts")}}">{{__("BLOG")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ localized_route('contact') }}" title="{{__("Get in touch with me")}}">{{__("CONTACT")}}</a></li>
                     </ul>
                 </nav>
                 <!-- Start Header Right  -->
