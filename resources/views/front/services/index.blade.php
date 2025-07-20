@@ -399,6 +399,8 @@
 
 @section('scripts')
 <script>
+console.log('Services page JavaScript loaded');
+
 // Global function to select service from service cards
 window.selectService = function(serviceId, serviceTitle) {
     console.log('selectService called with:', serviceId, serviceTitle);
@@ -522,12 +524,20 @@ window.showNotification = function(message, type = 'info') {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded - Services page');
+    
     const serviceSelect = document.getElementById('service_select');
     const subjectInput = document.getElementById('subject');
     const selectedServiceInfo = document.getElementById('selected-service-info');
     const selectedServiceIcon = document.getElementById('selected-service-icon');
     const selectedServiceTitle = document.getElementById('selected-service-title');
     const selectedServiceDescription = document.getElementById('selected-service-description');
+    
+    console.log('Service elements found:', {
+        serviceSelect: !!serviceSelect,
+        subjectInput: !!subjectInput,
+        selectedServiceInfo: !!selectedServiceInfo
+    });
     
     // Add event listeners to service links
     document.addEventListener('click', function(e) {
@@ -548,6 +558,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 selectService(serviceId, serviceTitle);
             }
         }
+    });
+    
+    // Alternative: Direct event listeners on service cards
+    const serviceLinks = document.querySelectorAll('.service-link');
+    console.log('Found service links:', serviceLinks.length);
+    
+    serviceLinks.forEach((link, index) => {
+        console.log(`Service link ${index}:`, {
+            serviceId: link.getAttribute('data-service-id'),
+            serviceTitle: link.getAttribute('data-service-title'),
+            href: link.getAttribute('href')
+        });
+        
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const serviceId = this.getAttribute('data-service-id');
+            const serviceTitle = this.getAttribute('data-service-title');
+            
+            console.log('Direct click on service link:', serviceId, serviceTitle);
+            
+            if (serviceId && serviceTitle) {
+                selectService(serviceId, serviceTitle);
+            }
+        });
     });
     
     // Update subject and show service info when service is selected
