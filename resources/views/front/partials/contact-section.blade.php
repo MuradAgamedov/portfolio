@@ -94,7 +94,7 @@
                             <div class="col-lg-12">
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
                                     <div class="g-recaptcha mb-3" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
-                                    <button name="submit" type="submit" id="submit" class="rn-btn">
+                                    <button name="submit" type="submit" id="submit" class="rn-btn" style="width: 100%; display: block; text-align: center;">
                                         <span>{{__("SEND MESSAGE")}}</span>
                                         <i data-feather="arrow-right"></i>
                                     </button>
