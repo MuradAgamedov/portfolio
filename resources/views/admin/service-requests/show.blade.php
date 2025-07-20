@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <dl class="row">
                         <dt class="col-sm-4">Service</dt>
-                        <dd class="col-sm-8">{{ $serviceRequest->service ? $serviceRequest->service->title : 'N/A' }}</dd>
+                        <dd class="col-sm-8">{{ $serviceRequest->service ? $serviceRequest->service->getTitle() : 'N/A' }}</dd>
 
                         <dt class="col-sm-4">Email</dt>
                         <dd class="col-sm-8">{{ $serviceRequest->email }}</dd>
