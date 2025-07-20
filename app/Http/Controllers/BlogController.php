@@ -44,9 +44,8 @@ class BlogController extends Controller
     /**
      * Display the specified blog
      */
-    public function show($id, $slug = null)
+    public function show($locale, $id, $slug = null)
     {
-        dd($id, $slug);
         // Find blog by ID first (primary lookup)
         $blog = Blog::where('status', true)
                    ->where('id', $id)
