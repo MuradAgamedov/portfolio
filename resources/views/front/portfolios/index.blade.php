@@ -83,7 +83,7 @@
                             </li>
                         @else
                             <li class="page-item">
-                                <a class="page-link" href="{{ $portfolios->previousPageUrl() }}" rel="prev">
+                                <a class="page-link" href="{{ $portfolios->appends(request()->query())->previousPageUrl() }}" rel="prev">
                                     <i data-feather="chevron-left"></i>
                                 </a>
                             </li>
@@ -97,7 +97,7 @@
                                 </li>
                             @else
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                    <a class="page-link" href="{{ $portfolios->appends(request()->query())->url($page) }}">{{ $page }}</a>
                                 </li>
                             @endif
                         @endforeach
@@ -105,7 +105,7 @@
                         {{-- Next Page Link --}}
                         @if ($portfolios->hasMorePages())
                             <li class="page-item">
-                                <a class="page-link" href="{{ $portfolios->nextPageUrl() }}" rel="next">
+                                <a class="page-link" href="{{ $portfolios->appends(request()->query())->nextPageUrl() }}" rel="next">
                                     <i data-feather="chevron-right"></i>
                                 </a>
                             </li>
