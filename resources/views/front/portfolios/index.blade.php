@@ -126,7 +126,7 @@
 <!-- End Portfolio Area -->
 @endsection
 
-@push('styles')
+@section('styles')
 <style>
 /* CSS Variables */
 :root {
@@ -422,4 +422,4 @@
     }
 }
 </style>
-@endpush 
+@endsection 
