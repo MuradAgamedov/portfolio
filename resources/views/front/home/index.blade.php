@@ -401,7 +401,7 @@
                             </a>
                         </div>
                         <div class="content">
-                            <div class="portfolio-info">
+                            <div style="margin-top: 10px;" class="portfolio-info">
                                     <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
                                         {{ $portfolio->getTitle() }}
                                     </a>
