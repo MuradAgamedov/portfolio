@@ -1749,11 +1749,11 @@ $(document).ready(function() {
 }
 
 .portfolio-card .title {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     color: #ffffff;
-    margin-bottom: 8px;
-    line-height: 1.3;
+    margin-bottom: 6px;
+    line-height: 1.2;
 }
 
 .portfolio-card .title a {
