@@ -92,7 +92,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                                <div style="display: flex; flex-direction: row; align-items: center; gap: 20px; justify-content: space-between;">
                                     <div class="g-recaptcha mb-3" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
                                     <button name="submit" type="submit" id="submit" class="rn-btn">
                                         <span>{{__("SEND MESSAGE")}}</span>
@@ -106,4 +106,178 @@
             </div>
         </div>
     </div>
-</div> <!-- End Contact section --> 
+</div> <!-- End Contact section -->
+
+<style>
+/* Neumorphic Contact Form Styles */
+.contact-form-wrapper {
+    background: #2a2d31;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 
+        20px 20px 60px rgba(0, 0, 0, 0.5),
+        inset 5px 5px 10px rgba(255, 255, 255, 0.05),
+        inset -5px -5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #c4cfde;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 15px 20px;
+    background: #212428;
+    border: none;
+    border-radius: 15px;
+    color: #c4cfde;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 
+        inset 5px 5px 10px rgba(0, 0, 0, 0.3),
+        inset -5px -5px 10px rgba(255, 255, 255, 0.05);
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: 
+        inset 8px 8px 15px rgba(0, 0, 0, 0.4),
+        inset -8px -8px 15px rgba(255, 255, 255, 0.08),
+        0 0 0 2px rgba(255, 1, 79, 0.3);
+}
+
+.form-control::placeholder {
+    color: rgba(196, 207, 222, 0.4);
+}
+
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.rn-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: #212428;
+    color: #ff014f;
+    text-decoration: none;
+    border-radius: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 
+        5px 5px 10px rgba(0, 0, 0, 0.3),
+        -5px -5px 10px rgba(255, 255, 255, 0.05);
+}
+
+.rn-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        8px 8px 15px rgba(0, 0, 0, 0.4),
+        -8px -8px 15px rgba(255, 255, 255, 0.08);
+    color: #ff014f;
+}
+
+.rn-btn:active {
+    transform: translateY(0);
+    box-shadow: 
+        inset 5px 5px 10px rgba(0, 0, 0, 0.3),
+        inset -5px -5px 10px rgba(255, 255, 255, 0.05);
+}
+
+/* reCAPTCHA styling */
+.g-recaptcha {
+    margin-bottom: 20px;
+}
+
+/* Contact info styling */
+.contact-about-area {
+    background: #2a2d31;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 
+        20px 20px 60px rgba(0, 0, 0, 0.5),
+        inset 5px 5px 10px rgba(255, 255, 255, 0.05),
+        inset -5px -5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.contact-about-area .thumbnail img {
+    border-radius: 15px;
+    box-shadow: 
+        10px 10px 20px rgba(0, 0, 0, 0.3),
+        -10px -10px 20px rgba(255, 255, 255, 0.05);
+}
+
+.contact-about-area .title {
+    color: #c4cfde;
+    margin: 20px 0;
+}
+
+.contact-about-area .description {
+    color: #c4cfde;
+    line-height: 1.8;
+}
+
+.contact-about-area .description span {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.contact-about-area .description a {
+    color: #ff014f;
+    text-decoration: none;
+}
+
+.social-area {
+    margin-top: 30px;
+}
+
+.social-area .name {
+    color: #c4cfde;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.social-icone a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #212428;
+    border-radius: 10px;
+    color: #c4cfde;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 
+        5px 5px 10px rgba(0, 0, 0, 0.3),
+        -5px -5px 10px rgba(255, 255, 255, 0.05);
+}
+
+.social-icone a:hover {
+    color: #ff014f;
+    transform: translateY(-2px);
+    box-shadow: 
+        8px 8px 15px rgba(0, 0, 0, 0.4),
+        -8px -8px 15px rgba(255, 255, 255, 0.08);
+}
+</style> 
