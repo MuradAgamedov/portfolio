@@ -382,9 +382,17 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="section-title text-center">
-                    <span class="subtitle">{{__("my projects")}}</span>
-                    <h2 class="title">{{__("my projects")}}</h2>
+                <div style="width: 100%;" class="section-title d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="title-column">
+                        <span class="subtitle">{{__("my projects")}}</span>
+                        <h2 class="title">{{__("my projects")}}</h2>
+                    </div>
+                    <div class="view-all-btn ms-auto">
+                        <a href="{{ route('portfolios.index') }}" class="rn-btn">
+                            <span>{{__("View All")}}</span>
+                            <i data-feather="arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

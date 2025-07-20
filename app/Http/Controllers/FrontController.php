@@ -30,7 +30,7 @@ class FrontController extends Controller
             'heroData' => HeroData::firstOrCreate(),
             'heroProfessions' => HeroProfession::where('status', true)->orderBy('order')->get(),
             'services' => Service::where('status', true)->orderBy('order')->get(),
-            'portfolios' => Portfolio::with('category')->where('status', true)->orderBy('order')->get(),
+            'portfolios' => Portfolio::with('category')->where('status', true)->orderBy('order')->limit(9)->get(),
             'portfolioCategories' => PortfolioCategory::orderBy('order')->get(),
             'education' => Education::where('status', true)->orderBy('order')->get(),
             'experiences' => Experience::where('status', true)->orderBy('order')->get(),
