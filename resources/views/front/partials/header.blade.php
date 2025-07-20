@@ -29,6 +29,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('services.index') }}" title="{{__("View my services and what I offer")}}">{{__("Services")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('portfolios.index') }}" title="{{__("View my portfolio projects")}}">{{__("Portfolio")}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('blogs.index') }}" title="{{__("Read my blog posts")}}">{{__("Blog")}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}" title="{{__("Get in touch with me")}}">{{__("Contact")}}</a></li>
                     </ul>
                 </nav>
                 <!-- Start Header Right  -->
@@ -102,6 +103,7 @@
                 <li><a href="{{ route('services.index') }}" title="{{__("View my services and what I offer")}}">{{__("SERVICES")}}</a></li>
                 <li><a href="{{ route('portfolios.index') }}" title="{{__("View my portfolio projects")}}">{{__("PORTFOLIO")}}</a></li>
                 <li><a href="{{ route('blogs.index') }}" title="{{__("Read my blog posts")}}">{{__("BLOG")}}</a></li>
+                <li><a href="{{ route('contact') }}" title="{{__("Get in touch with me")}}">{{__("CONTACT")}}</a></li>
             </ul>
         </nav>
         

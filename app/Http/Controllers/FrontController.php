@@ -58,6 +58,15 @@ class FrontController extends Controller
         return view('front.about.index', $data);
     }
 
+    public function contactPage()
+    {
+        $data = [
+            'socials' => $this->getSocials(),
+        ];
+        
+        return view('front.contact.index', $data);
+    }
+
     public function contact(Request $request)
     {
         // Validate reCAPTCHA first
