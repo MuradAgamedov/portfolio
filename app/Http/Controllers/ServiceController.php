@@ -16,7 +16,9 @@ class ServiceController extends Controller
                           ->orderBy('order', 'asc')
                           ->get();
         
-        return view('front.services.index', compact('services'));
+        $socials = $this->getSocials();
+        
+        return view('front.services.index', compact('services', 'socials'));
     }
 
 
