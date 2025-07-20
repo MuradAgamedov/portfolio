@@ -1556,6 +1556,9 @@ $(document).ready(function() {
 @push('styles')
 <style>
 /* Portfolio Service Card Styles */
+.form-group {
+    width: 100% !important;
+}
 .rn-service {
     background: linear-gradient(135deg, var(--background-color-1) 0%, var(--background-color-2) 100%);
     border-radius: 15px;
