@@ -571,52 +571,56 @@
                 </div>
             </div>
             <div data-aos-delay="600" class="col-lg-7 contact-input">
-            <div class="contact-form-wrapper">
-	<div class="introduce">
-		<div class="rnt-contact-form rwt-dynamic-form row">
-			<div class="col-lg-12">
-			<div class="wpcf7-response-output" aria-hidden="true"></div>
-			</div>
-			<div class="col-lg-6">
-				<div class="form-group">
-					<p><label for="contact-name">Your Name</label><span class="wpcf7-form-control-wrap" data-name="your-name"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text form-control form-control-lg" id="contact-name" aria-invalid="false" value="" type="text" name="your-name"></span>
-					</p>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="form-group">
-					<p><label for="contact-phone">Phone Number</label><span class="wpcf7-form-control-wrap" data-name="your-phone"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text form-control" id="contact-phone" aria-invalid="false" value="" type="text" name="your-phone"></span>
-					</p>
-				</div>
-			</div>
-			<div class="col-lg-12">
-				<div class="form-group">
-					<p><label for="contact-email">Email</label><span class="wpcf7-form-control-wrap" data-name="your-email"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-email wpcf7-validates-as-required wpcf7-text wpcf7-validates-as-email form-control form-control-sm" id="contact-email" aria-required="true" aria-invalid="false" value="" type="email" name="your-email"></span>
-					</p>
-				</div>
-			</div>
-			<div class="col-lg-12">
-				<div class="form-group">
-					<p><label for="contact-subject">Subject</label><span class="wpcf7-form-control-wrap" data-name="your-subject"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text form-control form-control-sm" id="contact-subject" aria-invalid="false" value="" type="text" name="your-subject"></span>
-					</p>
-				</div>
-			</div>
-			<div class="col-lg-12">
-				<div class="form-group">
-					<p><label for="contact-message">Your Message</label><span class="wpcf7-form-control-wrap" data-name="your-message"><textarea cols="40" rows="10" maxlength="2000" class="wpcf7-form-control wpcf7-textarea" id="contact-message" aria-invalid="false" name="your-message"></textarea></span>
-					</p>
-				</div>
-			</div>
-			<div class="col-lg-12">
-			<div class="wpcf7-response-output" aria-hidden="true"></div>
-			</div>
-			<div class="col-lg-12">
-				<p><input class="wpcf7-form-control wpcf7-submit has-spinner rn-btn" type="submit" value="SEND MESSAGE"><span class="wpcf7-spinner"></span>
-				</p>
-			</div>
-		</div>
-	</div>
-</div>
+                <div class="contact-form-wrapper">
+                    <div class="introduce">
+
+                        <form class="rnt-contact-form rwt-dynamic-form row" id="contact-form" method="POST">
+                            @csrf
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="contact-name">{{__("Your Name")}}</label>
+                                    <input class="form-control form-control-lg" name="contact-name" id="contact-name" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="contact-phone">{{__("Phone Number")}}</label>
+                                    <input class="form-control" name="contact-phone" id="contact-phone" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="contact-email">{{__("Email")}}</label>
+                                    <input class="form-control form-control-sm" id="contact-email" name="contact-email" type="email">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="subject">{{__("Subject")}}</label>
+                                    <input class="form-control form-control-sm" id="subject" name="subject" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="contact-message">{{__("Your Message")}}</label>
+                                    <textarea name="contact-message" id="contact-message" cols="30" rows="10"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                            <div class="g-recaptcha mb-3" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                                <button name="submit" type="submit" id="submit" class="rn-btn">
+                                    <span>{{__("SEND MESSAGE")}}</span>
+                                    <i data-feather="arrow-right"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
