@@ -34,7 +34,7 @@ class BlogController extends Controller
             });
         }
         
-        $blogs = $query->paginate(1);
+        $blogs = $query->paginate(9);
         $categories = BlogCategory::where('status', true)->orderBy('order')->get();
         $socials = $this->getSocials();
         
