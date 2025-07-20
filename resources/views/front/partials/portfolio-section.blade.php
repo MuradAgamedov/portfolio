@@ -28,6 +28,13 @@
                             <h4 class="title">
                                 <a href="{{ route('portfolios.index') }}#portfolio-{{ $portfolio->id }}">{{ $portfolio->getTitle() }}</a>
                             </h4>
+                            @if($portfolio->company_name)
+                                <p class="company">
+                                    <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
+                                        {{ $portfolio->company_name }}
+                                    </a>
+                                </p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -103,11 +110,21 @@
     color: var(--color-primary);
 }
 
-.rn-service .description {
-    font-size: 14px;
+.rn-service .company {
+    font-size: 13px;
     color: var(--color-body);
-    line-height: 1.6;
-    margin-bottom: 15px;
+    margin: 0;
+    font-weight: 400;
+}
+
+.rn-service .company a {
+    color: var(--color-body);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.rn-service .company a:hover {
+    color: var(--color-primary);
 }
 
 .rn-service .category {
