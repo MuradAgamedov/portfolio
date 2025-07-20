@@ -611,12 +611,14 @@
                                     <textarea class="form-control" name="contact-message" id="contact-message" cols="30" rows="8"></textarea>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                            <div class="g-recaptcha mb-3" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
-                                <button name="submit" type="submit" id="submit" class="rn-btn">
-                                    <span>{{__("SEND MESSAGE")}}</span>
-                                    <i data-feather="arrow-right"></i>
-                                </button>
+                                                        <div class="col-lg-12">
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                                    <div class="g-recaptcha mb-3" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                                    <button name="submit" type="submit" id="submit" class="rn-btn">
+                                        <span>{{__("SEND MESSAGE")}}</span>
+                                        <i data-feather="arrow-right"></i>
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>
