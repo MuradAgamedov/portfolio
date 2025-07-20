@@ -508,7 +508,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-            <div class="section-title d-flex justify-content-between align-items-center flex-wrap">
+            <div style="width: 100%;" class="section-title d-flex justify-content-between align-items-center flex-wrap">
     <div class="title-column">
         <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
         <h2 class="title">{{__("My Blog")}}</h2>
@@ -1660,9 +1660,7 @@ $(document).ready(function() {
 .view-all-btn .rn-btn:hover i {
     transform: translateX(3px);
 }
-.align-items-center {
-        width: 100%;
-    }
+
 /* Responsive */
 @media only screen and (max-width: 767px) {
     .section-title {
