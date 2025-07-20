@@ -8,9 +8,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title text-center">
-                    <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
-                    <h2 class="title">{{__("My Blog")}}</h2>
+                <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title">
+                    <div class="title-row">
+                        <span class="subtitle">{{__("Welcome to the space where I share my thoughts")}}</span>
+                        <h2 class="title">{{__("My Blog")}}</h2>
+                    </div>
                 </div>
             </div>
         </div>
@@ -162,6 +164,48 @@
 
 @section('styles')
 <style>
+/* Section Title Styles */
+.section-title .title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.section-title .subtitle {
+    font-size: 16px;
+    color: var(--color-body);
+    font-weight: 400;
+    flex: 1;
+}
+
+.section-title .title {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin: 0;
+    flex-shrink: 0;
+}
+
+/* Responsive for title row */
+@media only screen and (max-width: 767px) {
+    .section-title .title-row {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .section-title .title {
+        font-size: 36px;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .section-title .title {
+        font-size: 28px;
+    }
+}
+
 /* Blog Card Styles */
 .rn-blog {
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -361,9 +405,9 @@
 .search-input {
     width: 100%;
     padding: 12px 45px 12px 45px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.15);
     color: var(--color-heading);
     font-size: 15px;
     backdrop-filter: blur(6px);
