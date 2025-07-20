@@ -58,8 +58,9 @@ class ServiceRequestController extends Controller
         $serviceRequests = ServiceRequest::with('service')
             ->orderBy('created_at', 'desc')
             ->paginate(15);
+        $pendingCount = ServiceRequest::where('status', 'pending')->count();
 
-        return view('admin.service-requests.index', compact('serviceRequests'));
+        return view('admin.service-requests.index', compact('serviceRequests', 'pendingCount'));
     }
 
     public function show(ServiceRequest $serviceRequest)
