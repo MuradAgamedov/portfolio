@@ -19,23 +19,7 @@
 
         <div class="row row--25 mt--30 mt_md--10 mt_sm--10">
             @forelse($services as $index => $service)
-            <!-- Start Single Service -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 200) }}" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-service">
-                    <div class="inner">
-                        <div class="icon">
-                            <img src="{{asset('storage/'.$service->icon)}}" alt="{{$service->icon_alt}}">
-                        </div>
-                        <div class="content">
-                            <h4 class="title"><a href="#" onclick="selectService({{ $service->id }}, '{{ $service->getTitle() }}')">{{ $service->getTitle() }}</a></h4>
-                            <p class="description">{{ $service->getDescription() }}</p>
-                            <a class="read-more-button" href="#" onclick="selectService({{ $service->id }}, '{{ $service->getTitle() }}')"><i class="feather-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <a class="over-link" href="#" onclick="selectService({{ $service->id }}, '{{ $service->getTitle() }}')"></a>
-                </div>
-            </div>
-            <!-- End Single Service -->
+                @include('front.partials.service-card', ['service' => $service, 'index' => $index, 'isServicesPage' => true])
             @empty
             <div class="col-12 text-center">
                 <div class="alert alert-info">
@@ -122,133 +106,7 @@
     margin: 0;
 }
 
-/* Service Card Styles */
-.rn-service {
-    position: relative;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border-radius: 15px;
-    overflow: hidden;
-    height: 100%;
-}
 
-.rn-service:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-.rn-service .inner {
-    background: var(--background-color-1);
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: var(--shadow-1);
-    transition: all 0.3s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    z-index: 2;
-}
-
-.rn-service:hover .inner {
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-}
-
-.rn-service .icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
-}
-
-.rn-service:hover .icon {
-    transform: scale(1.1);
-}
-
-.rn-service .icon img {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-}
-
-.rn-service .icon i {
-    font-size: 24px;
-    color: white;
-}
-
-.rn-service .content {
-    flex: 1;
-    position: relative;
-}
-
-.rn-service .title {
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 1.4;
-    margin-bottom: 15px;
-}
-
-.rn-service .title a {
-    color: var(--color-heading);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.rn-service .title a:hover {
-    color: var(--color-primary);
-}
-
-.rn-service .description {
-    color: var(--color-body);
-    line-height: 1.6;
-    margin: 0 0 20px 0;
-}
-
-.rn-service .read-more-button {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    opacity: 0;
-    transform: scale(0.8);
-}
-
-.rn-service:hover .read-more-button {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.rn-service .read-more-button i {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.3s ease;
-}
-
-.rn-service:hover .read-more-button i {
-    transform: translateX(2px);
-}
-
-.rn-service .over-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
 
 /* Service Request Form Styles */
 .service-request-form {

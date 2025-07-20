@@ -97,23 +97,7 @@
         <div class="row row--25 mt_md--10 mt_sm--10">
 
             @foreach($services as $index => $service)
-            <!-- Start Single Service -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 200) }}" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-service">
-                    <div class="inner">
-                        <div class="icon">
-                            <img src="{{asset('storage/'.$service->icon)}}" alt="{{$service->icon_alt}}">
-                        </div>
-                        <div class="content">
-                            <h4 class="title"><a href="#">{{ $service->getTitle() }}</a></h4>
-                            <p class="description">{{ $service->getDescription() }}</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <a class="over-link" href="#"></a>
-                </div>
-            </div>
-            <!-- End Single Service -->
+                @include('front.partials.service-card', ['service' => $service, 'index' => $index, 'isServicesPage' => false])
             @endforeach
 
         </div>
@@ -524,18 +508,19 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title d-flex justify-content-between align-items-center">
-                    <div class="title-column">
-                        <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
-                        <h2 class="title">{{__("My Blog")}}</h2>
-                    </div>
-                    <div class="view-all-btn">
-                        <a href="{{ route('blogs.index') }}" class="rn-btn">
-                            <span>{{__("View All")}}</span>
-                            <i data-feather="arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
+            <div class="section-title d-flex justify-content-between align-items-center flex-wrap">
+    <div class="title-column">
+        <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
+        <h2 class="title">{{__("My Blog")}}</h2>
+    </div>
+    <div class="view-all-btn ms-auto">
+        <a href="{{ route('blogs.index') }}" class="rn-btn">
+            <span>{{__("View All")}}</span>
+            <i data-feather="arrow-right"></i>
+        </a>
+    </div>
+</div>
+
         </div>
         <div class="row row--25 mt--30 mt_md--10 mt_sm--10" style="align-items: stretch;">
 
@@ -1609,8 +1594,8 @@ $(document).ready(function() {
 .section-title {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .section-title .title-column {
@@ -1621,7 +1606,9 @@ $(document).ready(function() {
     text-align: left;
     flex: 1;
 }
-
+.title-column {
+    flex-grow: 1;
+}
 .section-title .subtitle {
     font-size: 16px;
     color: var(--color-body);
@@ -1637,9 +1624,10 @@ $(document).ready(function() {
 }
 
 .view-all-btn {
-    flex-shrink: 0;
     margin-left: auto;
+    margin-top: 10px;
 }
+
 
 .view-all-btn .rn-btn {
     background: rgba(255, 255, 255, 0.1);
@@ -1677,11 +1665,9 @@ $(document).ready(function() {
 @media only screen and (max-width: 767px) {
     .section-title {
         flex-direction: column;
-        gap: 20px;
-        text-align: center;
         align-items: center;
+        text-align: center;
     }
-    
     .section-title .title-column {
         align-items: center;
         flex: none;
@@ -1692,8 +1678,8 @@ $(document).ready(function() {
     }
     
     .view-all-btn {
-        align-self: center;
         margin-left: 0;
+        margin-top: 20px;
     }
 }
 
