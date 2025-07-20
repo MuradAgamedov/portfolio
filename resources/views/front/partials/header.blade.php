@@ -56,7 +56,7 @@
                     </div>
 
                     <!-- BUY NOW Button -->
-                    <a class="rn-btn buy-now-btn" href="#contacts" title="{{__("Contact me now")}}"><span>{{__("CONTACT NOW")}}</span></a>
+                    <a class="rn-btn buy-now-btn" href="{{ localized_route('contact') }}" title="{{__("Contact me now")}}"><span>{{__("CONTACT NOW")}}</span></a>
 
                     <div class="mobile-menu-toggle" title="{{__("Open mobile menu")}}">
                         <span></span>
