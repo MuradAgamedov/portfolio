@@ -111,7 +111,7 @@
                     <option value="">Bütün Kateqoriyalar</option>
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
-                            {{ $category->title['az'] ?? $category->title['en'] ?? $category->title['ru'] ?? 'Unnamed Category' }}
+                            {{ $category->getTitle() }}
                         </option>
                     @endforeach
                 </select>

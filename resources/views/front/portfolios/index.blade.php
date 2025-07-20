@@ -25,8 +25,8 @@
                             {{__("All")}}
                         </a>
                         @foreach($categories as $category)
-                            <a href="{{ route('portfolios.index', ['category' => $category->id]) }}" 
-                               class="filter-btn {{ $selectedCategory == $category->id ? 'active' : '' }}">
+                            <a href="{{ route('portfolios.index', ['category' => $category->getSlug()]) }}" 
+                               class="filter-btn {{ $selectedCategory == $category->getSlug() ? 'active' : '' }}">
                                 {{ $category->getTitle() }}
                             </a>
                         @endforeach

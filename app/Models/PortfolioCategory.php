@@ -50,4 +50,14 @@ class PortfolioCategory extends Model
         $lang = $lang ?: app()->getLocale();
         return $this->title[$lang] ?? $this->title['az'] ?? '';
     }
+
+    /**
+     * Get slug for specific language
+     */
+    public function getSlug($lang = null)
+    {
+        $lang = $lang ?: app()->getLocale();
+        $title = $this->getTitle($lang);
+        return \Str::slug($title);
+    }
 }

@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\HeroDataController;
 use App\Http\Controllers\Admin\HeroProfessionController;
 use App\Http\Controllers\Admin\SocialController;
 use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Admin\PortfolioController as AdminPortfolioController;
 use App\Http\Controllers\Admin\PortfolioCategoryController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\CertificateController;
@@ -43,7 +43,7 @@ Route::get('/', [FrontController::class, 'index'])->name('home');
 Route::get('/blogs', [FrontBlogController::class, 'index'])->name('blogs.index');
 Route::get('/blog/{slug}', [FrontBlogController::class, 'show'])->name('blog.show');
 Route::get('/services', [FrontServiceController::class, 'index'])->name('services.index');
-Route::get('/portfolios', [PortfolioController::class, 'index'])->name('portfolios.index');
+Route::get('/portfolios', [App\Http\Controllers\PortfolioController::class, 'index'])->name('portfolios.index');
 Route::post('/service-request', [ServiceRequestController::class, 'store'])->name('service-request.store');
 Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
 Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
@@ -86,8 +86,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::post('portfolio-categories/reorder', [PortfolioCategoryController::class, 'reorder'])->name('portfolio-categories.reorder');
     
     // Portfolio Routes
-    Route::resource('portfolios', PortfolioController::class);
-    Route::post('portfolios/reorder', [PortfolioController::class, 'reorder'])->name('portfolios.reorder');
+    Route::resource('portfolios', AdminPortfolioController::class);
+    Route::post('portfolios/reorder', [AdminPortfolioController::class, 'reorder'])->name('portfolios.reorder');
     
     // Certificate Routes
     Route::resource('certificates', CertificateController::class);

@@ -12,13 +12,19 @@ class PortfolioController extends Controller
     {
         $query = Portfolio::with('category')->where('status', true);
         
-        // Category filter
+        // Category filter by slug
         if ($request->has('category') && $request->category != 'all') {
-            $query->where('category_id', $request->category);
+            $category = PortfolioCategory::where('status', true)->get()->first(function($cat) use ($request) {
+                return $cat->getSlug() === $request->category;
+            });
+            
+            if ($category) {
+                $query->where('category_id', $category->id);
+            }
         }
         
         $portfolios = $query->orderBy('order')->paginate(12);
-        $categories = PortfolioCategory::orderBy('order')->get();
+        $categories = PortfolioCategory::where('status', true)->orderBy('order')->get();
         $selectedCategory = $request->category ?? 'all';
         
         return view('front.portfolios.index', compact('portfolios', 'categories', 'selectedCategory'));
