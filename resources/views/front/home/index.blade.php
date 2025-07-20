@@ -530,11 +530,11 @@
                 </div>
             </div>
         </div>
-        <div class="row row--25 mt--30 mt_md--10 mt_sm--10">
+        <div class="row row--25 mt--30 mt_md--10 mt_sm--10" style="align-items: stretch;">
 
             @foreach($blogs as $index => $blog)
             <!-- Start Single blog -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true" class="col-lg-6 col-xl-4 mt--30 col-md-6 col-sm-12 col-12 mt--30">
+            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true" class="col-lg-6 col-xl-4 mt--30 col-md-6 col-sm-12 col-12 mt--30" style="display: flex;">
                 <div class="rn-blog">
                     <div class="inner">
                         <div class="thumbnail">
@@ -542,8 +542,13 @@
                                 <img src="{{ $blog->getCardImageUrl() ?: 'assets/images/blog/blog-01.jpg' }}" alt="{{ $blog->getCardImageAltText() }}">
                             </a>
                         </div>
-                                                <div class="content">
-                            <h4 class="title"><a href="{{ route('blog.show', $blog->getTranslation('slug', app()->getLocale())) }}">{{ $blog->getTitle() }} <i class="feather-arrow-up-right"></i></a></h4>
+                        <div class="content">
+                            <h4 class="title">
+                                <a href="{{ route('blog.show', $blog->getTranslation('slug', app()->getLocale())) }}">
+                                    {{ Str::limit($blog->getTitle(), 60) }}
+                                    <i class="feather-arrow-up-right"></i>
+                                </a>
+                            </h4>
                             <div class="meta">
                                 <span><i class="feather-clock"></i> {{ $blog->getFormattedPublishedDate() }}</span>
                             </div>
@@ -564,6 +569,9 @@
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     border-radius: 15px;
     overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .rn-blog:hover {
@@ -577,6 +585,9 @@
     overflow: hidden;
     box-shadow: var(--shadow-1);
     transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .rn-blog:hover .inner {
@@ -586,12 +597,13 @@
 .rn-blog .thumbnail {
     position: relative;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .rn-blog .thumbnail img {
     transition: transform 0.4s ease;
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
 }
 
@@ -619,7 +631,8 @@
     padding: 25px;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    flex: 1;
+    min-height: 120px;
 }
 
 .rn-blog .title {
@@ -628,12 +641,18 @@
     line-height: 1.4;
     margin-bottom: 15px;
     flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .rn-blog .meta {
     font-size: 14px;
     color: var(--color-body);
     margin-top: auto;
+    flex-shrink: 0;
 }
 
 .rn-blog .meta span {
@@ -652,8 +671,10 @@
     text-decoration: none;
     transition: color 0.3s ease;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
+    gap: 10px;
+    word-wrap: break-word;
 }
 
 .rn-blog .title a:hover {
@@ -664,6 +685,8 @@
     width: 20px;
     height: 20px;
     transition: transform 0.3s ease;
+    flex-shrink: 0;
+    margin-top: 2px;
 }
 
 .rn-blog:hover .title a i {
@@ -674,15 +697,47 @@
 @media only screen and (max-width: 767px) {
     .rn-blog .content {
         padding: 20px;
+        min-height: 100px;
     }
     
     .rn-blog .title {
         font-size: 16px;
+        -webkit-line-clamp: 2;
     }
     
     .rn-blog .thumbnail img {
         height: 180px;
     }
+}
+
+@media only screen and (max-width: 575px) {
+    .rn-blog .title {
+        font-size: 15px;
+        -webkit-line-clamp: 2;
+    }
+    
+    .rn-blog .content {
+        padding: 15px;
+    }
+    
+    .rn-blog .thumbnail img {
+        height: 160px;
+    }
+}
+
+/* Ensure equal height cards */
+.rn-blog-area .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rn-blog-area .row > div {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.rn-blog-area .row > div > .rn-blog {
+    width: 100%;
 }
 </style>
 
