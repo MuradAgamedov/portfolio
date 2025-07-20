@@ -1749,11 +1749,11 @@ $(document).ready(function() {
 }
 
 .portfolio-card .title {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 600;
     color: #ffffff;
-    margin-bottom: 10px;
-    line-height: 1.4;
+    margin-bottom: 8px;
+    line-height: 1.3;
 }
 
 .portfolio-card .title a {
@@ -1767,10 +1767,10 @@ $(document).ready(function() {
 }
 
 .portfolio-card .company {
-    font-size: 15px;
+    font-size: 13px;
     color: #c4cfde;
     margin: 0;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .portfolio-card .company a {
