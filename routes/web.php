@@ -52,7 +52,7 @@ Route::get('/language/{lang}', function($lang) {
 Route::prefix('{locale}')->where(['locale' => '[a-z]{2}'])->middleware(['setlocale'])->group(function () {
     Route::get('/', [FrontController::class, 'index'])->name('home');
     Route::get('/blogs', [FrontBlogController::class, 'index'])->name('blogs.index');
-    Route::get('/blog/{slug}', [FrontBlogController::class, 'show'])->name('blog.show');
+    Route::get('/blog/{id}/{slug?}', [FrontBlogController::class, 'show'])->name('blog.show');
     Route::get('/services', [FrontServiceController::class, 'index'])->name('services.index');
     Route::get('/portfolios', [App\Http\Controllers\PortfolioController::class, 'index'])->name('portfolios.index');
     Route::get('/about', [FrontController::class, 'about'])->name('about');

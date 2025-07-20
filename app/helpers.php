@@ -73,8 +73,17 @@ if (!function_exists('localized_route')) {
                 case 'blogs.index':
                     return $baseUrl . $path . '/blogs';
                 case 'blog.show':
-                    $slug = is_array($parameters) ? ($parameters[0] ?? '') : $parameters;
-                    return $baseUrl . $path . '/blog/' . $slug;
+                    $blog = is_array($parameters) ? ($parameters[0] ?? null) : $parameters;
+                    if ($blog instanceof \App\Models\Blog) {
+                        return $baseUrl . $path . '/blog/' . $blog->id . '/' . $blog->getSlug();
+                    } elseif (is_numeric($blog)) {
+                        // If only ID is provided, get the blog and its slug
+                        $blogModel = \App\Models\Blog::find($blog);
+                        if ($blogModel) {
+                            return $baseUrl . $path . '/blog/' . $blogModel->id . '/' . $blogModel->getSlug();
+                        }
+                    }
+                    return $baseUrl . $path . '/blog/' . $blog;
                 case 'services.index':
                     return $baseUrl . $path . '/services';
                 case 'portfolios.index':

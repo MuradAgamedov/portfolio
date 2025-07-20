@@ -44,11 +44,22 @@ class BlogController extends Controller
     /**
      * Display the specified blog
      */
-    public function show($slug)
+    public function show($id, $slug = null)
     {
+        // Find blog by ID first (primary lookup)
         $blog = Blog::where('status', true)
-                   ->where("slug->" . app()->getLocale(), $slug)
+                   ->where('id', $id)
                    ->firstOrFail();
+        
+        // If slug is provided, verify it matches (for SEO)
+        if ($slug && $blog->getSlug() !== $slug) {
+            // Redirect to correct URL with proper slug
+            return redirect()->route('blog.show', [
+                'locale' => app()->getLocale(),
+                'id' => $blog->id,
+                'slug' => $blog->getSlug()
+            ]);
+        }
         
         $recentBlogs = Blog::where('status', true)
                           ->where('id', '!=', $blog->id)

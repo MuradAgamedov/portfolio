@@ -86,14 +86,14 @@
                             @foreach($recentBlogs as $recentBlog)
                                 <div class="recent-post-item">
                                     <div class="post-thumbnail">
-                                        <a href="{{ localized_route('blog.show', $recentBlog->getSlug()) }}">
+                                        <a href="{{ localized_route('blog.show', $recentBlog) }}">
                                             <img src="{{ $recentBlog->getCardImageUrl() ?: 'assets/images/blog/blog-01.jpg' }}" 
                                                  alt="{{ $recentBlog->getCardImageAltText() }}">
                                         </a>
                                     </div>
                                     <div class="post-content">
                                         <h6 class="post-title">
-                                            <a href="{{ localized_route('blog.show', $recentBlog->getSlug()) }}">
+                                            <a href="{{ localized_route('blog.show', $recentBlog) }}">
                                                 {{ Str::limit($recentBlog->getTitle(), 50) }}
                                             </a>
                                         </h6>
