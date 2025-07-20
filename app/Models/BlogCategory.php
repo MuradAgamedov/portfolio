@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Services\SlugService;
 
 class BlogCategory extends Model
 {
@@ -52,16 +53,7 @@ class BlogCategory extends Model
      */
     public function generateSlug($title, $lang = 'az')
     {
-        $baseSlug = Str::slug($title);
-        $slug = $baseSlug;
-        $counter = 1;
-
-        while (static::where('slug->' . $lang, $slug)->where('id', '!=', $this->id)->exists()) {
-            $slug = $baseSlug . '-' . $counter;
-            $counter++;
-        }
-
-        return $slug;
+        return SlugService::generateUniqueSlug($title, static::class, $lang, $this->id);
     }
 
     /**
