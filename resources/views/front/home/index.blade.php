@@ -551,9 +551,6 @@
                         <img src="assets/images/contact/contact1.png" alt="contact-img">
                         @endif
                     </div>
-                    <div class="title-area">
-                        <h4 class="title">{{$contactTitle}}</h4>
-                    </div>
                     <div class="description">
                         @php
                             $contactText = \App\Models\SiteSetting::getByKey('contact_section_text');
@@ -561,8 +558,16 @@
                             $email = \App\Models\SiteSetting::getByKey('email');
                         @endphp
                         <p>{{ $contactText ?: __("I am available for freelance work. Connect with me via and call in to my account.") }}</p>
-                        <span class="phone">{{__("Phone")}}: <a href="tel:{{ $phone ?: '01941043264' }}">{{ $phone ?: '+01234567890' }}</a></span>
-                        <span class="mail">{{__("Email")}}: <a href="mailto:{{ $email ?: 'admin@example.com' }}">{{ $email ?: 'admin@example.com' }}</a></span>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <span class="label">{{__("Phone")}}:</span>
+                                <a href="tel:{{ $phone ?: '01941043264' }}">{{ $phone ?: '+01234567890' }}</a>
+                            </div>
+                            <div class="contact-item">
+                                <span class="label">{{__("Email")}}:</span>
+                                <a href="mailto:{{ $email ?: 'admin@example.com' }}">{{ $email ?: 'admin@example.com' }}</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="social-area">
                         <div class="name">{{__("FIND WITH ME")}}</div>
@@ -1813,6 +1818,39 @@ $(document).ready(function() {
         linear-gradient(45deg, transparent 30%, rgba(255, 1, 79, 0.05) 50%, transparent 70%);
     pointer-events: none;
     border-radius: 20px;
+}
+
+/* Contact Section Styles */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.contact-item .label {
+    font-size: 14px;
+    color: var(--color-body);
+    font-weight: 500;
+}
+
+.contact-item a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+    color: var(--color-secondary);
 }
 
 /* SweetAlert customization */
