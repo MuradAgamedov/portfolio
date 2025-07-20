@@ -35,9 +35,4 @@ class ServiceRequest extends Model
             default => '<span class="badge bg-secondary">Unknown</span>'
         };
     }
-
-    public function getServiceNameAttribute(): string
-    {
-        return $this->service ? $this->service->title : 'N/A';
-    }
 }
