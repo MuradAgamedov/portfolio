@@ -18,7 +18,7 @@
         <!-- Category Filter -->
         <div class="row">
             <div class="col-lg-12">
-                <div class="portfolio-filter text-center mb-5">
+                <div class="portfolio-filter text-center mb-5 mt-5">
                     <div class="filter-buttons">
                         <a href="{{ route('portfolios.index') }}" 
                            class="filter-btn {{ $selectedCategory == 'all' ? 'active' : '' }}">
