@@ -583,36 +583,36 @@
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="contact-name">{{__("YOUR NAME")}}</label>
-                                    <input class="form-control" name="contact-name" id="contact-name" type="text" placeholder="{{__('Enter your name')}}">
+                                    <label for="contact-name">{{__("Your Name")}}</label>
+                                    <input class="form-control form-control-lg" name="contact-name" id="contact-name" type="text">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="contact-phone">{{__("PHONE NUMBER")}}</label>
-                                    <input class="form-control" name="contact-phone" id="contact-phone" type="text" placeholder="{{__('Enter your phone')}}">
+                                    <label for="contact-phone">{{__("Phone Number")}}</label>
+                                    <input class="form-control" name="contact-phone" id="contact-phone" type="text">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="contact-email">{{__("EMAIL")}}</label>
-                                    <input class="form-control" id="contact-email" name="contact-email" type="email" placeholder="{{__('Enter your email')}}">
+                                    <label for="contact-email">{{__("Email")}}</label>
+                                    <input class="form-control form-control-sm" id="contact-email" name="contact-email" type="email">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="subject">{{__("SUBJECT")}}</label>
-                                    <input class="form-control" id="subject" name="subject" type="text" placeholder="{{__('Enter subject')}}">
+                                    <label for="subject">{{__("Subject")}}</label>
+                                    <input class="form-control form-control-sm" id="subject" name="subject" type="text">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label for="contact-message">{{__("YOUR MESSAGE")}}</label>
-                                    <textarea name="contact-message" id="contact-message" cols="30" rows="8" placeholder="{{__('Enter your message')}}"></textarea>
+                                    <label for="contact-message">{{__("Your Message")}}</label>
+                                    <textarea name="contact-message" id="contact-message" cols="30" rows="10"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -1817,69 +1817,7 @@ $(document).ready(function() {
 
 
 
-/* Contact Form Styles */
-.form-group {
-    margin-bottom: 25px;
-}
 
-.form-group label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--color-body);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.form-control {
-    width: 100%;
-    padding: 15px 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    color: var(--color-body);
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-.form-control:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 0 3px rgba(255, 1, 79, 0.1);
-}
-
-.form-control::placeholder {
-    color: rgba(196, 207, 222, 0.6);
-}
-
-textarea.form-control {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.rn-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 30px;
-    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
-    color: white;
-    text-decoration: none;
-    border-radius: 25px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.rn-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    color: white;
-}
 
 /* SweetAlert customization */
 .swal2-popup {
