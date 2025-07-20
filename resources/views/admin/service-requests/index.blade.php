@@ -37,12 +37,30 @@
                                         <td>{!! $request->status_badge !!}</td>
                                         <td>{{ $request->created_at->format('d.m.Y H:i') }}</td>
                                         <td>
-                                            <a href="{{ route('admin.service-requests.show', $request) }}" class="btn btn-sm btn-info">
-                                                <i class="fas fa-eye"></i> View
-                                            </a>
-                                            <button type="button" class="btn btn-sm btn-warning" onclick="updateStatus({{ $request->id }})">
-                                                <i class="fas fa-edit"></i> Status
-                                            </button>
+                                            <div class="btn-group">
+                                                <a href="{{ route('admin.service-requests.show', $request) }}" class="btn btn-sm btn-info">
+                                                    <i class="fas fa-eye"></i> View
+                                                </a>
+                                                @if($request->isUnread())
+                                                <form action="{{ route('admin.service-requests.mark-as-read', $request) }}" 
+                                                      method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="btn btn-sm btn-warning">
+                                                        <i class="fas fa-check"></i> Mark Read
+                                                    </button>
+                                                </form>
+                                                @endif
+                                                <form action="{{ route('admin.service-requests.destroy', $request) }}" 
+                                                      method="POST" style="display: inline;"
+                                                      onsubmit="return confirm('Are you sure you want to delete this service request?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -66,91 +84,4 @@
     </div>
 </div>
 
-<!-- Status Update Modal -->
-<div class="modal fade" id="statusModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Update Status</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="statusForm">
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
-                        <select class="form-select" id="status" name="status" required>
-                            <option value="pending">Pending</option>
-                            <option value="in_progress">In Progress</option>
-                            <option value="completed">Completed</option>
-                            <option value="cancelled">Cancelled</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="saveStatus()">Update</button>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
-
-@push('scripts')
-<script>
-let currentRequestId = null;
-
-function updateStatus(requestId) {
-    currentRequestId = requestId;
-    $('#statusModal').modal('show');
-}
-
-function saveStatus() {
-    if (!currentRequestId) return;
-    
-    const status = document.getElementById('status').value;
-    
-    fetch(`/admin/service-requests/${currentRequestId}/status`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({ status: status })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: data.message,
-                confirmButtonColor: '#ff014f'
-            }).then(() => {
-                location.reload();
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: data.message || 'An error occurred.',
-                confirmButtonColor: '#ff014f'
-            });
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            text: 'An error occurred while updating status.',
-            confirmButtonColor: '#ff014f'
-        });
-    })
-    .finally(() => {
-        $('#statusModal').modal('hide');
-    });
-}
-</script>
-@endpush 
+@endsection 

@@ -32,7 +32,18 @@ class ServiceRequest extends Model
             'in_progress' => '<span class="badge bg-info">In Progress</span>',
             'completed' => '<span class="badge bg-success">Completed</span>',
             'cancelled' => '<span class="badge bg-danger">Cancelled</span>',
+            'read' => '<span class="badge bg-info">Read</span>',
             default => '<span class="badge bg-secondary">Unknown</span>'
         };
+    }
+
+    public function isUnread(): bool
+    {
+        return $this->status === 'pending';
+    }
+
+    public function isRead(): bool
+    {
+        return $this->status === 'read';
     }
 }

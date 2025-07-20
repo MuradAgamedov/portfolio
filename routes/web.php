@@ -153,6 +153,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::post('newsletters/{newsletter}/toggle-status', [NewsletterController::class, 'toggleStatus'])->name('newsletters.toggle-status');
     
     // Service Requests Routes
-    Route::resource('service-requests', ServiceRequestController::class)->only(['index', 'show']);
+    Route::resource('service-requests', ServiceRequestController::class)->only(['index', 'show', 'destroy']);
     Route::patch('service-requests/{serviceRequest}/status', [ServiceRequestController::class, 'updateStatus'])->name('service-requests.update-status');
+    Route::patch('service-requests/{serviceRequest}/mark-as-read', [ServiceRequestController::class, 'markAsRead'])->name('service-requests.mark-as-read');
 });

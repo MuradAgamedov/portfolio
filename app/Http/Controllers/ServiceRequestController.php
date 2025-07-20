@@ -82,4 +82,20 @@ class ServiceRequestController extends Controller
             'data' => $serviceRequest
         ]);
     }
+
+    public function markAsRead(ServiceRequest $serviceRequest)
+    {
+        $serviceRequest->update(['status' => 'read']);
+
+        return redirect()->back()
+            ->with('success', 'Service request marked as read.');
+    }
+
+    public function destroy(ServiceRequest $serviceRequest)
+    {
+        $serviceRequest->delete();
+
+        return redirect()->route('admin.service-requests.index')
+            ->with('success', 'Service request deleted successfully.');
+    }
 }
