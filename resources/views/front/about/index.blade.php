@@ -47,7 +47,7 @@
                     <div class="inner">
                         <div class="content">
                             <h4 class="title">{{ $edu->getTitle() }}</h4>
-                            <p class="university">{{ $edu->university_name }}</p>
+                            <p class="university">{{ $edu->getUniversityName() }}</p>
                             <p class="period">{{ $edu->start_date }} - {{ $edu->end_date ?? __('Present') }}</p>
                             <p class="description">{{ $edu->getDescription() }}</p>
                         </div>
