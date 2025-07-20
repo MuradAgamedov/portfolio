@@ -90,6 +90,11 @@ if (!function_exists('localized_route')) {
                         if ($blogModel) {
                             return $baseUrl . $path . '/blog/' . $blogModel->id . '/' . $blogModel->getSlug();
                         }
+                    } elseif (is_array($parameters) && count($parameters) >= 2) {
+                        // If both ID and slug are provided as array [id, slug]
+                        $id = $parameters[0];
+                        $slug = $parameters[1];
+                        return $baseUrl . $path . '/blog/' . $id . '/' . $slug;
                     }
                     return $baseUrl . $path . '/blog/' . $blog;
                 case 'services.index':
