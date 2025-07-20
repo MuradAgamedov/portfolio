@@ -392,27 +392,23 @@
             @foreach($portfolios as $index => $portfolio)
             <!-- Start Single Portfolio -->
             <div class="col-lg-4 col-md-6 col-12 mt--30" data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true">
-                <div class="portfolio-card">
+                <div class="rn-service">
                     <div class="inner">
-                        <div class="thumbnail">
-                            <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
-                                <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}" 
-                                     alt="{{ $portfolio->getTitle() }}">
-                            </a>
+                        <div class="">
+                            <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}" 
+                                 alt="{{ $portfolio->getTitle() }}">
                         </div>
                         <div class="content">
-                            <div style="margin-top: 10px;" class="portfolio-info">
-                                    <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
-                                        {{ $portfolio->getTitle() }}
-                                    </a>
-                                @if($portfolio->company_name)
+                            <h4 class="title">
+                                <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">{{ $portfolio->getTitle() }}</a>
+                            </h4>
+                            @if($portfolio->company_name)
                                 <p class="company">
                                     <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
                                         {{ $portfolio->company_name }}
                                     </a>
                                 </p>
-                                @endif
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -1556,6 +1552,88 @@ $(document).ready(function() {
 @endpush
 
 @push('styles')
+<style>
+/* Portfolio Service Card Styles */
+.rn-service {
+    background: linear-gradient(135deg, var(--background-color-1) 0%, var(--background-color-2) 100%);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: var(--shadow-1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.rn-service:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.rn-service img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.rn-service:hover img {
+    transform: scale(1.05);
+}
+
+.rn-service .content {
+    text-align: center;
+}
+
+.rn-service .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-heading);
+    margin-bottom: 10px;
+}
+
+.rn-service .title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.rn-service .title a:hover {
+    color: var(--color-primary);
+}
+
+.rn-service .company {
+    font-size: 13px;
+    color: var(--color-body);
+    margin: 0;
+    font-weight: 400;
+}
+
+.rn-service .company a {
+    color: var(--color-body);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.rn-service .company a:hover {
+    color: var(--color-primary);
+}
+
+/* Responsive */
+@media only screen and (max-width: 767px) {
+    .rn-service {
+        padding: 20px;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .rn-service {
+        padding: 15px;
+    }
+}
+</style>
 <style>
 /* Blog Section Title Styles */
 .section-title {
