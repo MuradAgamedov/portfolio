@@ -108,8 +108,8 @@
         <!-- Custom Pagination -->
         @if($blogs->hasPages())
         <div class="row mt-5">
-            <div class="col-12">
-                <nav aria-label="Blog pagination">
+            <div class="col-12 text-center">
+                <nav aria-label="Blog pagination" class="pagination-container">
                     <ul class="pagination justify-content-center">
                         {{-- Previous Page Link --}}
                         @if ($blogs->onFirstPage())
@@ -333,6 +333,13 @@
 }
 
 /* Pagination Styles */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 .pagination {
     gap: 8px;
     margin: 0 auto;
