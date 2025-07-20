@@ -1661,7 +1661,7 @@ $(document).ready(function() {
     transform: translateX(3px);
 }
 .align-items-center {
-        justify-content: space-between;
+        width: 100%;
     }
 /* Responsive */
 @media only screen and (max-width: 767px) {
