@@ -150,13 +150,11 @@
 
 .pagination {
     gap: 10px;
-    margin: 0 auto;
     padding: 0;
     list-style: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: fit-content;
 }
 
 .pagination .page-item {
@@ -164,21 +162,19 @@
 }
 
 .pagination .page-link {
-    border: none;
     background: #2a2d31;
     color: #c4cfde;
-    border-radius: 8px;
-    padding: 12px 16px;
-    min-width: 45px;
-    height: 45px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    min-width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 600;
     font-size: 14px;
     transition: all 0.3s ease;
-    text-decoration: none;
-    font-family: 'Inter', sans-serif;
 }
 
 .pagination .page-link:hover {
@@ -190,14 +186,13 @@
 .pagination .page-item.active .page-link {
     background: #ff014f;
     color: white;
-    border: none;
+    font-weight: bold;
 }
 
 .pagination .page-item.disabled .page-link {
     background: #2a2d31;
     color: #6c757d;
     cursor: not-allowed;
-    border: none;
 }
 
 .pagination .page-link i {
@@ -205,6 +200,7 @@
     height: 16px;
     stroke-width: 2px;
 }
+
 
 /* Previous/Next buttons special styling */
 .pagination .page-item:first-child .page-link {
