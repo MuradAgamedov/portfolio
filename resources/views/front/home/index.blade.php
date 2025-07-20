@@ -1,6 +1,6 @@
 @extends('front.layouts.master')
 
-@section('title', 'Home')
+@section('title', __('seo_home_title'))
 
 @section('content')
 <!-- SEO Display Section -->

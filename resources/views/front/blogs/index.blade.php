@@ -1,6 +1,11 @@
 @extends('front.layouts.master')
 
-@section('title', __('Blogs'))
+@section('title', __('seo_blogs_title'))
+
+@section('meta')
+<meta name="description" content="{{ __('seo_blogs_description') }}">
+<meta name="keywords" content="{{ __('seo_blogs_keywords') }}">
+@endsection
 
 @section('content')
 <!-- Start Blog Area -->

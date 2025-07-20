@@ -2,6 +2,24 @@
 
 @section('title', $blog->getTitle())
 
+@section('meta')
+<meta name="description" content="{{ Str::limit(strip_tags($blog->getMainDescription()), 160) }}">
+<meta name="keywords" content="{{ $blog->getTitle() }}, {{ $blog->category ? $blog->category->getTitle() : '' }}, blog, article">
+<meta property="og:title" content="{{ $blog->getTitle() }}">
+<meta property="og:description" content="{{ Str::limit(strip_tags($blog->getMainDescription()), 160) }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request()->url() }}">
+@if($blog->getMainImageUrl())
+<meta property="og:image" content="{{ asset($blog->getMainImageUrl()) }}">
+@endif
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $blog->getTitle() }}">
+<meta name="twitter:description" content="{{ Str::limit(strip_tags($blog->getMainDescription()), 160) }}">
+@if($blog->getMainImageUrl())
+<meta name="twitter:image" content="{{ asset($blog->getMainImageUrl()) }}">
+@endif
+@endsection
+
 @section('content')
 <!-- Start Blog Detail Area -->
 <div class="rn-blog-details-area rn-section-gap section-separator">

@@ -1,6 +1,11 @@
 @extends('front.layouts.master')
 
-@section('title', __('About Me'))
+@section('title', __('seo_about_title'))
+
+@section('meta')
+<meta name="description" content="{{ __('seo_about_description') }}">
+<meta name="keywords" content="{{ __('seo_about_keywords') }}">
+@endsection
 
 @section('content')
 <!-- Start About Area -->

@@ -1,6 +1,11 @@
 @extends('front.layouts.master')
 
-@section('title', 'Portfolio')
+@section('title', __('seo_portfolio_title'))
+
+@section('meta')
+<meta name="description" content="{{ __('seo_portfolio_description') }}">
+<meta name="keywords" content="{{ __('seo_portfolio_keywords') }}">
+@endsection
 
 @section('content')
 <!-- Start Portfolio Area -->

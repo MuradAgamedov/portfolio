@@ -1,6 +1,11 @@
 @extends('front.layouts.master')
 
-@section('title', __('Contact'))
+@section('title', __('seo_contact_title'))
+
+@section('meta')
+<meta name="description" content="{{ __('seo_contact_description') }}">
+<meta name="keywords" content="{{ __('seo_contact_keywords') }}">
+@endsection
 
 @section('content')
 @include('front.partials.contact-section')
