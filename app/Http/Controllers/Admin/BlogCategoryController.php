@@ -28,6 +28,7 @@ class BlogCategoryController extends Controller
         $rules = [];
         foreach ($languages as $language) {
             $rules["title.{$language->lang_code}"] = 'required|string|max:255';
+            $rules["slug.{$language->lang_code}"] = 'nullable|string|max:255|unique:blog_categories,slug->' . $language->lang_code;
         }
         
         $validated = $request->validate($rules);
@@ -36,11 +37,16 @@ class BlogCategoryController extends Controller
         $validated['status'] = $request->has('status');
         $validated['order'] = BlogCategory::max('order') + 1;
         
-        // Generate slugs automatically
+        // Use provided slugs or generate automatically
         $validated['slug'] = [];
         foreach ($languages as $language) {
-            $title = $request->input("title.{$language->lang_code}");
-            $validated['slug'][$language->lang_code] = (new BlogCategory())->generateSlug($title, $language->lang_code);
+            $slug = $request->input("slug.{$language->lang_code}");
+            if (empty($slug)) {
+                $title = $request->input("title.{$language->lang_code}");
+                $validated['slug'][$language->lang_code] = (new BlogCategory())->generateSlug($title, $language->lang_code);
+            } else {
+                $validated['slug'][$language->lang_code] = $slug;
+            }
         }
         
         BlogCategory::create($validated);
@@ -62,6 +68,7 @@ class BlogCategoryController extends Controller
         $rules = [];
         foreach ($languages as $language) {
             $rules["title.{$language->lang_code}"] = 'required|string|max:255';
+            $rules["slug.{$language->lang_code}"] = 'nullable|string|max:255|unique:blog_categories,slug->' . $language->lang_code . ',' . $blogCategory->id;
         }
         
         $validated = $request->validate($rules);
@@ -69,11 +76,16 @@ class BlogCategoryController extends Controller
         // Handle status separately since checkbox might not be sent if unchecked
         $validated['status'] = $request->has('status');
         
-        // Generate slugs automatically
+        // Use provided slugs or generate automatically
         $validated['slug'] = [];
         foreach ($languages as $language) {
-            $title = $request->input("title.{$language->lang_code}");
-            $validated['slug'][$language->lang_code] = $blogCategory->generateSlug($title, $language->lang_code);
+            $slug = $request->input("slug.{$language->lang_code}");
+            if (empty($slug)) {
+                $title = $request->input("title.{$language->lang_code}");
+                $validated['slug'][$language->lang_code] = $blogCategory->generateSlug($title, $language->lang_code);
+            } else {
+                $validated['slug'][$language->lang_code] = $slug;
+            }
         }
         
         $blogCategory->update($validated);

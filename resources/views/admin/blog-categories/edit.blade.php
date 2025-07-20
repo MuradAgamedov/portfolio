@@ -117,18 +117,34 @@
                              role="tabpanel">
                             
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Başlıq ({{ $language->title }}) <span class="text-danger">*</span></label>
                                         <input type="text" 
                                                name="title[{{ $language->lang_code }}]" 
-                                               class="form-control @error('title.' . $language->lang_code) is-invalid @enderror"
+                                               class="form-control title-input @error('title.' . $language->lang_code) is-invalid @enderror"
+                                               data-lang="{{ $language->lang_code }}"
                                                value="{{ old('title.' . $language->lang_code, $blogCategory->title[$language->lang_code] ?? '') }}"
                                                placeholder="Kateqoriya başlığını daxil edin..."
                                                required>
                                         @error('title.' . $language->lang_code)
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Slug ({{ $language->title }})</label>
+                                        <input type="text" 
+                                               name="slug[{{ $language->lang_code }}]" 
+                                               class="form-control slug-input @error('slug.' . $language->lang_code) is-invalid @enderror"
+                                               data-lang="{{ $language->lang_code }}"
+                                               value="{{ old('slug.' . $language->lang_code, $blogCategory->slug[$language->lang_code] ?? '') }}"
+                                               placeholder="Slug avtomatik yaradılacaq...">
+                                        @error('slug.' . $language->lang_code)
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                        <small class="form-text text-muted">Slug avtomatik olaraq başlıqdan yaradılır</small>
                                     </div>
                                 </div>
                             </div>
@@ -174,6 +190,25 @@ $(document).ready(function() {
     $('#status').change(function() {
         // Optional: Add any status change logic here
     });
+    
+    // Auto-generate slug from title
+    $('.title-input').on('input', function() {
+        var title = $(this).val();
+        var langCode = $(this).data('lang');
+        var slug = generateSlug(title);
+        
+        $('.slug-input[data-lang="' + langCode + '"]').val(slug);
+    });
+    
+    // Generate slug function
+    function generateSlug(text) {
+        return text
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, '') // Remove special characters except spaces and hyphens
+            .replace(/\s+/g, '-') // Replace spaces with hyphens
+            .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+            .trim('-'); // Remove leading/trailing hyphens
+    }
 });
 </script>
 @endsection 
