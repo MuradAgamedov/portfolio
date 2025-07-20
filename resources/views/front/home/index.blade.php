@@ -591,17 +591,17 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="contact-email">{{__("Email")}}</label>
-                                    <input class="form-control form-control-sm" id="contact-email" name="contact-email" type="email">
+                                    <input class="form-control" id="contact-email" name="contact-email" type="email">
                                 </div>
                             </div>
 
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="subject">{{__("Subject")}}</label>
-                                    <input class="form-control form-control-sm" id="subject" name="subject" type="text">
+                                    <input class="form-control" id="subject" name="subject" type="text">
                                 </div>
                             </div>
 
