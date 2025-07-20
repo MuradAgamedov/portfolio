@@ -16,28 +16,50 @@
         </div>
 
         <!-- Search and Filter Section -->
-        <div class="row mb-5">
-            <div class="col-lg-8">
-                <form action="{{ route('blogs.index') }}" method="GET" class="d-flex">
-                    <input type="text" 
-                           name="search" 
-                           class="form-control me-3" 
-                           placeholder="{{__('Search blogs...')}}"
-                           value="{{ request('search') }}">
-                    <button type="submit" class="btn btn-primary">
-                        <i data-feather="search"></i>
-                    </button>
+        <div class="search-filter-section mb-5">
+            <div class="search-filter-container">
+                <form action="{{ route('blogs.index') }}" method="GET" class="search-filter-form">
+                    <div class="search-box">
+                        <div class="search-input-wrapper">
+                            <i class="search-icon" data-feather="search"></i>
+                            <input type="text" 
+                                   name="search" 
+                                   class="search-input" 
+                                   placeholder="{{__('Search blogs...')}}"
+                                   value="{{ request('search') }}">
+                            @if(request('search'))
+                                <button type="button" class="clear-search" onclick="clearSearch()">
+                                    <i data-feather="x"></i>
+                                </button>
+                            @endif
+                        </div>
+                        <button type="submit" class="search-btn">
+                            <i data-feather="search"></i>
+                            <span>{{__('Search')}}</span>
+                        </button>
+                    </div>
+                    
+                    <div class="filter-section">
+                        <div class="filter-label">
+                            <i data-feather="filter"></i>
+                            <span>{{__('Filter by Category')}}</span>
+                        </div>
+                        <div class="category-filters">
+                            <a href="{{ route('blogs.index', array_merge(request()->query(), ['category' => ''])) }}" 
+                               class="category-filter {{ !request('category') ? 'active' : '' }}">
+                                <i data-feather="grid"></i>
+                                <span>{{__('All Categories')}}</span>
+                            </a>
+                            @foreach($categories as $category)
+                                <a href="{{ route('blogs.index', array_merge(request()->query(), ['category' => $category->getSlug()])) }}" 
+                                   class="category-filter {{ request('category') == $category->getSlug() ? 'active' : '' }}">
+                                    <i data-feather="folder"></i>
+                                    <span>{{ $category->getTitle() }}</span>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
                 </form>
-            </div>
-            <div class="col-lg-4">
-                <select name="category" class="form-select" onchange="this.form.submit()">
-                    <option value="">{{__('All Categories')}}</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->getSlug() }}" {{ request('category') == $category->getSlug() ? 'selected' : '' }}>
-                            {{ $category->getTitle() }}
-                        </option>
-                    @endforeach
-                </select>
             </div>
         </div>
 
@@ -297,30 +319,176 @@
     cursor: not-allowed;
 }
 
-/* Search and Filter Styles */
-.form-control, .form-select {
-    border: 2px solid #e9ecef;
-    border-radius: 10px;
-    padding: 12px 16px;
-    transition: all 0.3s ease;
+/* Modern Search and Filter Styles */
+.search-filter-section {
+    background: linear-gradient(135deg, var(--background-color-1) 0%, var(--background-color-2) 100%);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: var(--shadow-1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.form-control:focus, .form-select:focus {
+.search-filter-container {
+    max-width: 100%;
+}
+
+.search-filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.search-box {
+    display: flex;
+    gap: 15px;
+    align-items: stretch;
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    width: 20px;
+    height: 20px;
+    color: var(--color-body);
+    z-index: 2;
+}
+
+.search-input {
+    width: 100%;
+    padding: 15px 45px 15px 45px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-heading);
+    font-size: 16px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.search-input::placeholder {
+    color: var(--color-body);
+}
+
+.search-input:focus {
+    outline: none;
     border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 0 0.2rem rgba(var(--color-primary-rgb), 0.25);
 }
 
-.btn-primary {
-    background: var(--color-primary);
+.clear-search {
+    position: absolute;
+    right: 15px;
+    background: none;
     border: none;
-    border-radius: 10px;
-    padding: 12px 20px;
+    color: var(--color-body);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.btn-primary:hover {
-    background: var(--color-primary-dark);
+.clear-search:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-heading);
+}
+
+.search-btn {
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+    border: none;
+    border-radius: 15px;
+    padding: 15px 25px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.3);
+}
+
+.search-btn:hover {
     transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.4);
+}
+
+.search-btn i {
+    width: 18px;
+    height: 18px;
+}
+
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.filter-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-heading);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.filter-label i {
+    width: 20px;
+    height: 20px;
+    color: var(--color-primary);
+}
+
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.category-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--color-body);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+}
+
+.category-filter:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-primary);
+    color: var(--color-heading);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.category-filter.active {
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+    border-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.3);
+}
+
+.category-filter i {
+    width: 16px;
+    height: 16px;
 }
 
 /* Responsive */
@@ -370,5 +538,83 @@
         min-height: 160px !important;
     }
 }
+
+/* Responsive Search and Filter */
+@media only screen and (max-width: 991px) {
+    .search-box {
+        flex-direction: column;
+    }
+    
+    .search-btn {
+        justify-content: center;
+    }
+    
+    .category-filters {
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .search-filter-section {
+        padding: 20px;
+    }
+    
+    .category-filter {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .search-filter-section {
+        padding: 15px;
+    }
+    
+    .search-input {
+        padding: 12px 40px 12px 40px;
+        font-size: 14px;
+    }
+    
+    .search-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    .category-filters {
+        gap: 8px;
+    }
+    
+    .category-filter {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
 </style>
+
+@section('scripts')
+<script>
+function clearSearch() {
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        searchInput.value = '';
+        // Remove search parameter from URL and reload
+        const url = new URL(window.location);
+        url.searchParams.delete('search');
+        window.location.href = url.toString();
+    }
+}
+
+// Auto-submit form when Enter is pressed
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.closest('form').submit();
+            }
+        });
+    }
+});
+</script>
 @endsection 
