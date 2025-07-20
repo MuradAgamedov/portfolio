@@ -55,7 +55,6 @@ class BlogController extends Controller
             $rules["title.{$language->lang_code}"] = 'required|string|max:255';
             $rules["card_image_alt_text.{$language->lang_code}"] = 'required|string|max:255';
             $rules["main_description.{$language->lang_code}"] = 'required|string';
-            $rules["inner_description.{$language->lang_code}"] = 'required|string';
             $rules["seo_title.{$language->lang_code}"] = 'nullable|string|max:255';
             $rules["seo_keywords.{$language->lang_code}"] = 'nullable|string';
             $rules["seo_description.{$language->lang_code}"] = 'nullable|string';
@@ -117,7 +116,6 @@ class BlogController extends Controller
             $rules["title.{$language->lang_code}"] = 'required|string|max:255';
             $rules["card_image_alt_text.{$language->lang_code}"] = 'required|string|max:255';
             $rules["main_description.{$language->lang_code}"] = 'required|string';
-            $rules["inner_description.{$language->lang_code}"] = 'required|string';
             $rules["seo_title.{$language->lang_code}"] = 'nullable|string|max:255';
             $rules["seo_keywords.{$language->lang_code}"] = 'nullable|string';
             $rules["seo_description.{$language->lang_code}"] = 'nullable|string';
