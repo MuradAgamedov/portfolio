@@ -335,12 +335,13 @@
 /* Pagination Styles */
 .pagination {
     gap: 8px;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     list-style: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: fit-content;
 }
 
 .pagination .page-item {
