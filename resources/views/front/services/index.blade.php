@@ -401,6 +401,8 @@
 <script>
 // Global function to select service from service cards
 window.selectService = function(serviceId, serviceTitle) {
+    console.log('selectService called with:', serviceId, serviceTitle);
+    
     const serviceSelect = document.getElementById('service_select');
     const subjectInput = document.getElementById('subject');
     const selectedServiceInfo = document.getElementById('selected-service-info');
@@ -408,18 +410,31 @@ window.selectService = function(serviceId, serviceTitle) {
     const selectedServiceTitle = document.getElementById('selected-service-title');
     const selectedServiceDescription = document.getElementById('selected-service-description');
     
+    console.log('Elements found:', {
+        serviceSelect: !!serviceSelect,
+        subjectInput: !!subjectInput,
+        selectedServiceInfo: !!selectedServiceInfo
+    });
+    
     // Set the service in select dropdown
     serviceSelect.value = serviceId;
+    console.log('Service select value set to:', serviceId);
     
     // Trigger change event to update form
     const event = new Event('change');
     serviceSelect.dispatchEvent(event);
     
     // Scroll to form smoothly
-    document.querySelector('.service-request-form').scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'center'
-    });
+    const formElement = document.querySelector('.service-request-form');
+    if (formElement) {
+        console.log('Scrolling to form');
+        formElement.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'center'
+        });
+    } else {
+        console.error('Form element not found');
+    }
     
     // Add visual feedback to select
     serviceSelect.style.borderColor = 'var(--color-primary)';
@@ -516,13 +531,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add event listeners to service links
     document.addEventListener('click', function(e) {
+        console.log('Click detected on:', e.target);
+        
         if (e.target.closest('.service-link')) {
             e.preventDefault();
+            e.stopPropagation();
+            
             const link = e.target.closest('.service-link');
             const serviceId = link.getAttribute('data-service-id');
             const serviceTitle = link.getAttribute('data-service-title');
             
+            console.log('Service link clicked:', serviceId, serviceTitle);
+            
             if (serviceId && serviceTitle) {
+                console.log('Calling selectService function');
                 selectService(serviceId, serviceTitle);
             }
         }
