@@ -59,7 +59,34 @@ if (!function_exists('localized_route')) {
         // Add locale to parameters
         $parameters['locale'] = $locale;
         
-        return route($name, $parameters, $absolute);
+        try {
+            return route($name, $parameters, $absolute);
+        } catch (\Exception $e) {
+            // Fallback: generate URL manually
+            $baseUrl = request()->getSchemeAndHttpHost();
+            $path = '/' . $locale;
+            
+            // Add specific paths based on route name
+            switch ($name) {
+                case 'home':
+                    return $baseUrl . $path;
+                case 'blogs.index':
+                    return $baseUrl . $path . '/blogs';
+                case 'blog.show':
+                    $slug = is_array($parameters) ? ($parameters[0] ?? '') : $parameters;
+                    return $baseUrl . $path . '/blog/' . $slug;
+                case 'services.index':
+                    return $baseUrl . $path . '/services';
+                case 'portfolios.index':
+                    return $baseUrl . $path . '/portfolios';
+                case 'about':
+                    return $baseUrl . $path . '/about';
+                case 'contact':
+                    return $baseUrl . $path . '/contact';
+                default:
+                    return $baseUrl . $path;
+            }
+        }
     }
 }
 
@@ -69,20 +96,35 @@ if (!function_exists('switch_language_url')) {
      */
     function switch_language_url($locale, $currentUrl = null)
     {
-        // Get current route name and parameters
-        $routeName = request()->route()->getName();
-        $routeParameters = request()->route()->parameters();
-        
-        // Ensure parameters is an array
-        if (!is_array($routeParameters)) {
-            $routeParameters = [];
+        try {
+            // Get current route name and parameters
+            $routeName = request()->route()->getName();
+            $routeParameters = request()->route()->parameters();
+            
+            // Ensure parameters is an array
+            if (!is_array($routeParameters)) {
+                $routeParameters = [];
+            }
+            
+            // Remove locale from parameters and add new locale
+            unset($routeParameters['locale']);
+            $routeParameters['locale'] = $locale;
+            
+            // Generate new URL with different locale
+            return route($routeName, $routeParameters, true);
+        } catch (\Exception $e) {
+            // Fallback: generate URL manually
+            $baseUrl = request()->getSchemeAndHttpHost();
+            $currentPath = request()->path();
+            
+            // Remove current locale from path if exists
+            $pathParts = explode('/', $currentPath);
+            if (count($pathParts) > 0 && in_array($pathParts[0], ['en', 'az', 'ru'])) {
+                array_shift($pathParts);
+            }
+            
+            $path = '/' . $locale . '/' . implode('/', $pathParts);
+            return $baseUrl . $path;
         }
-        
-        // Remove locale from parameters and add new locale
-        unset($routeParameters['locale']);
-        $routeParameters['locale'] = $locale;
-        
-        // Generate new URL with different locale
-        return route($routeName, $routeParameters, true);
     }
 } 
