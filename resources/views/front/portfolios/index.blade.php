@@ -42,10 +42,8 @@
                 <div class="rn-service">
                     <div class="inner">
                         <div class="icon">
-                            <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
-                                <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}" 
-                                     alt="{{ $portfolio->getTitle() }}">
-                            </a>
+                            <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}" 
+                                 alt="{{ $portfolio->getTitle() }}">
                         </div>
                         <div class="content">
                             <h4 class="title">
