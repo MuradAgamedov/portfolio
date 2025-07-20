@@ -44,14 +44,30 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="service_select">{{__('Select Service')}} *</label>
-                                    <select id="service_select" name="service_id" class="form-control" required>
-                                        <option value="">{{__('Choose a service...')}}</option>
-                                        @foreach($services as $service)
-                                            <option value="{{ $service->id }}" data-title="{{ $service->getTitle() }}">
-                                                {{ $service->getTitle() }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <div class="select-wrapper">
+                                        <select id="service_select" name="service_id" class="form-control custom-select" required>
+                                            <option value="" disabled selected>{{__('Choose a service...')}}</option>
+                                            @foreach($services as $service)
+                                                <option value="{{ $service->id }}" data-title="{{ $service->getTitle() }}" data-description="{{ $service->getDescription() }}">
+                                                    {{ $service->getTitle() }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div class="select-arrow">
+                                            <i data-feather="chevron-down"></i>
+                                        </div>
+                                    </div>
+                                    <div id="selected-service-info" class="selected-service-info" style="display: none;">
+                                        <div class="service-info-card">
+                                            <div class="service-info-icon">
+                                                <img id="selected-service-icon" src="" alt="">
+                                            </div>
+                                            <div class="service-info-content">
+                                                <h5 id="selected-service-title"></h5>
+                                                <p id="selected-service-description"></p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -176,6 +192,102 @@
     min-height: 120px;
 }
 
+/* Custom Select Styles */
+.select-wrapper {
+    position: relative;
+}
+
+.custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    padding-right: 50px;
+}
+
+.select-arrow {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: transform 0.3s ease;
+}
+
+.custom-select:focus + .select-arrow {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.select-arrow i {
+    width: 20px;
+    height: 20px;
+    color: var(--color-body);
+    transition: color 0.3s ease;
+}
+
+.custom-select:focus ~ .select-arrow i {
+    color: var(--color-primary);
+}
+
+/* Selected Service Info Styles */
+.selected-service-info {
+    margin-top: 15px;
+    animation: fadeInUp 0.3s ease;
+}
+
+.service-info-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.service-info-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.service-info-icon img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
+.service-info-content h5 {
+    color: var(--color-heading);
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+}
+
+.service-info-content p {
+    color: var(--color-body);
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.4;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .form-actions {
     text-align: center;
     margin-top: 30px;
@@ -185,16 +297,18 @@
     background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
     border: none;
     border-radius: 12px;
-    padding: 15px 30px;
+    padding: 12px 25px;
     color: white;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
     transition: all 0.3s ease;
+    width: auto;
+    min-width: 150px;
 }
 
 .btn-primary:hover {
@@ -203,8 +317,8 @@
 }
 
 .btn-primary i {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
 }
 
 /* Responsive */
@@ -253,15 +367,48 @@
 document.addEventListener('DOMContentLoaded', function() {
     const serviceSelect = document.getElementById('service_select');
     const subjectInput = document.getElementById('subject');
+    const selectedServiceInfo = document.getElementById('selected-service-info');
+    const selectedServiceIcon = document.getElementById('selected-service-icon');
+    const selectedServiceTitle = document.getElementById('selected-service-title');
+    const selectedServiceDescription = document.getElementById('selected-service-description');
     
-    // Update subject when service is selected
+    // Update subject and show service info when service is selected
     serviceSelect.addEventListener('change', function() {
         const selectedOption = this.options[this.selectedIndex];
         if (selectedOption.value) {
             const serviceTitle = selectedOption.getAttribute('data-title');
+            const serviceDescription = selectedOption.getAttribute('data-description');
+            
+            // Update subject
             subjectInput.value = `Service Request: ${serviceTitle}`;
+            
+            // Show service info card
+            selectedServiceTitle.textContent = serviceTitle;
+            selectedServiceDescription.textContent = serviceDescription;
+            
+            // Get service icon from the service cards
+            const serviceCards = document.querySelectorAll('.rn-service');
+            serviceCards.forEach(card => {
+                const cardTitle = card.querySelector('.title a').textContent.trim();
+                if (cardTitle === serviceTitle) {
+                    const iconImg = card.querySelector('.icon img');
+                    if (iconImg) {
+                        selectedServiceIcon.src = iconImg.src;
+                        selectedServiceIcon.alt = iconImg.alt;
+                    }
+                }
+            });
+            
+            selectedServiceInfo.style.display = 'block';
+            
+            // Add visual feedback to select
+            this.style.borderColor = 'var(--color-primary)';
+            this.style.boxShadow = '0 0 0 3px rgba(var(--color-primary-rgb), 0.1)';
         } else {
             subjectInput.value = '';
+            selectedServiceInfo.style.display = 'none';
+            this.style.borderColor = '';
+            this.style.boxShadow = '';
         }
     });
     
@@ -277,12 +424,17 @@ document.addEventListener('DOMContentLoaded', function() {
 function selectService(serviceId, serviceTitle) {
     const serviceSelect = document.getElementById('service_select');
     const subjectInput = document.getElementById('subject');
+    const selectedServiceInfo = document.getElementById('selected-service-info');
+    const selectedServiceIcon = document.getElementById('selected-service-icon');
+    const selectedServiceTitle = document.getElementById('selected-service-title');
+    const selectedServiceDescription = document.getElementById('selected-service-description');
     
     // Set the service in select dropdown
     serviceSelect.value = serviceId;
     
-    // Update subject
-    subjectInput.value = `Service Request: ${serviceTitle}`;
+    // Trigger change event to update form
+    const event = new Event('change');
+    serviceSelect.dispatchEvent(event);
     
     // Scroll to form
     document.querySelector('.service-request-form').scrollIntoView({ 
