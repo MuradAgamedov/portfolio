@@ -68,13 +68,56 @@
             @endforeach
         </div>
 
-        <!-- Pagination -->
+        <!-- Custom Pagination -->
         @if($portfolios->hasPages())
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="pagination-wrapper text-center mt-5">
-                    {{ $portfolios->appends(request()->query())->links() }}
-                </div>
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <nav aria-label="Portfolio pagination" class="pagination-container">
+                    <ul class="pagination justify-content-center">
+                        {{-- Previous Page Link --}}
+                        @if ($portfolios->onFirstPage())
+                            <li class="page-item disabled">
+                                <span class="page-link">
+                                    <i data-feather="chevron-left"></i>
+                                </span>
+                            </li>
+                        @else
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $portfolios->previousPageUrl() }}" rel="prev">
+                                    <i data-feather="chevron-left"></i>
+                                </a>
+                            </li>
+                        @endif
+
+                        {{-- Pagination Elements --}}
+                        @foreach ($portfolios->getUrlRange(1, $portfolios->lastPage()) as $page => $url)
+                            @if ($page == $portfolios->currentPage())
+                                <li class="page-item active">
+                                    <span class="page-link">{{ $page }}</span>
+                                </li>
+                            @else
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                </li>
+                            @endif
+                        @endforeach
+
+                        {{-- Next Page Link --}}
+                        @if ($portfolios->hasMorePages())
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $portfolios->nextPageUrl() }}" rel="next">
+                                    <i data-feather="chevron-right"></i>
+                                </a>
+                            </li>
+                        @else
+                            <li class="page-item disabled">
+                                <span class="page-link">
+                                    <i data-feather="chevron-right"></i>
+                                </span>
+                            </li>
+                        @endif
+                    </ul>
+                </nav>
             </div>
         </div>
         @endif
@@ -85,6 +128,75 @@
 
 @push('styles')
 <style>
+/* Pagination Styles */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.pagination {
+    gap: 8px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+}
+
+.pagination .page-item {
+    margin: 0;
+}
+
+.pagination .page-link {
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-body);
+    border-radius: 12px;
+    padding: 14px 18px;
+    min-width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+}
+
+.pagination .page-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--color-heading);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.4);
+    border-color: var(--color-primary);
+}
+
+.pagination .page-item.disabled .page-link {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.pagination .page-link i {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.5px;
+}
+
 /* Portfolio Filter Styles */
 .portfolio-filter {
     margin-bottom: 40px;
