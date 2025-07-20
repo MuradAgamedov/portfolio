@@ -35,33 +35,35 @@
             </div>
         </div>
 
-        <div class="row mt--30">
+        <div class="row row--25 mt--30 mt_md--10 mt_sm--10">
             @foreach($portfolios as $index => $portfolio)
             <!-- Start Single Portfolio -->
-            <div class="col-lg-4 col-md-6 col-12 mt--30" data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true">
-                <div class="portfolio-card">
+            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 200) }}" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
+                <div class="rn-service">
                     <div class="inner">
-                        <div class="thumbnail">
+                        <div class="icon">
                             <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
                                 <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}" 
                                      alt="{{ $portfolio->getTitle() }}">
                             </a>
                         </div>
                         <div class="content">
-                            <div class="portfolio-info">
-                                <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
-                                    {{ $portfolio->getTitle() }}
+                            <h4 class="title">
+                                <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">{{ $portfolio->getTitle() }}</a>
+                            </h4>
+                            @if($portfolio->company_name)
+                            <p class="description">
+                                <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
+                                    {{ $portfolio->company_name }}
                                 </a>
-                                @if($portfolio->company_name)
-                                <p class="company">
-                                    <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
-                                        {{ $portfolio->company_name }}
-                                    </a>
-                                </p>
-                                @endif
-                            </div>
+                            </p>
+                            @endif
+                            <a class="read-more-button" href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
+                                <i class="feather-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
+                    <a class="over-link" href="{{ $portfolio->project_link ?? '#' }}" target="_blank"></a>
                 </div>
             </div>
             <!-- End Single Portfolio -->
@@ -254,104 +256,26 @@
     border-color: var(--color-primary);
 }
 
-/* Portfolio Card Styles */
-.portfolio-card {
-    background: linear-gradient(135deg, #212428 0%, #1d1f23 100%);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border: 4px solid #ff014f;
-    transition: all 0.4s ease;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    margin: 10px;
-    outline: 2px solid rgba(255, 1, 79, 0.3);
-    outline-offset: 3px;
-}
-
-.portfolio-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, transparent, rgba(255, 1, 79, 0.1), transparent);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.portfolio-card:hover::before {
-    opacity: 1;
-}
-
-.portfolio-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    border-color: #ff014f;
-    border-width: 5px;
-    outline-color: rgba(255, 1, 79, 0.6);
-    outline-width: 3px;
-}
-
-.portfolio-card .thumbnail {
-    position: relative;
-    overflow: hidden;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.portfolio-card .thumbnail img {
-    transition: transform 0.4s ease;
+/* Portfolio Service Card Customization */
+.rn-service .icon img {
     width: 100%;
     height: 200px;
     object-fit: cover;
+    border-radius: 15px;
+    transition: transform 0.4s ease;
 }
 
-.portfolio-card:hover .thumbnail img {
+.rn-service:hover .icon img {
     transform: scale(1.1);
 }
 
-.portfolio-card .content {
-    padding: 0;
-    position: relative;
-    z-index: 2;
-}
-
-.portfolio-card .portfolio-info {
-    text-align: center;
-}
-
-.portfolio-card .portfolio-info a {
-    font-size: 16px;
-    font-weight: 600;
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    display: block;
-    margin-bottom: 8px;
-}
-
-.portfolio-card .portfolio-info a:hover {
-    color: var(--color-primary);
-}
-
-.portfolio-card .company {
-    font-size: 14px;
-    color: #c4cfde;
-    margin: 0;
-    font-weight: 400;
-}
-
-.portfolio-card .company a {
-    color: #c4cfde;
+.rn-service .description a {
+    color: var(--color-body);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.portfolio-card .company a:hover {
+.rn-service .description a:hover {
     color: var(--color-primary);
 }
 
