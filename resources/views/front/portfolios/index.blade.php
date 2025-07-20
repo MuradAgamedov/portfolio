@@ -149,7 +149,7 @@
 }
 
 .pagination {
-    gap: 10px;
+    gap: 8px;
     padding: 0;
     list-style: none;
     display: flex;
@@ -165,16 +165,17 @@
     background: #2a2d31;
     color: #c4cfde;
     border: none;
-    border-radius: 10px;
-    padding: 10px 16px;
-    min-width: 40px;
-    height: 40px;
+    border-radius: 12px;
+    padding: 12px 16px;
+    min-width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 15px;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .pagination .page-link:hover {
@@ -195,20 +196,24 @@
     cursor: not-allowed;
 }
 
-.pagination .page-link i {
-    width: 16px;
-    height: 16px;
-    stroke-width: 2px;
+.pagination .page-link svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.5px;
 }
 
-
-/* Previous/Next buttons special styling */
+/* Previous button - D shape on left side */
 .pagination .page-item:first-child .page-link {
-    border-radius: 20px 8px 8px 20px;
+    border-radius: 22px 12px 12px 22px;
+    padding-left: 18px;
+    padding-right: 14px;
 }
 
+/* Next button - D shape on right side */
 .pagination .page-item:last-child .page-link {
-    border-radius: 8px 20px 20px 8px;
+    border-radius: 12px 22px 22px 12px;
+    padding-left: 14px;
+    padding-right: 18px;
 }
 
 /* Portfolio Filter Styles */
