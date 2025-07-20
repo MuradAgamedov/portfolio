@@ -397,8 +397,7 @@
                         <div class="thumbnail">
                             <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
                                 <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}" 
-                                     alt="{{ $portfolio->getTitle() }}"
-                                     style="width: 100%; height: 240px; object-fit: cover; border-radius: 10px;">
+                                     alt="{{ $portfolio->getTitle() }}">
                             </a>
                         </div>
                         <div class="content">
@@ -1681,38 +1680,62 @@ $(document).ready(function() {
 
 /* Portfolio Card Styles */
 .portfolio-card {
-    background: var(--background-color-1);
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: var(--shadow-1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #212428 0%, #1d1f23 100%);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
     height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 1, 79, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.portfolio-card:hover::before {
+    opacity: 1;
 }
 
 .portfolio-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     border-color: var(--color-primary);
 }
 
 .portfolio-card .thumbnail {
     position: relative;
     overflow: hidden;
-    border-radius: 10px;
-    margin-bottom: 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .portfolio-card .thumbnail img {
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
 
 .portfolio-card:hover .thumbnail img {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .portfolio-card .content {
     padding: 0;
+    position: relative;
+    z-index: 2;
 }
 
 .portfolio-card .portfolio-info {
@@ -1720,15 +1743,15 @@ $(document).ready(function() {
 }
 
 .portfolio-card .title {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--color-heading);
-    margin-bottom: 8px;
-    line-height: 1.3;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    line-height: 1.4;
 }
 
 .portfolio-card .title a {
-    color: var(--color-heading);
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -1738,13 +1761,14 @@ $(document).ready(function() {
 }
 
 .portfolio-card .company {
-    font-size: 14px;
-    color: var(--color-body);
+    font-size: 15px;
+    color: #c4cfde;
     margin: 0;
+    font-weight: 500;
 }
 
 .portfolio-card .company a {
-    color: var(--color-body);
+    color: #c4cfde;
     text-decoration: none;
     transition: color 0.3s ease;
 }
