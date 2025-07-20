@@ -3,6 +3,9 @@
 @section('title', __('seo_home_title'))
 
 @section('meta')
+@php
+    $seoSettings = \App\Models\SeoSite::first();
+@endphp
 @if($seoSettings)
     @if($seoSettings->getTranslation('seo_title', app()->getLocale()))
         <title>{{ $seoSettings->getTranslation('seo_title', app()->getLocale()) }}</title>
