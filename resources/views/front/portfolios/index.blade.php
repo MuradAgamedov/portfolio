@@ -148,13 +148,9 @@
     margin-top: 40px;
 }
 .rn-service .inner .icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 15px;
-    transition: transform 0.4s ease;
-    margin: 0;
-    padding: 0;
+    width: 100% !important;
+    height: 100% !important;
+
 }
 .pagination {
     gap: 8px;
