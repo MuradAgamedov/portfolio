@@ -477,7 +477,7 @@
         <h2 class="title">{{__("My Blog")}}</h2>
     </div>
     <div class="view-all-btn ms-auto">
-        <a href="{{ route('blogs.index') }}" class="rn-btn">
+        <a href="{{ localized_route('blogs.index') }}" class="rn-btn">
             <span>{{__("View All")}}</span>
             <i data-feather="arrow-right"></i>
         </a>
@@ -493,13 +493,13 @@
                 <div class="rn-blog">
                     <div class="inner">
                         <div class="thumbnail">
-                            <a href="{{ route('blog.show', $blog->getSlug()) }}">
+                            <a href="{{ localized_route('blog.show', $blog->getSlug()) }}">
                                 <img src="{{ $blog->getCardImageUrl() ?: 'assets/images/blog/blog-01.jpg' }}" alt="{{ $blog->getCardImageAltText() }}">
                             </a>
                         </div>
                         <div class="content">
                             <h4 class="title">
-                                <a href="{{ route('blog.show', $blog->getTranslation('slug', app()->getLocale())) }}">
+                                <a href="{{ localized_route('blog.show', $blog->getSlug()) }}">
                                     {{ Str::limit($blog->getTitle(), 60) }}
                                     <i class="feather-arrow-up-right"></i>
                                 </a>

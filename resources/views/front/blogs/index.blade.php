@@ -20,7 +20,7 @@
         <!-- Search and Filter Section -->
 <div class="search-filter-section mb-5">
     <div class="search-filter-container">
-        <form action="{{ route('blogs.index') }}" method="GET" class="search-filter-form">
+        <form action="{{ localized_route('blogs.index') }}" method="GET" class="search-filter-form">
             <div class="search-box">
                 <div class="search-input-wrapper">
                     <i class="search-icon" data-feather="search"></i>
@@ -47,13 +47,13 @@
                     <span>{{__('Filter by Category')}}</span>
                 </div>
                 <div class="category-filters">
-                    <a href="{{ route('blogs.index', array_merge(request()->query(), ['category' => ''])) }}" 
+                    <a href="{{ localized_route('blogs.index', array_merge(request()->query(), ['category' => ''])) }}" 
                        class="category-filter {{ !request('category') ? 'active' : '' }}">
                         <i data-feather="grid"></i>
                         <span>{{__('All Categories')}}</span>
                     </a>
                     @foreach($categories as $category)
-                        <a href="{{ route('blogs.index', array_merge(request()->query(), ['category' => $category->getSlug()])) }}" 
+                        <a href="{{ localized_route('blogs.index', array_merge(request()->query(), ['category' => $category->getSlug()])) }}" 
                            class="category-filter {{ request('category') == $category->getSlug() ? 'active' : '' }}">
                             <i data-feather="folder"></i>
                             <span>{{ $category->getTitle() }}</span>
@@ -73,13 +73,13 @@
                 <div class="rn-blog">
                     <div class="inner">
                         <div class="thumbnail">
-                            <a href="{{ route('blog.show', $blog->getSlug()) }}">
+                            <a href="{{ localized_route('blog.show', $blog->getSlug()) }}">
                                 <img src="{{ $blog->getCardImageUrl() ?: 'assets/images/blog/blog-01.jpg' }}" alt="{{ $blog->getCardImageAltText() }}">
                             </a>
                         </div>
                         <div class="content">
                             <h4 class="title">
-                                <a href="{{ route('blog.show', $blog->getSlug()) }}">
+                                <a href="{{ localized_route('blog.show', $blog->getSlug()) }}">
                                     {{ Str::limit($blog->getTitle(), 60) }}
                                     <i class="feather-arrow-up-right"></i>
                                 </a>
