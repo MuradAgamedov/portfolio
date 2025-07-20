@@ -8,21 +8,21 @@
             <div class="content">
                 <h4 class="title">
                     @if(isset($isServicesPage) && $isServicesPage)
-                        <a href="#" onclick="selectService({{ $service->id }}, '{{ $service->getTitle() }}')">{{ $service->getTitle() }}</a>
+                        <a href="#" class="service-link" data-service-id="{{ $service->id }}" data-service-title="{{ $service->getTitle() }}">{{ $service->getTitle() }}</a>
                     @else
                         <a href="#">{{ $service->getTitle() }}</a>
                     @endif
                 </h4>
                 <p class="description">{{ $service->getDescription() }}</p>
                 @if(isset($isServicesPage) && $isServicesPage)
-                    <a class="read-more-button" href="#" onclick="selectService({{ $service->id }}, '{{ $service->getTitle() }}')"><i class="feather-arrow-right"></i></a>
+                    <a class="read-more-button service-link" href="#" data-service-id="{{ $service->id }}" data-service-title="{{ $service->getTitle() }}"><i class="feather-arrow-right"></i></a>
                 @else
                     <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
                 @endif
             </div>
         </div>
         @if(isset($isServicesPage) && $isServicesPage)
-            <a class="over-link" href="#" onclick="selectService({{ $service->id }}, '{{ $service->getTitle() }}')"></a>
+            <a class="over-link service-link" href="#" data-service-id="{{ $service->id }}" data-service-title="{{ $service->getTitle() }}"></a>
         @else
             <a class="over-link" href="#"></a>
         @endif

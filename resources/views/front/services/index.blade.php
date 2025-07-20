@@ -433,7 +433,7 @@ window.selectService = function(serviceId, serviceTitle) {
     });
     
     // Highlight the clicked service card
-    const clickedCard = document.querySelector(`[onclick*="selectService(${serviceId}"]`);
+    const clickedCard = document.querySelector(`[data-service-id="${serviceId}"]`).closest('.rn-service');
     if (clickedCard) {
         clickedCard.style.transform = 'scale(1.05)';
         clickedCard.style.boxShadow = '0 20px 40px rgba(var(--color-primary-rgb), 0.3)';
@@ -513,6 +513,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedServiceIcon = document.getElementById('selected-service-icon');
     const selectedServiceTitle = document.getElementById('selected-service-title');
     const selectedServiceDescription = document.getElementById('selected-service-description');
+    
+    // Add event listeners to service links
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.service-link')) {
+            e.preventDefault();
+            const link = e.target.closest('.service-link');
+            const serviceId = link.getAttribute('data-service-id');
+            const serviceTitle = link.getAttribute('data-service-title');
+            
+            if (serviceId && serviceTitle) {
+                selectService(serviceId, serviceTitle);
+            }
+        }
+    });
     
     // Update subject and show service info when service is selected
     serviceSelect.addEventListener('change', function() {
