@@ -402,11 +402,9 @@
                         </div>
                         <div class="content">
                             <div class="portfolio-info">
-                                <h4 class="title">
                                     <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
                                         {{ $portfolio->getTitle() }}
                                     </a>
-                                </h4>
                                 @if($portfolio->company_name)
                                 <p class="company">
                                     <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
