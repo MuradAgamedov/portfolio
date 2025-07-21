@@ -15,7 +15,7 @@
             <div class="col-lg-12">
                 <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title">
                     <div class="title-column">
-                        <span class="subtitle">{{__("Welcome to the space where I share my thoughts")}}</span>
+                        <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
                         <h2 class="title">{{__("My Blog")}}</h2>
                     </div>
                 </div>
