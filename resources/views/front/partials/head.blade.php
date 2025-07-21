@@ -529,13 +529,19 @@
     }
     
     /* Active navigation state */
-    .primary-menu .nav-link.active {
-        color: #dc3545 !important;
-        font-weight: 600;
+    .primary-menu .nav-link {
         position: relative;
+        transition: all 0.3s ease;
     }
     
-    .primary-menu .nav-link.active::after {
+    .primary-menu .nav-link.active,
+    .primary-menu .nav-link:hover {
+        color: #dc3545 !important;
+        font-weight: 600;
+    }
+    
+    .primary-menu .nav-link.active::after,
+    .primary-menu .nav-link:hover::after {
         content: '';
         position: absolute;
         bottom: -5px;
@@ -545,6 +551,63 @@
         height: 2px;
         background-color: #dc3545;
         border-radius: 1px;
+        transition: all 0.3s ease;
+        opacity: 1;
+    }
+    
+    .primary-menu .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: #dc3545;
+        border-radius: 1px;
+        transition: all 0.3s ease;
+        opacity: 0;
+    }
+    
+    /* Mobile menu active state */
+    .mobile-menu-list li {
+        position: relative;
+        margin: 5px 0;
+    }
+    
+    .mobile-menu-list li a {
+        display: block;
+        padding: 12px 15px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+        text-decoration: none;
+    }
+    
+    .mobile-menu-list li a:hover {
+        background: rgba(220, 53, 69, 0.05);
+        color: #dc3545;
+    }
+    
+    .mobile-menu-list li a.active {
+        color: #dc3545 !important;
+        font-weight: 600;
+        background: rgba(220, 53, 69, 0.1);
+        border-radius: 8px;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-menu-list li a.active::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 20px;
+        background-color: #dc3545;
+        border-radius: 2px;
     }
     
     /* Smooth scroll animation */

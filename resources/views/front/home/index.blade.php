@@ -517,13 +517,13 @@ $seoSettings = \App\Models\SeoSite::first();
                     <div class="rn-blog">
                         <div class="inner">
                             <div class="thumbnail">
-                                <a href="{{ localized_route('blog.show', [$blog->id, $blog->getSlug()]) }}">
+                                <a href="{{ localized_route('blog.show', [$blog->id, $blog->getSlug()]) }}" title="{{ $blog->getTitle() }}">
                                     <img src="{{ $blog->getCardImageUrl() ?: 'assets/images/blog/blog-01.jpg' }}" alt="{{ $blog->getCardImageAltText() }}">
                                 </a>
                             </div>
                             <div class="content">
                                 <h4 class="title">
-                                    <a href="{{ localized_route('blog.show', [$blog->id, $blog->getSlug()]) }}">
+                                    <a href="{{ localized_route('blog.show', [$blog->id, $blog->getSlug()]) }}" title="{{ $blog->getTitle() }}">
                                         {{ Str::limit($blog->getTitle(), 60) }}
                                         <i class="feather-arrow-up-right"></i>
                                     </a>
