@@ -14,8 +14,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title text-center">
-                    <span class="subtitle">{{__("my projects")}}</span>
-                    <h2 class="title">{{__("my projects")}}</h2>
+                    <span class="subtitle">{{__("my_projects_page_title_1")}}</span>
+                    <h2 class="title">{{__("my_projects_page_title_2")}}</h2>
                 </div>
             </div>
         </div>
