@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\Language;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
@@ -33,7 +34,8 @@ class BlogController extends Controller
     public function create()
     {
         $languages = Language::where('status', true)->orderBy('order')->get();
-        return view('admin.blogs.create', compact('languages'));
+        $categories = BlogCategory::where('status', true)->orderBy('order')->get();
+        return view('admin.blogs.create', compact('languages', 'categories'));
     }
 
     /**
@@ -45,8 +47,9 @@ class BlogController extends Controller
         
         // Build validation rules
         $rules = [
-            'card_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category_id' => 'nullable|exists:blog_categories,id',
+            'card_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'status' => 'boolean',
             'published_at' => 'nullable|date',
         ];
@@ -54,8 +57,8 @@ class BlogController extends Controller
         foreach ($languages as $language) {
             $rules["title.{$language->lang_code}"] = 'required|string|max:255';
             $rules["card_image_alt_text.{$language->lang_code}"] = 'required|string|max:255';
+            $rules["main_image_alt_text.{$language->lang_code}"] = 'required|string|max:255';
             $rules["main_description.{$language->lang_code}"] = 'required|string';
-            $rules["inner_description.{$language->lang_code}"] = 'required|string';
             $rules["seo_title.{$language->lang_code}"] = 'nullable|string|max:255';
             $rules["seo_keywords.{$language->lang_code}"] = 'nullable|string';
             $rules["seo_description.{$language->lang_code}"] = 'nullable|string';
@@ -95,7 +98,8 @@ class BlogController extends Controller
     public function edit(Blog $blog)
     {
         $languages = Language::where('status', true)->orderBy('order')->get();
-        return view('admin.blogs.edit', compact('blog', 'languages'));
+        $categories = BlogCategory::where('status', true)->orderBy('order')->get();
+        return view('admin.blogs.edit', compact('blog', 'languages', 'categories'));
     }
 
     /**
@@ -107,8 +111,9 @@ class BlogController extends Controller
         
         // Build validation rules
         $rules = [
-            'card_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category_id' => 'nullable|exists:blog_categories,id',
+            'card_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'status' => 'boolean',
             'published_at' => 'nullable|date',
         ];
@@ -116,8 +121,8 @@ class BlogController extends Controller
         foreach ($languages as $language) {
             $rules["title.{$language->lang_code}"] = 'required|string|max:255';
             $rules["card_image_alt_text.{$language->lang_code}"] = 'required|string|max:255';
+            $rules["main_image_alt_text.{$language->lang_code}"] = 'required|string|max:255';
             $rules["main_description.{$language->lang_code}"] = 'required|string';
-            $rules["inner_description.{$language->lang_code}"] = 'required|string';
             $rules["seo_title.{$language->lang_code}"] = 'nullable|string|max:255';
             $rules["seo_keywords.{$language->lang_code}"] = 'nullable|string';
             $rules["seo_description.{$language->lang_code}"] = 'nullable|string';

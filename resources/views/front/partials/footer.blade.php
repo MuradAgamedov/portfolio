@@ -5,21 +5,29 @@
             <div class="col-lg-12">
                 <div class="footer-area text-center">
 
-                    <div class="logo">
-                        <a href="{{ route('home') }}">
+                    <div class="logo" style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+                        <a href="{{ localized_route('home') }}" style="display: inline-block;">
                             @php
                                 $footerLogo = \App\Models\SiteSetting::getByKey('footer_logo');
                                 $footerLogoAlt = \App\Models\SiteSetting::getByKey('footer_logo_alt');
                             @endphp
                             @if($footerLogo)
-                                <img src="{{ asset('storage/' . $footerLogo) }}" alt="{{ $footerLogoAlt ?: 'logo' }}">
+                                <img src="{{ asset('storage/' . $footerLogo) }}" alt="{{ $footerLogoAlt ?: 'logo' }}" style="max-width: 150px; height: auto;">
                             @else
-                                <img src="{{ asset('assets/images/logo/logo-vertical.png') }}" alt="logo">
+                                <img src="{{ asset('assets/images/logo/logo-vertical.png') }}" alt="logo" style="max-width: 150px; height: auto;">
                             @endif
                         </a>
                     </div>
+                    
+                    <div class="footer-name" style="text-align: center; margin-bottom: 20px;">
+                        <h3 style="color: #ffffff; font-size: 24px; font-weight: 600; margin: 0; letter-spacing: 1px;">Murad Agamedov</h3>
+                    </div>
 
-                    <p class="description mt--30">© <script>document.write(new Date().getFullYear());</script>2025. All rights reserved by <a target="_blank" href="https://themeforest.net/user/parvinfotech/portfolio">Parv infotech.</a></p>
+                    <p class="description mt--30 footer-copyright">
+                        © <script>document.write(new Date().getFullYear());</script>
+                        {!! __("All rights reserved by <a target='_blank' href='https://muraddev.com'>Parv infotech.</a>") !!}
+                    </p>
+
                 </div>
             </div>
         </div>
@@ -110,7 +118,8 @@
 <script src="{{ asset('assets/js/vendor/feather.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/slick.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/bootstrap.js') }}"></script>
-<script src="{{ asset('assets/js/vendor/text-type.js') }}"></script>
+<!-- Custom typing animation instead of text-type.js -->
+<!-- <script src="{{ asset('assets/js/vendor/text-type.js') }}"></script> -->
 <script src="{{ asset('assets/js/vendor/wow.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/aos.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/particles.js') }}"></script>
@@ -165,18 +174,21 @@ $(document).ready(function() {
     $('a[href^="#"]').on('click', function(e) {
         e.preventDefault();
         
-        var target = $(this.getAttribute('href'));
-        if (target.length) {
-                    $('html, body').animate({
-            scrollTop: target.offset().top - 100 // Offset for fixed header
-        }, {
-            duration: 2000,
-            easing: 'easeInOutQuart',
-            queue: false
-        });
-            
-            // Update URL hash
-            window.location.hash = this.getAttribute('href');
+        var href = this.getAttribute('href');
+        if (href && href !== '#') {
+            var target = $(href);
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 100 // Offset for fixed header
+                }, {
+                    duration: 2000,
+                    easing: 'easeInOutQuart',
+                    queue: false
+                });
+                
+                // Update URL hash
+                window.location.hash = href;
+            }
         }
     });
     

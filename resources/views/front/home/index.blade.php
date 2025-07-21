@@ -1,6 +1,30 @@
 @extends('front.layouts.master')
 
-@section('title', 'Home')
+@section('title')
+@php
+    $seoSettings = \App\Models\SeoSite::first();
+@endphp
+@if($seoSettings && $seoSettings->getTranslation('seo_title', app()->getLocale()))
+    {{ $seoSettings->getTranslation('seo_title', app()->getLocale()) }}
+@else
+    {{ __('seo_home_title') }}
+@endif
+@endsection
+
+@section('meta')
+@php
+    $seoSettings = \App\Models\SeoSite::first();
+@endphp
+@if($seoSettings)
+    @if($seoSettings->getTranslation('seo_description', app()->getLocale()))
+        <meta name="description" content="{{ $seoSettings->getTranslation('seo_description', app()->getLocale()) }}">
+    @endif
+    
+    @if($seoSettings->getTranslation('seo_keywords', app()->getLocale()))
+        <meta name="keywords" content="{{ $seoSettings->getTranslation('seo_keywords', app()->getLocale()) }}">
+    @endif
+@endif
+@endsection
 
 @section('content')
 <!-- SEO Display Section -->
@@ -97,23 +121,7 @@
         <div class="row row--25 mt_md--10 mt_sm--10">
 
             @foreach($services as $index => $service)
-            <!-- Start Single Service -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 200) }}" data-aos-once="true" class="col-lg-6 col-xl-4 col-md-6 col-sm-12 col-12 mt--50 mt_md--30 mt_sm--30">
-                <div class="rn-service">
-                    <div class="inner">
-                        <div class="icon">
-                            <img src="{{asset('storage/'.$service->icon)}}" alt="{{$service->icon_alt}}">
-                        </div>
-                        <div class="content">
-                            <h4 class="title"><a href="#">{{ $service->getTitle() }}</a></h4>
-                            <p class="description">{{ $service->getDescription() }}</p>
-                            <a class="read-more-button" href="#"><i class="feather-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <a class="over-link" href="#"></a>
-                </div>
-            </div>
-            <!-- End Single Service -->
+                @include('front.partials.service-card', ['service' => $service, 'index' => $index, 'isServicesPage' => false])
             @endforeach
 
         </div>
@@ -143,7 +151,7 @@
                         <a class="nav-link" id="education-tab" data-bs-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="false">{{__("Education")}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="experience-tab" data-bs-toggle="tab" href="#experience" role="tab" aria-controls="experience" aria-selected="false">experience</a>
+                        <a class="nav-link" id="experience-tab" data-bs-toggle="tab" href="#experience" role="tab" aria-controls="experience" aria-selected="false">{{__("Experience")}}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="skills-tab" data-bs-toggle="tab" href="#skills" role="tab" aria-controls="skills" aria-selected="false">{{__("Skills")}}</a>
@@ -305,135 +313,136 @@
 </div>
 <!-- End Resume Area -->
 
-<!-- Start Testimonia Area  -->
-<div class="rn-testimonial-area rn-section-gap section-separator" id="testimonial">
+<!-- Start Certificates Area -->
+<div class="rn-certificates-area rn-section-gap section-separator" id="certificates">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title text-center">
                     <span class="subtitle">{{__("Certificates")}}</span>
-                    <h2 class="title">{{__("Certificates sub text")}}</h2>
+                    <h2 class="title">{{__("My Certificates")}}</h2>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="testimonial-activation testimonial-pb mb--30">
-                    @foreach($certificates as $certificate)
-                    <!-- Start Single testiminail -->
-                    <div class="testimonial mt--50 mt_md--40 mt_sm--40">
-                        <div class="inner">
-                            <div class="card-info">
-                                <div class="card-thumbnail">
-                                     <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" alt="{{$certificate->getImageAltText()}}">
-                                 
-                                </div>
-                                    <span class="title">{{$certificate->getTitle()}}</h3>
-                      
-                            </div>
-                            <div class="card-description">
-                                <div class="title-area">
-                                    <div class="title-info">
-                                        <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
+                @if($certificates->count() > 0)
+                    <div class="custom-certificates-slider">
+                        <div class="slider-container">
+                            @foreach($certificates as $index => $certificate)
+                            <!-- Start Single Certificate -->
+                            <div class="certificate-slide {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}">
+                                <div class="certificate-card">
+                                    <div class="inner">
+                                                                            <div class="certificate-image">
+                                        <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" 
+                                             alt="{{$certificate->getImageAltText()}}"
+                                             class="certificate-modal-trigger"
+                                             data-image="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}"
+                                             data-title="{{$certificate->getTitle()}}">
                                     </div>
-                               
+                                        <div class="certificate-content">
+                                            <h3 class="title">{{$certificate->getTitle()}}</h3>
+                                            <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
+                                            <p class="description">{{ $certificate->getDescription() }}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="seperator"></div>
-                                <p class="discription">
-                                    {{$certificate->getDescription()}}
-                                </p>
                             </div>
+                            <!-- End Single Certificate -->
+                            @endforeach
+                        </div>
+                        
+                        <!-- Navigation -->
+                        <button class="slider-nav prev-btn" id="prevBtn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button class="slider-nav next-btn" id="nextBtn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Dots -->
+                        <div class="slider-dots">
+                            @foreach($certificates as $index => $certificate)
+                            <button class="dot {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}"></button>
+                            @endforeach
                         </div>
                     </div>
-                    <!--End Single testiminail -->
-                    @endforeach
-        
-                                </div>
-                                </div>
-                            </div>
+                @else
+                    <div class="text-center mt--50">
+                        <p class="text-muted">{{__("No certificates available at the moment.")}}</p>
+                    </div>
+                @endif
+            </div>
+        </div>
     </div>
 </div>
-<!-- End Testimonia Area  -->
+<!-- End Certificates Area -->
 
-<!-- Start Client Area -->
-<div class="rn-client-area rn-section-gap section-separator" id="clients">
+<!-- Certificate Modal -->
+<div id="certificateModal" class="certificate-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title"></h3>
+            <button style="width: 60px; height: 60px; cursor: pointer;" class="modal-close" id="closeModal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img class="modal-image" src="" alt="Certificate">
+        </div>
+    </div>
+</div>
+
+<!-- Start Portfolio Area -->
+<div class="rn-portfolio-area rn-section-gap section-separator" id="portfolio">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="section-title">
+                <div class="section-title text-center">
                     <span class="subtitle">{{__("my projects")}}</span>
                     <h2 class="title">{{__("my projects")}}</h2>
                 </div>
             </div>
         </div>
-        <div class="row row--25 mt--50 mt_md--40 mt_sm--40">
-            <div class="col-lg-4">
-                <div class="d-flex flex-wrap align-content-start h-100">
-                    <div class="position-sticky clients-wrapper sticky-top rbt-sticky-top-adjust">
-                        <ul class="nav tab-navigation-button flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
-                    @foreach($portfolioCategories as $index => $category)
-                            <li class="nav-item">
-                            <a class="nav-link @if($index === 0) active @endif"
-                               id="v-pills-tab-{{ $category->id }}"
-                               data-bs-toggle="tab"
-                               href="#v-pills-content-{{ $category->id }}"
-                               role="tab"
-                               aria-selected="{{ $index === 0 ? 'true' : 'false' }}">
-                                {{ $category->getTitle() }}
-                            </a>
-                            </li>
-                    @endforeach
-                        </ul>
+        <div class="row mt--50 mt_md--40 mt_sm--40">
+            @foreach($portfolios as $index => $portfolio)
+            <!-- Start Single Portfolio -->
+            <div class="col-lg-4 col-md-6 col-12 mt--30" data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true">
+                <div class="rn-service">
+                    <div class="inner">
+                        <div class="">
+                            <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}" 
+                                 alt="{{ $portfolio->getTitle() }}">
+                        </div>
+                        <div class="content">
+                            <h4 class="title">
+                                <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">{{ $portfolio->getTitle() }}</a>
+                            </h4>
+                            @if($portfolio->company_name)
+                                <p class="company">
+                                    <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
+                                        {{ $portfolio->company_name }}
+                                    </a>
+                                </p>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-8">
-                <div class="tab-area">
-                    <div class="d-flex align-items-start">
-                <div class="tab-content w-100" id="v-pills-tabContent">
-                    @foreach($portfolioCategories as $index => $category)
-                        <div class="tab-pane fade @if($index === 0) show active @endif"
-                             id="v-pills-content-{{ $category->id }}"
-                             role="tabpanel"
-                             aria-labelledby="v-pills-tab-{{ $category->id }}">
-
-                            <div class="client-card d-flex flex-wrap gap-4">
-                                @foreach($portfolios->where('category_id', $category->id) as $portfolio)
-                                    <div class="main-content" style="width: calc(50% - 1rem);">
-                                        <div class="inner text-center">
-                                            <div class="thumbnail" style="width: 100%;padding:20px; height: 240px; overflow: hidden;">
-                                                                                         <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}"
-                                                         alt="{{ $portfolio->getTitle() }}"
-                                                         style="width: 100%; height: 100%; object-fit: cover;">
-                                               
-                                            </div>
-                                            <div class="seperator my-2"></div>
-                                            <div class="client-name">
-                                                <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
-                                                    {{ $portfolio->company_name }}
-                                                    </a>
-                                                    <span>-</span>
-                                                                                                         <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">
-                                                     {{ $portfolio->getTitle() }}
-                                                    </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                                            </div>
-
-                                            </div>
-                    @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                            </div>
-                                            </div>
-
+            <!-- End Single Portfolio -->
+            @endforeach
+        </div>
     </div>
 </div>
-<!-- End client section -->
+<!-- End Portfolio Area -->
 
 <!-- Pricing Area -->
 <div class="rn-pricing-area rn-section-gap section-separator" id="pricing">
@@ -486,26 +495,39 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" data-aos-once="true" class="section-title text-center">
-                    <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
-                    <h2 class="title">{{__("My Blog")}}</h2>
-                </div>
-            </div>
+            <div style="width: 100%;" class="section-title d-flex justify-content-between align-items-center flex-wrap">
+    <div class="title-column">
+        <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
+        <h2 class="title">{{__("My Blog")}}</h2>
+    </div>
+    <div class="view-all-btn ms-auto">
+        <a href="{{ localized_route('blogs.index') }}" class="rn-btn">
+            <span>{{__("View All")}}</span>
+            <i data-feather="arrow-right"></i>
+        </a>
+    </div>
+</div>
+
         </div>
-        <div class="row row--25 mt--30 mt_md--10 mt_sm--10">
+        <div class="row row--25 mt--30 mt_md--10 mt_sm--10" style="align-items: stretch;">
 
             @foreach($blogs as $index => $blog)
             <!-- Start Single blog -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true" class="col-lg-6 col-xl-4 mt--30 col-md-6 col-sm-12 col-12 mt--30">
+            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true" class="col-lg-6 col-xl-4 mt--30 col-md-6 col-sm-12 col-12 mt--30" style="display: flex;">
                 <div class="rn-blog">
                     <div class="inner">
                         <div class="thumbnail">
-                            <a href="{{ route('blog.show', $blog->getSlug()) }}">
+                            <a href="{{ localized_route('blog.show', [$blog->id, $blog->getSlug()]) }}">
                                 <img src="{{ $blog->getCardImageUrl() ?: 'assets/images/blog/blog-01.jpg' }}" alt="{{ $blog->getCardImageAltText() }}">
                             </a>
                         </div>
-                                                <div class="content">
-                            <h4 class="title"><a href="{{ route('blog.show', $blog->getTranslation('slug', app()->getLocale())) }}">{{ $blog->getTitle() }} <i class="feather-arrow-up-right"></i></a></h4>
+                        <div class="content">
+                            <h4 class="title">
+                                <a href="{{ localized_route('blog.show', [$blog->id, $blog->getSlug()]) }}">
+                                    {{ Str::limit($blog->getTitle(), 60) }}
+                                    <i class="feather-arrow-up-right"></i>
+                                </a>
+                            </h4>
                             <div class="meta">
                                 <span><i class="feather-clock"></i> {{ $blog->getFormattedPublishedDate() }}</span>
                             </div>
@@ -520,240 +542,8 @@
                                 </div>
 </div> <!-- End News Area -->
 
-<style>
-/* Blog Card Hover Effects */
-.rn-blog {
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-.rn-blog:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-.rn-blog .inner {
-    background: var(--background-color-1);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: var(--shadow-1);
-    transition: all 0.3s ease;
-}
-
-.rn-blog:hover .inner {
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-}
-
-.rn-blog .thumbnail {
-    position: relative;
-    overflow: hidden;
-}
-
-.rn-blog .thumbnail img {
-    transition: transform 0.4s ease;
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.rn-blog:hover .thumbnail img {
-    transform: scale(1.1);
-}
-
-.rn-blog .thumbnail::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(255, 1, 79, 0.8), rgba(209, 20, 20, 0.8));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.rn-blog:hover .thumbnail::after {
-    opacity: 0.3;
-}
-
-.rn-blog .content {
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.rn-blog .title {
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.4;
-    margin-bottom: 15px;
-    flex: 1;
-}
-
-.rn-blog .meta {
-    font-size: 14px;
-    color: var(--color-body);
-    margin-top: auto;
-}
-
-.rn-blog .meta span {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.rn-blog .meta i {
-    width: 16px;
-    height: 16px;
-}
-
-.rn-blog .title a {
-    color: var(--color-heading);
-    text-decoration: none;
-    transition: color 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.rn-blog .title a:hover {
-    color: var(--color-primary);
-}
-
-.rn-blog .title a i {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.3s ease;
-}
-
-.rn-blog:hover .title a i {
-    transform: translateX(5px) translateY(-5px);
-}
-
-/* Responsive */
-@media only screen and (max-width: 767px) {
-    .rn-blog .content {
-        padding: 20px;
-    }
-    
-    .rn-blog .title {
-        font-size: 16px;
-    }
-    
-    .rn-blog .thumbnail img {
-        height: 180px;
-    }
-}
-</style>
-
 <!-- Start Contact section -->
-<div class="rn-contact-area rn-section-gap section-separator" id="contacts">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title text-center">
-                    <span class="subtitle">{{__("Contact")}}</span>
-                    @php
-                        $contactTitle = \App\Models\SiteSetting::getByKey('title');
-                    @endphp
-                    <h2 class="title">{{ $contactTitle ?: __("Contact With Me") }}</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt--50 mt_md--40 mt_sm--40 mt-contact-sm">
-            <div class="col-lg-5">
-                <div class="contact-about-area">
-                    <div class="thumbnail">
-                        @php
-                            $contactImage = \App\Models\SiteSetting::getByKey('contact_section_image');
-                            $contactImageAlt = \App\Models\SiteSetting::getByKey('contact_section_alt');
-                        @endphp
-                        @if($contactImage)
-                            <img src="{{ asset('storage/' . $contactImage) }}" alt="{{ $contactImageAlt ?: 'contact-img' }}">
-                        @else
-                        <img src="assets/images/contact/contact1.png" alt="contact-img">
-                        @endif
-                    </div>
-                    <div class="title-area">
-                        <h4 class="title">{{$contactTitle}}</h4>
-                    </div>
-                    <div class="description">
-                        @php
-                            $contactText = \App\Models\SiteSetting::getByKey('contact_section_text');
-                            $phone = \App\Models\SiteSetting::getByKey('phone');
-                            $email = \App\Models\SiteSetting::getByKey('email');
-                        @endphp
-                        <p>{{ $contactText ?: __("I am available for freelance work. Connect with me via and call in to my account.") }}</p>
-                        <span class="phone">{{__("Phone")}}: <a href="tel:{{ $phone ?: '01941043264' }}">{{ $phone ?: '+01234567890' }}</a></span>
-                        <span class="mail">{{__("Email")}}: <a href="mailto:{{ $email ?: 'admin@example.com' }}">{{ $email ?: 'admin@example.com' }}</a></span>
-                    </div>
-                    <div class="social-area">
-                        <div class="name">{{__("FIND WITH ME")}}</div>
-                        <div class="social-icone">
-                            <a href="#"><i data-feather="facebook"></i></a>
-                            <a href="#"><i data-feather="linkedin"></i></a>
-                            <a href="#"><i data-feather="instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div data-aos-delay="600" class="col-lg-7 contact-input">
-                <div class="contact-form-wrapper">
-                    <div class="introduce">
-
-                        <form class="rnt-contact-form rwt-dynamic-form row" id="contact-form" method="POST">
-                            @csrf
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="contact-name">{{__("Your Name")}}</label>
-                                    <input class="form-control form-control-lg" name="contact-name" id="contact-name" type="text">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="contact-phone">{{__("Phone Number")}}</label>
-                                    <input class="form-control" name="contact-phone" id="contact-phone" type="text">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label for="contact-email">{{__("Email")}}</label>
-                                    <input class="form-control form-control-sm" id="contact-email" name="contact-email" type="email">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label for="subject">{{__("Subject")}}</label>
-                                    <input class="form-control form-control-sm" id="subject" name="subject" type="text">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label for="contact-message">{{__("Your Message")}}</label>
-                                    <textarea name="contact-message" id="contact-message" cols="30" rows="10"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                                <button name="submit" type="submit" id="submit" class="rn-btn">
-                                    <span>{{__("SEND MESSAGE")}}</span>
-                                    <i data-feather="arrow-right"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+@include('front.partials.contact-section')
 </div> <!-- End Contuct section -->
 
 <!-- Modal Portfolio Body area Start -->
@@ -1564,125 +1354,198 @@
 @endsection
 
 @push('scripts')
-<!-- Contact Form AJAX -->
-<script>
-$(document).ready(function() {
-    // Contact form submission
-    $('#contact-form').on('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        var formData = new FormData(this);
-        
-        // Show loading state
-        var submitBtn = $('#submit');
-        var originalText = submitBtn.html();
-        submitBtn.html('<i class="fas fa-spinner fa-spin"></i> {{__("Sending...")}}');
-        submitBtn.prop('disabled', true);
-        
-        // AJAX request
-        $.ajax({
-            url: '{{ route("contact") }}',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                // Show success message
-                Swal.fire({
-                    icon: 'success',
-                    title: '{{__("Success!")}}',
-                    text: '{{__("Thank you for your message! We will get back to you soon.")}}',
-                    confirmButtonText: '{{__("OK")}}',
-                    confirmButtonColor: '#667eea'
-                });
-                
-                // Reset form
-                $('#contact-form')[0].reset();
-                
-                // Reset button
-                submitBtn.html(originalText);
-                submitBtn.prop('disabled', false);
-            },
-            error: function(xhr) {
-                var errorMessage = '{{__("An error occurred. Please try again.")}}';
-                
-                // Check if there are validation errors
-                if (xhr.status === 422) {
-                    var errors = xhr.responseJSON.errors;
-                    var errorList = '';
-                    
-                    for (var field in errors) {
-                        errorList += errors[field][0] + '\n';
-                    }
-                    
-                    errorMessage = errorList;
-                }
-                
-                // Show error message
-                Swal.fire({
-                    icon: 'error',
-                    title: '{{__("Error!")}}',
-                    text: errorMessage,
-                    confirmButtonText: '{{__("OK")}}',
-                    confirmButtonColor: '#dc3545'
-                });
-                
-                // Reset button
-                submitBtn.html(originalText);
-                submitBtn.prop('disabled', false);
-            }
-        });
-    });
-    
-    // Form validation on input
-    $('#contact-form input, #contact-form textarea').on('blur', function() {
-        var field = $(this);
-        var value = field.val().trim();
-        var fieldName = field.attr('name');
-        
-        // Remove existing error styling
-        field.removeClass('is-invalid');
-        field.siblings('.invalid-feedback').remove();
-        
-        // Validate required fields
-        if (fieldName === 'contact-name' && value === '') {
-            showFieldError(field, '{{__("Name is required")}}');
-        } else if (fieldName === 'contact-email' && value === '') {
-            showFieldError(field, '{{__("Email is required")}}');
-        } else if (fieldName === 'contact-email' && value !== '' && !isValidEmail(value)) {
-            showFieldError(field, '{{__("Please enter a valid email address")}}');
-        } else if (fieldName === 'subject' && value === '') {
-            showFieldError(field, '{{__("Subject is required")}}');
-        } else if (fieldName === 'contact-message' && value === '') {
-            showFieldError(field, '{{__("Message is required")}}');
-        }
-    });
-    
-    function showFieldError(field, message) {
-        field.addClass('is-invalid');
-        field.after('<div class="invalid-feedback">' + message + '</div>');
-    }
-    
-    function isValidEmail(email) {
-        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-    
-    // Clear validation errors on input
-    $('#contact-form input, #contact-form textarea').on('input', function() {
-        $(this).removeClass('is-invalid');
-        $(this).siblings('.invalid-feedback').remove();
-    });
-});
-</script>
+<!-- Contact Form JavaScript -->
+<script src="{{ asset('assets/js/contact-form.js') }}"></script>
 @endpush
 
 @push('styles')
+<link rel="stylesheet" href="{{ asset('assets/css/contact-form.css') }}">
 <style>
+/* Portfolio Service Card Styles */
+.form-group {
+    width: 100% !important;
+}
+.rn-service {
+    background: linear-gradient(135deg, var(--background-color-1) 0%, var(--background-color-2) 100%);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: var(--shadow-1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.rn-service:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.rn-service img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.rn-service:hover img {
+    transform: scale(1.05);
+}
+
+.rn-service .content {
+    text-align: center;
+}
+
+.rn-service .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-heading);
+    margin-bottom: 10px;
+}
+
+.rn-service .title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.rn-service .title a:hover {
+    color: var(--color-primary);
+}
+
+.rn-service .company {
+    font-size: 13px;
+    color: var(--color-body);
+    margin: 0;
+    font-weight: 400;
+}
+
+.rn-service .company a {
+    color: var(--color-body);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.rn-service .company a:hover {
+    color: var(--color-primary);
+}
+
+/* Responsive */
+@media only screen and (max-width: 767px) {
+    .rn-service {
+        padding: 20px;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .rn-service {
+        padding: 15px;
+    }
+}
+</style>
+<style>
+/* Blog Section Title Styles */
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.section-title .title-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    text-align: left;
+    flex: 1;
+}
+.title-column {
+    flex-grow: 1;
+}
+.section-title .subtitle {
+    font-size: 16px;
+    color: var(--color-body);
+    font-weight: 400;
+    margin: 0;
+}
+
+.section-title .title {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin: 0;
+}
+
+.view-all-btn {
+    margin-left: auto;
+    margin-top: 10px;
+}
+
+
+.view-all-btn .rn-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--color-primary);
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.view-all-btn .rn-btn:hover {
+    background: var(--color-primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.3);
+}
+
+.view-all-btn .rn-btn i {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.view-all-btn .rn-btn:hover i {
+    transform: translateX(3px);
+}
+
+/* Responsive */
+@media only screen and (max-width: 767px) {
+    .section-title {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .section-title .title-column {
+        align-items: center;
+        flex: none;
+    }
+    
+    .section-title .title {
+        font-size: 36px;
+    }
+    
+    .view-all-btn {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+  
+}
+
+@media only screen and (max-width: 575px) {
+    .section-title .title {
+        font-size: 28px;
+    }
+}
+
 /* Custom styling for form validation */
 .is-invalid {
     border-color: #dc3545 !important;
@@ -1702,6 +1565,145 @@ $(document).ready(function() {
     margin-right: 5px;
 }
 
+/* Portfolio Card Styles */
+.portfolio-card {
+    background: linear-gradient(135deg, #212428 0%, #1d1f23 100%);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 4px solid #ff014f;
+    transition: all 0.4s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+    outline: 2px solid rgba(255, 1, 79, 0.3);
+    outline-offset: 3px;
+}
+
+.portfolio-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 1, 79, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.portfolio-card:hover::before {
+    opacity: 1;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: #ff014f;
+    border-width: 5px;
+    outline-color: rgba(255, 1, 79, 0.6);
+    outline-width: 3px;
+}
+
+.portfolio-card .thumbnail {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.portfolio-card .thumbnail img {
+    transition: transform 0.4s ease;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.portfolio-card:hover .thumbnail img {
+    transform: scale(1.1);
+}
+
+.portfolio-card .content {
+    padding: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.portfolio-card .portfolio-info {
+    text-align: center;
+}
+
+.portfolio-card .title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 6px;
+    line-height: 1.2;
+}
+
+.portfolio-card .title a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.portfolio-card .title a:hover {
+    color: var(--color-primary);
+}
+
+.portfolio-card .company {
+    font-size: 13px;
+    color: #c4cfde;
+    margin: 0;
+    font-weight: 400;
+}
+
+.portfolio-card .company a {
+    color: #c4cfde;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.portfolio-card .company a:hover {
+    color: var(--color-primary);
+}
+
+/* Additional Card Styling */
+.portfolio-card {
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 0 4px #ff014f,
+        0 0 0 8px rgba(255, 1, 79, 0.2);
+}
+
+.portfolio-card:hover {
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 6px #ff014f,
+        0 0 0 12px rgba(255, 1, 79, 0.3);
+}
+
+/* Ensure cards are properly spaced */
+.col-lg-4.col-md-6.col-12.mt--30 {
+    margin-bottom: 30px;
+}
+
+/* Card background with pattern */
+.portfolio-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 30%, rgba(255, 1, 79, 0.05) 50%, transparent 70%);
+    pointer-events: none;
+    border-radius: 20px;
+}
+
 /* SweetAlert customization */
 .swal2-popup {
     border-radius: 15px;
@@ -1715,6 +1717,43 @@ $(document).ready(function() {
     border-radius: 8px !important;
     padding: 12px 30px !important;
     font-weight: 600 !important;
+}
+
+/* Contact form styles are now in external CSS file */
+
+/* View All Button Styles */
+.view-all-btn .rn-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #ff014f, #ff6b9d);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
+}
+
+.view-all-btn .rn-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 1, 79, 0.4);
+    color: white;
+    border-radius: 25px;
+}
+
+.view-all-btn .rn-btn i {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.view-all-btn .rn-btn:hover i {
+    transform: translateX(3px);
 }
 </style>
 @endpush

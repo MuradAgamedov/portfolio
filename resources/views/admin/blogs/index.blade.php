@@ -112,6 +112,7 @@
                                 <th width="50"><i class="fas fa-grip-vertical"></i></th>
                                 <th width="80">Şəkil</th>
                                 <th>Başlıq</th>
+                                <th>Kateqoriya</th>
                                 <th>Slug</th>
                                 <th>Nəşr Tarixi</th>
                                 <th>Sıra</th>
@@ -162,6 +163,13 @@
                                             </small>
                                         @endif
                                     </div>
+                                </td>
+                                <td>
+                                    @if($blog->category)
+                                        <span class="badge bg-primary">{{ $blog->category->getTitle() }}</span>
+                                    @else
+                                        <span class="badge bg-secondary">Kateqoriya yoxdur</span>
+                                    @endif
                                 </td>
                                 <td>
                                     <code>{{ $mainSlug }}</code>

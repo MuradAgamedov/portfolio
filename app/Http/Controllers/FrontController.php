@@ -11,39 +11,76 @@ use App\Models\PortfolioCategory;
 use App\Models\Education;
 use App\Models\Experience;
 use App\Models\Skill;
-use App\Models\Social;
 use App\Models\About;
 use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\PricingPlan;
 use App\Models\Newsletter;
+use App\Traits\RecaptchaTrait;
+use App\Traits\SocialTrait;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
+    use RecaptchaTrait, SocialTrait;
+
     public function index()
     {
         $data = [
             'heroData' => HeroData::firstOrCreate(),
             'heroProfessions' => HeroProfession::where('status', true)->orderBy('order')->get(),
             'services' => Service::where('status', true)->orderBy('order')->get(),
-            'portfolios' => Portfolio::with('category')->where('status', true)->orderBy('order')->get(),
+            'portfolios' => Portfolio::with('category')->where('status', true)->orderBy('order')->limit(9)->get(),
             'portfolioCategories' => PortfolioCategory::orderBy('order')->get(),
             'education' => Education::where('status', true)->orderBy('order')->get(),
             'experiences' => Experience::where('status', true)->orderBy('order')->get(),
             'skills' => Skill::where('status', true)->orderBy('order')->get(),
-            'socials' => Social::where('status', true)->orderBy('order')->get(),
+            'socials' => $this->getSocials(),
             'certificates' => Certificate::where('status', true)->orderBy('order')->get(),
             'about' => About::firstOrCreate(),
-            'blogs' => Blog::where('status', true)->orderBy('published_at', 'desc')->get(),
+            'blogs' => Blog::where('status', true)->orderBy('published_at', 'desc')->limit(6)->get(),
             'pricingPlans' => PricingPlan::with('activeFeatures')->where('status', true)->orderBy('order')->get(),
         ];
         
         return view('front.home.index', $data);
     }
 
+    public function about()
+    {
+        $data = [
+            'about' => About::firstOrCreate(),
+            'education' => Education::where('status', true)->orderBy('order')->get(),
+            'experiences' => Experience::where('status', true)->orderBy('order')->get(),
+            'skills' => Skill::where('status', true)->orderBy('order')->get(),
+            'socials' => $this->getSocials(),
+        ];
+        
+        return view('front.about.index', $data);
+    }
+
+    public function contactPage()
+    {
+        $data = [
+            'socials' => $this->getSocials(),
+        ];
+        
+        return view('front.contact.index', $data);
+    }
+
     public function contact(Request $request)
     {
+        // Validate reCAPTCHA first
+        if (!$this->validateRecaptcha($request)) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => __("Please complete the reCAPTCHA verification.")
+                ], 422);
+            }
+            
+            return redirect()->back()->withErrors(['recaptcha' => __("Please complete the reCAPTCHA verification.")]);
+        }
+
         $validated = $request->validate([
             'contact-name' => 'required|string|max:255',
             'contact-email' => 'required|email|max:255',
@@ -72,20 +109,7 @@ class FrontController extends Controller
         return redirect()->back()->with('success', 'Thank you for your message! We will get back to you soon.');
     }
 
-    public function blog($slug)
-    {
-        $blog = Blog::where('status', true)
-                   ->where("slug->" . app()->getLocale(), $slug)
-                   ->firstOrFail();
-        
-        $recentBlogs = Blog::where('status', true)
-                          ->where('id', '!=', $blog->id)
-                          ->orderBy('published_at', 'desc')
-                          ->limit(3)
-                          ->get();
-        
-        return view('front.blogs.show', compact('blog', 'recentBlogs'));
-    }
+
 
     public function newsletter(Request $request)
     {

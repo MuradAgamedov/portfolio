@@ -8,8 +8,9 @@ use App\Http\Controllers\Admin\HeroDataController;
 use App\Http\Controllers\Admin\HeroProfessionController;
 use App\Http\Controllers\Admin\SocialController;
 use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Admin\PortfolioController as AdminPortfolioController;
 use App\Http\Controllers\Admin\PortfolioCategoryController;
+use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\EducationController;
@@ -25,20 +26,41 @@ use App\Http\Controllers\Admin\PricingPlanFeatureController;
 use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\BlogController as FrontBlogController;
+use App\Http\Controllers\ServiceController as FrontServiceController;
+use App\Http\Controllers\ServiceRequestController;
 
-// Language Switch Route
+// Redirect root to default language
+Route::get('/', function () {
+    $defaultLanguage = \App\Models\Language::where('is_main_lang', 1)->first();
+    $defaultLang = $defaultLanguage ? $defaultLanguage->lang_code : 'en';
+    return redirect('/' . $defaultLang);
+});
+
+// Language Switch Route (for AJAX)
 Route::get('/language/{lang}', function($lang) {
-    if (in_array($lang, ['en', 'az'])) {
+    // Get available languages from database
+    $availableLanguages = \App\Models\Language::where('status', 1)->pluck('lang_code')->toArray();
+    
+    if (in_array($lang, $availableLanguages)) {
         session(['locale' => $lang]);
     }
     return redirect()->back();
 })->name('language.switch');
 
-// Front-end Routes
-Route::get('/', [FrontController::class, 'index'])->name('home');
-Route::get('/blog/{slug}', [FrontController::class, 'blog'])->name('blog.show');
-Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
-Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
+// Localized Front-end Routes
+Route::prefix('{locale}')->where(['locale' => '[a-z]{2}'])->middleware(['setlocale'])->group(function () {
+    Route::get('/', [FrontController::class, 'index'])->name('home');
+    Route::get('/blogs', [FrontBlogController::class, 'index'])->name('blogs.index');
+    Route::get('/blog/{id}/{slug?}', [FrontBlogController::class, 'show'])->name('blog.show');
+    Route::get('/services', [FrontServiceController::class, 'index'])->name('services.index');
+    Route::get('/portfolios', [App\Http\Controllers\PortfolioController::class, 'index'])->name('portfolios.index');
+    Route::get('/about', [FrontController::class, 'about'])->name('about');
+    Route::get('/contact', [FrontController::class, 'contactPage'])->name('contact');
+    Route::post('/service-request', [ServiceRequestController::class, 'store'])->name('service-request.store');
+    Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
+    Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
+});
 
 // Admin Auth Routes
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -78,12 +100,16 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::post('portfolio-categories/reorder', [PortfolioCategoryController::class, 'reorder'])->name('portfolio-categories.reorder');
     
     // Portfolio Routes
-    Route::resource('portfolios', PortfolioController::class);
-    Route::post('portfolios/reorder', [PortfolioController::class, 'reorder'])->name('portfolios.reorder');
+    Route::resource('portfolios', AdminPortfolioController::class);
+    Route::post('portfolios/reorder', [AdminPortfolioController::class, 'reorder'])->name('portfolios.reorder');
     
     // Certificate Routes
     Route::resource('certificates', CertificateController::class);
     Route::post('certificates/reorder', [CertificateController::class, 'reorder'])->name('certificates.reorder');
+    
+    // Blog Categories Routes
+    Route::resource('blog-categories', BlogCategoryController::class);
+    Route::post('blog-categories/reorder', [BlogCategoryController::class, 'reorder'])->name('blog-categories.reorder');
     
     // Blog Routes
     Route::resource('blogs', BlogController::class);
@@ -140,4 +166,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     // Newsletter Routes
     Route::resource('newsletters', NewsletterController::class)->only(['index', 'destroy']);
     Route::post('newsletters/{newsletter}/toggle-status', [NewsletterController::class, 'toggleStatus'])->name('newsletters.toggle-status');
+    
+    // Service Requests Routes
+    Route::resource('service-requests', ServiceRequestController::class)->only(['index', 'show', 'destroy']);
+    Route::patch('service-requests/{serviceRequest}/status', [ServiceRequestController::class, 'updateStatus'])->name('service-requests.update-status');
+    Route::patch('service-requests/{serviceRequest}/mark-as-read', [ServiceRequestController::class, 'markAsRead'])->name('service-requests.mark-as-read');
 });

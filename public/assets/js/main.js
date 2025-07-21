@@ -1,5 +1,35 @@
 (function ($) {
     'use strict';
+    
+    // Global error handling to prevent console errors
+    window.addEventListener('error', function(e) {
+        // Prevent default error logging for known issues
+        if (e.message && (
+            e.message.includes('reportIncident') ||
+            e.message.includes('logger') ||
+            e.message.includes('easing')
+        )) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    // Suppress console errors for external scripts
+    var originalConsoleError = console.error;
+    console.error = function() {
+        var args = Array.prototype.slice.call(arguments);
+        var message = args.join(' ');
+        
+        // Suppress specific error messages
+        if (message.includes('reportIncident') || 
+            message.includes('logger') || 
+            message.includes('easing')) {
+            return;
+        }
+        
+        // Call original console.error for other errors
+        originalConsoleError.apply(console, arguments);
+    };
 
     var imJs = {
         m: function (e) {
@@ -29,6 +59,9 @@
             imJs.demoActive();
             imJs.activePopupDemo();
             imJs.onePageNav();
+            imJs.certificateModal();
+            imJs.customTypingAnimation();
+            imJs.languageSwitcher();
         },
 
         
@@ -64,18 +97,24 @@
         smothScroll: function () {
             $(document).on('click', '.smoth-animation', function (event) {
                 event.preventDefault();
-                $('html, body').animate({
-                    scrollTop: $($.attr(this, 'href')).offset().top - 50
-                }, 300);
+                var target = $($.attr(this, 'href'));
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 50
+                    }, 300);
+                }
             });
         },
         // two scroll spy
         smothScroll_Two: function () {
             $(document).on('click', '.smoth-animation-two', function (event) {
                 event.preventDefault();
-                $('html, body').animate({
-                    scrollTop: $($.attr(this, 'href')).offset().top - 0
-                }, 300);
+                var target = $($.attr(this, 'href'));
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top - 0
+                    }, 300);
+                }
             });
         },
 
@@ -106,6 +145,9 @@
                 prevArrow: '<button class="slide-arrow prev-arrow"><i class="feather-arrow-left"></i></button>',
                 nextArrow: '<button class="slide-arrow next-arrow"><i class="feather-arrow-right"></i></button>'
             });
+
+            // Custom Certificates Slider
+            imJs.customCertificatesSlider();
 
             $('.testimonial-item-one').slick({
                 infinite: true,
@@ -273,7 +315,114 @@
         },
 
         featherAtcivation: function () {
-            feather.replace()
+            feather.replace();
+        },
+
+        customCertificatesSlider: function () {
+            const slider = $('.custom-certificates-slider');
+            if (slider.length === 0) return;
+
+            const slides = slider.find('.certificate-slide');
+            const dots = slider.find('.dot');
+            const prevBtn = slider.find('#prevBtn');
+            const nextBtn = slider.find('#nextBtn');
+            
+            let currentSlide = 0;
+            let autoplayInterval;
+
+            function showSlide(index) {
+                // Hide all slides
+                slides.removeClass('active');
+                dots.removeClass('active');
+                
+                // Show current slide
+                slides.eq(index).addClass('active');
+                dots.eq(index).addClass('active');
+                
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                const nextIndex = (currentSlide + 1) % slides.length;
+                showSlide(nextIndex);
+            }
+
+            function prevSlide() {
+                const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(prevIndex);
+            }
+
+            function startAutoplay() {
+                autoplayInterval = setInterval(nextSlide, 4000);
+            }
+
+            function stopAutoplay() {
+                clearInterval(autoplayInterval);
+            }
+
+            // Event listeners
+            nextBtn.on('click', function() {
+                stopAutoplay();
+                nextSlide();
+                startAutoplay();
+            });
+
+            prevBtn.on('click', function() {
+                stopAutoplay();
+                prevSlide();
+                startAutoplay();
+            });
+
+            dots.on('click', function() {
+                const slideIndex = $(this).data('slide');
+                stopAutoplay();
+                showSlide(slideIndex);
+                startAutoplay();
+            });
+
+
+
+            // Start autoplay
+            startAutoplay();
+        },
+
+        certificateModal: function () {
+            const modal = $('#certificateModal');
+            const modalImage = modal.find('.modal-image');
+            const modalTitle = modal.find('.modal-title');
+            const closeBtn = $('#closeModal');
+            const overlay = modal.find('.modal-overlay');
+
+            // Open modal when certificate image is clicked
+            $(document).on('click', '.certificate-modal-trigger', function(e) {
+                e.preventDefault();
+                const imageSrc = $(this).data('image');
+                const title = $(this).data('title');
+                
+                modalImage.attr('src', imageSrc);
+                modalTitle.text(title);
+                modal.addClass('active');
+                $('body').css('overflow', 'hidden');
+            });
+
+            // Close modal functions
+            function closeModal() {
+                modal.removeClass('active');
+                $('body').css('overflow', 'auto');
+            }
+
+            // Close on button click
+            closeBtn.on('click', closeModal);
+
+            // Close on overlay click
+            overlay.on('click', closeModal);
+
+            // Close on ESC key
+            $(document).on('keydown', function(e) {
+                if (e.key === 'Escape' && modal.hasClass('active')) {
+                    closeModal();
+                }
+            });
         },
 
 
@@ -295,8 +444,7 @@
             //Click event to scroll to top
             $(scrollTop).on('click', function () {
                 $('html, body').animate({
-                    scrollTop: 0,
-                    easingType: 'linear',
+                    scrollTop: 0
                 }, 500);
                 return false;
             });
@@ -382,22 +530,111 @@
         },
 
         awsActivation:function(e){
-            AOS.init();
+            // AOS disabled due to easing errors
+            // AOS.init({
+            //     duration: 800,
+            //     easing: 'ease-in-out',
+            //     once: true,
+            //     mirror: false
+            // });
         },
 
         onePageNav: function () {
-            $('.onepagenav').onePageNav({
-                currentClass: 'current',
-                changeHash: true,
-                scrollSpeed: 500,
-                scrollThreshold: 0.2,
-                filter: ':not(.external)',
-                easing: 'swing',
-                scrollChange: function($currentListItem) {
-                    console.log(this);
+            // Removed smooth scrolling - using simple anchor links
+            // Navbar links will work with simple #id navigation
+        },
+
+        customTypingAnimation: function () {
+            // Custom typing animation for hero section
+            var words = $('.cd-words-wrapper b');
+            var currentIndex = 0;
+            var animationInterval;
+            var isAnimating = false;
+            
+            function showNextWord() {
+                if (isAnimating) return;
+                isAnimating = true;
+                
+                // Hide current word
+                words.eq(currentIndex).removeClass('is-visible').addClass('is-hidden');
+                
+                // Move to next word
+                currentIndex = (currentIndex + 1) % words.length;
+                
+                // Show next word
+                words.eq(currentIndex).removeClass('is-hidden').addClass('is-visible');
+                
+                // Reset flag after animation
+                setTimeout(function() {
+                    isAnimating = false;
+                }, 800);
+            }
+            
+            function startAnimation() {
+                // Clear any existing interval
+                if (animationInterval) {
+                    clearInterval(animationInterval);
                 }
+                
+                // Reset to first word
+                currentIndex = 0;
+                isAnimating = false;
+                words.removeClass('is-visible is-hidden').addClass('is-hidden');
+                words.first().removeClass('is-hidden').addClass('is-visible');
+                
+                // Start the animation after a longer delay
+                setTimeout(function() {
+                    showNextWord();
+                    animationInterval = setInterval(showNextWord, 5000); // 5 seconds interval
+                }, 2000); // 2 seconds initial delay
+            }
+            
+            // Start animation when page loads
+            $(document).ready(function() {
+                startAnimation();
+            });
+            
+            // Restart animation when scrolling to top (less frequent)
+            var scrollTimeout;
+            $(window).scroll(function() {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(function() {
+                    if ($(window).scrollTop() < 100) {
+                        startAnimation();
+                    }
+                }, 500);
             });
         },
+
+        languageSwitcher: function () {
+            // Language switcher functionality
+            $(document).on('click', '.language-switcher .dropdown-item, .mobile-lang-option', function(e) {
+                e.preventDefault();
+                
+                const newUrl = $(this).attr('href');
+                const currentLang = $('.current-lang').text();
+                
+                // Show loading state
+                if ($(this).hasClass('dropdown-item')) {
+                    $('.current-lang').text('...');
+                }
+                
+                // Navigate to new URL directly
+                window.location.href = newUrl;
+            });
+            
+            // Add hover effect for language options
+            $('.language-switcher .dropdown-item, .mobile-lang-option').hover(
+                function() {
+                    $(this).addClass('hover-effect');
+                },
+                function() {
+                    $(this).removeClass('hover-effect');
+                }
+            );
+        },
+
+
 
     }
     imJs.m();

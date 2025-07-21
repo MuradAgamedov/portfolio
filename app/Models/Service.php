@@ -87,4 +87,14 @@ class Service extends Model
         }
         return null;
     }
+
+    /**
+     * Get slug for specific language
+     */
+    public function getSlug($lang = null)
+    {
+        $lang = $lang ?: app()->getLocale();
+        $title = $this->getTitle($lang);
+        return \Str::slug($title);
+    }
 } 
