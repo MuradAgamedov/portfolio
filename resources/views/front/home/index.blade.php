@@ -2,34 +2,34 @@
 
 @section('title')
 @php
-    $seoSettings = \App\Models\SeoSite::first();
+$seoSettings = \App\Models\SeoSite::first();
 @endphp
 @if($seoSettings && $seoSettings->getTranslation('seo_title', app()->getLocale()))
-    {{ $seoSettings->getTranslation('seo_title', app()->getLocale()) }}
+{{ $seoSettings->getTranslation('seo_title', app()->getLocale()) }}
 @else
-    {{ __('seo_home_title') }}
+{{ __('seo_home_title') }}
 @endif
 @endsection
 
 @section('meta')
 @php
-    $seoSettings = \App\Models\SeoSite::first();
+$seoSettings = \App\Models\SeoSite::first();
 @endphp
 @if($seoSettings)
-    @if($seoSettings->getTranslation('seo_description', app()->getLocale()))
-        <meta name="description" content="{{ $seoSettings->getTranslation('seo_description', app()->getLocale()) }}">
-    @endif
-    
-    @if($seoSettings->getTranslation('seo_keywords', app()->getLocale()))
-        <meta name="keywords" content="{{ $seoSettings->getTranslation('seo_keywords', app()->getLocale()) }}">
-    @endif
+@if($seoSettings->getTranslation('seo_description', app()->getLocale()))
+<meta name="description" content="{{ $seoSettings->getTranslation('seo_description', app()->getLocale()) }}">
+@endif
+
+@if($seoSettings->getTranslation('seo_keywords', app()->getLocale()))
+<meta name="keywords" content="{{ $seoSettings->getTranslation('seo_keywords', app()->getLocale()) }}">
+@endif
 @endif
 @endsection
 
 @section('content')
 <!-- SEO Display Section -->
 @php
-    $seoSettings = \App\Models\SeoSite::first();
+$seoSettings = \App\Models\SeoSite::first();
 @endphp
 
 
@@ -50,7 +50,7 @@
                                         <!-- ROTATING TEXT -->
                                         <span class="cd-words-wrapper">
                                             @foreach($heroProfessions as $index => $heroProfession)
-                                                <b class="{{ $index === 0 ? 'is-visible' : 'is-hidden' }}">{{ $heroProfession->title }}</b>
+                                            <b class="{{ $index === 0 ? 'is-visible' : 'is-hidden' }}">{{ $heroProfession->title }}</b>
                                             @endforeach
                                         </span>
                                     </span>
@@ -68,16 +68,16 @@
                                     <span class="title">{{__("find with me")}}</span>
                                     <ul class="social-share d-flex liststyle">
                                         @foreach($socials as $social)
-                                            <li class="{{ $social->platform }}">
-                                                <a href="{{ $social->url }}" target="_blank" rel="noopener noreferrer">
-                                                    <i data-feather="{{ $social->platform }}"></i>
-                                                </a>
+                                        <li class="{{ $social->platform }}">
+                                            <a href="{{ $social->url }}" target="_blank" rel="noopener noreferrer">
+                                                <i data-feather="{{ $social->platform }}"></i>
+                                            </a>
                                         </li>
                                         @endforeach
                                     </ul>
                                 </div>
                             </div>
-                      {{--
+                            {{--
                             <div class="col-lg-6 col-xl-6 col-md-6 col-sm-6 col-12 mt_mobile--30">
                                 <div class="skill-share-inner">
                                     <span class="title">best skill on</span>
@@ -88,7 +88,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        
+
                         --}}
                         </div>
                     </div>
@@ -121,7 +121,7 @@
         <div class="row row--25 mt_md--10 mt_sm--10">
 
             @foreach($services as $index => $service)
-                @include('front.partials.service-card', ['service' => $service, 'index' => $index, 'isServicesPage' => false])
+            @include('front.partials.service-card', ['service' => $service, 'index' => $index, 'isServicesPage' => false])
             @endforeach
 
         </div>
@@ -170,7 +170,7 @@
                                         <div class="about-content">
                                             <div class="description">
                                                 {!! $about->getDescription() !!}
-                                                        </div>
+                                            </div>
                                             @if($about->getCvUrl())
                                             <div class="cv-download mt-4">
                                                 <a href="{{ $about->getCvUrl() }}" class="rn-btn" download="{{ $about->cv_original_name }}">
@@ -180,14 +180,14 @@
                                                 @if($about->getCvSize())
                                                 <small class="text-muted d-block mt-2">{{__("File size")}}: {{ $about->getCvSize() }} MB</small>
                                                 @endif
-                                                        </div>
-                                            @endif
-                                                    </div>
-                                                </div>
                                             </div>
-                                                        </div>
-                                                        </div>
-                                                    </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- End Single Tab  -->
 
                     <!-- Start Single Tab  -->
@@ -202,26 +202,26 @@
                                             <!-- Start Single Education -->
                                             <div class="col-lg-6 col-md-6 col-12 mt--30">
                                                 <div class="education-card" style="background: #212428; border-radius: 10px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.1); transition: all 0.3s ease;">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
+                                                    <div class="inner">
+                                                        <div class="heading">
+                                                            <div class="title">
                                                                 <h4 style="color: #ffffff; margin-bottom: 5px; font-size: 18px; font-weight: 600;">{{ $edu->getTitle() }}</h4>
                                                                 <span style="color: #c4cfde; font-size: 14px; font-weight: 500;">{{ $edu->getUniversityName() }}</span>
-                                                        </div>
-                                                        <div class="date-of-time">
+                                                            </div>
+                                                            <div class="date-of-time">
                                                                 <span style="color: #ff014f; font-size: 12px; font-weight: 600; background: rgba(255,1,79,0.1); padding: 5px 10px; border-radius: 5px;">{{ $edu->getFormattedStartDate() }} - {{ $edu->getFormattedEndDate() }}</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
                                                         <p class="description" style="color: #c4cfde; margin-top: 15px; line-height: 1.6; font-size: 14px;">{{ $edu->getDescription() }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                                        </div>
                                             <!-- End Single Education -->
                                             @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- End Single Tab  -->
@@ -238,26 +238,26 @@
                                             <!-- Start Single Experience -->
                                             <div class="col-lg-6 col-md-6 col-12 mt--30">
                                                 <div class="experience-card" style="background: #212428; border-radius: 10px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.1); transition: all 0.3s ease;">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
+                                                    <div class="inner">
+                                                        <div class="heading">
+                                                            <div class="title">
                                                                 <h4 style="color: #ffffff; margin-bottom: 5px; font-size: 18px; font-weight: 600;">{{ $exp->getTitle() }}</h4>
                                                                 <span style="color: #c4cfde; font-size: 14px; font-weight: 500;">{{ $exp->getCompanyName() }}</span>
-                                                        </div>
-                                                        <div class="date-of-time">
+                                                            </div>
+                                                            <div class="date-of-time">
                                                                 <span style="color: #ff014f; font-size: 12px; font-weight: 600; background: rgba(255,1,79,0.1); padding: 5px 10px; border-radius: 5px;">{{ $exp->getFormattedStartDate() }} - {{ $exp->getFormattedEndDate() }}</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
                                                         <p class="description" style="color: #c4cfde; margin-top: 15px; line-height: 1.6; font-size: 14px;">{{ $exp->getDescription() }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                                        </div>
                                             <!-- End Single Experience -->
                                             @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- End Single Tab  -->
@@ -274,34 +274,34 @@
                                             <!-- Start Single Skill -->
                                             <div class="col-lg-6 col-md-6 col-12 mt--30">
                                                 <div class="skill-card" style="background: #212428; border-radius: 10px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.1); transition: all 0.3s ease;">
-                                                <div class="inner">
-                                                    <div class="heading">
-                                                        <div class="title">
+                                                    <div class="inner">
+                                                        <div class="heading">
+                                                            <div class="title">
                                                                 <h4 style="color: #ffffff; margin-bottom: 15px; font-size: 18px; font-weight: 600;">{{ $skill->getTitle() }}</h4>
-                                                        </div>
+                                                            </div>
                                                             <div class="percent">
                                                                 <span style="color: #ff014f; font-size: 14px; font-weight: 600;">{{ $skill->getFormattedPercent() }}</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
                                                         <div class="progress-wrapper" style="margin-top: 15px;">
                                                             <div class="progress" style="height: 8px; background: #1d1f23; border-radius: 4px; overflow: hidden;">
-                                                                <div class="progress-bar" 
-                                                                     style="background: linear-gradient(90deg, #ff014f 0%, #ff6b6b 100%); width: {{ $skill->percent }}%; height: 100%; border-radius: 4px; transition: width 1s ease-in-out;"
-                                                                     role="progressbar" 
-                                                                     aria-valuenow="{{ $skill->percent }}" 
-                                                                     aria-valuemin="0" 
-                                                                     aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                                        </div>
+                                                                <div class="progress-bar"
+                                                                    style="background: linear-gradient(90deg, #ff014f 0%, #ff6b6b 100%); width: {{ $skill->percent }}%; height: 100%; border-radius: 4px; transition: width 1s ease-in-out;"
+                                                                    role="progressbar"
+                                                                    aria-valuenow="{{ $skill->percent }}"
+                                                                    aria-valuemin="0"
+                                                                    aria-valuemax="100">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
                                             <!-- End Single Skill -->
                                             @endforeach
-                                            </div>
-                                                        </div>
-                                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -327,55 +327,55 @@
         <div class="row">
             <div class="col-lg-12">
                 @if($certificates->count() > 0)
-                    <div class="custom-certificates-slider">
-                        <div class="slider-container">
-                            @foreach($certificates as $index => $certificate)
-                            <!-- Start Single Certificate -->
-                            <div class="certificate-slide {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}">
-                                <div class="certificate-card">
-                                    <div class="inner">
-                                                                            <div class="certificate-image">
-                                        <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}" 
-                                             alt="{{$certificate->getImageAltText()}}"
-                                             class="certificate-modal-trigger"
-                                             data-image="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}"
-                                             data-title="{{$certificate->getTitle()}}">
+                <div class="custom-certificates-slider">
+                    <div class="slider-container">
+                        @foreach($certificates as $index => $certificate)
+                        <!-- Start Single Certificate -->
+                        <div class="certificate-slide {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}">
+                            <div class="certificate-card">
+                                <div class="inner">
+                                    <div class="certificate-image">
+                                        <img src="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}"
+                                            alt="{{$certificate->getImageAltText()}}"
+                                            class="certificate-modal-trigger"
+                                            data-image="{{ $certificate->getImageUrl() ?: 'assets/images/testimonial/final-home--1st.png' }}"
+                                            data-title="{{$certificate->getTitle()}}">
                                     </div>
-                                        <div class="certificate-content">
-                                            <h3 class="title">{{$certificate->getTitle()}}</h3>
-                                            <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
-                                            <p class="description">{{ $certificate->getDescription() }}</p>
-                                        </div>
+                                    <div class="certificate-content">
+                                        <h3 class="title">{{$certificate->getTitle()}}</h3>
+                                        <span class="date">{{ $certificate->getFormattedIssueDate() }}</span>
+                                        <p class="description">{{ $certificate->getDescription() }}</p>
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Single Certificate -->
-                            @endforeach
                         </div>
-                        
-                        <!-- Navigation -->
-                        <button class="slider-nav prev-btn" id="prevBtn">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                        <button class="slider-nav next-btn" id="nextBtn">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                        
-                        <!-- Dots -->
-                        <div class="slider-dots">
-                            @foreach($certificates as $index => $certificate)
-                            <button class="dot {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}"></button>
-                            @endforeach
-                        </div>
+                        <!-- End Single Certificate -->
+                        @endforeach
                     </div>
+
+                    <!-- Navigation -->
+                    <button class="slider-nav prev-btn" id="prevBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button class="slider-nav next-btn" id="nextBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+
+                    <!-- Dots -->
+                    <div class="slider-dots">
+                        @foreach($certificates as $index => $certificate)
+                        <button class="dot {{ $index === 0 ? 'active' : '' }}" data-slide="{{ $index }}"></button>
+                        @endforeach
+                    </div>
+                </div>
                 @else
-                    <div class="text-center mt--50">
-                        <p class="text-muted">{{__("No certificates available at the moment.")}}</p>
-                    </div>
+                <div class="text-center mt--50">
+                    <p class="text-muted">{{__("No certificates available at the moment.")}}</p>
+                </div>
                 @endif
             </div>
         </div>
@@ -391,7 +391,7 @@
             <h3 class="modal-title"></h3>
             <button style="width: 60px; height: 60px; cursor: pointer;" class="modal-close" id="closeModal">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </button>
         </div>
@@ -407,7 +407,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title text-center">
-                    <span class="subtitle">{{__("my projects")}}</span>
+                    <span class="subtitle">{{__("my projects title")}}</span>
                     <h2 class="title">{{__("my projects")}}</h2>
                 </div>
             </div>
@@ -419,19 +419,19 @@
                 <div class="rn-service">
                     <div class="inner">
                         <div class="">
-                            <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}" 
-                                 alt="{{ $portfolio->getTitle() }}">
+                            <img src="{{ $portfolio->getImageUrl() ?: 'assets/images/portfolio/portfolio-01.jpg' }}"
+                                alt="{{ $portfolio->getTitle() }}">
                         </div>
                         <div class="content">
                             <h4 class="title">
                                 <a href="{{ $portfolio->project_link ?? '#' }}" target="_blank">{{ $portfolio->getTitle() }}</a>
                             </h4>
                             @if($portfolio->company_name)
-                                <p class="company">
-                                    <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
-                                        {{ $portfolio->company_name }}
-                                    </a>
-                                </p>
+                            <p class="company">
+                                <a href="{{ $portfolio->company_website ?? '#' }}" target="_blank">
+                                    {{ $portfolio->company_name }}
+                                </a>
+                            </p>
                             @endif
                         </div>
                     </div>
@@ -452,9 +452,9 @@
                 <div class="section-title text-center">
                     <span class="subtitle">{{__("Pricing")}}</span>
                     <h2 class="title">{{__("My Pricing Plans")}}</h2>
-                    </div>
                 </div>
             </div>
+        </div>
 
         <div class="row mt--50 pricing-area" data-cards="{{ $pricingPlans->count() }}">
             @foreach($pricingPlans as $index => $plan)
@@ -464,9 +464,9 @@
                         <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
                         <div class="pricing-price">
                             {!! $plan->getTranslation('price', app()->getLocale()) !!}
-                                    </div>
-                        <h3 class="pricing-title">{{ $plan->getTranslation('title', app()->getLocale()) }}</h3>
                         </div>
+                        <h3 class="pricing-title">{{ $plan->getTranslation('title', app()->getLocale()) }}</h3>
+                    </div>
 
                     <div class="pricing-card-body">
                         <ul class="pricing-features">
@@ -474,20 +474,20 @@
                             <li><i data-feather="check"></i> {{ $feature->getTranslation('title', app()->getLocale()) }}</li>
                             @endforeach
                         </ul>
-                        </div>
+                    </div>
 
                     <div class="pricing-card-footer">
                         <a href="#contact" class="rn-btn d-block">
                             <span>{{__("Get Started")}}</span>
-                                        <i data-feather="arrow-right"></i>
-                                    </a>
-                                        </div>
-                                        </div>
-                                    </div>
+                            <i data-feather="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
             @endforeach
-                                </div>
-                            </div>
-                        </div>
+        </div>
+    </div>
+</div>
 <!-- End Pricing Area -->
 
 <!-- Start News Area -->
@@ -495,55 +495,55 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-            <div style="width: 100%;" class="section-title d-flex justify-content-between align-items-center flex-wrap">
-    <div class="title-column">
-        <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
-        <h2 class="title">{{__("My Blog")}}</h2>
-    </div>
-    <div class="view-all-btn ms-auto">
-        <a href="{{ localized_route('blogs.index') }}" class="rn-btn">
-            <span>{{__("View All")}}</span>
-            <i data-feather="arrow-right"></i>
-        </a>
-    </div>
-</div>
+                <div style="width: 100%;" class="section-title d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="title-column">
+                        <span class="subtitle">{{__("Visit my blog and keep your feedback")}}</span>
+                        <h2 class="title">{{__("My Blog")}}</h2>
+                    </div>
+                    <div class="view-all-btn ms-auto">
+                        <a href="{{ localized_route('blogs.index') }}" class="rn-btn">
+                            <span>{{__("View All")}}</span>
+                            <i data-feather="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
 
-        </div>
-        <div class="row row--25 mt--30 mt_md--10 mt_sm--10" style="align-items: stretch;">
+            </div>
+            <div class="row row--25 mt--30 mt_md--10 mt_sm--10" style="align-items: stretch;">
 
-            @foreach($blogs as $index => $blog)
-            <!-- Start Single blog -->
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true" class="col-lg-6 col-xl-4 mt--30 col-md-6 col-sm-12 col-12 mt--30" style="display: flex;">
-                <div class="rn-blog">
-                    <div class="inner">
-                        <div class="thumbnail">
-                            <a href="{{ localized_route('blog.show', [$blog->id, $blog->getSlug()]) }}">
-                                <img src="{{ $blog->getCardImageUrl() ?: 'assets/images/blog/blog-01.jpg' }}" alt="{{ $blog->getCardImageAltText() }}">
-                            </a>
-                        </div>
-                        <div class="content">
-                            <h4 class="title">
+                @foreach($blogs as $index => $blog)
+                <!-- Start Single blog -->
+                <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="{{ 100 + ($index * 50) }}" data-aos-once="true" class="col-lg-6 col-xl-4 mt--30 col-md-6 col-sm-12 col-12 mt--30" style="display: flex;">
+                    <div class="rn-blog">
+                        <div class="inner">
+                            <div class="thumbnail">
                                 <a href="{{ localized_route('blog.show', [$blog->id, $blog->getSlug()]) }}">
-                                    {{ Str::limit($blog->getTitle(), 60) }}
-                                    <i class="feather-arrow-up-right"></i>
+                                    <img src="{{ $blog->getCardImageUrl() ?: 'assets/images/blog/blog-01.jpg' }}" alt="{{ $blog->getCardImageAltText() }}">
                                 </a>
-                            </h4>
-                            <div class="meta">
-                                <span><i class="feather-clock"></i> {{ $blog->getFormattedPublishedDate() }}</span>
+                            </div>
+                            <div class="content">
+                                <h4 class="title">
+                                    <a href="{{ localized_route('blog.show', [$blog->id, $blog->getSlug()]) }}">
+                                        {{ Str::limit($blog->getTitle(), 60) }}
+                                        <i class="feather-arrow-up-right"></i>
+                                    </a>
+                                </h4>
+                                <div class="meta">
+                                    <span><i class="feather-clock"></i> {{ $blog->getFormattedPublishedDate() }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- End Single blog -->
+                @endforeach
+
             </div>
-            <!-- End Single blog -->
-            @endforeach
+        </div>
+    </div> <!-- End News Area -->
 
-                        </div>
-                                </div>
-</div> <!-- End News Area -->
-
-<!-- Start Contact section -->
-@include('front.partials.contact-section')
+    <!-- Start Contact section -->
+    @include('front.partials.contact-section')
 </div> <!-- End Contuct section -->
 
 <!-- Modal Portfolio Body area Start -->
@@ -1361,399 +1361,403 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('assets/css/contact-form.css') }}">
 <style>
-/* Portfolio Service Card Styles */
-.form-group {
-    width: 100% !important;
-}
-.rn-service {
-    background: linear-gradient(135deg, var(--background-color-1) 0%, var(--background-color-2) 100%);
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: var(--shadow-1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.rn-service:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-}
-
-.rn-service img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    transition: transform 0.3s ease;
-}
-
-.rn-service:hover img {
-    transform: scale(1.05);
-}
-
-.rn-service .content {
-    text-align: center;
-}
-
-.rn-service .title {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--color-heading);
-    margin-bottom: 10px;
-}
-
-.rn-service .title a {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.rn-service .title a:hover {
-    color: var(--color-primary);
-}
-
-.rn-service .company {
-    font-size: 13px;
-    color: var(--color-body);
-    margin: 0;
-    font-weight: 400;
-}
-
-.rn-service .company a {
-    color: var(--color-body);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.rn-service .company a:hover {
-    color: var(--color-primary);
-}
-
-/* Responsive */
-@media only screen and (max-width: 767px) {
-    .rn-service {
-        padding: 20px;
+    /* Portfolio Service Card Styles */
+    .form-group {
+        width: 100% !important;
     }
-}
 
-@media only screen and (max-width: 575px) {
     .rn-service {
-        padding: 15px;
+        background: linear-gradient(135deg, var(--background-color-1) 0%, var(--background-color-2) 100%);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: var(--shadow-1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
     }
-}
-</style>
-<style>
-/* Blog Section Title Styles */
-.section-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
 
-.section-title .title-column {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-    text-align: left;
-    flex: 1;
-}
-.title-column {
-    flex-grow: 1;
-}
-.section-title .subtitle {
-    font-size: 16px;
-    color: var(--color-body);
-    font-weight: 400;
-    margin: 0;
-}
+    .rn-service:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
 
-.section-title .title {
-    font-size: 48px;
-    font-weight: 700;
-    color: var(--color-heading);
-    margin: 0;
-}
+    .rn-service img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        transition: transform 0.3s ease;
+    }
 
-.view-all-btn {
-    margin-left: auto;
-    margin-top: 10px;
-}
+    .rn-service:hover img {
+        transform: scale(1.05);
+    }
 
-
-.view-all-btn .rn-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--color-primary);
-    padding: 12px 24px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-}
-
-.view-all-btn .rn-btn:hover {
-    background: var(--color-primary);
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.3);
-}
-
-.view-all-btn .rn-btn i {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.3s ease;
-}
-
-.view-all-btn .rn-btn:hover i {
-    transform: translateX(3px);
-}
-
-/* Responsive */
-@media only screen and (max-width: 767px) {
-    .section-title {
-        flex-direction: column;
-        align-items: center;
+    .rn-service .content {
         text-align: center;
     }
-    .section-title .title-column {
+
+    .rn-service .title {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--color-heading);
+        margin-bottom: 10px;
+    }
+
+    .rn-service .title a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .rn-service .title a:hover {
+        color: var(--color-primary);
+    }
+
+    .rn-service .company {
+        font-size: 13px;
+        color: var(--color-body);
+        margin: 0;
+        font-weight: 400;
+    }
+
+    .rn-service .company a {
+        color: var(--color-body);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .rn-service .company a:hover {
+        color: var(--color-primary);
+    }
+
+    /* Responsive */
+    @media only screen and (max-width: 767px) {
+        .rn-service {
+            padding: 20px;
+        }
+    }
+
+    @media only screen and (max-width: 575px) {
+        .rn-service {
+            padding: 15px;
+        }
+    }
+</style>
+<style>
+    /* Blog Section Title Styles */
+    .section-title {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
-        flex: none;
+        flex-wrap: wrap;
     }
-    
+
+    .section-title .title-column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        text-align: left;
+        flex: 1;
+    }
+
+    .title-column {
+        flex-grow: 1;
+    }
+
+    .section-title .subtitle {
+        font-size: 16px;
+        color: var(--color-body);
+        font-weight: 400;
+        margin: 0;
+    }
+
     .section-title .title {
-        font-size: 36px;
+        font-size: 48px;
+        font-weight: 700;
+        color: var(--color-heading);
+        margin: 0;
     }
-    
+
     .view-all-btn {
-        margin-left: 0;
-        margin-top: 20px;
+        margin-left: auto;
+        margin-top: 10px;
     }
-  
-}
 
-@media only screen and (max-width: 575px) {
-    .section-title .title {
-        font-size: 28px;
+
+    .view-all-btn .rn-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--color-primary);
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
     }
-}
 
-/* Custom styling for form validation */
-.is-invalid {
-    border-color: #dc3545 !important;
-    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
-}
+    .view-all-btn .rn-btn:hover {
+        background: var(--color-primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.3);
+    }
 
-.invalid-feedback {
-    display: block;
-    width: 100%;
-    margin-top: 0.25rem;
-    font-size: 0.875em;
-    color: #dc3545;
-}
+    .view-all-btn .rn-btn i {
+        width: 16px;
+        height: 16px;
+        transition: transform 0.3s ease;
+    }
 
-/* Loading spinner for button */
-.fa-spinner {
-    margin-right: 5px;
-}
+    .view-all-btn .rn-btn:hover i {
+        transform: translateX(3px);
+    }
 
-/* Portfolio Card Styles */
-.portfolio-card {
-    background: linear-gradient(135deg, #212428 0%, #1d1f23 100%);
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border: 4px solid #ff014f;
-    transition: all 0.4s ease;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    margin: 10px;
-    outline: 2px solid rgba(255, 1, 79, 0.3);
-    outline-offset: 3px;
-}
+    /* Responsive */
+    @media only screen and (max-width: 767px) {
+        .section-title {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
-.portfolio-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, transparent, rgba(255, 1, 79, 0.1), transparent);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
+        .section-title .title-column {
+            align-items: center;
+            flex: none;
+        }
 
-.portfolio-card:hover::before {
-    opacity: 1;
-}
+        .section-title .title {
+            font-size: 36px;
+        }
 
-.portfolio-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    border-color: #ff014f;
-    border-width: 5px;
-    outline-color: rgba(255, 1, 79, 0.6);
-    outline-width: 3px;
-}
+        .view-all-btn {
+            margin-left: 0;
+            margin-top: 20px;
+        }
 
-.portfolio-card .thumbnail {
-    position: relative;
-    overflow: hidden;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
+    }
 
-.portfolio-card .thumbnail img {
-    transition: transform 0.4s ease;
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
+    @media only screen and (max-width: 575px) {
+        .section-title .title {
+            font-size: 28px;
+        }
+    }
 
-.portfolio-card:hover .thumbnail img {
-    transform: scale(1.1);
-}
+    /* Custom styling for form validation */
+    .is-invalid {
+        border-color: #dc3545 !important;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+    }
 
-.portfolio-card .content {
-    padding: 0;
-    position: relative;
-    z-index: 2;
-}
+    .invalid-feedback {
+        display: block;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 0.875em;
+        color: #dc3545;
+    }
 
-.portfolio-card .portfolio-info {
-    text-align: center;
-}
+    /* Loading spinner for button */
+    .fa-spinner {
+        margin-right: 5px;
+    }
 
-.portfolio-card .title {
-    font-size: 14px;
-    font-weight: 500;
-    color: #ffffff;
-    margin-bottom: 6px;
-    line-height: 1.2;
-}
+    /* Portfolio Card Styles */
+    .portfolio-card {
+        background: linear-gradient(135deg, #212428 0%, #1d1f23 100%);
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        border: 4px solid #ff014f;
+        transition: all 0.4s ease;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        margin: 10px;
+        outline: 2px solid rgba(255, 1, 79, 0.3);
+        outline-offset: 3px;
+    }
 
-.portfolio-card .title a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
+    .portfolio-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, transparent, rgba(255, 1, 79, 0.1), transparent);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
 
-.portfolio-card .title a:hover {
-    color: var(--color-primary);
-}
+    .portfolio-card:hover::before {
+        opacity: 1;
+    }
 
-.portfolio-card .company {
-    font-size: 13px;
-    color: #c4cfde;
-    margin: 0;
-    font-weight: 400;
-}
+    .portfolio-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        border-color: #ff014f;
+        border-width: 5px;
+        outline-color: rgba(255, 1, 79, 0.6);
+        outline-width: 3px;
+    }
 
-.portfolio-card .company a {
-    color: #c4cfde;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
+    .portfolio-card .thumbnail {
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
 
-.portfolio-card .company a:hover {
-    color: var(--color-primary);
-}
+    .portfolio-card .thumbnail img {
+        transition: transform 0.4s ease;
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
 
-/* Additional Card Styling */
-.portfolio-card {
-    box-shadow: 
-        0 10px 30px rgba(0, 0, 0, 0.3),
-        0 0 0 4px #ff014f,
-        0 0 0 8px rgba(255, 1, 79, 0.2);
-}
+    .portfolio-card:hover .thumbnail img {
+        transform: scale(1.1);
+    }
 
-.portfolio-card:hover {
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        0 0 0 6px #ff014f,
-        0 0 0 12px rgba(255, 1, 79, 0.3);
-}
+    .portfolio-card .content {
+        padding: 0;
+        position: relative;
+        z-index: 2;
+    }
 
-/* Ensure cards are properly spaced */
-.col-lg-4.col-md-6.col-12.mt--30 {
-    margin-bottom: 30px;
-}
+    .portfolio-card .portfolio-info {
+        text-align: center;
+    }
 
-/* Card background with pattern */
-.portfolio-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        linear-gradient(45deg, transparent 30%, rgba(255, 1, 79, 0.05) 50%, transparent 70%);
-    pointer-events: none;
-    border-radius: 20px;
-}
+    .portfolio-card .title {
+        font-size: 14px;
+        font-weight: 500;
+        color: #ffffff;
+        margin-bottom: 6px;
+        line-height: 1.2;
+    }
 
-/* SweetAlert customization */
-.swal2-popup {
-    border-radius: 15px;
-}
+    .portfolio-card .title a {
+        color: #ffffff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
 
-.swal2-title {
-    color: #333;
-}
+    .portfolio-card .title a:hover {
+        color: var(--color-primary);
+    }
 
-.swal2-confirm {
-    border-radius: 8px !important;
-    padding: 12px 30px !important;
-    font-weight: 600 !important;
-}
+    .portfolio-card .company {
+        font-size: 13px;
+        color: #c4cfde;
+        margin: 0;
+        font-weight: 400;
+    }
 
-/* Contact form styles are now in external CSS file */
+    .portfolio-card .company a {
+        color: #c4cfde;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
 
-/* View All Button Styles */
-.view-all-btn .rn-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 30px;
-    background: linear-gradient(45deg, #ff014f, #ff6b9d);
-    color: white;
-    text-decoration: none;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
-}
+    .portfolio-card .company a:hover {
+        color: var(--color-primary);
+    }
 
-.view-all-btn .rn-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(255, 1, 79, 0.4);
-    color: white;
-    border-radius: 25px;
-}
+    /* Additional Card Styling */
+    .portfolio-card {
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.3),
+            0 0 0 4px #ff014f,
+            0 0 0 8px rgba(255, 1, 79, 0.2);
+    }
 
-.view-all-btn .rn-btn i {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.3s ease;
-}
+    .portfolio-card:hover {
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.4),
+            0 0 0 6px #ff014f,
+            0 0 0 12px rgba(255, 1, 79, 0.3);
+    }
 
-.view-all-btn .rn-btn:hover i {
-    transform: translateX(3px);
-}
+    /* Ensure cards are properly spaced */
+    .col-lg-4.col-md-6.col-12.mt--30 {
+        margin-bottom: 30px;
+    }
+
+    /* Card background with pattern */
+    .portfolio-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+            linear-gradient(45deg, transparent 30%, rgba(255, 1, 79, 0.05) 50%, transparent 70%);
+        pointer-events: none;
+        border-radius: 20px;
+    }
+
+    /* SweetAlert customization */
+    .swal2-popup {
+        border-radius: 15px;
+    }
+
+    .swal2-title {
+        color: #333;
+    }
+
+    .swal2-confirm {
+        border-radius: 8px !important;
+        padding: 12px 30px !important;
+        font-weight: 600 !important;
+    }
+
+    /* Contact form styles are now in external CSS file */
+
+    /* View All Button Styles */
+    .view-all-btn .rn-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 30px;
+        background: linear-gradient(45deg, #ff014f, #ff6b9d);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
+    }
+
+    .view-all-btn .rn-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(255, 1, 79, 0.4);
+        color: white;
+        border-radius: 25px;
+    }
+
+    .view-all-btn .rn-btn i {
+        width: 16px;
+        height: 16px;
+        transition: transform 0.3s ease;
+    }
+
+    .view-all-btn .rn-btn:hover i {
+        transform: translateX(3px);
+    }
 </style>
 @endpush
