@@ -127,7 +127,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="section-title text-center">
+                <div style="flex-direction: column; justify-content:flex-start" class="section-title text-center">
                     <span class="subtitle">{{__("7+ Years of Experience")}}</span>
                     <h2 class="title">{{__("My Resume")}}</h2>
                 </div>
