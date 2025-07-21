@@ -41,7 +41,7 @@
                         <span class="mail">{{__("Email")}}: <a href="mailto:{{ $email ?: 'admin@example.com' }}">{{ $email ?: 'admin@example.com' }}</a></span>
                     </div>
                     <div class="social-area">
-                        <div class="name">{{__("FIND WITH ME")}}</div>
+                        <div class="name">{{__("find with me")}}</div>
                         <div class="social-icone">
                             <a href="#"><i data-feather="facebook"></i></a>
                             <a href="#"><i data-feather="linkedin"></i></a>
