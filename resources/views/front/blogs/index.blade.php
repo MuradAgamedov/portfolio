@@ -646,6 +646,7 @@
     }
 }
 </style>
+@endsection
 
 @section('scripts')
 <script>

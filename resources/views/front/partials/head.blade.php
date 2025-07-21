@@ -41,7 +41,6 @@
 <link rel="stylesheet" href="{{ asset('assets/css/blog-cards.css') }}">
 
 @yield('styles')
-@stack('styles')
     
     <style>
     /* Header BUY NOW Button Styles */
