@@ -100,7 +100,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="message">{{__('Message')}} *</label>
+                            <label for="message">{{__('Your Message')}} *</label>
                             <textarea id="message" name="message" class="form-control" rows="6" placeholder="{{__('Describe your project requirements...')}}" required></textarea>
                         </div>
                         
