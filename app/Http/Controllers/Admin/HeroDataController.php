@@ -24,7 +24,7 @@ class HeroDataController extends Controller
     {
         $heroData = HeroData::first();
         $languages = Language::where('status', true)->orderBy('order')->get();
-        
+
         if (!$heroData) {
             $heroData = HeroData::create([
                 'title' => ['az' => 'Başlıq', 'en' => 'Title', 'ru' => 'Заголовок'],
@@ -51,7 +51,7 @@ class HeroDataController extends Controller
             'label' => 'required|array',
             'text' => 'required|array',
             'image_alt' => 'required|array',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048'
         ];
 
         foreach ($languages as $language) {
