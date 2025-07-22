@@ -27,6 +27,7 @@ trait CacheTrait
             'pricing_plans',
             'services_page'
         ];
+
         
 
         foreach ($cacheKeys as $key) {
