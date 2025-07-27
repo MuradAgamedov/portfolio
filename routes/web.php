@@ -159,7 +159,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::patch('pricing-plans/{pricingPlan}/toggle-status', [PricingPlanController::class, 'toggleStatus'])->name('pricing-plans.toggle-status');
     
     // Pricing Plan Features Routes
-    Route::resource('pricing-plans.features', PricingPlanFeatureController::class)->shallow();
+    Route::get('pricing-plans/{pricingPlan}/features', [PricingPlanFeatureController::class, 'index'])->name('pricing-plans.features.index');
+    Route::get('pricing-plans/{pricingPlan}/features/create', [PricingPlanFeatureController::class, 'create'])->name('pricing-plans.features.create');
+    Route::post('pricing-plans/{pricingPlan}/features', [PricingPlanFeatureController::class, 'store'])->name('pricing-plans.features.store');
+    Route::get('pricing-plans/{pricingPlan}/features/{feature}', [PricingPlanFeatureController::class, 'show'])->name('pricing-plans.features.show');
+    Route::get('pricing-plans/{pricingPlan}/features/{feature}/edit', [PricingPlanFeatureController::class, 'edit'])->name('pricing-plans.features.edit');
+    Route::put('pricing-plans/{pricingPlan}/features/{feature}', [PricingPlanFeatureController::class, 'update'])->name('pricing-plans.features.update');
+    Route::delete('pricing-plans/{pricingPlan}/features/{feature}', [PricingPlanFeatureController::class, 'destroy'])->name('pricing-plans.features.destroy');
     Route::post('pricing-plans/{pricingPlan}/features/reorder', [PricingPlanFeatureController::class, 'updateOrder'])->name('pricing-plans.features.reorder');
     Route::patch('pricing-plans/{pricingPlan}/features/{feature}/toggle-status', [PricingPlanFeatureController::class, 'toggleStatus'])->name('pricing-plans.features.toggle-status');
     
