@@ -132,17 +132,17 @@
                         @endif
 
                         {{-- Pagination Elements --}}
-                        @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
+                        @for ($page = 1; $page <= $blogs->lastPage(); $page++)
                             @if ($page == $blogs->currentPage())
                                 <li class="page-item active">
                                     <span class="page-link">{{ $page }}</span>
                                 </li>
                             @else
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                    <a class="page-link" href="{{ $blogs->url($page) }}">{{ $page }}</a>
                                 </li>
                             @endif
-                        @endforeach
+                        @endfor
 
                         {{-- Next Page Link --}}
                         @if ($blogs->hasMorePages())
