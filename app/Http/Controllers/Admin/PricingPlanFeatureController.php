@@ -28,7 +28,6 @@ class PricingPlanFeatureController extends Controller
         $request->validate([
             'title_en' => 'required|string|max:255',
             'title_az' => 'required|string|max:255',
-            'status' => 'boolean'
         ]);
 
         $feature = new PricingPlanFeature();
@@ -63,7 +62,6 @@ class PricingPlanFeatureController extends Controller
         $request->validate([
             'title_en' => 'required|string|max:255',
             'title_az' => 'required|string|max:255',
-            'status' => 'boolean'
         ]);
 
         // Update translatable fields
