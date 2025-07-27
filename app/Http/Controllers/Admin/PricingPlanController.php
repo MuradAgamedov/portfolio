@@ -29,18 +29,17 @@ class PricingPlanController extends Controller
             'title_az' => 'required|string|max:255',
             'price_en' => 'required|string|max:50',
             'price_az' => 'required|string|max:50',
-            'status' => 'boolean'
         ]);
 
         $pricingPlan = new PricingPlan();
-        
+
         // Set translatable fields
         $languages = Language::orderBy('order')->get();
         foreach ($languages as $language) {
             $pricingPlan->setTranslation('title', $language->lang_code, $request->{"title_{$language->lang_code}"} ?? '');
             $pricingPlan->setTranslation('price', $language->lang_code, $request->{"price_{$language->lang_code}"} ?? '');
         }
-        
+
         $pricingPlan->status = $request->has('status');
         $pricingPlan->order = PricingPlan::max('order') + 1;
         $pricingPlan->save();
@@ -66,7 +65,6 @@ class PricingPlanController extends Controller
             'title_az' => 'required|string|max:255',
             'price_en' => 'required|string|max:50',
             'price_az' => 'required|string|max:50',
-            'status' => 'boolean'
         ]);
 
         // Update translatable fields
@@ -75,7 +73,7 @@ class PricingPlanController extends Controller
             $pricingPlan->setTranslation('title', $language->lang_code, $request->{"title_{$language->lang_code}"} ?? '');
             $pricingPlan->setTranslation('price', $language->lang_code, $request->{"price_{$language->lang_code}"} ?? '');
         }
-        
+
         $pricingPlan->status = $request->has('status');
         $pricingPlan->save();
 
@@ -106,7 +104,7 @@ class PricingPlanController extends Controller
     {
         $pricingPlan->status = !$pricingPlan->status;
         $pricingPlan->save();
-        
+
         return response()->json([
             'success' => true,
             'status' => $pricingPlan->status
