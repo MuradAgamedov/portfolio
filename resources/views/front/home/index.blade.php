@@ -456,40 +456,39 @@ $seoSettings = \App\Models\SeoSite::first();
             </div>
         </div>
 
-        {!!
-
+        {{!!
         <div class="row mt--50 pricing-area" data-cards="{{ $pricingPlans->count() }}">
-            @foreach($pricingPlans as $index => $plan)
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="pricing-card {{ $index == 1 ? 'featured' : '' }}">
-                    <div class="pricing-card-header">
-                        <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
-                        <div class="pricing-price">
-                            {!! $plan->getTranslation('price', app()->getLocale()) !!}
-                        </div>
-                        <h3 class="pricing-title">{{ $plan->getTranslation('title', app()->getLocale()) }}</h3>
+        @foreach($pricingPlans as $index => $plan)
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="pricing-card {{ $index == 1 ? 'featured' : '' }}">
+                <div class="pricing-card-header">
+                    <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
+                    <div class="pricing-price">
+                        {!! $plan->getTranslation('price', app()->getLocale()) !!}
                     </div>
+                    <h3 class="pricing-title">{{ $plan->getTranslation('title', app()->getLocale()) }}</h3>
+                </div>
 
-                    <div class="pricing-card-body">
-                        <ul class="pricing-features">
-                            @foreach($plan->activeFeatures as $feature)
-                            <li><i data-feather="check"></i> {{ $feature->getTranslation('title', app()->getLocale()) }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                <div class="pricing-card-body">
+                    <ul class="pricing-features">
+                        @foreach($plan->activeFeatures as $feature)
+                        <li><i data-feather="check"></i> {{ $feature->getTranslation('title', app()->getLocale()) }}</li>
+                        @endforeach
+                    </ul>
+                </div>
 
-                    <div class="pricing-card-footer">
-                        <a href="#contact" class="rn-btn d-block">
-                            <span>{{__("Get Started")}}</span>
-                            <i data-feather="arrow-right"></i>
-                        </a>
-                    </div>
+                <div class="pricing-card-footer">
+                    <a href="#contact" class="rn-btn d-block">
+                        <span>{{__("Get Started")}}</span>
+                        <i data-feather="arrow-right"></i>
+                    </a>
                 </div>
             </div>
-            @endforeach
         </div>
-        !!}
+        @endforeach
     </div>
+    !!}}
+</div>
 </div>
 <!-- End Pricing Area -->
 
