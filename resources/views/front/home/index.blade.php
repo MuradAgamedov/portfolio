@@ -456,6 +456,8 @@ $seoSettings = \App\Models\SeoSite::first();
             </div>
         </div>
 
+        {!!
+
         <div class="row mt--50 pricing-area" data-cards="{{ $pricingPlans->count() }}">
             @foreach($pricingPlans as $index => $plan)
             <div class="col-lg-4 col-md-6 col-sm-12">
@@ -486,6 +488,7 @@ $seoSettings = \App\Models\SeoSite::first();
             </div>
             @endforeach
         </div>
+        !!}
     </div>
 </div>
 <!-- End Pricing Area -->
