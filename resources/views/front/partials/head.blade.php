@@ -194,14 +194,14 @@
         height: 100%;
     }
     
-    /* Custom typing animation styles */
-    .cd-words-wrapper {
+    /* Simple typing animation styles */
+    #typingText {
         position: relative;
         display: inline-block;
         min-width: 200px;
     }
     
-    .cd-words-wrapper b {
+    .typing-word {
         position: absolute;
         left: 0;
         top: 0;
@@ -212,20 +212,14 @@
         white-space: nowrap;
     }
     
-    .cd-words-wrapper b.is-visible {
+    .typing-word.active {
         position: relative;
         opacity: 1;
         visibility: visible;
     }
     
-    .cd-words-wrapper b.is-hidden {
-        position: absolute;
-        opacity: 0;
-        visibility: hidden;
-    }
-    
     /* Typing cursor effect */
-    .cd-words-wrapper::after {
+    #typingText::after {
         content: '';
         position: absolute;
         right: -5px;

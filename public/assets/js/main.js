@@ -469,7 +469,7 @@
                 return;
             }
             
-            const words = typingContainer.querySelectorAll('b');
+            const words = typingContainer.querySelectorAll('.typing-word');
             if (words.length === 0) {
                 console.log('No typing animation words found');
                 return;
@@ -483,8 +483,7 @@
             function switchWord() {
                 // Hide current word
                 if (words[currentIndex]) {
-                    words[currentIndex].classList.remove('is-visible');
-                    words[currentIndex].classList.add('is-hidden');
+                    words[currentIndex].classList.remove('active');
                     console.log('Hidden:', words[currentIndex].textContent);
                 }
                 
@@ -493,8 +492,7 @@
                 
                 // Show next word
                 if (words[currentIndex]) {
-                    words[currentIndex].classList.remove('is-hidden');
-                    words[currentIndex].classList.add('is-visible');
+                    words[currentIndex].classList.add('active');
                     console.log('Shown:', words[currentIndex].textContent);
                 }
             }
@@ -512,15 +510,13 @@
                 
                 // Hide all words first
                 words.forEach(function(word, index) {
-                    word.classList.remove('is-visible', 'is-hidden');
-                    word.classList.add('is-hidden');
+                    word.classList.remove('active');
                     console.log('Initial state - word', index, ':', word.textContent);
                 });
                 
                 // Show first word
                 if (words[0]) {
-                    words[0].classList.remove('is-hidden');
-                    words[0].classList.add('is-visible');
+                    words[0].classList.add('active');
                     console.log('First word shown:', words[0].textContent);
                 }
                 
