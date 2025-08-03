@@ -198,33 +198,30 @@
     .cd-words-wrapper {
         position: relative;
         display: inline-block;
-        min-width: 200px; /* Minimum genişlik */
+        min-width: 200px;
     }
     
     .cd-words-wrapper b {
-        display: inline-block;
         position: absolute;
-        white-space: nowrap;
         left: 0;
         top: 0;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
-        color: #ff014f; /* Rəng əlavə edildi */
+        transition: all 0.5s ease;
+        color: #ff014f;
+        white-space: nowrap;
     }
     
     .cd-words-wrapper b.is-visible {
-        position: relative !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        z-index: 10 !important;
+        position: relative;
+        opacity: 1;
+        visibility: visible;
     }
     
     .cd-words-wrapper b.is-hidden {
-        position: absolute !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-        z-index: 1 !important;
+        position: absolute;
+        opacity: 0;
+        visibility: hidden;
     }
     
     /* Typing cursor effect */

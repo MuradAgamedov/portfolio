@@ -281,9 +281,9 @@ $seoSettings = \App\Models\SeoSite::first();
                                     <span class="cd-headline clip is-full-width">
                                         <span>a </span>
                                         <!-- ROTATING TEXT -->
-                                        <span class="cd-words-wrapper">
+                                        <span class="cd-words-wrapper" id="typingText">
                                             @foreach($heroProfessions as $index => $heroProfession)
-                                            <b class="{{ $index === 0 ? 'is-visible' : 'is-hidden' }}">{{ $heroProfession->title }}</b>
+                                            <b class="{{ $index === 0 ? 'is-visible' : 'is-hidden' }}" data-text="{{ $heroProfession->title }}">{{ $heroProfession->title }}</b>
                                             @endforeach
                                         </span>
                                     </span>

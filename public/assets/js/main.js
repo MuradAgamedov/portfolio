@@ -463,7 +463,13 @@
         },
 
         customTypingAnimation: function () {
-            const words = document.querySelectorAll('.cd-words-wrapper b');
+            const typingContainer = document.getElementById('typingText');
+            if (!typingContainer) {
+                console.log('Typing container not found');
+                return;
+            }
+            
+            const words = typingContainer.querySelectorAll('b');
             if (words.length === 0) {
                 console.log('No typing animation words found');
                 return;
@@ -474,14 +480,12 @@
             let currentIndex = 0;
             let animationInterval;
             
-            function showNextWord() {
-                console.log('Showing next word, current index:', currentIndex, 'word:', words[currentIndex]?.textContent);
-                
+            function switchWord() {
                 // Hide current word
                 if (words[currentIndex]) {
                     words[currentIndex].classList.remove('is-visible');
                     words[currentIndex].classList.add('is-hidden');
-                    console.log('Hidden word:', words[currentIndex].textContent);
+                    console.log('Hidden:', words[currentIndex].textContent);
                 }
                 
                 // Move to next word
@@ -491,7 +495,7 @@
                 if (words[currentIndex]) {
                     words[currentIndex].classList.remove('is-hidden');
                     words[currentIndex].classList.add('is-visible');
-                    console.log('Shown word:', words[currentIndex].textContent);
+                    console.log('Shown:', words[currentIndex].textContent);
                 }
             }
             
@@ -510,21 +514,21 @@
                 words.forEach(function(word, index) {
                     word.classList.remove('is-visible', 'is-hidden');
                     word.classList.add('is-hidden');
-                    console.log('Initial state - word', index, ':', word.textContent, 'classes:', word.className);
+                    console.log('Initial state - word', index, ':', word.textContent);
                 });
                 
                 // Show first word
                 if (words[0]) {
                     words[0].classList.remove('is-hidden');
                     words[0].classList.add('is-visible');
-                    console.log('First word shown:', words[0].textContent, 'classes:', words[0].className);
+                    console.log('First word shown:', words[0].textContent);
                 }
                 
                 // Start the animation after a delay
                 setTimeout(function() {
-                    showNextWord();
-                    animationInterval = setInterval(showNextWord, 3000); // 3 seconds interval
-                }, 2000); // 2 seconds initial delay
+                    switchWord();
+                    animationInterval = setInterval(switchWord, 3000);
+                }, 2000);
             }
             
             // Start animation immediately if DOM is ready
