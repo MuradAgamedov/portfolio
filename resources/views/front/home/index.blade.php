@@ -27,6 +27,35 @@ $seoSettings = \App\Models\SeoSite::first();
 @endsection
 
 @section('content')
+<style>
+.pricing-card-hover {
+    transition: all 0.3s ease;
+    transform: scale(1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.pricing-card-hover:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border: 2px solid var(--color-primary);
+    background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.05) 0%, rgba(var(--color-primary-rgb), 0.1) 100%);
+}
+
+.pricing-card-hover:hover .pricing-badge {
+    background: var(--color-primary);
+    color: white;
+}
+
+.pricing-card-hover:hover .pricing-title {
+    color: var(--color-primary);
+}
+
+.pricing-card-hover:hover .rn-btn {
+    background: var(--color-primary);
+    color: white;
+}
+</style>
+
 <!-- SEO Display Section -->
 @php
 $seoSettings = \App\Models\SeoSite::first();
@@ -459,7 +488,7 @@ $seoSettings = \App\Models\SeoSite::first();
         <div class="row mt--50 pricing-area" data-cards="{{ $pricingPlans->count() }}">
         @foreach($pricingPlans as $index => $plan)
         <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="pricing-card {{ $index == 1 ? 'featured' : '' }}">
+            <div class="pricing-card {{ $index == 1 ? 'pricing-card-hover' : '' }}">
                 <div class="pricing-card-header">
                     <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
                     <div class="pricing-price">
