@@ -54,6 +54,65 @@ $seoSettings = \App\Models\SeoSite::first();
     background: var(--color-primary);
     color: white;
 }
+
+/* Pricing Features Styling */
+.pricing-features {
+    padding: 0;
+    margin: 0;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.feature-item:last-child {
+    border-bottom: none;
+}
+
+.feature-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    padding-left: 10px;
+    border-radius: 8px;
+}
+
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.feature-icon i {
+    width: 14px;
+    height: 14px;
+    color: white;
+    stroke-width: 3;
+}
+
+.feature-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    line-height: 1.4;
+    flex: 1;
+}
+
+.pricing-card-hover:hover .feature-icon {
+    background: var(--color-primary);
+    transform: scale(1.1);
+}
+
+.pricing-card-hover:hover .feature-text {
+    color: rgba(255, 255, 255, 0.9);
+}
 </style>
 
 <!-- SEO Display Section -->
@@ -498,11 +557,16 @@ $seoSettings = \App\Models\SeoSite::first();
                 </div>
 
                 <div class="pricing-card-body">
-                    <ul class="pricing-features">
+                    <div class="pricing-features">
                         @foreach($plan->activeFeatures as $feature)
-                        <li><i data-feather="check"></i> {{ $feature->getTranslation('title', app()->getLocale()) }}</li>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i data-feather="check"></i>
+                            </div>
+                            <span class="feature-text">{{ $feature->getTranslation('title', app()->getLocale()) }}</span>
+                        </div>
                         @endforeach
-                    </ul>
+                    </div>
                 </div>
 
                 <div class="pricing-card-footer">
