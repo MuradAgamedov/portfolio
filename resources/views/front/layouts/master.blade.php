@@ -55,7 +55,10 @@
                         </div>
                     </a>
                     
-                    <a href="https://wa.me/{{ $siteSettings->whatsapp ?? '1234567890' }}?text={{ urlencode('Hello! I would like to get in touch with you.') }}" class="contact-option" data-action="whatsapp" target="_blank">
+                    @php
+                        $phone = \App\Models\SiteSetting::getByKey('phone');
+                    @endphp
+                    <a href="https://wa.me/{{ $phone ?: '01941043264' }}?text={{ urlencode('Hello! I would like to get in touch with you.') }}" class="contact-option" data-action="whatsapp" target="_blank">
                         <div class="option-icon whatsapp-icon">
                             <i data-feather="message-circle"></i>
                         </div>

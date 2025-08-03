@@ -14,20 +14,6 @@
 @push('scripts')
 <!-- Contact Form JavaScript -->
 <script src="{{ asset('assets/js/contact-form.js') }}"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Check if URL has #whatsapp hash
-    if (window.location.hash === '#whatsapp') {
-        setTimeout(() => {
-            const whatsappLink = document.getElementById('contact-whatsapp-link');
-            if (whatsappLink) {
-                whatsappLink.click();
-            }
-        }, 500);
-    }
-});
-</script>
 @endpush
 
 @push('styles')

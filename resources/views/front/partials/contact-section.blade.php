@@ -46,14 +46,6 @@
                             <a href="#"><i data-feather="facebook"></i></a>
                             <a href="#"><i data-feather="linkedin"></i></a>
                             <a href="#"><i data-feather="instagram"></i></a>
-                            @php
-                                $whatsapp = \App\Models\SiteSetting::getByKey('whatsapp');
-                            @endphp
-                            @if($whatsapp)
-                                <a href="https://wa.me/{{ $whatsapp }}" target="_blank" id="contact-whatsapp-link" name="whatsapp">
-                                    <i data-feather="message-circle"></i>
-                                </a>
-                            @endif
                         </div>
                     </div>
                 </div>
