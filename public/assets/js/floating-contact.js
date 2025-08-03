@@ -220,6 +220,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Pricing Get Started buttons
+    document.querySelectorAll('.pricing-get-started-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const planName = this.getAttribute('data-plan');
+            
+            // Open contact popup
+            if (contactPopupModal) {
+                contactPopupModal.classList.add('show');
+                console.log('Pricing modal opened');
+                
+                // Initialize Feather icons in popup
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+                
+                // Show email form directly with plan info
+                const contactOptionsView = document.getElementById('contactOptionsView');
+                const emailFormView = document.getElementById('emailFormView');
+                
+                if (contactOptionsView && emailFormView) {
+                    contactOptionsView.style.display = 'none';
+                    emailFormView.style.display = 'block';
+                    
+                    // Add plan info to message field
+                    const messageField = document.getElementById('email-message');
+                    if (messageField) {
+                        messageField.value = `Mən ${planName} planı haqqında məlumat almaq istəyirəm.`;
+                    }
+                }
+            }
+        });
+    });
+
     // Email form submission
     const emailForm = document.getElementById('emailForm');
     if (emailForm) {
