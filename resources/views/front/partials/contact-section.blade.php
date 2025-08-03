@@ -54,7 +54,7 @@
                 <div class="contact-form-wrapper">
                     <div class="introduce">
 
-                        <form class="rnt-contact-form rwt-dynamic-form row" id="contact-form" method="POST">
+                        <form class="rnt-contact-form rwt-dynamic-form row" id="contact-form" method="POST" data-action="{{ route('contact') }}">
                             @csrf
 
                             <div class="col-lg-6">

@@ -20,11 +20,15 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.disabled = true;
             
             // AJAX request
-            fetch('/contact', {
+            var formAction = contactForm.getAttribute('data-action') || '/contact';
+            var csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || 
+                           document.querySelector('input[name="_token"]')?.value;
+            
+            fetch(formAction, {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-TOKEN': csrfToken
                 }
             })
             .then(response => response.json())
@@ -59,28 +63,44 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Check if there are validation errors
                 if (error.status === 422) {
-                    var errors = error.responseJSON.errors;
-                    var errorList = '';
-                    
-                    for (var field in errors) {
-                        errorList += errors[field][0] + '\n';
-                    }
-                    
-                    errorMessage = errorList;
-                }
-                
-                // Show error message
-                if (typeof Swal !== 'undefined') {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: errorMessage,
-                        confirmButtonText: 'OK',
-                        confirmButtonColor: '#dc3545'
+                    error.json().then(function(data) {
+                        var errors = data.errors;
+                        var errorList = '';
+                        
+                        for (var field in errors) {
+                            errorList += errors[field][0] + '\n';
+                        }
+                        
+                        errorMessage = errorList;
+                        
+                        // Show error message
+                        if (typeof Swal !== 'undefined') {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: errorMessage,
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#dc3545'
+                            });
+                        } else {
+                            alert('Error: ' + errorMessage);
+                        }
                     });
                 } else {
-                    alert('Error: ' + errorMessage);
+                    // Show error message
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: errorMessage,
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#dc3545'
+                        });
+                    } else {
+                        alert('Error: ' + errorMessage);
+                    }
                 }
+                
                 
                 // Reset button
                 submitBtn.innerHTML = originalText;
