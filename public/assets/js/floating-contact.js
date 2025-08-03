@@ -69,6 +69,87 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Success Modal Function
+    function showSuccessModal(message) {
+        // Create success modal HTML
+        const successModalHTML = `
+            <div class="success-modal-overlay" id="successModalOverlay">
+                <div class="success-modal">
+                    <div class="success-modal-content">
+                        <div class="success-icon">
+                            <i data-feather="check-circle"></i>
+                        </div>
+                        <h4>Uğurlu!</h4>
+                        <p>${message}</p>
+                        <button class="success-modal-btn" onclick="closeSuccessModal()">
+                            <i data-feather="check"></i>
+                            Tamam
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add modal to body
+        document.body.insertAdjacentHTML('beforeend', successModalHTML);
+        
+        // Initialize feather icons
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
+        
+        // Auto close after 3 seconds
+        setTimeout(() => {
+            closeSuccessModal();
+        }, 3000);
+    }
+
+    // Error Modal Function
+    function showErrorModal(message) {
+        // Create error modal HTML
+        const errorModalHTML = `
+            <div class="error-modal-overlay" id="errorModalOverlay">
+                <div class="error-modal">
+                    <div class="error-modal-content">
+                        <div class="error-icon">
+                            <i data-feather="alert-circle"></i>
+                        </div>
+                        <h4>Xəta!</h4>
+                        <p>${message}</p>
+                        <button class="error-modal-btn" onclick="closeErrorModal()">
+                            <i data-feather="x"></i>
+                            Bağla
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add modal to body
+        document.body.insertAdjacentHTML('beforeend', errorModalHTML);
+        
+        // Initialize feather icons
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
+    }
+
+    // Close Success Modal
+    window.closeSuccessModal = function() {
+        const modal = document.getElementById('successModalOverlay');
+        if (modal) {
+            modal.remove();
+        }
+    };
+
+    // Close Error Modal
+    window.closeErrorModal = function() {
+        const modal = document.getElementById('errorModalOverlay');
+        if (modal) {
+            modal.remove();
+        }
+    };
+
     // Handle contact options
     document.querySelectorAll('.contact-option').forEach(option => {
         option.addEventListener('click', function(e) {
@@ -140,8 +221,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Show success message
-                    alert(data.message);
+                    // Show success modal
+                    showSuccessModal(data.message);
                     
                     // Reset form
                     this.reset();
@@ -149,12 +230,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Close popup
                     closePopup();
                 } else {
-                    alert('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
+                    showErrorModal('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
+                showErrorModal('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
             })
             .finally(() => {
                 // Reset button state
