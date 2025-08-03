@@ -210,17 +210,20 @@
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+        color: #ff014f; /* Rəng əlavə edildi */
     }
     
     .cd-words-wrapper b.is-visible {
         position: relative;
-        opacity: 1;
-        visibility: visible;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline-block !important;
     }
     
     .cd-words-wrapper b.is-hidden {
-        opacity: 0;
-        visibility: hidden;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        display: none !important;
     }
     
     /* Typing cursor effect */

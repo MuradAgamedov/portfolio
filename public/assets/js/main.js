@@ -469,7 +469,7 @@
                 return;
             }
             
-            console.log('Found', words.length, 'words for typing animation');
+            console.log('Found', words.length, 'words for typing animation:', Array.from(words).map(w => w.textContent));
             
             let currentIndex = 0;
             let animationInterval;
@@ -479,12 +479,13 @@
                 if (isAnimating) return;
                 isAnimating = true;
                 
-                console.log('Showing next word, current index:', currentIndex);
+                console.log('Showing next word, current index:', currentIndex, 'word:', words[currentIndex]?.textContent);
                 
                 // Hide current word
                 if (words[currentIndex]) {
                     words[currentIndex].classList.remove('is-visible');
                     words[currentIndex].classList.add('is-hidden');
+                    console.log('Hidden word:', words[currentIndex].textContent);
                 }
                 
                 // Move to next word
@@ -494,6 +495,7 @@
                 if (words[currentIndex]) {
                     words[currentIndex].classList.remove('is-hidden');
                     words[currentIndex].classList.add('is-visible');
+                    console.log('Shown word:', words[currentIndex].textContent);
                 }
                 
                 // Reset flag after animation
@@ -515,15 +517,17 @@
                 isAnimating = false;
                 
                 // Hide all words first
-                words.forEach(function(word) {
+                words.forEach(function(word, index) {
                     word.classList.remove('is-visible', 'is-hidden');
                     word.classList.add('is-hidden');
+                    console.log('Initial state - word', index, ':', word.textContent, 'classes:', word.className);
                 });
                 
                 // Show first word
                 if (words[0]) {
                     words[0].classList.remove('is-hidden');
                     words[0].classList.add('is-visible');
+                    console.log('First word shown:', words[0].textContent, 'classes:', words[0].className);
                 }
                 
                 // Start the animation after a delay
