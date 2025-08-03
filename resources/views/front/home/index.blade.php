@@ -715,7 +715,7 @@ $seoSettings = \App\Models\SeoSite::first();
                 </div>
 
                 <div class="pricing-card-footer">
-                    <a href="#contact" class="rn-btn d-block">
+                    <a href="https://wa.me/{{ $phone ?: '01941043264' }}" class="rn-btn d-block pricing-get-started-btn" data-plan="{{ $plan->getTranslation('title', app()->getLocale()) }}">
                         <span>{{__("Get Started")}}</span>
                         <i data-feather="arrow-right"></i>
                     </a>
