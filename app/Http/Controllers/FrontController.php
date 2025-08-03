@@ -16,6 +16,7 @@ use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\PricingPlan;
 use App\Models\Newsletter;
+use App\Models\SiteSetting;
 use App\Traits\RecaptchaTrait;
 use App\Traits\SocialTrait;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ class FrontController extends Controller
             'about' => About::firstOrCreate(),
             'blogs' => Blog::where('status', true)->orderBy('published_at', 'desc')->limit(6)->get(),
             'pricingPlans' => PricingPlan::with('activeFeatures')->where('status', true)->orderBy('order')->get(),
+            'siteSettings' => SiteSetting::first(),
         ];
         
         return view('front.home.index', $data);

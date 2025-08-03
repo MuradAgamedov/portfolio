@@ -957,12 +957,59 @@ $seoSettings = \App\Models\SeoSite::first();
 
 <!-- Floating Contact Button -->
 <div class="floating-contact-btn">
-    <a href="#contact" class="contact-float-btn">
+    <button class="contact-float-btn" id="contactFloatBtn">
         <i data-feather="message-circle"></i>
         <span class="tooltip-text">{{__("Contact Us")}}</span>
-    </a>
+    </button>
 </div>
 <!-- End Floating Contact Button -->
+
+<!-- Contact Popup Modal -->
+<div class="contact-popup-modal" id="contactPopupModal">
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="popup-content">
+        <div class="popup-header">
+            <h3>{{__("Contact Us")}}</h3>
+            <button class="popup-close" id="popupClose">
+                <i data-feather="x"></i>
+            </button>
+        </div>
+        <div class="popup-body">
+            <div class="contact-options">
+                <a href="#contact" class="contact-option" data-action="contact-form">
+                    <div class="option-icon">
+                        <i data-feather="file-text"></i>
+                    </div>
+                    <div class="option-content">
+                        <h4>{{__("Contact Form")}}</h4>
+                        <p>{{__("Fill out our contact form")}}</p>
+                    </div>
+                </a>
+                
+                <a href="mailto:{{ $siteSettings->email ?? 'info@example.com' }}" class="contact-option" data-action="email">
+                    <div class="option-icon">
+                        <i data-feather="mail"></i>
+                    </div>
+                    <div class="option-content">
+                        <h4>{{__("Send Email")}}</h4>
+                        <p>{{__("Write us an email")}}</p>
+                    </div>
+                </a>
+                
+                <a href="https://wa.me/{{ $siteSettings->whatsapp ?? '1234567890' }}?text={{ urlencode('Hello! I would like to get in touch with you.') }}" class="contact-option" data-action="whatsapp" target="_blank">
+                    <div class="option-icon whatsapp-icon">
+                        <i data-feather="message-circle"></i>
+                    </div>
+                    <div class="option-content">
+                        <h4>{{__("WhatsApp")}}</h4>
+                        <p>{{__("Chat with us on WhatsApp")}}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Contact Popup Modal -->
 
 
 
@@ -1736,16 +1783,61 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScrollTop = scrollTop;
     });
 
-    // Smooth scroll to contact section
-    document.querySelector('.contact-float-btn').addEventListener('click', function(e) {
-        e.preventDefault();
-        const contactSection = document.querySelector('#contact');
-        if (contactSection) {
-            contactSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+    // Contact Popup Modal Functionality
+    const contactFloatBtn = document.getElementById('contactFloatBtn');
+    const contactPopupModal = document.getElementById('contactPopupModal');
+    const popupOverlay = document.getElementById('popupOverlay');
+    const popupClose = document.getElementById('popupClose');
+
+    // Open popup
+    contactFloatBtn.addEventListener('click', function() {
+        contactPopupModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        
+        // Initialize Feather icons in popup
+        if (typeof feather !== 'undefined') {
+            feather.replace();
         }
+    });
+
+    // Close popup
+    function closePopup() {
+        contactPopupModal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    popupClose.addEventListener('click', closePopup);
+    popupOverlay.addEventListener('click', closePopup);
+
+    // Close popup with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && contactPopupModal.classList.contains('show')) {
+            closePopup();
+        }
+    });
+
+    // Handle contact options
+    document.querySelectorAll('.contact-option').forEach(option => {
+        option.addEventListener('click', function(e) {
+            const action = this.getAttribute('data-action');
+            
+            if (action === 'contact-form') {
+                e.preventDefault();
+                closePopup();
+                
+                // Smooth scroll to contact section
+                const contactSection = document.querySelector('#contact');
+                if (contactSection) {
+                    setTimeout(() => {
+                        contactSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 300);
+                }
+            }
+            // For email and WhatsApp, let the default link behavior work
+        });
     });
 });
 </script>
@@ -2303,6 +2395,212 @@ document.addEventListener('DOMContentLoaded', function() {
 
         .tooltip-text {
             display: none;
+        }
+    }
+
+    /* Contact Popup Modal */
+    .contact-popup-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .contact-popup-modal.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+    }
+
+    .popup-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+    }
+
+    .popup-content {
+        position: relative;
+        background: #212428;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 400px;
+        max-height: 80vh;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        transform: scale(0.7);
+        transition: transform 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .contact-popup-modal.show .popup-content {
+        transform: scale(1);
+    }
+
+    .popup-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 25px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        background: linear-gradient(135deg, #ff014f 0%, #ff6b9d 100%);
+    }
+
+    .popup-header h3 {
+        color: white;
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .popup-close {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .popup-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: rotate(90deg);
+    }
+
+    .popup-close i {
+        width: 20px;
+        height: 20px;
+    }
+
+    .popup-body {
+        padding: 25px;
+    }
+
+    .contact-options {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .contact-option {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        text-decoration: none;
+        color: #c4cfde;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-option::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .contact-option:hover::before {
+        left: 100%;
+    }
+
+    .contact-option:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        color: white;
+    }
+
+    .option-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        background: linear-gradient(135deg, #ff014f 0%, #ff6b9d 100%);
+        flex-shrink: 0;
+    }
+
+    .option-icon.whatsapp-icon {
+        background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    }
+
+    .option-icon i {
+        width: 24px;
+        height: 24px;
+        color: white;
+    }
+
+    .option-content {
+        flex: 1;
+    }
+
+    .option-content h4 {
+        margin: 0 0 5px 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: inherit;
+    }
+
+    .option-content p {
+        margin: 0;
+        font-size: 13px;
+        opacity: 0.8;
+        color: inherit;
+    }
+
+    /* Responsive */
+    @media only screen and (max-width: 480px) {
+        .popup-content {
+            width: 95%;
+            margin: 20px;
+        }
+
+        .popup-header {
+            padding: 15px 20px;
+        }
+
+        .popup-body {
+            padding: 20px;
+        }
+
+        .contact-option {
+            padding: 15px;
+        }
+
+        .option-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 12px;
+        }
+
+        .option-icon i {
+            width: 20px;
+            height: 20px;
         }
     }
 </style>
