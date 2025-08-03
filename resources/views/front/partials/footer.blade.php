@@ -45,11 +45,11 @@
 
 <!-- Start Back To Top -->
 <!-- Back to  top Start -->
-<div class="backto-top">
+<!-- <div class="backto-top">
     <div>
         <i data-feather="arrow-up"></i>
     </div>
-</div>
+</div> -->
 <!-- Back to top end -->
 <!-- End Back To Top -->
 

@@ -938,11 +938,11 @@ $seoSettings = \App\Models\SeoSite::first();
 
 <!-- Back to  top Start -->
 <!-- Back to  top Start -->
-<div class="backto-top">
+<!-- <div class="backto-top">
     <div>
         <i data-feather="arrow-up"></i>
     </div>
-</div>
+</div> -->
 <!-- Back to top end --> <!-- Back to top end -->
 
 

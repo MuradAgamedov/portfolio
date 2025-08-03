@@ -45,7 +45,7 @@
 
         methods: function (e) {
             imJs.featherAtcivation();
-            imJs.backToTopInit();
+            // imJs.backToTopInit();
             imJs.mobileMenuActive();
             imJs.vedioActivation();
             imJs.stickyHeader();
@@ -312,28 +312,28 @@
             });
         },
 
-        backToTopInit: function () {
-            const scrollTop = document.querySelector('.backto-top');
-            if (!scrollTop) return;
+        // backToTopInit: function () {
+        //     const scrollTop = document.querySelector('.backto-top');
+        //     if (!scrollTop) return;
             
-            window.addEventListener('scroll', function () {
-                const topPos = window.pageYOffset || document.documentElement.scrollTop;
-                if (topPos > 100) {
-                    scrollTop.style.opacity = '1';
-                } else {
-                    scrollTop.style.opacity = '0';
-                }
-            });
+        //     window.addEventListener('scroll', function () {
+        //         const topPos = window.pageYOffset || document.documentElement.scrollTop;
+        //         if (topPos > 100) {
+        //             scrollTop.style.opacity = '1';
+        //         } else {
+        //             scrollTop.style.opacity = '0';
+        //         }
+        //     });
             
-            // Click event to scroll to top
-            scrollTop.addEventListener('click', function () {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-                return false;
-            });
-        },
+        //     // Click event to scroll to top
+        //     scrollTop.addEventListener('click', function () {
+        //         window.scrollTo({
+        //             top: 0,
+        //             behavior: 'smooth'
+        //         });
+        //         return false;
+        //     });
+        // },
 
         stickyHeader: function (e) {
             const stickyHeader = document.querySelector('.header--sticky');
