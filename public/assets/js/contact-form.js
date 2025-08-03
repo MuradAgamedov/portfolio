@@ -24,11 +24,16 @@ document.addEventListener('DOMContentLoaded', function() {
             var csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || 
                            document.querySelector('input[name="_token"]')?.value;
             
+            console.log('Form action:', formAction);
+            console.log('CSRF token:', csrfToken);
+            
             fetch(formAction, {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'X-CSRF-TOKEN': csrfToken
+                    'X-CSRF-TOKEN': csrfToken,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 }
             })
             .then(response => response.json())
@@ -54,11 +59,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.disabled = false;
             })
             .catch(error => {
+                console.error('Contact form error:', error);
                 var errorMessage = 'An error occurred. Please try again.';
                 
                 // Check if there are validation errors
                 if (error.status === 422) {
                     error.json().then(function(data) {
+                        console.log('Validation errors:', data);
                         var errors = data.errors;
                         var errorList = '';
                         
@@ -87,12 +94,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error!',
-                            text: errorMessage,
+                            text: errorMessage + ' (Status: ' + error.status + ')',
                             confirmButtonText: 'OK',
                             confirmButtonColor: '#dc3545'
                         });
                     } else {
-                        alert('Error: ' + errorMessage);
+                        alert('Error: ' + errorMessage + ' (Status: ' + error.status + ')');
                     }
                 }
                 

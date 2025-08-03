@@ -71,32 +71,57 @@ class FrontController extends Controller
 
     public function contact(Request $request)
     {
-        $validated = $request->validate([
-            'contact-name' => 'required|string|max:255',
-            'contact-email' => 'required|email|max:255',
-            'contact-phone' => 'nullable|string|max:20',
-            'subject' => 'required|string|max:255',
-            'contact-message' => 'required|string|max:1000',
-        ]);
-
-        // Save contact message to database
-        Contact::create([
-            'name' => $validated['contact-name'],
-            'email' => $validated['contact-email'],
-            'phone' => $validated['contact-phone'],
-            'subject' => $validated['subject'],
-            'message' => $validated['contact-message'],
-        ]);
-
-        // Check if request is AJAX
-        if ($request->ajax()) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Thank you for your message! We will get back to you soon.'
+        try {
+            $validated = $request->validate([
+                'contact-name' => 'required|string|max:255',
+                'contact-email' => 'required|email|max:255',
+                'contact-phone' => 'nullable|string|max:20',
+                'subject' => 'required|string|max:255',
+                'contact-message' => 'required|string|max:1000',
             ]);
-        }
 
-        return redirect()->back()->with('success', 'Thank you for your message! We will get back to you soon.');
+            // Save contact message to database
+            Contact::create([
+                'name' => $validated['contact-name'],
+                'email' => $validated['contact-email'],
+                'phone' => $validated['contact-phone'],
+                'subject' => $validated['subject'],
+                'message' => $validated['contact-message'],
+            ]);
+
+            // Check if request is AJAX
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Thank you for your message! We will get back to you soon.'
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Thank you for your message! We will get back to you soon.');
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation error: ' . implode(', ', $e->errors()),
+                    'errors' => $e->errors()
+                ], 422);
+            }
+            
+            return redirect()->back()->withErrors($e->errors());
+            
+        } catch (\Exception $e) {
+            \Log::error('Contact form error: ' . $e->getMessage());
+            
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'An error occurred while saving your message. Please try again.'
+                ], 500);
+            }
+            
+            return redirect()->back()->with('error', 'An error occurred while saving your message. Please try again.');
+        }
     }
 
 
