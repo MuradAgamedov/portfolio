@@ -114,13 +114,14 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             const formData = new FormData(this);
+            const name = formData.get('name');
             const phone = formData.get('phone');
             const message = formData.get('message');
             
             // Get email from site settings (this will be replaced by server-side rendering)
             const email = '{{ $siteSettings->email ?? "info@example.com" }}';
             const subject = encodeURIComponent('Contact Form Message');
-            const body = encodeURIComponent(`Phone: ${phone}\n\nMessage:\n${message}`);
+            const body = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\n\nMessage:\n${message}`);
             const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
             
             // Open email client

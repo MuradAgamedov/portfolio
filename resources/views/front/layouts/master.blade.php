@@ -80,6 +80,10 @@
                     </div>
                     <form class="email-form" id="emailForm">
                         <div class="form-group">
+                            <label for="email-name">{{__("Full Name")}}</label>
+                            <input type="text" id="email-name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
                             <label for="email-phone">{{__("Phone Number")}}</label>
                             <input type="tel" id="email-phone" name="phone" class="form-control" required>
                         </div>
