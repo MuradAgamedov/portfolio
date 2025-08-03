@@ -351,102 +351,120 @@
 .form-header {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 25px;
     padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .back-btn {
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: none;
-    border: none;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
     cursor: pointer;
     padding: 8px 12px;
-    border-radius: 8px;
+    border-radius: 6px;
     transition: all 0.3s ease;
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .back-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateX(-2px);
 }
 
 .back-btn i {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
 }
 
 .form-header h4 {
     margin: 0;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
+    color: #fff;
 }
 
 .email-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 18px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .form-group label {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    color: #fff;
+    color: #c4cfde;
+    margin-bottom: 2px;
 }
 
 .form-control {
-    padding: 12px 15px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 12px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
     color: #fff;
     font-size: 14px;
     transition: all 0.3s ease;
+    font-family: inherit;
 }
 
 .form-control:focus {
     outline: none;
-    border-color: rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.15);
+    border-color: #ff014f;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(255, 1, 79, 0.1);
 }
 
 .form-control::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.form-control:focus::placeholder {
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .submit-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 12px 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    gap: 8px;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #ff014f 0%, #ff6b9d 100%);
     border: none;
     border-radius: 8px;
     color: #fff;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 10px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 25px rgba(255, 1, 79, 0.4);
+    background: linear-gradient(135deg, #ff014f 0%, #ff4d7d 100%);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
 }
 
 .submit-btn i {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
 } 
