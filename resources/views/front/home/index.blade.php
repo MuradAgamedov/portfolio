@@ -1785,12 +1785,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Contact Popup Modal Functionality
     const contactFloatBtn = document.getElementById('contactFloatBtn');
     const contactPopupModal = document.getElementById('contactPopupModal');
-    const popupOverlay = document.getElementById('popupOverlay');
     const popupClose = document.getElementById('popupClose');
 
     console.log('Contact Float Button:', contactFloatBtn);
     console.log('Contact Popup Modal:', contactPopupModal);
-    console.log('Popup Overlay:', popupOverlay);
     console.log('Popup Close:', popupClose);
 
     // Open popup
@@ -1833,8 +1831,13 @@ document.addEventListener('DOMContentLoaded', function() {
         popupClose.addEventListener('click', closePopup);
     }
     
-    if (popupOverlay) {
-        popupOverlay.addEventListener('click', closePopup);
+    // Close popup when clicking on modal background
+    if (contactPopupModal) {
+        contactPopupModal.addEventListener('click', function(e) {
+            if (e.target === contactPopupModal) {
+                closePopup();
+            }
+        });
     }
 
     // Close popup with Escape key
