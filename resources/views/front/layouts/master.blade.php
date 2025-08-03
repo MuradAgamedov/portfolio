@@ -74,6 +74,16 @@
     
     <!-- Floating Contact JavaScript -->
     <script src="{{ asset('assets/js/floating-contact.js') }}"></script>
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        });
+    </script>
 
 </body>
 
