@@ -324,9 +324,14 @@
         },
 
         stickyHeader: function (e) {
+            const stickyHeader = document.querySelector('.header--sticky');
+            if (!stickyHeader) {
+                console.log('Sticky header element not found');
+                return;
+            }
+            
             window.addEventListener('scroll', function () {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const stickyHeader = document.querySelector('.header--sticky');
                 if (scrollTop > 250) {
                     stickyHeader.classList.add('sticky');
                 } else {
