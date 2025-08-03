@@ -64,28 +64,40 @@
         },
 
         activePopupDemo: function (e) {
+            const modalArea = document.querySelector('.demo-modal-area');
+            if (!modalArea) return;
+            
             document.querySelectorAll('.popuptab-area li a.demo-dark').forEach(function(element) {
                 element.addEventListener('click', function (e) {
-                    document.querySelector('.demo-modal-area').classList.add('dark-version');
-                    document.querySelector('.demo-modal-area').classList.remove('white-version');
+                    modalArea.classList.add('dark-version');
+                    modalArea.classList.remove('white-version');
                 });
             });
 
             document.querySelectorAll('.popuptab-area li a.demo-light').forEach(function(element) {
                 element.addEventListener('click', function (e) {
-                    document.querySelector('.demo-modal-area').classList.remove('dark-version');
-                    document.querySelector('.demo-modal-area').classList.add('white-version');
+                    modalArea.classList.remove('dark-version');
+                    modalArea.classList.add('white-version');
                 });
             });
         },
 
         demoActive: function (e) {
-            document.querySelector('.rn-right-demo').addEventListener('click', function (e) {
-                document.querySelector('.demo-modal-area').classList.add('open');
-            });
-            document.querySelector('.demo-close-btn').addEventListener('click', function (e) {
-                document.querySelector('.demo-modal-area').classList.remove('open');
-            });
+            const demoButton = document.querySelector('.rn-right-demo');
+            const closeButton = document.querySelector('.demo-close-btn');
+            const modalArea = document.querySelector('.demo-modal-area');
+            
+            if (demoButton && modalArea) {
+                demoButton.addEventListener('click', function (e) {
+                    modalArea.classList.add('open');
+                });
+            }
+            
+            if (closeButton && modalArea) {
+                closeButton.addEventListener('click', function (e) {
+                    modalArea.classList.remove('open');
+                });
+            }
         },
 
         wowActive: function () {
@@ -341,21 +353,30 @@
         },
 
         vedioActivation: function (e) {
-            document.querySelectorAll('#play-video, .play-video').forEach(function(element) {
-                element.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const overlay = document.querySelector('#video-overlay, .video-overlay');
-                    overlay.classList.add('open');
-                    overlay.innerHTML = '<iframe width="80%" height="80%" src="https://www.youtube.com/embed/7e90gBu4pas" frameborder="0" allowfullscreen></iframe>';
+            const videoButtons = document.querySelectorAll('#play-video, .play-video');
+            const overlayElements = document.querySelectorAll('.video-overlay, .video-overlay-close');
+            
+            if (videoButtons.length > 0) {
+                videoButtons.forEach(function(element) {
+                    element.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const overlay = document.querySelector('#video-overlay, .video-overlay');
+                        if (overlay) {
+                            overlay.classList.add('open');
+                            overlay.innerHTML = '<iframe width="80%" height="80%" src="https://www.youtube.com/embed/7e90gBu4pas" frameborder="0" allowfullscreen></iframe>';
+                        }
+                    });
                 });
-            });
+            }
 
-            document.querySelectorAll('.video-overlay, .video-overlay-close').forEach(function(element) {
-                element.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    close_video();
+            if (overlayElements.length > 0) {
+                overlayElements.forEach(function(element) {
+                    element.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        close_video();
+                    });
                 });
-            });
+            }
 
             document.addEventListener('keyup', function (e) {
                 if (e.keyCode === 27) {
@@ -637,10 +658,18 @@
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
-            imJs.m();
+            try {
+                imJs.m();
+            } catch (error) {
+                console.error('Error initializing main.js:', error);
+            }
         });
     } else {
-        imJs.m();
+        try {
+            imJs.m();
+        } catch (error) {
+            console.error('Error initializing main.js:', error);
+        }
     }
 
 })();
