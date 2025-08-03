@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             lastScrollTop = scrollTop;
         });
+    } else {
+        // If floating button doesn't exist, don't add scroll listener
+        console.log('Floating contact button not found, skipping scroll effects');
     }
 
     // Contact Popup Modal Functionality
