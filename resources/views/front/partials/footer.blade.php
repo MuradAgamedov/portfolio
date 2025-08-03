@@ -113,7 +113,7 @@
 <!-- End Modal Area  -->
 
 <!-- JS  -->
-<script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
+<!-- <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script> -->
 <script src="{{ asset('assets/js/vendor/modernizer.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/feather.min.js') }}"></script>
 <!-- <script src="{{ asset('assets/js/vendor/slick.min.js') }}"></script> -->
@@ -123,7 +123,7 @@
 <!-- <script src="{{ asset('assets/js/vendor/wow.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/aos.js') }}"></script> -->
 <script src="{{ asset('assets/js/vendor/particles.js') }}"></script>
-<script src="{{ asset('assets/js/vendor/jquery-one-page-nav.js') }}"></script>
+<!-- <script src="{{ asset('assets/js/vendor/jquery-one-page-nav.js') }}"></script> -->
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <!-- main JS -->
