@@ -120,8 +120,8 @@
 <script src="{{ asset('assets/js/vendor/bootstrap.js') }}"></script>
 <!-- Custom typing animation instead of text-type.js -->
 <!-- <script src="{{ asset('assets/js/vendor/text-type.js') }}"></script> -->
-<script src="{{ asset('assets/js/vendor/wow.js') }}"></script>
-<script src="{{ asset('assets/js/vendor/aos.js') }}"></script>
+<!-- <script src="{{ asset('assets/js/vendor/wow.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/aos.js') }}"></script> -->
 <script src="{{ asset('assets/js/vendor/particles.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/jquery-one-page-nav.js') }}"></script>
 <!-- SweetAlert2 JS -->
