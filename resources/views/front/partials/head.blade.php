@@ -39,6 +39,8 @@
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 <!-- Blog Cards CSS -->
 <link rel="stylesheet" href="{{ asset('assets/css/blog-cards.css') }}">
+<!-- Floating Contact CSS -->
+<link rel="stylesheet" href="{{ asset('assets/css/floating-contact.css') }}">
 
 @yield('styles')
 @stack('styles')

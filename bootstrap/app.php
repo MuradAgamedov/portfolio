@@ -15,6 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth' => \App\Http\Middleware\Authenticate::class,
             'setlocale' => \App\Http\Middleware\SetLocale::class,
         ]);
+        
+        $middleware->append(\App\Http\Middleware\AddSiteSettingsToView::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

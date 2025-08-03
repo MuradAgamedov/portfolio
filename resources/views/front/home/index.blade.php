@@ -955,60 +955,7 @@ $seoSettings = \App\Models\SeoSite::first();
 </div>
 <!-- Back to top end --> <!-- Back to top end -->
 
-<!-- Floating Contact Button -->
-<div class="floating-contact-btn">
-    <button class="contact-float-btn" id="contactFloatBtn">
-        <i data-feather="message-circle"></i>
-        <span class="tooltip-text">{{__("Contact Us")}}</span>
-    </button>
-</div>
-<!-- End Floating Contact Button -->
 
-<!-- Contact Popup Modal -->
-<div class="contact-popup-modal" id="contactPopupModal">
-    <div class="popup-content">
-        <div class="popup-header">
-            <h3>{{__("Contact Us")}}</h3>
-            <button class="popup-close" id="popupClose">
-                <i data-feather="x"></i>
-            </button>
-        </div>
-        <div class="popup-body">
-            <div class="contact-options">
-                <a href="#contact" class="contact-option" data-action="contact-form">
-                    <div class="option-icon">
-                        <i data-feather="file-text"></i>
-                    </div>
-                    <div class="option-content">
-                        <h4>{{__("Contact Form")}}</h4>
-                        <p>{{__("Fill out our contact form")}}</p>
-                    </div>
-                </a>
-                
-                <a href="mailto:{{ $siteSettings->email ?? 'info@example.com' }}" class="contact-option" data-action="email">
-                    <div class="option-icon">
-                        <i data-feather="mail"></i>
-                    </div>
-                    <div class="option-content">
-                        <h4>{{__("Send Email")}}</h4>
-                        <p>{{__("Write us an email")}}</p>
-                    </div>
-                </a>
-                
-                <a href="https://wa.me/{{ $siteSettings->whatsapp ?? '1234567890' }}?text={{ urlencode('Hello! I would like to get in touch with you.') }}" class="contact-option" data-action="whatsapp" target="_blank">
-                    <div class="option-icon whatsapp-icon">
-                        <i data-feather="message-circle"></i>
-                    </div>
-                    <div class="option-content">
-                        <h4>{{__("WhatsApp")}}</h4>
-                        <p>{{__("Chat with us on WhatsApp")}}</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Contact Popup Modal -->
 
 
 
