@@ -1,3 +1,15 @@
+// Global variables for floating contact reCAPTCHA
+let floatingRecaptchaResponse = '';
+
+// reCAPTCHA callback functions for floating contact
+window.onFloatingRecaptchaSuccess = function(token) {
+    floatingRecaptchaResponse = token;
+};
+
+window.onFloatingRecaptchaExpired = function() {
+    floatingRecaptchaResponse = '';
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     // Floating Contact Button Scroll Effect
     const floatingBtn = document.querySelector('.floating-contact-btn');
@@ -55,6 +67,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (contactPopupModal) {
             contactPopupModal.classList.remove('show');
             console.log('Modal closed');
+            
+            // Reset floating reCAPTCHA when modal is closed
+            floatingRecaptchaResponse = '';
+            grecaptcha.reset();
         }
     }
 
@@ -197,6 +213,10 @@ document.addEventListener('DOMContentLoaded', function() {
         backToOptions.addEventListener('click', function() {
             document.getElementById('emailFormView').style.display = 'none';
             document.getElementById('contactOptionsView').style.display = 'block';
+            
+            // Reset floating reCAPTCHA when going back
+            floatingRecaptchaResponse = '';
+            grecaptcha.reset();
         });
     }
 
@@ -206,14 +226,15 @@ document.addEventListener('DOMContentLoaded', function() {
         emailForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Check reCAPTCHA
-            const recaptchaResponse = grecaptcha.getResponse();
-            if (!recaptchaResponse) {
+            // Check reCAPTCHA for floating contact
+            if (!floatingRecaptchaResponse) {
                 showErrorModal('Zəhmət olmasa reCAPTCHA-nı tamamlayın.');
                 return;
             }
             
             const formData = new FormData(this);
+            // Add reCAPTCHA token to form data
+            formData.append('g-recaptcha-response', floatingRecaptchaResponse);
             const submitBtn = this.querySelector('.submit-btn');
             const originalText = submitBtn.innerHTML;
             
@@ -247,7 +268,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Reset form
                     this.reset();
                     
-                    // Reset reCAPTCHA
+                    // Reset floating reCAPTCHA
+                    floatingRecaptchaResponse = '';
                     grecaptcha.reset();
                     
                     // Show success modal
@@ -255,7 +277,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Don't close popup immediately, let success modal handle it
                 } else {
-                    // Reset reCAPTCHA on error
+                    // Reset floating reCAPTCHA on error
+                    floatingRecaptchaResponse = '';
                     grecaptcha.reset();
                     showErrorModal(data.message || 'Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
                 }
@@ -263,6 +286,9 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => {
                 console.error('Fetch Error:', error);
                 console.error('Error details:', error.message);
+                // Reset floating reCAPTCHA on error
+                floatingRecaptchaResponse = '';
+                grecaptcha.reset();
                 showErrorModal('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
             })
             .finally(() => {
