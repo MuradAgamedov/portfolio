@@ -1922,8 +1922,19 @@ document.addEventListener('DOMContentLoaded', function() {
             // Show all hidden cards with animation
             hiddenCards.forEach((card, index) => {
                 setTimeout(() => {
+                    // Remove the hidden class and set display to block
                     card.classList.remove('pricing-hidden');
-                    card.classList.add('show');
+                    card.style.display = 'block';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                    
+                    // Trigger animation after a small delay
+                    setTimeout(() => {
+                        card.style.transition = 'all 0.5s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 10);
+                    
                     console.log('Showing card:', index);
                 }, index * 100);
             });
