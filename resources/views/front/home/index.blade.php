@@ -604,7 +604,7 @@ $seoSettings = \App\Models\SeoSite::first();
     @if($pricingPlans->count() > 3)
     <div class="row mt--30">
         <div class="col-lg-12 text-center">
-            <button id="loadMorePricing" class="rn-btn">
+            <button id="loadMorePricing" class="rn-btn" style="display: none;">
                 <span>{{__("Load More")}}</span>
                 <i data-feather="arrow-down"></i>
             </button>
@@ -1888,17 +1888,26 @@ $seoSettings = \App\Models\SeoSite::first();
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Hide cards that should be hidden initially
     const allCards = document.querySelectorAll('.pricing-card-wrapper');
+    const loadMoreBtn = document.getElementById('loadMorePricing');
+    
+    console.log('Total cards found:', allCards.length);
+    
+    // Hide cards that should be hidden initially
     allCards.forEach((card, index) => {
         if (index >= 3) {
             card.style.display = 'none';
+            console.log('Hiding card:', index);
         }
     });
     
-    // Load More functionality
-    const loadMoreBtn = document.getElementById('loadMorePricing');
+    // Show the Load More button if there are more than 3 cards
+    if (allCards.length > 3 && loadMoreBtn) {
+        loadMoreBtn.style.display = 'inline-block';
+        console.log('Showing Load More button');
+    }
     
+    // Load More functionality
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', function() {
             console.log('Load More button clicked!');
