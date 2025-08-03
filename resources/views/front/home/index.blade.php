@@ -1574,6 +1574,96 @@ $seoSettings = \App\Models\SeoSite::first();
 @push('scripts')
 <!-- Contact Form JavaScript -->
 <script src="{{ asset('assets/js/contact-form.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const loadMoreBtn = document.getElementById('loadMorePricing');
+    const container = document.getElementById('pricingCardsContainer');
+    
+    console.log('Load More button found:', loadMoreBtn);
+    console.log('Container found:', container);
+    
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            const currentPage = parseInt(loadMoreBtn.getAttribute('data-page')) || 1;
+            const totalPlans = parseInt(loadMoreBtn.getAttribute('data-total')) || 0;
+            
+            console.log('Load More clicked! Page:', currentPage, 'Total:', totalPlans);
+            
+            // Add loading state to button
+            const originalText = loadMoreBtn.innerHTML;
+            loadMoreBtn.innerHTML = '<span>Loading...</span><i data-feather="loader"></i>';
+            loadMoreBtn.disabled = true;
+            loadMoreBtn.classList.add('loading');
+            
+            // Make API request
+            const currentLocale = window.location.pathname.split('/')[1];
+            fetch(`/${currentLocale}/api/pricing-plans?page=${currentPage + 1}`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('API Response:', data);
+                
+                if (data.success && data.html) {
+                    // Add new cards to container
+                    container.insertAdjacentHTML('beforeend', data.html);
+                    
+                    // Update button data
+                    loadMoreBtn.setAttribute('data-page', currentPage + 1);
+                    
+                    // Hide button if no more plans
+                    if (!data.hasMore) {
+                        loadMoreBtn.classList.add('hidden');
+                        console.log('No more plans, hiding button');
+                    } else {
+                        // Reset button
+                        loadMoreBtn.innerHTML = originalText;
+                        loadMoreBtn.disabled = false;
+                        loadMoreBtn.classList.remove('loading');
+                    }
+                    
+                    // Initialize Feather icons for new cards
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
+                    
+                    // Add animation to new cards
+                    const newCards = container.querySelectorAll('.pricing-card-wrapper:not(.animated)');
+                    newCards.forEach((card, index) => {
+                        card.classList.add('animated');
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(30px)';
+                        
+                        setTimeout(() => {
+                            card.style.transition = 'all 0.6s ease-out';
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 150);
+                    });
+                    
+                } else {
+                    console.error('API Error:', data.message || 'Unknown error');
+                    // Reset button on error
+                    loadMoreBtn.innerHTML = originalText;
+                    loadMoreBtn.disabled = false;
+                    loadMoreBtn.classList.remove('loading');
+                }
+            })
+            .catch(error => {
+                console.error('Fetch Error:', error);
+                // Reset button on error
+                loadMoreBtn.innerHTML = originalText;
+                loadMoreBtn.disabled = false;
+                loadMoreBtn.classList.remove('loading');
+            });
+        });
+    }
+});
+</script>
 @endpush
 
 @push('styles')
@@ -1979,94 +2069,5 @@ $seoSettings = \App\Models\SeoSite::first();
     }
 </style>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const loadMoreBtn = document.getElementById('loadMorePricing');
-    const container = document.getElementById('pricingCardsContainer');
-    
-    console.log('Load More button found:', loadMoreBtn);
-    console.log('Container found:', container);
-    
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', function() {
-            const currentPage = parseInt(loadMoreBtn.getAttribute('data-page')) || 1;
-            const totalPlans = parseInt(loadMoreBtn.getAttribute('data-total')) || 0;
-            
-            console.log('Load More clicked! Page:', currentPage, 'Total:', totalPlans);
-            
-            // Add loading state to button
-            const originalText = loadMoreBtn.innerHTML;
-            loadMoreBtn.innerHTML = '<span>Loading...</span><i data-feather="loader"></i>';
-            loadMoreBtn.disabled = true;
-            loadMoreBtn.classList.add('loading');
-            
-            // Make API request
-            const currentLocale = window.location.pathname.split('/')[1];
-            fetch(`/${currentLocale}/api/pricing-plans?page=${currentPage + 1}`, {
-                method: 'GET',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'application/json',
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('API Response:', data);
-                
-                if (data.success && data.html) {
-                    // Add new cards to container
-                    container.insertAdjacentHTML('beforeend', data.html);
-                    
-                    // Update button data
-                    loadMoreBtn.setAttribute('data-page', currentPage + 1);
-                    
-                    // Hide button if no more plans
-                    if (!data.hasMore) {
-                        loadMoreBtn.classList.add('hidden');
-                        console.log('No more plans, hiding button');
-                    } else {
-                        // Reset button
-                        loadMoreBtn.innerHTML = originalText;
-                        loadMoreBtn.disabled = false;
-                        loadMoreBtn.classList.remove('loading');
-                    }
-                    
-                    // Initialize Feather icons for new cards
-                    if (typeof feather !== 'undefined') {
-                        feather.replace();
-                    }
-                    
-                    // Add animation to new cards
-                    const newCards = container.querySelectorAll('.pricing-card-wrapper:not(.animated)');
-                    newCards.forEach((card, index) => {
-                        card.classList.add('animated');
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(30px)';
-                        
-                        setTimeout(() => {
-                            card.style.transition = 'all 0.6s ease-out';
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, index * 150);
-                    });
-                    
-                } else {
-                    console.error('API Error:', data.message || 'Unknown error');
-                    // Reset button on error
-                    loadMoreBtn.innerHTML = originalText;
-                    loadMoreBtn.disabled = false;
-                    loadMoreBtn.classList.remove('loading');
-                }
-            })
-            .catch(error => {
-                console.error('Fetch Error:', error);
-                // Reset button on error
-                loadMoreBtn.innerHTML = originalText;
-                loadMoreBtn.disabled = false;
-                loadMoreBtn.classList.remove('loading');
-            });
-        });
-    }
-});
-</script>
+
 @endpush
