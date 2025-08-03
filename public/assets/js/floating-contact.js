@@ -10,7 +10,8 @@ window.onFloatingRecaptchaExpired = function() {
     floatingRecaptchaResponse = '';
 };
 
-document.addEventListener('DOMContentLoaded', function() {
+// Initialize floating contact functionality
+function initFloatingContact() {
     // Floating Contact Button Scroll Effect
     const floatingBtn = document.querySelector('.floating-contact-btn');
     let lastScrollTop = 0;
@@ -312,4 +313,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-}); 
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFloatingContact);
+} else {
+    initFloatingContact();
+}
