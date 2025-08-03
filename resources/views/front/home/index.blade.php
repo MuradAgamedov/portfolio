@@ -966,7 +966,6 @@ $seoSettings = \App\Models\SeoSite::first();
 
 <!-- Contact Popup Modal -->
 <div class="contact-popup-modal" id="contactPopupModal">
-    <div class="popup-overlay" id="popupOverlay"></div>
     <div class="popup-content">
         <div class="popup-header">
             <h3>{{__("Contact Us")}}</h3>
@@ -1789,25 +1788,54 @@ document.addEventListener('DOMContentLoaded', function() {
     const popupOverlay = document.getElementById('popupOverlay');
     const popupClose = document.getElementById('popupClose');
 
+    console.log('Contact Float Button:', contactFloatBtn);
+    console.log('Contact Popup Modal:', contactPopupModal);
+    console.log('Popup Overlay:', popupOverlay);
+    console.log('Popup Close:', popupClose);
+
     // Open popup
-    contactFloatBtn.addEventListener('click', function() {
-        contactPopupModal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-        
-        // Initialize Feather icons in popup
-        if (typeof feather !== 'undefined') {
-            feather.replace();
-        }
-    });
+    if (contactFloatBtn) {
+        contactFloatBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Contact button clicked!');
+            
+            if (contactPopupModal) {
+                // Test: Show modal immediately
+                contactPopupModal.style.display = 'flex';
+                contactPopupModal.style.opacity = '1';
+                contactPopupModal.style.pointerEvents = 'all';
+                contactPopupModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                console.log('Modal should be visible now');
+                
+                // Initialize Feather icons in popup
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+            } else {
+                console.error('Modal not found!');
+            }
+        });
+    } else {
+        console.error('Contact float button not found!');
+    }
 
     // Close popup
     function closePopup() {
-        contactPopupModal.classList.remove('show');
-        document.body.style.overflow = '';
+        if (contactPopupModal) {
+            contactPopupModal.classList.remove('show');
+            document.body.style.overflow = '';
+            console.log('Modal closed');
+        }
     }
 
-    popupClose.addEventListener('click', closePopup);
-    popupOverlay.addEventListener('click', closePopup);
+    if (popupClose) {
+        popupClose.addEventListener('click', closePopup);
+    }
+    
+    if (popupOverlay) {
+        popupOverlay.addEventListener('click', closePopup);
+    }
 
     // Close popup with Escape key
     document.addEventListener('keydown', function(e) {
@@ -2250,7 +2278,7 @@ document.addEventListener('DOMContentLoaded', function() {
         position: fixed;
         bottom: 30px;
         right: 30px;
-        z-index: 9999;
+        z-index: 9998;
         animation: float 3s ease-in-out infinite;
         opacity: 0.7;
         transform: translateY(10px);
@@ -2403,19 +2431,18 @@ document.addEventListener('DOMContentLoaded', function() {
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10000;
+        width: 100vw;
+        height: 100vh;
+        z-index: 99999;
         display: none;
-        opacity: 0;
-        transition: opacity 0.3s ease;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
     }
 
     .contact-popup-modal.show {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 1;
+        display: flex !important;
     }
 
     .popup-overlay {
