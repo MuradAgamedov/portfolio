@@ -5,7 +5,6 @@
 @php
     $favicon = \App\Models\SiteSetting::getByKey('favicon');
     $seoSettings = \App\Models\SeoSite::first();
-    $whatsappNumber = \App\Models\SiteSetting::getByKey('whatsapp_number') ?: '994501234567';
 @endphp
 
 <!-- Default Title -->
@@ -20,9 +19,6 @@
 @if($seoSettings && (!$seoSettings->index || !$seoSettings->follow))
     <meta name="robots" content="{{ $seoSettings->index ? 'index' : 'noindex' }},{{ $seoSettings->follow ? 'follow' : 'nofollow' }}">
 @endif
-
-<!-- WhatsApp Number Meta Tag -->
-<meta name="whatsapp-number" content="{{ $whatsappNumber }}">
 
 <!-- Page Header Code -->
 @if($seoSettings && $seoSettings->page_header)
