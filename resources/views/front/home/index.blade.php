@@ -116,26 +116,17 @@ $seoSettings = \App\Models\SeoSite::first();
 
 /* Load More Pricing Cards */
 .pricing-card-wrapper {
-    transition: all 0.5s ease;
+    transition: all 0.6s ease-out;
     opacity: 1;
     transform: translateY(0);
 }
 
-.pricing-hidden {
-    display: none !important;
-    opacity: 0;
-    transform: translateY(30px);
-}
-
-.pricing-card-wrapper.show {
-    display: block !important;
-    opacity: 1 !important;
-    transform: translateY(0) !important;
+.pricing-card-wrapper.animated {
     animation: fadeInUp 0.6s ease-out forwards;
 }
 
-/* Additional styling for newly shown cards */
-.pricing-card-wrapper.show .pricing-card {
+/* Additional styling for newly loaded cards */
+.pricing-card-wrapper.animated .pricing-card {
     animation: cardGlow 0.8s ease-out 0.3s forwards;
 }
 
@@ -656,9 +647,9 @@ $seoSettings = \App\Models\SeoSite::first();
             </div>
         </div>
 
-        <div class="row mt--50 pricing-area" data-cards="{{ $pricingPlans->count() }}">
-        @foreach($pricingPlans as $index => $plan)
-        <div class="col-lg-4 col-md-6 col-sm-12 pricing-card-wrapper {{ $index >= 3 ? 'pricing-hidden' : '' }}" data-index="{{ $index }}">
+        <div class="row mt--50 pricing-area" id="pricingCardsContainer" data-total="{{ $pricingPlans->count() }}">
+        @foreach($pricingPlans->take(3) as $index => $plan)
+        <div class="col-lg-4 col-md-6 col-sm-12 pricing-card-wrapper" data-index="{{ $index }}">
             <div class="pricing-card {{ $index == 1 ? 'pricing-card-hover' : '' }}">
                 <div class="pricing-card-header">
                     <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
@@ -695,7 +686,7 @@ $seoSettings = \App\Models\SeoSite::first();
     @if($pricingPlans->count() > 3)
     <div class="row mt--30">
         <div class="col-lg-12 text-center">
-            <button id="loadMorePricing" class="rn-btn">
+            <button id="loadMorePricing" class="rn-btn" data-page="1" data-total="{{ $pricingPlans->count() }}">
                 <span>{{__("Load More")}}</span>
                 <i data-feather="arrow-down"></i>
             </button>
@@ -1979,43 +1970,86 @@ $seoSettings = \App\Models\SeoSite::first();
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const hiddenCards = document.querySelectorAll('.pricing-hidden');
     const loadMoreBtn = document.getElementById('loadMorePricing');
+    const container = document.getElementById('pricingCardsContainer');
     
-    console.log('Hidden cards found:', hiddenCards.length);
     console.log('Load More button found:', loadMoreBtn);
+    console.log('Container found:', container);
     
-    // Load More functionality
-    if (loadMoreBtn && hiddenCards.length > 0) {
-                    loadMoreBtn.addEventListener('click', function() {
-                console.log('Load More clicked!');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            const currentPage = parseInt(loadMoreBtn.getAttribute('data-page')) || 1;
+            const totalPlans = parseInt(loadMoreBtn.getAttribute('data-total')) || 0;
+            
+            console.log('Load More clicked! Page:', currentPage, 'Total:', totalPlans);
+            
+            // Add loading state to button
+            const originalText = loadMoreBtn.innerHTML;
+            loadMoreBtn.innerHTML = '<span>Loading...</span><i data-feather="loader"></i>';
+            loadMoreBtn.disabled = true;
+            
+            // Make API request
+            fetch(`/${window.location.pathname.split('/')[1]}/api/pricing-plans?page=${currentPage + 1}`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('API Response:', data);
                 
-                // Add loading state to button
-                const originalText = loadMoreBtn.innerHTML;
-                loadMoreBtn.innerHTML = '<span>Loading...</span><i data-feather="loader"></i>';
-                loadMoreBtn.disabled = true;
-                
-                // Show all hidden cards with animation
-                hiddenCards.forEach((card, index) => {
-                    setTimeout(() => {
-                        // Remove the hidden class and add show class
-                        card.classList.remove('pricing-hidden');
-                        card.classList.add('show');
+                if (data.success && data.html) {
+                    // Add new cards to container
+                    container.insertAdjacentHTML('beforeend', data.html);
+                    
+                    // Update button data
+                    loadMoreBtn.setAttribute('data-page', currentPage + 1);
+                    
+                    // Hide button if no more plans
+                    if (!data.hasMore) {
+                        loadMoreBtn.classList.add('hidden');
+                        console.log('No more plans, hiding button');
+                    } else {
+                        // Reset button
+                        loadMoreBtn.innerHTML = originalText;
+                        loadMoreBtn.disabled = false;
+                    }
+                    
+                    // Initialize Feather icons for new cards
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
+                    
+                    // Add animation to new cards
+                    const newCards = container.querySelectorAll('.pricing-card-wrapper:not(.animated)');
+                    newCards.forEach((card, index) => {
+                        card.classList.add('animated');
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(30px)';
                         
-                        console.log('Showing card:', index);
-                    }, index * 150); // Slightly longer delay for better visual effect
-                });
-                
-                // Hide the load more button after all cards are shown
-                setTimeout(() => {
-                    loadMoreBtn.classList.add('hidden');
-                    console.log('Load More button hidden');
-                }, hiddenCards.length * 150 + 600);
+                        setTimeout(() => {
+                            card.style.transition = 'all 0.6s ease-out';
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 150);
+                    });
+                    
+                } else {
+                    console.error('API Error:', data.message || 'Unknown error');
+                    // Reset button on error
+                    loadMoreBtn.innerHTML = originalText;
+                    loadMoreBtn.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Fetch Error:', error);
+                // Reset button on error
+                loadMoreBtn.innerHTML = originalText;
+                loadMoreBtn.disabled = false;
             });
-    } else if (loadMoreBtn) {
-        // If no hidden cards, hide the button
-        loadMoreBtn.classList.add('hidden');
-        console.log('No hidden cards, hiding button');
+        });
     }
 });
 </script>

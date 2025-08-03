@@ -148,4 +148,42 @@ class FrontController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Get pricing plans for Load More functionality
+     */
+    public function getPricingPlans(Request $request)
+    {
+        $page = $request->get('page', 1);
+        $perPage = 3;
+        $offset = ($page - 1) * $perPage;
+
+        $pricingPlans = PricingPlan::with('activeFeatures')
+            ->where('status', true)
+            ->orderBy('order')
+            ->skip($offset)
+            ->take($perPage)
+            ->get();
+
+        $totalPlans = PricingPlan::where('status', true)->count();
+        $hasMore = ($offset + $perPage) < $totalPlans;
+
+        $html = '';
+        foreach ($pricingPlans as $index => $plan) {
+            $actualIndex = $offset + $index;
+            $html .= view('front.partials.pricing-card', [
+                'plan' => $plan,
+                'index' => $actualIndex,
+                'isLoadMore' => true
+            ])->render();
+        }
+
+        return response()->json([
+            'success' => true,
+            'html' => $html,
+            'hasMore' => $hasMore,
+            'currentPage' => $page,
+            'totalPlans' => $totalPlans
+        ]);
+    }
 }

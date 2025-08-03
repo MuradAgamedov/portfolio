@@ -60,6 +60,9 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}'])->middleware(['setloca
     Route::post('/service-request', [ServiceRequestController::class, 'store'])->name('service-request.store');
     Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
     Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
+    
+    // API Routes for Load More functionality
+    Route::get('/api/pricing-plans', [FrontController::class, 'getPricingPlans'])->name('api.pricing-plans');
 });
 
 // Admin Auth Routes
