@@ -140,185 +140,11 @@
         },
 
         testimonialActivation: function () {
-            // Note: Slick slider requires jQuery, so we'll keep it as is for now
-            // If you want to replace slick, you'll need to implement a vanilla JS slider
-            if (typeof window.jQuery !== 'undefined' && window.jQuery.fn && window.jQuery.fn.slick) {
-                window.jQuery('.testimonial-activation').slick({
-                    infinite: true,
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    dots: true,
-                    arrows: true,
-                    adaptiveHeight: true,
-                    cssEase: 'linear',
-                    prevArrow: '<button class="slide-arrow prev-arrow"><i class="feather-arrow-left"></i></button>',
-                    nextArrow: '<button class="slide-arrow next-arrow"><i class="feather-arrow-right"></i></button>'
-                });
-
-                window.jQuery('.testimonial-item-one').slick({
-                    infinite: true,
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    dots: true,
-                    arrows: true,
-                    adaptiveHeight: true,
-                    cssEase: 'linear',
-                    prevArrow: '<button class="slide-arrow prev-arrow"><i class="feather-chevron-left"></i></button>',
-                    nextArrow: '<button class="slide-arrow next-arrow"><i class="feather-chevron-right"></i></button>',
-                    responsive: [
-                    {
-                        breakpoint: 1200,
-                        settings: {
-                            arrows: false,
-                        }
-                    }]
-                });
-
-                window.jQuery('.portfolio-slick-activation').slick({
-                    infinite: true,
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                    dots: false,
-                    arrows: true,
-                    cssEase: 'linear',
-                    adaptiveHeight: true,
-                    prevArrow: '<button class="slide-arrow prev-arrow"><i class="feather-arrow-left"></i></button>',
-                    nextArrow: '<button class="slide-arrow next-arrow"><i class="feather-arrow-right"></i></button>',
-                    responsive: [{
-                            breakpoint: 1124,
-                            settings: {
-                                slidesToShow: 2,
-                                slidesToScroll: 1,
-                            }
-                        },
-                        {
-                            breakpoint: 868,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1,
-                            }
-                        },
-                        {
-                            breakpoint: 576,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1,
-                                dots: true,
-                                arrows: false,
-                            }
-                        }
-                    ]
-                });
-
-                window.jQuery('.blog-slick-activation').slick({
-                    infinite: true,
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                    dots: false,
-                    arrows: true,
-                    cssEase: 'linear',
-                    adaptiveHeight: true,
-                    prevArrow: '<button class="slide-arrow prev-arrow"><i class="feather-arrow-left"></i></button>',
-                    nextArrow: '<button class="slide-arrow next-arrow"><i class="feather-arrow-right"></i></button>',
-                    responsive: [{
-                            breakpoint: 1124,
-                            settings: {
-                                slidesToShow: 2,
-                                slidesToScroll: 1,
-                            }
-                        },
-                        {
-                            breakpoint: 868,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1,
-                            }
-                        },
-                        {
-                            breakpoint: 576,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1,
-                                dots: true,
-                                arrows: false,
-                            }
-                        }
-                    ]
-                });
-
-                window.jQuery('.testimonial-activation-item-3').slick({
-                    arrows: true,
-                    dots: true,
-                    infinite: true,
-                    speed: 500,
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                    adaptiveHeight: true,
-                    prevArrow: '<button class="slide-arrow prev-arrow"><i class="feather-chevron-left"></i></button>',
-                    nextArrow: '<button class="slide-arrow next-arrow"><i class="feather-chevron-right"></i></button>',
-                    responsive: [{
-                            breakpoint: 1124,
-                            settings: {
-                                slidesToShow: 2,
-                                slidesToScroll: 1,
-                            }
-                        },
-                        {
-                            breakpoint: 768,
-                            settings: {
-                                slidesToShow: 2,
-                                slidesToScroll: 1,
-                                arrows: false,
-                            }
-                        },
-                        {
-                            breakpoint: 577,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1,
-                                arrows: false,
-                            }
-                        }
-                    ]
-                });
-
-                window.jQuery('.brand-activation-item-5').slick({
-                    arrows: true,
-                    dots: true,
-                    infinite: true,
-                    speed: 500,
-                    slidesToShow: 4,
-                    slidesToScroll: 1,
-                    adaptiveHeight: true,
-                    prevArrow: '<button class="slide-arrow prev-arrow"><i class="feather-chevron-left"></i></button>',
-                    nextArrow: '<button class="slide-arrow next-arrow"><i class="feather-chevron-right"></i></button>',
-                    responsive: [{
-                            breakpoint: 1124,
-                            settings: {
-                                slidesToShow: 2,
-                                slidesToScroll: 1,
-                            }
-                        },
-                        {
-                            breakpoint: 868,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1
-                            }
-                        },
-                        {
-                            breakpoint: 480,
-                            settings: {
-                                slidesToShow: 1,
-                                slidesToScroll: 1
-                            }
-                        }
-                    ]
-                });
-            }
-
             // Custom Certificates Slider
             imJs.customCertificatesSlider();
+            
+            // Initialize other sliders if needed
+            console.log('Slick sliders disabled - using custom implementations');
         },
 
         featherAtcivation: function () {
@@ -329,24 +155,42 @@
 
         customCertificatesSlider: function () {
             const slider = document.querySelector('.custom-certificates-slider');
-            if (!slider) return;
+            if (!slider) {
+                console.log('Certificate slider not found');
+                return;
+            }
 
             const slides = slider.querySelectorAll('.certificate-slide');
             const dots = slider.querySelectorAll('.dot');
             const prevBtn = slider.querySelector('#prevBtn');
             const nextBtn = slider.querySelector('#nextBtn');
             
+            if (slides.length === 0) {
+                console.log('No certificate slides found');
+                return;
+            }
+            
             let currentSlide = 0;
             let autoplayInterval;
 
             function showSlide(index) {
+                console.log('Showing slide:', index);
+                
                 // Hide all slides
-                slides.forEach(slide => slide.classList.remove('active'));
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                    slide.style.display = 'none';
+                });
                 dots.forEach(dot => dot.classList.remove('active'));
                 
                 // Show current slide
-                slides[index].classList.add('active');
-                dots[index].classList.add('active');
+                if (slides[index]) {
+                    slides[index].classList.add('active');
+                    slides[index].style.display = 'block';
+                }
+                if (dots[index]) {
+                    dots[index].classList.add('active');
+                }
                 
                 currentSlide = index;
             }
@@ -362,11 +206,16 @@
             }
 
             function startAutoplay() {
+                if (autoplayInterval) {
+                    clearInterval(autoplayInterval);
+                }
                 autoplayInterval = setInterval(nextSlide, 4000);
             }
 
             function stopAutoplay() {
-                clearInterval(autoplayInterval);
+                if (autoplayInterval) {
+                    clearInterval(autoplayInterval);
+                }
             }
 
             // Event listeners
@@ -394,8 +243,13 @@
                 });
             });
 
+            // Initialize first slide
+            showSlide(0);
+            
             // Start autoplay
             startAutoplay();
+            
+            console.log('Certificate slider initialized with', slides.length, 'slides');
         },
 
         certificateModal: function () {
