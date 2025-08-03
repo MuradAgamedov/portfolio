@@ -130,11 +130,7 @@ $seoSettings = \App\Models\SeoSite::first();
     animation: cardGlow 0.8s ease-out 0.3s forwards;
 }
 
-/* Loading state for button */
-#loadMorePricing.loading {
-    pointer-events: none;
-    opacity: 0.7;
-}
+
 
 /* Smooth transition for new cards */
 .pricing-card-wrapper {
@@ -168,55 +164,67 @@ $seoSettings = \App\Models\SeoSite::first();
     }
 }
 
-#loadMorePricing {
+.load-more-btn {
+    width: 60px;
+    height: 60px;
     background: var(--color-primary);
     color: white;
     border: 2px solid var(--color-primary);
+    border-radius: 50%;
     transition: all 0.3s ease;
-    padding: 15px 30px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 14px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
     box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
-#loadMorePricing:hover {
+.load-more-btn:hover {
     background: transparent;
     color: var(--color-primary);
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(255, 1, 79, 0.4);
 }
 
-#loadMorePricing.hidden {
+.load-more-btn.hidden {
     display: none !important;
 }
 
-#loadMorePricing i {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.3s ease;
+.load-more-btn i {
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease;
 }
 
-#loadMorePricing:hover i {
+.load-more-btn:hover i {
     transform: translateY(3px);
 }
 
-#loadMorePricing:disabled {
+.load-more-btn:disabled {
     opacity: 0.7;
     cursor: not-allowed;
     transform: none;
 }
 
-#loadMorePricing:disabled:hover {
+.load-more-btn:disabled:hover {
     transform: none;
     box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
 }
 
-#loadMorePricing i[data-feather="loader"] {
+.load-more-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.load-more-btn i[data-feather="loader"] {
     animation: spin 1s linear infinite;
+}
+
+.load-more-btn i[data-feather="check"] {
+    color: #28a745;
+    animation: checkmark 0.5s ease-in-out;
 }
 
 @keyframes spin {
@@ -225,6 +233,21 @@ $seoSettings = \App\Models\SeoSite::first();
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes checkmark {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
     }
 }
 </style>
@@ -697,9 +720,8 @@ $seoSettings = \App\Models\SeoSite::first();
     @if($pricingPlans->count() > 3)
     <div class="row mt--30">
         <div class="col-lg-12 text-center">
-            <button id="loadMorePricing" class="rn-btn" data-page="1" data-total="{{ $pricingPlans->count() }}">
-                <span>{{__("Load More")}}</span>
-                <i data-feather="arrow-down"></i>
+            <button id="loadMorePricing" class="load-more-btn" data-page="1" data-total="{{ $pricingPlans->count() }}">
+                <i data-feather="chevron-down"></i>
             </button>
         </div>
     </div>
@@ -1590,8 +1612,8 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Load More clicked! Page:', currentPage, 'Total:', totalPlans);
             
             // Add loading state to button
-            const originalText = loadMoreBtn.innerHTML;
-            loadMoreBtn.innerHTML = '<span>Loading...</span><i data-feather="loader"></i>';
+            const originalIcon = loadMoreBtn.querySelector('i');
+            loadMoreBtn.innerHTML = '<i data-feather="loader"></i>';
             loadMoreBtn.disabled = true;
             loadMoreBtn.classList.add('loading');
             
@@ -1621,9 +1643,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         console.log('No more plans, hiding button');
                     } else {
                         // Reset button
-                        loadMoreBtn.innerHTML = originalText;
+                        loadMoreBtn.innerHTML = '<i data-feather="chevron-down"></i>';
                         loadMoreBtn.disabled = false;
                         loadMoreBtn.classList.remove('loading');
+                        
+                        // Initialize Feather icons
+                        if (typeof feather !== 'undefined') {
+                            feather.replace();
+                        }
                     }
                     
                     // Initialize Feather icons for new cards
@@ -1648,17 +1675,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     console.error('API Error:', data.message || 'Unknown error');
                     // Reset button on error
-                    loadMoreBtn.innerHTML = originalText;
+                    loadMoreBtn.innerHTML = '<i data-feather="chevron-down"></i>';
                     loadMoreBtn.disabled = false;
                     loadMoreBtn.classList.remove('loading');
+                    
+                    // Initialize Feather icons
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
                 }
             })
             .catch(error => {
                 console.error('Fetch Error:', error);
                 // Reset button on error
-                loadMoreBtn.innerHTML = originalText;
+                loadMoreBtn.innerHTML = '<i data-feather="chevron-down"></i>';
                 loadMoreBtn.disabled = false;
                 loadMoreBtn.classList.remove('loading');
+                
+                // Initialize Feather icons
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
             });
         });
     }
