@@ -717,7 +717,7 @@ $seoSettings = \App\Models\SeoSite::first();
                 $phone = \App\Models\SiteSetting::getByKey('phone');
                 @endphp
                 <div class="pricing-card-footer">
-                    <a href="https://wa.me/{{ $phone ?: '01941043264' }}" class="rn-btn d-block pricing-get-started-btn" data-plan="{{ $plan->getTranslation('title', app()->getLocale()) }}">
+                    <a href="https://wa.me/{{ $phone ?: '01941043264' }}?text=Salam! Mən {{ $plan->getTranslation('title', app()->getLocale()) }} planı haqqında məlumat almaq istəyirəm." class="rn-btn d-block" target="_blank">
                         <span>{{__("Get Started")}}</span>
                         <i data-feather="arrow-right"></i>
                     </a>

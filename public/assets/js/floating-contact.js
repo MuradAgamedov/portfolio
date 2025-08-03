@@ -220,32 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Pricing Get Started buttons - Event delegation for dynamically added buttons
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.pricing-get-started-btn')) {
-            e.preventDefault();
-            
-            const btn = e.target.closest('.pricing-get-started-btn');
-            const planName = btn.getAttribute('data-plan');
-            
-            // Get WhatsApp number from site settings or use default
-            let phoneNumber = '994501234567'; // Default number, you can change this
-            
-            // Try to get from site settings if available
-            const whatsappMeta = document.querySelector('meta[name="whatsapp-number"]');
-            if (whatsappMeta) {
-                phoneNumber = whatsappMeta.getAttribute('content');
-            }
-            
-            // Create WhatsApp message with plan info
-            const message = `Salam! Mən ${planName} planı haqqında məlumat almaq istəyirəm.`;
-            const encodedMessage = encodeURIComponent(message);
-            
-            // Open WhatsApp with the plan-specific message
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-            window.open(whatsappUrl, '_blank');
-        }
-    });
+
 
     // Email form submission
     const emailForm = document.getElementById('emailForm');
