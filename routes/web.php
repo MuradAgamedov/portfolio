@@ -65,7 +65,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}'])->middleware(['setloca
     // API Routes for Load More functionality
     Route::get('/api/pricing-plans', [FrontController::class, 'getPricingPlans'])->name('api.pricing-plans');
 });
-Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
+Route::post('/contact', [FrontController::class, 'contact'])->name('contact.submit');
 
 // Admin Auth Routes
 Route::prefix('admin')->name('admin.')->group(function () {
