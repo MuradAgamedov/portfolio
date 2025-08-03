@@ -192,21 +192,42 @@ class FrontController extends Controller
 
     public function quickContact(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'message' => 'required|string|max:1000',
-        ]);
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'phone' => 'required|string|max:20',
+                'message' => 'required|string|max:1000',
+            ], [
+                'name.required' => 'Ad tələb olunur!',
+                'phone.required' => 'Telefon nömrəsi tələb olunur!',
+                'message.required' => 'Mesaj tələb olunur!',
+                'name.max' => 'Ad maksimum 255 simvol ola bilər!',
+                'phone.max' => 'Telefon nömrəsi maksimum 20 simvol ola bilər!',
+                'message.max' => 'Mesaj maksimum 1000 simvol ola bilər!'
+            ]);
 
-        QuickContact::create([
-            'name' => $validated['name'],
-            'phone' => $validated['phone'],
-            'message' => $validated['message'],
-        ]);
+            QuickContact::create([
+                'name' => $validated['name'],
+                'phone' => $validated['phone'],
+                'message' => $validated['message'],
+            ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => __('Mesajınız uğurla göndərildi!')
-        ]);
+            return response()->json([
+                'success' => true,
+                'message' => __('Mesajınız uğurla göndərildi!')
+            ]);
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->errors()[array_key_first($e->errors())][0] ?? 'Validation xətası!'
+            ], 422);
+        } catch (\Exception $e) {
+            \Log::error('Quick Contact Error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.'
+            ], 500);
+        }
     }
 }

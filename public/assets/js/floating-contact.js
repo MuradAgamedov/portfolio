@@ -230,8 +230,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 }
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log('Response status:', response.status);
+                return response.json();
+            })
             .then(data => {
+                console.log('Response data:', data);
                 if (data.success) {
                     // Reset form
                     this.reset();
@@ -241,11 +245,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Don't close popup immediately, let success modal handle it
                 } else {
-                    showErrorModal('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
+                    showErrorModal(data.message || 'Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Fetch Error:', error);
+                console.error('Error details:', error.message);
                 showErrorModal('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
             })
             .finally(() => {
