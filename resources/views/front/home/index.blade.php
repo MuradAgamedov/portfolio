@@ -130,6 +130,17 @@ $seoSettings = \App\Models\SeoSite::first();
     animation: cardGlow 0.8s ease-out 0.3s forwards;
 }
 
+/* Loading state for button */
+#loadMorePricing.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* Smooth transition for new cards */
+.pricing-card-wrapper {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
 @keyframes cardGlow {
     0% {
         box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -1987,9 +1998,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const originalText = loadMoreBtn.innerHTML;
             loadMoreBtn.innerHTML = '<span>Loading...</span><i data-feather="loader"></i>';
             loadMoreBtn.disabled = true;
+            loadMoreBtn.classList.add('loading');
             
             // Make API request
-            fetch(`/${window.location.pathname.split('/')[1]}/api/pricing-plans?page=${currentPage + 1}`, {
+            const currentLocale = window.location.pathname.split('/')[1];
+            fetch(`/${currentLocale}/api/pricing-plans?page=${currentPage + 1}`, {
                 method: 'GET',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
@@ -2015,6 +2028,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Reset button
                         loadMoreBtn.innerHTML = originalText;
                         loadMoreBtn.disabled = false;
+                        loadMoreBtn.classList.remove('loading');
                     }
                     
                     // Initialize Feather icons for new cards
@@ -2041,6 +2055,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Reset button on error
                     loadMoreBtn.innerHTML = originalText;
                     loadMoreBtn.disabled = false;
+                    loadMoreBtn.classList.remove('loading');
                 }
             })
             .catch(error => {
@@ -2048,6 +2063,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Reset button on error
                 loadMoreBtn.innerHTML = originalText;
                 loadMoreBtn.disabled = false;
+                loadMoreBtn.classList.remove('loading');
             });
         });
     }
