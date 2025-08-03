@@ -59,13 +59,13 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}'])->middleware(['setloca
     Route::get('/about', [FrontController::class, 'about'])->name('about');
     Route::get('/contact', [FrontController::class, 'contactPage'])->name('contact');
     Route::post('/service-request', [ServiceRequestController::class, 'store'])->name('service-request.store');
-    Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
     Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
     Route::post('/quick-contact', [FrontController::class, 'quickContact'])->name('quick-contact');
     
     // API Routes for Load More functionality
     Route::get('/api/pricing-plans', [FrontController::class, 'getPricingPlans'])->name('api.pricing-plans');
 });
+Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
 
 // Admin Auth Routes
 Route::prefix('admin')->name('admin.')->group(function () {
