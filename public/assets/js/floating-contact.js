@@ -140,6 +140,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (modal) {
             modal.remove();
         }
+        
+        // Close the contact popup and reset to initial state
+        closePopup();
+        
+        // Reset form to initial state (show contact options)
+        const contactOptionsView = document.getElementById('contactOptionsView');
+        const emailFormView = document.getElementById('emailFormView');
+        
+        if (contactOptionsView && emailFormView) {
+            contactOptionsView.style.display = 'block';
+            emailFormView.style.display = 'none';
+        }
     };
 
     // Close Error Modal
@@ -221,14 +233,13 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Show success modal
-                    showSuccessModal(data.message);
-                    
                     // Reset form
                     this.reset();
                     
-                    // Close popup
-                    closePopup();
+                    // Show success modal
+                    showSuccessModal(data.message);
+                    
+                    // Don't close popup immediately, let success modal handle it
                 } else {
                     showErrorModal('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
                 }
