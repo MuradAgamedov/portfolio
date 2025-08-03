@@ -113,6 +113,36 @@ $seoSettings = \App\Models\SeoSite::first();
 .pricing-card-hover:hover .feature-text {
     color: rgba(255, 255, 255, 0.9);
 }
+
+/* Load More Pricing Cards */
+.hidden-card {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.hidden-card.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#loadMorePricing {
+    background: var(--color-primary);
+    color: white;
+    border: 2px solid var(--color-primary);
+    transition: all 0.3s ease;
+}
+
+#loadMorePricing:hover {
+    background: transparent;
+    color: var(--color-primary);
+}
+
+#loadMorePricing.hidden {
+    display: none;
+}
 </style>
 
 <!-- SEO Display Section -->
@@ -546,7 +576,7 @@ $seoSettings = \App\Models\SeoSite::first();
 
         <div class="row mt--50 pricing-area" data-cards="{{ $pricingPlans->count() }}">
         @foreach($pricingPlans as $index => $plan)
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="col-lg-4 col-md-6 col-sm-12 pricing-card-wrapper {{ $index >= 3 ? 'hidden-card' : '' }}" data-index="{{ $index }}">
             <div class="pricing-card {{ $index == 1 ? 'pricing-card-hover' : '' }}">
                 <div class="pricing-card-header">
                     <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
@@ -579,6 +609,17 @@ $seoSettings = \App\Models\SeoSite::first();
         </div>
         @endforeach
     </div>
+    
+    @if($pricingPlans->count() > 3)
+    <div class="row mt--30">
+        <div class="col-lg-12 text-center">
+            <button id="loadMorePricing" class="rn-btn">
+                <span>{{__("Load More")}}</span>
+                <i data-feather="arrow-down"></i>
+            </button>
+        </div>
+    </div>
+    @endif
 </div>
 </div>
 <!-- End Pricing Area -->
@@ -1853,4 +1894,27 @@ $seoSettings = \App\Models\SeoSite::first();
         transform: translateX(3px);
     }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const loadMoreBtn = document.getElementById('loadMorePricing');
+    const hiddenCards = document.querySelectorAll('.hidden-card');
+    
+    if (loadMoreBtn && hiddenCards.length > 0) {
+        loadMoreBtn.addEventListener('click', function() {
+            // Show all hidden cards with animation
+            hiddenCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('show');
+                }, index * 100); // Stagger the animation
+            });
+            
+            // Hide the load more button
+            setTimeout(() => {
+                loadMoreBtn.classList.add('hidden');
+            }, hiddenCards.length * 100 + 300);
+        });
+    }
+});
+</script>
 @endpush
