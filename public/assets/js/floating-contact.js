@@ -78,24 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 closePopup();
                 
-                // Check if we're on contact page
-                const isContactPage = window.location.pathname.includes('/contact');
-                
-                if (isContactPage) {
-                    // Smooth scroll to contact section
-                    const contactSection = document.querySelector('#contacts');
-                    if (contactSection) {
-                        setTimeout(() => {
-                            contactSection.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }, 300);
-                    }
-                } else {
-                    // Navigate to contact page
-                    window.location.href = '/contact';
-                }
+                // Navigate to contact page
+                window.location.href = '/contact';
             }
             // For email and WhatsApp, let the default link behavior work
         });
