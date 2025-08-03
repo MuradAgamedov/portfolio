@@ -89,7 +89,7 @@
                         </div>
                                             <div class="form-group">
                         <label for="email-message">{{__("Message")}}</label>
-                        <textarea id="email-message" name="message"  rows="4" required></textarea>
+                        <textarea id="email-message" name="message" class="form-control" rows="4" required></textarea>
                     </div>
                     <div class="form-group">
                         <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}" data-callback="onFloatingRecaptchaSuccess" data-expired-callback="onFloatingRecaptchaExpired"></div>
