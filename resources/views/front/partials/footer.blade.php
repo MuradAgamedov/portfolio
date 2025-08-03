@@ -129,92 +129,113 @@
 <!-- main JS -->
 <script src="{{ asset('assets/js/main.js') }}"></script> <!-- script end -->
 
-<!-- Ensure jQuery is loaded before any scripts -->
-<script>
-if (typeof jQuery === 'undefined') {
-    console.error('jQuery is not loaded!');
-} else {
-    console.log('jQuery loaded successfully');
-}
-</script>
+
 
 @stack('scripts')
 
 <!-- Custom Mobile Menu JavaScript -->
 <script>
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
-    $('.mobile-menu-toggle').on('click', function() {
-        $('.custom-mobile-menu').addClass('active');
-        $('body').addClass('menu-open');
-    });
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', function() {
+            document.querySelector('.custom-mobile-menu').classList.add('active');
+            document.body.classList.add('menu-open');
+        });
+    }
     
     // Close mobile menu
-    $('.mobile-menu-close, .mobile-menu-overlay').on('click', function() {
-        $('.custom-mobile-menu').removeClass('active');
-        $('body').removeClass('menu-open');
+    const closeButtons = document.querySelectorAll('.mobile-menu-close, .mobile-menu-overlay');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            document.querySelector('.custom-mobile-menu').classList.remove('active');
+            document.body.classList.remove('menu-open');
+        });
     });
     
     // Close menu when clicking on menu items
-    $('.mobile-menu-list a').on('click', function() {
-        $('.custom-mobile-menu').removeClass('active');
-        $('body').removeClass('menu-open');
+    const menuItems = document.querySelectorAll('.mobile-menu-list a');
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelector('.custom-mobile-menu').classList.remove('active');
+            document.body.classList.remove('menu-open');
+        });
     });
     
     // Close menu when clicking outside
-    $(document).on('click', function(e) {
-        if ($(e.target).closest('.custom-mobile-menu').length === 0 && 
-            $(e.target).closest('.mobile-menu-toggle').length === 0) {
-            $('.custom-mobile-menu').removeClass('active');
-            $('body').removeClass('menu-open');
+    document.addEventListener('click', function(e) {
+        const mobileMenu = document.querySelector('.custom-mobile-menu');
+        const menuToggle = document.querySelector('.mobile-menu-toggle');
+        
+        if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+            mobileMenu.classList.remove('active');
+            document.body.classList.remove('menu-open');
         }
     });
     
     // Smooth scroll for navigation links
-    $('a[href^="#"]').on('click', function(e) {
-        e.preventDefault();
-        
-        var href = this.getAttribute('href');
-        if (href && href !== '#') {
-            var target = $(href);
-            if (target.length) {
-                $('html, body').animate({
-                    scrollTop: target.offset().top - 100 // Offset for fixed header
-                }, {
-                    duration: 2000,
-                    easing: 'easeInOutQuart',
-                    queue: false
-                });
-                
-                // Update URL hash
-                window.location.hash = href;
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const href = this.getAttribute('href');
+            if (href && href !== '#') {
+                const target = document.querySelector(href);
+                if (target) {
+                    const targetPosition = target.offsetTop - 100; // Offset for fixed header
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update URL hash
+                    window.location.hash = href;
+                }
             }
-        }
+        });
     });
     
     // Active navigation highlighting
-    $(window).on('scroll', function() {
-        var scrollDistance = $(window).scrollTop();
+    window.addEventListener('scroll', function() {
+        const scrollDistance = window.pageYOffset || document.documentElement.scrollTop;
         
         // Header scroll effect - make fixed when scrolling
+        const header = document.querySelector('.rn-header');
         if (scrollDistance > 100) {
-            $('.rn-header').addClass('scrolled');
-            $('body').addClass('header-fixed');
+            header.classList.add('scrolled');
+            document.body.classList.add('header-fixed');
         } else {
-            $('.rn-header').removeClass('scrolled');
-            $('body').removeClass('header-fixed');
+            header.classList.remove('scrolled');
+            document.body.classList.remove('header-fixed');
         }
         
-        $('section[id]').each(function(i) {
-            if ($(this).position().top - 100 <= scrollDistance) {
-                $('.primary-menu .nav-link.active').removeClass('active');
-                $('.primary-menu .nav-link[href="#' + $(this).attr('id') + '"]').addClass('active');
+        // Active navigation highlighting
+        const sections = document.querySelectorAll('section[id]');
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollDistance >= sectionTop && scrollDistance < sectionTop + sectionHeight) {
+                // Remove active class from all nav links
+                document.querySelectorAll('.primary-menu .nav-link.active').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to current section's nav link
+                const activeLink = document.querySelector('.primary-menu .nav-link[href="#' + sectionId + '"]');
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
             }
         });
     });
     
     // Initialize header state on page load
-    $(window).trigger('scroll');
+    window.dispatchEvent(new Event('scroll'));
 });
 </script>
 
