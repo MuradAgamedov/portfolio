@@ -463,38 +463,21 @@
         },
 
         customTypingAnimation: function () {
-            const typingContainer = document.getElementById('typingText');
-            if (!typingContainer) {
-                console.log('Typing container not found');
+            const typingElement = document.querySelector('#typingText .typing-word');
+            if (!typingElement) {
+                console.log('Typing element not found');
                 return;
             }
             
-            const words = typingContainer.querySelectorAll('.typing-word');
-            if (words.length === 0) {
-                console.log('No typing animation words found');
-                return;
-            }
-            
-            console.log('Found', words.length, 'words for typing animation:', Array.from(words).map(w => w.textContent));
-            
+            // Mətnlər massivi
+            const words = ['web developer', 'yazıçı', 'redaktor'];
             let currentIndex = 0;
             let animationInterval;
             
             function switchWord() {
-                // Hide current word
-                if (words[currentIndex]) {
-                    words[currentIndex].classList.remove('active');
-                    console.log('Hidden:', words[currentIndex].textContent);
-                }
-                
-                // Move to next word
                 currentIndex = (currentIndex + 1) % words.length;
-                
-                // Show next word
-                if (words[currentIndex]) {
-                    words[currentIndex].classList.add('active');
-                    console.log('Shown:', words[currentIndex].textContent);
-                }
+                typingElement.textContent = words[currentIndex];
+                console.log('Switched to:', words[currentIndex]);
             }
             
             function startAnimation() {
@@ -507,18 +490,8 @@
                 
                 // Reset to first word
                 currentIndex = 0;
-                
-                // Hide all words first
-                words.forEach(function(word, index) {
-                    word.classList.remove('active');
-                    console.log('Initial state - word', index, ':', word.textContent);
-                });
-                
-                // Show first word
-                if (words[0]) {
-                    words[0].classList.add('active');
-                    console.log('First word shown:', words[0].textContent);
-                }
+                typingElement.textContent = words[0];
+                console.log('First word:', words[0]);
                 
                 // Start the animation after a delay
                 setTimeout(function() {

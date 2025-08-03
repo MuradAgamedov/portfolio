@@ -282,9 +282,7 @@ $seoSettings = \App\Models\SeoSite::first();
                                         <span>a </span>
                                         <!-- ROTATING TEXT -->
                                         <span id="typingText">
-                                            @foreach($heroProfessions as $index => $heroProfession)
-                                            <span class="typing-word {{ $index === 0 ? 'active' : '' }}">{{ $heroProfession->title }}</span>
-                                            @endforeach
+                                            <span class="typing-word active">{{ $heroProfessions->first()->title ?? 'web developer' }}</span>
                                         </span>
                                     </span>
                                     <!-- type headline end -->

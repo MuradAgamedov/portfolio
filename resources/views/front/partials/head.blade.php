@@ -202,20 +202,9 @@
     }
     
     .typing-word {
-        position: absolute;
-        left: 0;
-        top: 0;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.5s ease;
         color: #ff014f;
         white-space: nowrap;
-    }
-    
-    .typing-word.active {
-        position: relative;
-        opacity: 1;
-        visibility: visible;
+        transition: all 0.3s ease;
     }
     
     /* Typing cursor effect */
