@@ -1870,7 +1870,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // For email and WhatsApp, let the default link behavior work
         });
     });
-});
 </script>
 @endpush
 
