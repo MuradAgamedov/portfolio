@@ -34,7 +34,8 @@
                 </button>
             </div>
             <div class="popup-body">
-                <div class="contact-options">
+                <!-- Contact Options View -->
+                <div class="contact-options" id="contactOptionsView">
                     <a href="#contact" class="contact-option" data-action="contact-form">
                         <div class="option-icon">
                             <i data-feather="file-text"></i>
@@ -45,7 +46,7 @@
                         </div>
                     </a>
                     
-                    <a href="mailto:{{ $siteSettings->email ?? 'info@example.com' }}" class="contact-option" data-action="email">
+                    <a href="#" class="contact-option" data-action="email-form">
                         <div class="option-icon">
                             <i data-feather="mail"></i>
                         </div>
@@ -67,6 +68,35 @@
                             <p>{{__("Chat with us on WhatsApp")}}</p>
                         </div>
                     </a>
+                </div>
+
+                <!-- Email Form View -->
+                <div class="email-form-view" id="emailFormView" style="display: none;">
+                    <div class="form-header">
+                        <button class="back-btn" id="backToOptions">
+                            <i data-feather="arrow-left"></i>
+                            <span>{{__("Back")}}</span>
+                        </button>
+                        <h4>{{__("Send Email")}}</h4>
+                    </div>
+                    <form class="email-form" id="emailForm">
+                        <div class="form-group">
+                            <label for="email-title">{{__("Subject")}}</label>
+                            <input type="text" id="email-title" name="title" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-phone">{{__("Phone Number")}}</label>
+                            <input type="tel" id="email-phone" name="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-message">{{__("Message")}}</label>
+                            <textarea id="email-message" name="message" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i data-feather="send"></i>
+                            <span>{{__("Send Email")}}</span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

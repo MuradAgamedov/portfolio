@@ -55,6 +55,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (contactPopupModal) {
             contactPopupModal.classList.remove('show');
             console.log('Modal closed');
+            
+            // Reset to contact options view
+            document.getElementById('contactOptionsView').style.display = 'block';
+            document.getElementById('emailFormView').style.display = 'none';
         }
     }
 
@@ -82,8 +86,53 @@ document.addEventListener('DOMContentLoaded', function() {
                 const currentLang = window.location.pathname.split('/')[1];
                 const contactUrl = currentLang && currentLang !== 'contact' ? `/${currentLang}/contact` : '/contact';
                 window.location.href = contactUrl;
+            } else if (action === 'email-form') {
+                e.preventDefault();
+                
+                // Show email form
+                document.getElementById('contactOptionsView').style.display = 'none';
+                document.getElementById('emailFormView').style.display = 'block';
+                
+                // Initialize Feather icons in form
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
             }
-            // For email and WhatsApp, let the default link behavior work
+            // For WhatsApp, let the default link behavior work
         });
     });
+
+    // Back button functionality
+    const backToOptions = document.getElementById('backToOptions');
+    if (backToOptions) {
+        backToOptions.addEventListener('click', function() {
+            document.getElementById('emailFormView').style.display = 'none';
+            document.getElementById('contactOptionsView').style.display = 'block';
+        });
+    }
+
+    // Email form submission
+    const emailForm = document.getElementById('emailForm');
+    if (emailForm) {
+        emailForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const title = formData.get('title');
+            const phone = formData.get('phone');
+            const message = formData.get('message');
+            
+            // Get email from site settings (this will be replaced by server-side rendering)
+            const email = '{{ $siteSettings->email ?? "info@example.com" }}';
+            const subject = encodeURIComponent(title);
+            const body = encodeURIComponent(`Phone: ${phone}\n\nMessage:\n${message}`);
+            const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+            
+            // Open email client
+            window.open(mailtoLink);
+            
+            // Close popup
+            closePopup();
+        });
+    }
 }); 
