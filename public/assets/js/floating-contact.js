@@ -264,18 +264,48 @@ function initFloatingContact() {
                     // Reset form
                     this.reset();
                     
-                    // Show success modal
-                    showSuccessModal(data.message);
+                    // Close popup directly
+                    closePopup();
                     
-                    // Don't close popup immediately, let success modal handle it
+                    // Show simple success message
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Uğurlu!',
+                            text: data.message,
+                            confirmButtonColor: '#667eea'
+                        });
+                    } else {
+                        alert(data.message);
+                    }
                 } else {
-                    showErrorModal(data.message || 'Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
+                    // Show simple error message
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Xəta!',
+                            text: data.message || 'Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.',
+                            confirmButtonColor: '#dc3545'
+                        });
+                    } else {
+                        alert(data.message || 'Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
+                    }
                 }
             })
             .catch(error => {
                 console.error('Fetch Error:', error);
                 console.error('Error details:', error.message);
-                showErrorModal('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
+                // Show simple error message
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Xəta!',
+                        text: 'Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.',
+                        confirmButtonColor: '#dc3545'
+                    });
+                } else {
+                    alert('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
+                }
             })
             .finally(() => {
                 // Reset button state
