@@ -55,10 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (contactPopupModal) {
             contactPopupModal.classList.remove('show');
             console.log('Modal closed');
-            
-            // Reset to contact options view
-            document.getElementById('contactOptionsView').style.display = 'block';
-            document.getElementById('emailFormView').style.display = 'none';
         }
     }
 
@@ -118,13 +114,12 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             const formData = new FormData(this);
-            const title = formData.get('title');
             const phone = formData.get('phone');
             const message = formData.get('message');
             
             // Get email from site settings (this will be replaced by server-side rendering)
             const email = '{{ $siteSettings->email ?? "info@example.com" }}';
-            const subject = encodeURIComponent(title);
+            const subject = encodeURIComponent('Contact Form Message');
             const body = encodeURIComponent(`Phone: ${phone}\n\nMessage:\n${message}`);
             const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
             

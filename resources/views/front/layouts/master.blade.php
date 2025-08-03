@@ -77,13 +77,8 @@
                             <i data-feather="arrow-left"></i>
                             <span>{{__("Back")}}</span>
                         </button>
-                        <h4>{{__("Send Email")}}</h4>
                     </div>
                     <form class="email-form" id="emailForm">
-                        <div class="form-group">
-                            <label for="email-title">{{__("Subject")}}</label>
-                            <input type="text" id="email-title" name="title" class="form-control" required>
-                        </div>
                         <div class="form-group">
                             <label for="email-phone">{{__("Phone Number")}}</label>
                             <input type="tel" id="email-phone" name="phone" class="form-control" required>
@@ -98,6 +93,7 @@
                         </button>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
