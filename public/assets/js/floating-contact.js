@@ -15,7 +15,7 @@ function initFloatingContact() {
     // Floating Contact Button Scroll Effect
     const floatingBtn = document.querySelector('.floating-contact-btn');
     
-    if (floatingBtn) {
+    if (floatingBtn && floatingBtn.style) {
         let lastScrollTop = 0;
         
         window.addEventListener('scroll', function() {
@@ -32,7 +32,7 @@ function initFloatingContact() {
             lastScrollTop = scrollTop;
         });
     } else {
-        console.log('Floating contact button not found, skipping scroll effects');
+        console.log('Floating contact button not found or not accessible, skipping scroll effects');
     }
 
     // Contact Popup Modal Functionality
