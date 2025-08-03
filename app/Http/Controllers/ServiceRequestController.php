@@ -4,23 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\ServiceRequest;
 use App\Models\Service;
-use App\Traits\RecaptchaTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class ServiceRequestController extends Controller
 {
-    use RecaptchaTrait;
     public function store(Request $request): JsonResponse
     {
-        // Validate reCAPTCHA first
-        if (!$this->validateRecaptcha($request)) {
-            return response()->json([
-                'success' => false,
-                'message' => __('Please complete the reCAPTCHA verification.')
-            ], 422);
-        }
-
         $request->validate([
             'service_id' => 'required|exists:services,id',
             'email' => 'required|email',

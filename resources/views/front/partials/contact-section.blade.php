@@ -54,7 +54,7 @@
                 <div class="contact-form-wrapper">
                     <div class="introduce">
 
-                        <form class="rnt-contact-form rwt-dynamic-form row" id="contact-form" method="POST">
+                        <form class="rnt-contact-form rwt-dynamic-form row" id="contact-form" method="POST" action="{{ route('contact') }}">
                             @csrf
 
                             <div class="col-lg-6">
@@ -92,13 +92,10 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 20px; width: max-content;">
-                                    <div class="g-recaptcha mb-3" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
-                                    <button name="submit" type="submit" id="submit" class="rn-btn" style="width: 100%; display: block; text-align: center;">
-                                        <span>{{__("SEND MESSAGE")}}</span>
-                                        <i data-feather="arrow-right"></i>
-                                    </button>
-                                </div>
+                                <button name="submit" type="submit" id="submit" class="rn-btn" style="width: 100%; display: block; text-align: center;">
+                                    <span>{{__("SEND MESSAGE")}}</span>
+                                    <i data-feather="arrow-right"></i>
+                                </button>
                             </div>
                         </form>
                     </div>

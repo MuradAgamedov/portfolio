@@ -49,11 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Reset form
                 contactForm.reset();
                 
-                // Reset reCAPTCHA
-                if (typeof grecaptcha !== 'undefined' && grecaptcha.reset) {
-                    grecaptcha.reset();
-                }
-                
                 // Reset button
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
@@ -100,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         alert('Error: ' + errorMessage);
                     }
                 }
-                
                 
                 // Reset button
                 submitBtn.innerHTML = originalText;

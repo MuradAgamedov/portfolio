@@ -18,13 +18,12 @@ use App\Models\PricingPlan;
 use App\Models\Newsletter;
 use App\Models\SiteSetting;
 use App\Models\QuickContact;
-use App\Traits\RecaptchaTrait;
 use App\Traits\SocialTrait;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
-    use RecaptchaTrait, SocialTrait;
+    use SocialTrait;
 
     public function index()
     {
@@ -72,18 +71,6 @@ class FrontController extends Controller
 
     public function contact(Request $request)
     {
-        // Validate reCAPTCHA first
-        if (!$this->validateRecaptcha($request)) {
-            if ($request->ajax()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => __("Please complete the reCAPTCHA verification.")
-                ], 422);
-            }
-            
-            return redirect()->back()->withErrors(['recaptcha' => __("Please complete the reCAPTCHA verification.")]);
-        }
-
         $validated = $request->validate([
             'contact-name' => 'required|string|max:255',
             'contact-email' => 'required|email|max:255',
@@ -192,14 +179,6 @@ class FrontController extends Controller
 
     public function quickContact(Request $request)
     {
-        // Validate reCAPTCHA first
-        if (!$this->validateRecaptcha($request)) {
-            return response()->json([
-                'success' => false,
-                'message' => __("Please complete the reCAPTCHA verification.")
-            ], 422);
-        }
-
         try {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
