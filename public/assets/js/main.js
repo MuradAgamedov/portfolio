@@ -459,26 +459,37 @@
 
         customTypingAnimation: function () {
             const words = document.querySelectorAll('.cd-words-wrapper b');
-            if (words.length === 0) return;
+            if (words.length === 0) {
+                console.log('No typing animation words found');
+                return;
+            }
             
-            var currentIndex = 0;
-            var animationInterval;
-            var isAnimating = false;
+            console.log('Found', words.length, 'words for typing animation');
+            
+            let currentIndex = 0;
+            let animationInterval;
+            let isAnimating = false;
             
             function showNextWord() {
                 if (isAnimating) return;
                 isAnimating = true;
                 
+                console.log('Showing next word, current index:', currentIndex);
+                
                 // Hide current word
-                words[currentIndex].classList.remove('is-visible');
-                words[currentIndex].classList.add('is-hidden');
+                if (words[currentIndex]) {
+                    words[currentIndex].classList.remove('is-visible');
+                    words[currentIndex].classList.add('is-hidden');
+                }
                 
                 // Move to next word
                 currentIndex = (currentIndex + 1) % words.length;
                 
                 // Show next word
-                words[currentIndex].classList.remove('is-hidden');
-                words[currentIndex].classList.add('is-visible');
+                if (words[currentIndex]) {
+                    words[currentIndex].classList.remove('is-hidden');
+                    words[currentIndex].classList.add('is-visible');
+                }
                 
                 // Reset flag after animation
                 setTimeout(function() {
@@ -487,6 +498,8 @@
             }
             
             function startAnimation() {
+                console.log('Starting typing animation');
+                
                 // Clear any existing interval
                 if (animationInterval) {
                     clearInterval(animationInterval);
@@ -495,27 +508,35 @@
                 // Reset to first word
                 currentIndex = 0;
                 isAnimating = false;
+                
+                // Hide all words first
                 words.forEach(function(word) {
                     word.classList.remove('is-visible', 'is-hidden');
                     word.classList.add('is-hidden');
                 });
-                words[0].classList.remove('is-hidden');
-                words[0].classList.add('is-visible');
                 
-                // Start the animation after a longer delay
+                // Show first word
+                if (words[0]) {
+                    words[0].classList.remove('is-hidden');
+                    words[0].classList.add('is-visible');
+                }
+                
+                // Start the animation after a delay
                 setTimeout(function() {
                     showNextWord();
-                    animationInterval = setInterval(showNextWord, 5000); // 5 seconds interval
+                    animationInterval = setInterval(showNextWord, 3000); // 3 seconds interval
                 }, 2000); // 2 seconds initial delay
             }
             
-            // Start animation when page loads
-            document.addEventListener('DOMContentLoaded', function() {
+            // Start animation immediately if DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', startAnimation);
+            } else {
                 startAnimation();
-            });
+            }
             
-            // Restart animation when scrolling to top (less frequent)
-            var scrollTimeout;
+            // Restart animation when scrolling to top
+            let scrollTimeout;
             window.addEventListener('scroll', function() {
                 clearTimeout(scrollTimeout);
                 scrollTimeout = setTimeout(function() {
