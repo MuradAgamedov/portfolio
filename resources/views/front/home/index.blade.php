@@ -179,6 +179,7 @@ $seoSettings = \App\Models\SeoSite::first();
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .load-more-btn:hover {
@@ -196,10 +197,17 @@ $seoSettings = \App\Models\SeoSite::first();
     width: 24px;
     height: 24px;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .load-more-btn:hover i {
-    transform: translateY(3px);
+    transform: translate(-50%, calc(-50% + 3px));
 }
 
 .load-more-btn:disabled {
