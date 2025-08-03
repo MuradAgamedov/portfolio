@@ -78,8 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 closePopup();
                 
-                // Navigate to contact page
-                window.location.href = '/contact';
+                // Navigate to contact page using localized route
+                const currentLang = window.location.pathname.split('/')[1];
+                const contactUrl = currentLang && currentLang !== 'contact' ? `/${currentLang}/contact` : '/contact';
+                window.location.href = contactUrl;
             }
             // For email and WhatsApp, let the default link behavior work
         });
