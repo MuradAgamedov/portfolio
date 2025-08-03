@@ -78,18 +78,43 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 closePopup();
                 
-                // Smooth scroll to contact section
-                const contactSection = document.querySelector('#contact');
-                if (contactSection) {
-                    setTimeout(() => {
-                        contactSection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }, 300);
+                // Check if we're on contact page
+                const isContactPage = window.location.pathname.includes('/contact');
+                
+                if (isContactPage) {
+                    // Smooth scroll to contact section
+                    const contactSection = document.querySelector('#contacts');
+                    if (contactSection) {
+                        setTimeout(() => {
+                            contactSection.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }, 300);
+                    }
+                } else {
+                    // Navigate to contact page
+                    window.location.href = '/contact';
+                }
+            } else if (action === 'whatsapp') {
+                e.preventDefault();
+                closePopup();
+                
+                // Check if we're on contact page
+                const isContactPage = window.location.pathname.includes('/contact');
+                
+                if (isContactPage) {
+                    // Click the WhatsApp link on contact page
+                    const contactWhatsappLink = document.getElementById('contact-whatsapp-link');
+                    if (contactWhatsappLink) {
+                        contactWhatsappLink.click();
+                    }
+                } else {
+                    // Navigate to contact page and then click WhatsApp
+                    window.location.href = '/contact#whatsapp';
                 }
             }
-            // For email and WhatsApp, let the default link behavior work
+            // For email, let the default link behavior work
         });
     });
 }); 
