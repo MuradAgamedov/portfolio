@@ -624,7 +624,7 @@ $seoSettings = \App\Models\SeoSite::first();
     @if($pricingPlans->count() > 3)
     <div class="row mt--30">
         <div class="col-lg-12 text-center">
-            <button id="loadMorePricing" class="rn-btn" style="display: none;">
+            <button id="loadMorePricing" class="rn-btn">
                 <span>{{__("Load More")}}</span>
                 <i data-feather="arrow-down"></i>
             </button>
@@ -1912,15 +1912,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadMoreBtn = document.getElementById('loadMorePricing');
     
     console.log('Hidden cards found:', hiddenCards.length);
-    
-    // Show the Load More button if there are hidden cards
-    if (hiddenCards.length > 0 && loadMoreBtn) {
-        loadMoreBtn.style.display = 'inline-block';
-        console.log('Load More button shown');
-    }
+    console.log('Load More button found:', loadMoreBtn);
     
     // Load More functionality
-    if (loadMoreBtn) {
+    if (loadMoreBtn && hiddenCards.length > 0) {
         loadMoreBtn.addEventListener('click', function() {
             console.log('Load More clicked!');
             
@@ -1939,6 +1934,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Load More button hidden');
             }, hiddenCards.length * 100 + 500);
         });
+    } else if (loadMoreBtn) {
+        // If no hidden cards, hide the button
+        loadMoreBtn.style.display = 'none';
+        console.log('No hidden cards, hiding button');
     }
 });
 </script>
