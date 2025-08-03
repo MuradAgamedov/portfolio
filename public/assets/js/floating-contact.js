@@ -114,21 +114,58 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             const formData = new FormData(this);
-            const name = formData.get('name');
-            const phone = formData.get('phone');
-            const message = formData.get('message');
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
             
-            // Get email from site settings (this will be replaced by server-side rendering)
-            const email = '{{ $siteSettings->email ?? "info@example.com" }}';
-            const subject = encodeURIComponent('Contact Form Message');
-            const body = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\n\nMessage:\n${message}`);
-            const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+            // Show loading state
+            submitBtn.innerHTML = '<i data-feather="loader"></i><span>Göndərilir...</span>';
+            submitBtn.disabled = true;
             
-            // Open email client
-            window.open(mailtoLink);
+            // Initialize feather icons for loading
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
             
-            // Close popup
-            closePopup();
+            // Get current language for URL
+            const currentLang = window.location.pathname.split('/')[1];
+            const url = currentLang && currentLang !== 'quick-contact' ? `/${currentLang}/quick-contact` : '/quick-contact';
+            
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    alert(data.message);
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Close popup
+                    closePopup();
+                } else {
+                    alert('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
+            })
+            .finally(() => {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Initialize feather icons
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+            });
         });
     }
 }); 

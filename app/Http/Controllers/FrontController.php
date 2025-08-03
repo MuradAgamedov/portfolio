@@ -17,6 +17,7 @@ use App\Models\Contact;
 use App\Models\PricingPlan;
 use App\Models\Newsletter;
 use App\Models\SiteSetting;
+use App\Models\QuickContact;
 use App\Traits\RecaptchaTrait;
 use App\Traits\SocialTrait;
 use Illuminate\Http\Request;
@@ -186,6 +187,26 @@ class FrontController extends Controller
             'hasMore' => $hasMore,
             'currentPage' => $page,
             'totalPlans' => $totalPlans
+        ]);
+    }
+
+    public function quickContact(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'message' => 'required|string|max:1000',
+        ]);
+
+        QuickContact::create([
+            'name' => $validated['name'],
+            'phone' => $validated['phone'],
+            'message' => $validated['message'],
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => __('Mesajınız uğurla göndərildi!')
         ]);
     }
 }

@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\SeoSiteController;
 use App\Http\Controllers\Admin\PricingPlanController;
 use App\Http\Controllers\Admin\PricingPlanFeatureController;
 use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\Admin\QuickContactController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\BlogController as FrontBlogController;
@@ -60,6 +61,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}'])->middleware(['setloca
     Route::post('/service-request', [ServiceRequestController::class, 'store'])->name('service-request.store');
     Route::post('/contact', [FrontController::class, 'contact'])->name('contact');
     Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
+    Route::post('/quick-contact', [FrontController::class, 'quickContact'])->name('quick-contact');
     
     // API Routes for Load More functionality
     Route::get('/api/pricing-plans', [FrontController::class, 'getPricingPlans'])->name('api.pricing-plans');
@@ -146,6 +148,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::get('contacts/filter/unread', [ContactController::class, 'unread'])->name('contacts.unread');
     Route::get('contacts/filter/read', [ContactController::class, 'read'])->name('contacts.read');
     Route::get('contacts/filter/replied', [ContactController::class, 'replied'])->name('contacts.replied');
+    
+    // Quick Contact Routes
+    Route::resource('quick-contacts', QuickContactController::class)->only(['index', 'show', 'destroy']);
+    Route::patch('quick-contacts/{quickContact}/toggle-read', [QuickContactController::class, 'toggleRead'])->name('quick-contacts.toggle-read');
     
     // Site Settings Routes
     Route::get('site-settings', [SiteSettingController::class, 'index'])->name('site-settings.index');

@@ -270,7 +270,7 @@
                                 <i class="fas fa-comments"></i> Əlaqə & Mesajlar
                                 <i class="fas fa-chevron-down ms-auto"></i>
                             </a>
-                            <div class="collapse {{ request()->is('admin/socials*') || request()->is('admin/contacts*') || request()->is('admin/newsletters*') || request()->is('admin/service-requests*') ? 'show' : '' }}" id="communication">
+                            <div class="collapse {{ request()->is('admin/socials*') || request()->is('admin/contacts*') || request()->is('admin/quick-contacts*') || request()->is('admin/newsletters*') || request()->is('admin/service-requests*') ? 'show' : '' }}" id="communication">
                                 <div class="nav-submenu">
                                     <a class="nav-link {{ request()->is('admin/socials*') ? 'active' : '' }}" href="{{ route('admin.socials.edit') }}">
                                         <i class="fas fa-share-alt"></i> Sosial Şəbəkələr
@@ -282,6 +282,15 @@
                                         @endphp
                                         @if($unreadCount > 0)
                                             <span class="badge bg-warning text-dark ms-2">{{ $unreadCount }}</span>
+                                        @endif
+                                    </a>
+                                    <a class="nav-link {{ request()->is('admin/quick-contacts*') ? 'active' : '' }}" href="{{ route('admin.quick-contacts.index') }}">
+                                        <i class="fas fa-bolt"></i> Sürətli Əlaqə
+                                        @php
+                                            $unreadQuickCount = \App\Models\QuickContact::where('is_read', false)->count();
+                                        @endphp
+                                        @if($unreadQuickCount > 0)
+                                            <span class="badge bg-warning text-dark ms-2">{{ $unreadQuickCount }}</span>
                                         @endif
                                     </a>
                                     <a class="nav-link {{ request()->is('admin/service-requests*') ? 'active' : '' }}" href="{{ route('admin.service-requests.index') }}">
