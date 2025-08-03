@@ -6,7 +6,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Contact form submission
     const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
+    if (contactForm && !contactForm.hasAttribute('data-initialized')) {
+        contactForm.setAttribute('data-initialized', 'true');
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var formData = new FormData(this);
             
             // Show loading state
-            var submitBtn = document.getElementById('submit');
+            var submitBtn = this.querySelector('button[type="submit"]');
             var originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
@@ -57,6 +58,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Reset button
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
+                
+                // Initialize feather icons after form reset
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
             })
             .catch(error => {
                 console.error('Contact form error:', error);
@@ -87,6 +93,24 @@ document.addEventListener('DOMContentLoaded', function() {
                         } else {
                             alert('Error: ' + errorMessage);
                         }
+                        
+                        // Reset button
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        
+                        // Initialize feather icons
+                        if (typeof feather !== 'undefined') {
+                            feather.replace();
+                        }
+                    }).catch(function() {
+                        // If error.json() fails, still reset button
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        
+                        // Initialize feather icons
+                        if (typeof feather !== 'undefined') {
+                            feather.replace();
+                        }
                     });
                 } else {
                     // Show error message
@@ -101,11 +125,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         alert('Error: ' + errorMessage + ' (Status: ' + error.status + ')');
                     }
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Initialize feather icons
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
                 }
-                
-                // Reset button
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
             });
         });
     }
@@ -113,6 +142,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form validation on input
     const formInputs = document.querySelectorAll('#contact-form input, #contact-form textarea');
     formInputs.forEach(function(input) {
+        if (input.hasAttribute('data-validation-initialized')) {
+            return; // Skip if already initialized
+        }
+        input.setAttribute('data-validation-initialized', 'true');
         input.addEventListener('blur', function() {
             var value = this.value.trim();
             var fieldName = this.getAttribute('name');
