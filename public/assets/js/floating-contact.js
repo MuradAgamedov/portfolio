@@ -227,30 +227,19 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const planName = this.getAttribute('data-plan');
             
-            // Open contact popup
-            if (contactPopupModal) {
-                contactPopupModal.classList.add('show');
-                console.log('Pricing modal opened');
+            // Get phone number from WhatsApp link in the modal
+            const whatsappLink = document.querySelector('.contact-option[data-action="whatsapp"]');
+            if (whatsappLink) {
+                const whatsappHref = whatsappLink.getAttribute('href');
+                const phoneNumber = whatsappHref.replace('https://wa.me/', '');
                 
-                // Initialize Feather icons in popup
-                if (typeof feather !== 'undefined') {
-                    feather.replace();
-                }
+                // Create WhatsApp message with plan info
+                const message = `Salam! Mən ${planName} planı haqqında məlumat almaq istəyirəm.`;
+                const encodedMessage = encodeURIComponent(message);
                 
-                // Show email form directly with plan info
-                const contactOptionsView = document.getElementById('contactOptionsView');
-                const emailFormView = document.getElementById('emailFormView');
-                
-                if (contactOptionsView && emailFormView) {
-                    contactOptionsView.style.display = 'none';
-                    emailFormView.style.display = 'block';
-                    
-                    // Add plan info to message field
-                    const messageField = document.getElementById('email-message');
-                    if (messageField) {
-                        messageField.value = `Mən ${planName} planı haqqında məlumat almaq istəyirəm.`;
-                    }
-                }
+                // Open WhatsApp with the plan-specific message
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+                window.open(whatsappUrl, '_blank');
             }
         });
     });
