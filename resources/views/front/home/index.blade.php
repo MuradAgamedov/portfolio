@@ -119,6 +119,26 @@ $seoSettings = \App\Models\SeoSite::first();
     transition: all 0.5s ease;
 }
 
+.pricing-hidden {
+    display: none !important;
+}
+
+.pricing-card-wrapper.show {
+    display: block !important;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 #loadMorePricing {
     background: var(--color-primary);
     color: white;
@@ -567,7 +587,7 @@ $seoSettings = \App\Models\SeoSite::first();
 
         <div class="row mt--50 pricing-area" data-cards="{{ $pricingPlans->count() }}">
         @foreach($pricingPlans as $index => $plan)
-        <div class="col-lg-4 col-md-6 col-sm-12 pricing-card-wrapper" data-index="{{ $index }}" data-hidden="{{ $index >= 3 ? 'true' : 'false' }}">
+        <div class="col-lg-4 col-md-6 col-sm-12 pricing-card-wrapper {{ $index >= 3 ? 'pricing-hidden' : '' }}" data-index="{{ $index }}">
             <div class="pricing-card {{ $index == 1 ? 'pricing-card-hover' : '' }}">
                 <div class="pricing-card-header">
                     <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
@@ -1888,55 +1908,36 @@ $seoSettings = \App\Models\SeoSite::first();
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const allCards = document.querySelectorAll('.pricing-card-wrapper');
+    const hiddenCards = document.querySelectorAll('.pricing-hidden');
     const loadMoreBtn = document.getElementById('loadMorePricing');
     
-    console.log('Total cards found:', allCards.length);
+    console.log('Hidden cards found:', hiddenCards.length);
     
-    // Hide cards that should be hidden initially
-    allCards.forEach((card, index) => {
-        if (index >= 3) {
-            card.style.display = 'none';
-            console.log('Hiding card:', index);
-        }
-    });
-    
-    // Show the Load More button if there are more than 3 cards
-    if (allCards.length > 3 && loadMoreBtn) {
+    // Show the Load More button if there are hidden cards
+    if (hiddenCards.length > 0 && loadMoreBtn) {
         loadMoreBtn.style.display = 'inline-block';
-        console.log('Showing Load More button');
+        console.log('Load More button shown');
     }
     
     // Load More functionality
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', function() {
-            console.log('Load More button clicked!');
+            console.log('Load More clicked!');
             
-            // Show all hidden cards
-            allCards.forEach((card, index) => {
-                if (index >= 3) {
-                    setTimeout(() => {
-                        card.style.display = 'block';
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(20px)';
-                        
-                        // Trigger animation
-                        setTimeout(() => {
-                            card.style.transition = 'all 0.5s ease';
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, 10);
-                        
-                        console.log('Showing card:', index);
-                    }, (index - 3) * 100);
-                }
+            // Show all hidden cards with animation
+            hiddenCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.remove('pricing-hidden');
+                    card.classList.add('show');
+                    console.log('Showing card:', index);
+                }, index * 100);
             });
             
-            // Hide the load more button after all cards are shown
+            // Hide the load more button
             setTimeout(() => {
                 loadMoreBtn.style.display = 'none';
                 console.log('Load More button hidden');
-            }, (allCards.length - 3) * 100 + 500);
+            }, hiddenCards.length * 100 + 500);
         });
     }
 });
