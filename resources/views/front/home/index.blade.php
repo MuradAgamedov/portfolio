@@ -276,13 +276,7 @@ $seoSettings = \App\Models\SeoSite::first();
                         <div class="inner">
                             <span class="subtitle">{{$heroData->label}}</span>
                             <h1 class="title">{!! $heroData->title !!}<br>
-                                <span class="header-caption" id="page-top">
-                                    <!-- type headline start-->
-                                    <span class="cd-headline clip is-full-width">
-                                        <span>a </span>
-                                    </span>
-                                    <!-- type headline end -->
-                                </span>
+                           
                             </h1>
 
                             <div>
