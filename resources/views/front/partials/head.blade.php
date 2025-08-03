@@ -214,16 +214,17 @@
     }
     
     .cd-words-wrapper b.is-visible {
-        position: relative;
+        position: relative !important;
         opacity: 1 !important;
         visibility: visible !important;
-        display: inline-block !important;
+        z-index: 10 !important;
     }
     
     .cd-words-wrapper b.is-hidden {
+        position: absolute !important;
         opacity: 0 !important;
         visibility: hidden !important;
-        display: none !important;
+        z-index: 1 !important;
     }
     
     /* Typing cursor effect */

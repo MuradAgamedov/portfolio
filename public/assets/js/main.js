@@ -473,12 +473,8 @@
             
             let currentIndex = 0;
             let animationInterval;
-            let isAnimating = false;
             
             function showNextWord() {
-                if (isAnimating) return;
-                isAnimating = true;
-                
                 console.log('Showing next word, current index:', currentIndex, 'word:', words[currentIndex]?.textContent);
                 
                 // Hide current word
@@ -497,11 +493,6 @@
                     words[currentIndex].classList.add('is-visible');
                     console.log('Shown word:', words[currentIndex].textContent);
                 }
-                
-                // Reset flag after animation
-                setTimeout(function() {
-                    isAnimating = false;
-                }, 800);
             }
             
             function startAnimation() {
@@ -514,7 +505,6 @@
                 
                 // Reset to first word
                 currentIndex = 0;
-                isAnimating = false;
                 
                 // Hide all words first
                 words.forEach(function(word, index) {
