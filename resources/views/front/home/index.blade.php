@@ -117,25 +117,52 @@ $seoSettings = \App\Models\SeoSite::first();
 /* Load More Pricing Cards */
 .pricing-card-wrapper {
     transition: all 0.5s ease;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .pricing-hidden {
     display: none !important;
+    opacity: 0;
+    transform: translateY(30px);
 }
 
 .pricing-card-wrapper.show {
     display: block !important;
-    animation: fadeInUp 0.5s ease forwards;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Additional styling for newly shown cards */
+.pricing-card-wrapper.show .pricing-card {
+    animation: cardGlow 0.8s ease-out 0.3s forwards;
+}
+
+@keyframes cardGlow {
+    0% {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    50% {
+        box-shadow: 0 15px 35px rgba(255, 1, 79, 0.2);
+    }
+    100% {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
 }
 
 @keyframes fadeInUp {
-    from {
+    0% {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(30px) scale(0.95);
     }
-    to {
+    50% {
+        opacity: 0.7;
+        transform: translateY(15px) scale(0.98);
+    }
+    100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
@@ -144,15 +171,59 @@ $seoSettings = \App\Models\SeoSite::first();
     color: white;
     border: 2px solid var(--color-primary);
     transition: all 0.3s ease;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
 }
 
 #loadMorePricing:hover {
     background: transparent;
     color: var(--color-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 1, 79, 0.4);
 }
 
 #loadMorePricing.hidden {
-    display: none;
+    display: none !important;
+}
+
+#loadMorePricing i {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+#loadMorePricing:hover i {
+    transform: translateY(3px);
+}
+
+#loadMorePricing:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#loadMorePricing:disabled:hover {
+    transform: none;
+    box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
+}
+
+#loadMorePricing i[data-feather="loader"] {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 </style>
 
@@ -1916,38 +1987,34 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Load More functionality
     if (loadMoreBtn && hiddenCards.length > 0) {
-        loadMoreBtn.addEventListener('click', function() {
-            console.log('Load More clicked!');
-            
-            // Show all hidden cards with animation
-            hiddenCards.forEach((card, index) => {
-                setTimeout(() => {
-                    // Remove the hidden class and set display to block
-                    card.classList.remove('pricing-hidden');
-                    card.style.display = 'block';
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(30px)';
-                    
-                    // Trigger animation after a small delay
+                    loadMoreBtn.addEventListener('click', function() {
+                console.log('Load More clicked!');
+                
+                // Add loading state to button
+                const originalText = loadMoreBtn.innerHTML;
+                loadMoreBtn.innerHTML = '<span>Loading...</span><i data-feather="loader"></i>';
+                loadMoreBtn.disabled = true;
+                
+                // Show all hidden cards with animation
+                hiddenCards.forEach((card, index) => {
                     setTimeout(() => {
-                        card.style.transition = 'all 0.5s ease';
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 10);
-                    
-                    console.log('Showing card:', index);
-                }, index * 100);
+                        // Remove the hidden class and add show class
+                        card.classList.remove('pricing-hidden');
+                        card.classList.add('show');
+                        
+                        console.log('Showing card:', index);
+                    }, index * 150); // Slightly longer delay for better visual effect
+                });
+                
+                // Hide the load more button after all cards are shown
+                setTimeout(() => {
+                    loadMoreBtn.classList.add('hidden');
+                    console.log('Load More button hidden');
+                }, hiddenCards.length * 150 + 600);
             });
-            
-            // Hide the load more button
-            setTimeout(() => {
-                loadMoreBtn.style.display = 'none';
-                console.log('Load More button hidden');
-            }, hiddenCards.length * 100 + 500);
-        });
     } else if (loadMoreBtn) {
         // If no hidden cards, hide the button
-        loadMoreBtn.style.display = 'none';
+        loadMoreBtn.classList.add('hidden');
         console.log('No hidden cards, hiding button');
     }
 });
