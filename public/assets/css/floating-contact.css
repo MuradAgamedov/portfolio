@@ -469,6 +469,19 @@
     height: 16px;
 }
 
+/* reCAPTCHA in Modal */
+.email-form .g-recaptcha {
+    transform: scale(0.85);
+    transform-origin: left top;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 480px) {
+    .email-form .g-recaptcha {
+        transform: scale(0.75);
+    }
+}
+
 /* Success Modal */
 .success-modal-overlay {
     position: fixed;

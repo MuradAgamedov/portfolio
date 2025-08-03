@@ -192,6 +192,14 @@ class FrontController extends Controller
 
     public function quickContact(Request $request)
     {
+        // Validate reCAPTCHA first
+        if (!$this->validateRecaptcha($request)) {
+            return response()->json([
+                'success' => false,
+                'message' => __("Please complete the reCAPTCHA verification.")
+            ], 422);
+        }
+
         try {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',

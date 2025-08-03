@@ -206,6 +206,13 @@ document.addEventListener('DOMContentLoaded', function() {
         emailForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Check reCAPTCHA
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (!recaptchaResponse) {
+                showErrorModal('Zəhmət olmasa reCAPTCHA-nı tamamlayın.');
+                return;
+            }
+            
             const formData = new FormData(this);
             const submitBtn = this.querySelector('.submit-btn');
             const originalText = submitBtn.innerHTML;
@@ -240,11 +247,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Reset form
                     this.reset();
                     
+                    // Reset reCAPTCHA
+                    grecaptcha.reset();
+                    
                     // Show success modal
                     showSuccessModal(data.message);
                     
                     // Don't close popup immediately, let success modal handle it
                 } else {
+                    // Reset reCAPTCHA on error
+                    grecaptcha.reset();
                     showErrorModal(data.message || 'Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
                 }
             })
