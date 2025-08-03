@@ -39,9 +39,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactPopupModal = document.getElementById('contactPopupModal');
     const popupClose = document.getElementById('popupClose');
 
-    console.log('Contact Float Button:', contactFloatBtn);
-    console.log('Contact Popup Modal:', contactPopupModal);
-    console.log('Popup Close:', popupClose);
+    // Only log if elements exist to avoid console spam
+    if (!contactFloatBtn) {
+        console.log('Contact Float Button not found - floating contact may not be enabled');
+    }
+    if (!contactPopupModal) {
+        console.log('Contact Popup Modal not found - floating contact may not be enabled');
+    }
 
     // Open popup
     if (contactFloatBtn) {

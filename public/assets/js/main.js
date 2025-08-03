@@ -142,8 +142,8 @@
         testimonialActivation: function () {
             // Note: Slick slider requires jQuery, so we'll keep it as is for now
             // If you want to replace slick, you'll need to implement a vanilla JS slider
-            if (typeof $ !== 'undefined' && $.fn.slick) {
-                $('.testimonial-activation').slick({
+            if (typeof window.$ !== 'undefined' && window.$.fn && window.$.fn.slick) {
+                window.$('.testimonial-activation').slick({
                     infinite: true,
                     slidesToShow: 1,
                     slidesToScroll: 1,
@@ -155,7 +155,7 @@
                     nextArrow: '<button class="slide-arrow next-arrow"><i class="feather-arrow-right"></i></button>'
                 });
 
-                $('.testimonial-item-one').slick({
+                window.$('.testimonial-item-one').slick({
                     infinite: true,
                     slidesToShow: 1,
                     slidesToScroll: 1,
@@ -174,7 +174,7 @@
                     }]
                 });
 
-                $('.portfolio-slick-activation').slick({
+                window.$('.portfolio-slick-activation').slick({
                     infinite: true,
                     slidesToShow: 3,
                     slidesToScroll: 1,
@@ -210,7 +210,7 @@
                     ]
                 });
 
-                $('.blog-slick-activation').slick({
+                window.$('.blog-slick-activation').slick({
                     infinite: true,
                     slidesToShow: 3,
                     slidesToScroll: 1,
@@ -246,7 +246,7 @@
                     ]
                 });
 
-                $('.testimonial-activation-item-3').slick({
+                window.$('.testimonial-activation-item-3').slick({
                     arrows: true,
                     dots: true,
                     infinite: true,
@@ -282,7 +282,7 @@
                     ]
                 });
 
-                $('.brand-activation-item-5').slick({
+                window.$('.brand-activation-item-5').slick({
                     arrows: true,
                     dots: true,
                     infinite: true,

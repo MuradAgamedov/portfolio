@@ -3,31 +3,32 @@
  * Handles form submission, validation, and reCAPTCHA reset
  */
 
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Contact form submission
-    $('#contact-form').on('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        var formData = new FormData(this);
-        
-        // Show loading state
-        var submitBtn = $('#submit');
-        var originalText = submitBtn.html();
-        submitBtn.html('<i class="fas fa-spinner fa-spin"></i> Sending...');
-        submitBtn.prop('disabled', true);
-        
-        // AJAX request
-        $.ajax({
-            url: '/contact',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            var formData = new FormData(this);
+            
+            // Show loading state
+            var submitBtn = document.getElementById('submit');
+            var originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // AJAX request
+            fetch('/contact', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
                 // Show success message
                 if (typeof Swal !== 'undefined') {
                     Swal.fire({
@@ -42,7 +43,7 @@ $(document).ready(function() {
                 }
                 
                 // Reset form
-                $('#contact-form')[0].reset();
+                contactForm.reset();
                 
                 // Reset reCAPTCHA
                 if (typeof grecaptcha !== 'undefined' && grecaptcha.reset) {
@@ -50,15 +51,15 @@ $(document).ready(function() {
                 }
                 
                 // Reset button
-                submitBtn.html(originalText);
-                submitBtn.prop('disabled', false);
-            },
-            error: function(xhr) {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            })
+            .catch(error => {
                 var errorMessage = 'An error occurred. Please try again.';
                 
                 // Check if there are validation errors
-                if (xhr.status === 422) {
-                    var errors = xhr.responseJSON.errors;
+                if (error.status === 422) {
+                    var errors = error.responseJSON.errors;
                     var errorList = '';
                     
                     for (var field in errors) {
@@ -82,49 +83,60 @@ $(document).ready(function() {
                 }
                 
                 // Reset button
-                submitBtn.html(originalText);
-                submitBtn.prop('disabled', false);
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    }
+    
+    // Form validation on input
+    const formInputs = document.querySelectorAll('#contact-form input, #contact-form textarea');
+    formInputs.forEach(function(input) {
+        input.addEventListener('blur', function() {
+            var value = this.value.trim();
+            var fieldName = this.getAttribute('name');
+            
+            // Remove existing error styling
+            this.classList.remove('is-invalid');
+            const existingError = this.parentNode.querySelector('.invalid-feedback');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            // Validate required fields
+            if (fieldName === 'contact-name' && value === '') {
+                showFieldError(this, 'Name is required');
+            } else if (fieldName === 'contact-email' && value === '') {
+                showFieldError(this, 'Email is required');
+            } else if (fieldName === 'contact-email' && value !== '' && !isValidEmail(value)) {
+                showFieldError(this, 'Please enter a valid email address');
+            } else if (fieldName === 'subject' && value === '') {
+                showFieldError(this, 'Subject is required');
+            } else if (fieldName === 'contact-message' && value === '') {
+                showFieldError(this, 'Message is required');
+            }
+        });
+        
+        // Clear validation errors on input
+        input.addEventListener('input', function() {
+            this.classList.remove('is-invalid');
+            const existingError = this.parentNode.querySelector('.invalid-feedback');
+            if (existingError) {
+                existingError.remove();
             }
         });
     });
     
-    // Form validation on input
-    $('#contact-form input, #contact-form textarea').on('blur', function() {
-        var field = $(this);
-        var value = field.val().trim();
-        var fieldName = field.attr('name');
-        
-        // Remove existing error styling
-        field.removeClass('is-invalid');
-        field.siblings('.invalid-feedback').remove();
-        
-        // Validate required fields
-        if (fieldName === 'contact-name' && value === '') {
-            showFieldError(field, 'Name is required');
-        } else if (fieldName === 'contact-email' && value === '') {
-            showFieldError(field, 'Email is required');
-        } else if (fieldName === 'contact-email' && value !== '' && !isValidEmail(value)) {
-            showFieldError(field, 'Please enter a valid email address');
-        } else if (fieldName === 'subject' && value === '') {
-            showFieldError(field, 'Subject is required');
-        } else if (fieldName === 'contact-message' && value === '') {
-            showFieldError(field, 'Message is required');
-        }
-    });
-    
     function showFieldError(field, message) {
-        field.addClass('is-invalid');
-        field.after('<div class="invalid-feedback">' + message + '</div>');
+        field.classList.add('is-invalid');
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'invalid-feedback';
+        errorDiv.textContent = message;
+        field.parentNode.insertBefore(errorDiv, field.nextSibling);
     }
     
     function isValidEmail(email) {
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
-    
-    // Clear validation errors on input
-    $('#contact-form input, #contact-form textarea').on('input', function() {
-        $(this).removeClass('is-invalid');
-        $(this).siblings('.invalid-feedback').remove();
-    });
 }); 
