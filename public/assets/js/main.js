@@ -59,7 +59,7 @@
             imJs.activePopupDemo();
             imJs.onePageNav();
             imJs.certificateModal();
-            imJs.customTypingAnimation();
+
             imJs.languageSwitcher();
         },
 
@@ -483,144 +483,7 @@
             // Navbar links will work with simple #id navigation
         },
 
-        customTypingAnimation: function () {
-            const typingElement = document.querySelector('#typingText .typing-word');
-            if (!typingElement) {
-                console.log('Typing element not found');
-                return;
-            }
-            
-            // Get words from database or use default
-            let words = [];
-            
-            // Try to get words from the page if they exist
-            const existingWords = document.querySelectorAll('#typingText .typing-word');
-            if (existingWords.length > 0) {
-                // If there are multiple words in the HTML, use them
-                existingWords.forEach(word => {
-                    if (word.textContent.trim()) {
-                        words.push(word.textContent.trim());
-                    }
-                });
-            }
-            
-            // If no words found, try to get from data attributes or use default
-            if (words.length === 0) {
-                // Check if there are any hidden elements with profession data
-                const professionElements = document.querySelectorAll('[data-profession]');
-                if (professionElements.length > 0) {
-                    professionElements.forEach(element => {
-                        const profession = element.getAttribute('data-profession');
-                        if (profession && profession.trim()) {
-                            words.push(profession.trim());
-                        }
-                    });
-                } else {
-                    // Use default words if no database data
-                    words = ['web developer', 'yazıçı', 'redaktor', 'designer', 'freelancer'];
-                }
-            }
-            
-            // Remove duplicates and ensure we have at least one word
-            words = [...new Set(words)].filter(word => word.trim().length > 0);
-            if (words.length === 0) {
-                words = ['web developer'];
-            }
-            
-            let currentIndex = 0;
-            let animationInterval;
-            
-            function typeWriter(element, text, speed = 100) {
-                return new Promise((resolve) => {
-                    let i = 0;
-                    element.textContent = '';
-                    
-                    function type() {
-                        if (i < text.length) {
-                            element.textContent += text.charAt(i);
-                            i++;
-                            setTimeout(type, speed);
-                        } else {
-                            setTimeout(resolve, 1000); // Wait before starting to delete
-                        }
-                    }
-                    type();
-                });
-            }
-            
-            function deleteWriter(element, speed = 50) {
-                return new Promise((resolve) => {
-                    function deleteChar() {
-                        if (element.textContent.length > 0) {
-                            element.textContent = element.textContent.slice(0, -1);
-                            setTimeout(deleteChar, speed);
-                        } else {
-                            setTimeout(resolve, 500); // Wait before typing next word
-                        }
-                    }
-                    deleteChar();
-                });
-            }
-            
-            async function animateWords() {
-                try {
-                    while (true) {
-                        for (let i = 0; i < words.length; i++) {
-                            // Type the word
-                            await typeWriter(typingElement, words[i], 100);
-                            
-                            // Wait a bit
-                            await new Promise(resolve => setTimeout(resolve, 2000));
-                            
-                            // Delete the word (only if there are more words)
-                            if (words.length > 1) {
-                                await deleteWriter(typingElement, 50);
-                                
-                                // Wait before next word
-                                await new Promise(resolve => setTimeout(resolve, 500));
-                            } else {
-                                // If only one word, just wait longer
-                                await new Promise(resolve => setTimeout(resolve, 3000));
-                            }
-                        }
-                    }
-                } catch (error) {
-                    console.error('Typing animation error:', error);
-                    // Fallback to simple text display
-                    typingElement.textContent = words[0] || 'web developer';
-                }
-            }
-            
-            function startAnimation() {
-                console.log('Starting typing animation with words:', words);
-                
-                // Clear any existing interval
-                if (animationInterval) {
-                    clearInterval(animationInterval);
-                }
-                
-                // Start the animation
-                animateWords();
-            }
-            
-            // Start animation immediately if DOM is ready
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', startAnimation);
-            } else {
-                startAnimation();
-            }
-            
-            // Restart animation when scrolling to top
-            let scrollTimeout;
-            window.addEventListener('scroll', function() {
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(function() {
-                    if (window.pageYOffset < 100) {
-                        startAnimation();
-                    }
-                }, 500);
-            });
-        },
+
 
         languageSwitcher: function () {
             // Language switcher functionality

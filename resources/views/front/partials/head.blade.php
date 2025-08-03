@@ -195,34 +195,9 @@
     }
     
     /* Simple typing animation styles */
-    #typingText {
-        position: relative;
-        display: inline-block;
-        min-width: 200px;
-    }
+
     
-    .typing-word {
-        color: #ff014f;
-        white-space: nowrap;
-        transition: all 0.3s ease;
-    }
-    
-    /* Typing cursor effect */
-    #typingText::after {
-        content: '';
-        position: absolute;
-        right: -5px;
-        top: 0;
-        height: 100%;
-        width: 2px;
-        background-color: #ff014f;
-        animation: blink 1s infinite;
-    }
-    
-    @keyframes blink {
-        0%, 50% { opacity: 1; }
-        51%, 100% { opacity: 0; }
-    }
+
     
     /* Navbar link fixes */
     .onepagenav a[href^="#"] {

@@ -280,15 +280,7 @@ $seoSettings = \App\Models\SeoSite::first();
                                     <!-- type headline start-->
                                     <span class="cd-headline clip is-full-width">
                                         <span>a </span>
-                                        <!-- ROTATING TEXT -->
-                                        <span id="typingText">
-                                            <span class="typing-word active">{{ $heroProfessions->first()->title ?? 'web developer' }}</span>
-                                        </span>
                                     </span>
-                                    <!-- Hidden profession data for JavaScript -->
-                                    @foreach($heroProfessions as $profession)
-                                        <span data-profession="{{ $profession->title }}" style="display: none;"></span>
-                                    @endforeach
                                     <!-- type headline end -->
                                 </span>
                             </h1>
