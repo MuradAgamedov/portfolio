@@ -285,6 +285,10 @@ $seoSettings = \App\Models\SeoSite::first();
                                             <span class="typing-word active">{{ $heroProfessions->first()->title ?? 'web developer' }}</span>
                                         </span>
                                     </span>
+                                    <!-- Hidden profession data for JavaScript -->
+                                    @foreach($heroProfessions as $profession)
+                                        <span data-profession="{{ $profession->title }}" style="display: none;"></span>
+                                    @endforeach
                                     <!-- type headline end -->
                                 </span>
                             </h1>
