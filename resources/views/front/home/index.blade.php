@@ -1798,12 +1798,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Contact button clicked!');
             
             if (contactPopupModal) {
-                // Test: Show modal immediately
-                contactPopupModal.style.display = 'flex';
-                contactPopupModal.style.opacity = '1';
-                contactPopupModal.style.pointerEvents = 'all';
                 contactPopupModal.classList.add('show');
-                document.body.style.overflow = 'hidden';
                 console.log('Modal should be visible now');
                 
                 // Initialize Feather icons in popup
@@ -1822,7 +1817,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function closePopup() {
         if (contactPopupModal) {
             contactPopupModal.classList.remove('show');
-            document.body.style.overflow = '';
             console.log('Modal closed');
         }
     }
@@ -1831,14 +1825,7 @@ document.addEventListener('DOMContentLoaded', function() {
         popupClose.addEventListener('click', closePopup);
     }
     
-    // Close popup when clicking on modal background
-    if (contactPopupModal) {
-        contactPopupModal.addEventListener('click', function(e) {
-            if (e.target === contactPopupModal) {
-                closePopup();
-            }
-        });
-    }
+
 
     // Close popup with Escape key
     document.addEventListener('keydown', function(e) {
@@ -2431,20 +2418,20 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Contact Popup Modal */
     .contact-popup-modal {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
+        bottom: 100px;
+        right: 30px;
         z-index: 99999;
         display: none;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(5px);
+        transform: scale(0.8);
+        opacity: 0;
+        transition: all 0.3s ease;
+        transform-origin: bottom right;
     }
 
     .contact-popup-modal.show {
-        display: flex !important;
+        display: block !important;
+        transform: scale(1);
+        opacity: 1;
     }
 
     .popup-overlay {
@@ -2460,26 +2447,18 @@ document.addEventListener('DOMContentLoaded', function() {
     .popup-content {
         position: relative;
         background: #212428;
-        border-radius: 20px;
-        width: 90%;
-        max-width: 400px;
-        max-height: 80vh;
+        border-radius: 15px;
+        width: 280px;
         overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        transform: scale(0.7);
-        transition: transform 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .contact-popup-modal.show .popup-content {
-        transform: scale(1);
     }
 
     .popup-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 20px 25px;
+        padding: 15px 20px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         background: linear-gradient(135deg, #ff014f 0%, #ff6b9d 100%);
     }
@@ -2487,7 +2466,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .popup-header h3 {
         color: white;
         margin: 0;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
     }
 
@@ -2496,10 +2475,10 @@ document.addEventListener('DOMContentLoaded', function() {
         border: none;
         color: white;
         cursor: pointer;
-        padding: 5px;
+        padding: 3px;
         border-radius: 50%;
-        width: 35px;
-        height: 35px;
+        width: 25px;
+        height: 25px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2512,26 +2491,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .popup-close i {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
     }
 
     .popup-body {
-        padding: 25px;
+        padding: 15px;
     }
 
     .contact-options {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
     }
 
     .contact-option {
         display: flex;
         align-items: center;
-        padding: 20px;
+        padding: 12px 15px;
         background: rgba(255, 255, 255, 0.05);
-        border-radius: 15px;
+        border-radius: 10px;
         text-decoration: none;
         color: #c4cfde;
         transition: all 0.3s ease;
@@ -2563,13 +2542,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .option-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 12px;
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-right: 15px;
+        margin-right: 12px;
         background: linear-gradient(135deg, #ff014f 0%, #ff6b9d 100%);
         flex-shrink: 0;
     }
@@ -2579,8 +2558,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .option-icon i {
-        width: 24px;
-        height: 24px;
+        width: 18px;
+        height: 18px;
         color: white;
     }
 
@@ -2589,47 +2568,51 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     .option-content h4 {
-        margin: 0 0 5px 0;
-        font-size: 16px;
+        margin: 0 0 3px 0;
+        font-size: 14px;
         font-weight: 600;
         color: inherit;
     }
 
     .option-content p {
         margin: 0;
-        font-size: 13px;
+        font-size: 11px;
         opacity: 0.8;
         color: inherit;
     }
 
     /* Responsive */
     @media only screen and (max-width: 480px) {
+        .contact-popup-modal {
+            bottom: 90px;
+            right: 20px;
+        }
+
         .popup-content {
-            width: 95%;
-            margin: 20px;
+            width: 260px;
         }
 
         .popup-header {
-            padding: 15px 20px;
+            padding: 12px 15px;
         }
 
         .popup-body {
-            padding: 20px;
+            padding: 12px;
         }
 
         .contact-option {
-            padding: 15px;
+            padding: 10px 12px;
         }
 
         .option-icon {
-            width: 40px;
-            height: 40px;
-            margin-right: 12px;
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
         }
 
         .option-icon i {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
         }
     }
 </style>
