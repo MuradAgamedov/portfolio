@@ -414,7 +414,7 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     background: rgba(0, 0, 0, 0.3);
-    color: #c4cfde;
+    color: black;
     font-size: 14px;
     transition: all 0.3s ease;
     font-family: inherit;
@@ -424,16 +424,16 @@
     outline: none;
     border-color: #ff014f;
     background: rgba(0, 0, 0, 0.5);
-    color: #fff;
+    color: black;
     box-shadow: 0 0 0 3px rgba(255, 1, 79, 0.1);
 }
 
 .form-control::placeholder {
-    color: rgba(196, 207, 222, 0.6);
+    color: rgba(0, 0, 0, 0.6);
 }
 
 .form-control:focus::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(0, 0, 0, 0.4);
 }
 
 .submit-btn {
