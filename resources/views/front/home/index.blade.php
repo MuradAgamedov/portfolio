@@ -955,6 +955,15 @@ $seoSettings = \App\Models\SeoSite::first();
 </div>
 <!-- Back to top end --> <!-- Back to top end -->
 
+<!-- Floating Contact Button -->
+<div class="floating-contact-btn">
+    <a href="#contact" class="contact-float-btn">
+        <i data-feather="message-circle"></i>
+        <span class="tooltip-text">{{__("Contact Us")}}</span>
+    </a>
+</div>
+<!-- End Floating Contact Button -->
+
 
 
 <!-- Start Modal Area  -->
@@ -1707,6 +1716,37 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    });
+
+    // Floating Contact Button Scroll Effect
+    const floatingBtn = document.querySelector('.floating-contact-btn');
+    let lastScrollTop = 0;
+
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 300) {
+            floatingBtn.style.opacity = '1';
+            floatingBtn.style.transform = 'translateY(0)';
+        } else {
+            floatingBtn.style.opacity = '0.7';
+            floatingBtn.style.transform = 'translateY(10px)';
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+
+    // Smooth scroll to contact section
+    document.querySelector('.contact-float-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        const contactSection = document.querySelector('#contact');
+        if (contactSection) {
+            contactSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
 });
 </script>
 @endpush
@@ -2111,6 +2151,159 @@ document.addEventListener('DOMContentLoaded', function() {
 
     .view-all-btn .rn-btn:hover i {
         transform: translateX(3px);
+    }
+
+    /* Floating Contact Button */
+    .floating-contact-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 9999;
+        animation: float 3s ease-in-out infinite;
+        opacity: 0.7;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+    }
+
+    .contact-float-btn {
+        width: 60px;
+        height: 60px;
+        background: #25d366;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-float-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .contact-float-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+        color: white;
+    }
+
+    .contact-float-btn:hover::before {
+        opacity: 1;
+    }
+
+    .contact-float-btn i {
+        width: 28px;
+        height: 28px;
+        position: relative;
+        z-index: 2;
+        transition: transform 0.3s ease;
+    }
+
+    .contact-float-btn:hover i {
+        transform: scale(1.1);
+    }
+
+    .tooltip-text {
+        position: absolute;
+        right: 70px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        pointer-events: none;
+    }
+
+    .tooltip-text::after {
+        content: '';
+        position: absolute;
+        right: -5px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-left: 5px solid rgba(0, 0, 0, 0.8);
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+    }
+
+    .contact-float-btn:hover .tooltip-text {
+        opacity: 1;
+        visibility: visible;
+        right: 75px;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    /* Pulse animation for attention */
+    .contact-float-btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 50%;
+        border: 2px solid #25d366;
+        animation: pulse 2s infinite;
+        opacity: 0;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1.5);
+            opacity: 0;
+        }
+    }
+
+    /* Responsive */
+    @media only screen and (max-width: 768px) {
+        .floating-contact-btn {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .contact-float-btn {
+            width: 50px;
+            height: 50px;
+        }
+
+        .contact-float-btn i {
+            width: 24px;
+            height: 24px;
+        }
+
+        .tooltip-text {
+            display: none;
+        }
     }
 </style>
 
