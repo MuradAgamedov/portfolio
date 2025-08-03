@@ -116,14 +116,14 @@ $seoSettings = \App\Models\SeoSite::first();
 
 /* Load More Pricing Cards */
 .hidden-card {
-    display: none;
+    display: none !important;
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.5s ease;
 }
 
 .hidden-card.show {
-    display: block;
+    display: block !important;
     opacity: 1;
     transform: translateY(0);
 }
@@ -576,7 +576,7 @@ $seoSettings = \App\Models\SeoSite::first();
 
         <div class="row mt--50 pricing-area" data-cards="{{ $pricingPlans->count() }}">
         @foreach($pricingPlans as $index => $plan)
-        <div class="col-lg-4 col-md-6 col-sm-12 pricing-card-wrapper {{ $index >= 3 ? 'hidden-card' : '' }}" data-index="{{ $index }}">
+        <div class="col-lg-4 col-md-6 col-sm-12 pricing-card-wrapper {{ $index >= 3 ? 'hidden-card' : '' }}" data-index="{{ $index }}" style="{{ $index >= 3 ? 'display: none;' : '' }}">
             <div class="pricing-card {{ $index == 1 ? 'pricing-card-hover' : '' }}">
                 <div class="pricing-card-header">
                     <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
@@ -1900,18 +1900,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadMoreBtn = document.getElementById('loadMorePricing');
     const hiddenCards = document.querySelectorAll('.hidden-card');
     
+    console.log('Load More Button:', loadMoreBtn);
+    console.log('Hidden Cards:', hiddenCards.length);
+    
     if (loadMoreBtn && hiddenCards.length > 0) {
         loadMoreBtn.addEventListener('click', function() {
+            console.log('Load More clicked!');
+            
             // Show all hidden cards with animation
             hiddenCards.forEach((card, index) => {
                 setTimeout(() => {
+                    card.style.display = 'block';
                     card.classList.add('show');
+                    console.log('Showing card:', index);
                 }, index * 100); // Stagger the animation
             });
             
             // Hide the load more button
             setTimeout(() => {
                 loadMoreBtn.classList.add('hidden');
+                console.log('Button hidden');
             }, hiddenCards.length * 100 + 300);
         });
     }
