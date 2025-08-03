@@ -14,9 +14,10 @@ window.onFloatingRecaptchaExpired = function() {
 function initFloatingContact() {
     // Floating Contact Button Scroll Effect
     const floatingBtn = document.querySelector('.floating-contact-btn');
-    let lastScrollTop = 0;
-
+    
     if (floatingBtn) {
+        let lastScrollTop = 0;
+        
         window.addEventListener('scroll', function() {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
@@ -31,7 +32,6 @@ function initFloatingContact() {
             lastScrollTop = scrollTop;
         });
     } else {
-        // If floating button doesn't exist, don't add scroll listener
         console.log('Floating contact button not found, skipping scroll effects');
     }
 
@@ -78,7 +78,9 @@ function initFloatingContact() {
             
             // Reset floating reCAPTCHA when modal is closed
             floatingRecaptchaResponse = '';
-            grecaptcha.reset();
+            if (typeof grecaptcha !== 'undefined' && grecaptcha.reset) {
+                grecaptcha.reset();
+            }
         }
     }
 
@@ -203,8 +205,13 @@ function initFloatingContact() {
                 e.preventDefault();
                 
                 // Show email form
-                document.getElementById('contactOptionsView').style.display = 'none';
-                document.getElementById('emailFormView').style.display = 'block';
+                const contactOptionsView = document.getElementById('contactOptionsView');
+                const emailFormView = document.getElementById('emailFormView');
+                
+                if (contactOptionsView && emailFormView) {
+                    contactOptionsView.style.display = 'none';
+                    emailFormView.style.display = 'block';
+                }
                 
                 // Initialize Feather icons in form
                 if (typeof feather !== 'undefined') {
@@ -219,16 +226,21 @@ function initFloatingContact() {
     const backToOptions = document.getElementById('backToOptions');
     if (backToOptions) {
         backToOptions.addEventListener('click', function() {
-            document.getElementById('emailFormView').style.display = 'none';
-            document.getElementById('contactOptionsView').style.display = 'block';
+            const emailFormView = document.getElementById('emailFormView');
+            const contactOptionsView = document.getElementById('contactOptionsView');
+            
+            if (emailFormView && contactOptionsView) {
+                emailFormView.style.display = 'none';
+                contactOptionsView.style.display = 'block';
+            }
             
             // Reset floating reCAPTCHA when going back
             floatingRecaptchaResponse = '';
-            grecaptcha.reset();
+            if (typeof grecaptcha !== 'undefined' && grecaptcha.reset) {
+                grecaptcha.reset();
+            }
         });
     }
-
-
 
     // Email form submission
     const emailForm = document.getElementById('emailForm');
@@ -280,7 +292,9 @@ function initFloatingContact() {
                     
                     // Reset floating reCAPTCHA
                     floatingRecaptchaResponse = '';
-                    grecaptcha.reset();
+                    if (typeof grecaptcha !== 'undefined' && grecaptcha.reset) {
+                        grecaptcha.reset();
+                    }
                     
                     // Show success modal
                     showSuccessModal(data.message);
@@ -289,7 +303,9 @@ function initFloatingContact() {
                 } else {
                     // Reset floating reCAPTCHA on error
                     floatingRecaptchaResponse = '';
-                    grecaptcha.reset();
+                    if (typeof grecaptcha !== 'undefined' && grecaptcha.reset) {
+                        grecaptcha.reset();
+                    }
                     showErrorModal(data.message || 'Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
                 }
             })
@@ -298,7 +314,9 @@ function initFloatingContact() {
                 console.error('Error details:', error.message);
                 // Reset floating reCAPTCHA on error
                 floatingRecaptchaResponse = '';
-                grecaptcha.reset();
+                if (typeof grecaptcha !== 'undefined' && grecaptcha.reset) {
+                    grecaptcha.reset();
+                }
                 showErrorModal('Xəta baş verdi! Zəhmət olmasa yenidən cəhd edin.');
             })
             .finally(() => {
