@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             LanguageSeeder::class,
-            AdminSeeder::class
+            AdminSeeder::class,
+            PricingPlanFeatureSeeder::class
         ]);
     }
 }
