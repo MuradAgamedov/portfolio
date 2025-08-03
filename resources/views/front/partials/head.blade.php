@@ -5,7 +5,7 @@
 @php
     $favicon = \App\Models\SiteSetting::getByKey('favicon');
     $seoSettings = \App\Models\SeoSite::first();
-    $phone = \App\Models\SiteSetting::getByKey('phone') ?: '994501234567';
+
 @endphp
 
 <!-- Default Title -->
