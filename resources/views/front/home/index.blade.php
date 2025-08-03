@@ -115,17 +115,8 @@ $seoSettings = \App\Models\SeoSite::first();
 }
 
 /* Load More Pricing Cards */
-.hidden-card {
-    display: none !important;
-    opacity: 0;
-    transform: translateY(20px);
+.pricing-card-wrapper {
     transition: all 0.5s ease;
-}
-
-.hidden-card.show {
-    display: block !important;
-    opacity: 1;
-    transform: translateY(0);
 }
 
 #loadMorePricing {
@@ -576,7 +567,7 @@ $seoSettings = \App\Models\SeoSite::first();
 
         <div class="row mt--50 pricing-area" data-cards="{{ $pricingPlans->count() }}">
         @foreach($pricingPlans as $index => $plan)
-        <div class="col-lg-4 col-md-6 col-sm-12 pricing-card-wrapper {{ $index >= 3 ? 'hidden-card' : '' }}" data-index="{{ $index }}" style="{{ $index >= 3 ? 'display: none;' : '' }}">
+        <div class="col-lg-4 col-md-6 col-sm-12 pricing-card-wrapper" data-index="{{ $index }}" data-hidden="{{ $index >= 3 ? 'true' : 'false' }}">
             <div class="pricing-card {{ $index == 1 ? 'pricing-card-hover' : '' }}">
                 <div class="pricing-card-header">
                     <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
@@ -1897,30 +1888,46 @@ $seoSettings = \App\Models\SeoSite::first();
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Hide cards that should be hidden initially
+    const allCards = document.querySelectorAll('.pricing-card-wrapper');
+    allCards.forEach((card, index) => {
+        if (index >= 3) {
+            card.style.display = 'none';
+        }
+    });
+    
+    // Load More functionality
     const loadMoreBtn = document.getElementById('loadMorePricing');
-    const hiddenCards = document.querySelectorAll('.hidden-card');
     
-    console.log('Load More Button:', loadMoreBtn);
-    console.log('Hidden Cards:', hiddenCards.length);
-    
-    if (loadMoreBtn && hiddenCards.length > 0) {
+    if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', function() {
-            console.log('Load More clicked!');
+            console.log('Load More button clicked!');
             
-            // Show all hidden cards with animation
-            hiddenCards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.display = 'block';
-                    card.classList.add('show');
-                    console.log('Showing card:', index);
-                }, index * 100); // Stagger the animation
+            // Show all hidden cards
+            allCards.forEach((card, index) => {
+                if (index >= 3) {
+                    setTimeout(() => {
+                        card.style.display = 'block';
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        
+                        // Trigger animation
+                        setTimeout(() => {
+                            card.style.transition = 'all 0.5s ease';
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 10);
+                        
+                        console.log('Showing card:', index);
+                    }, (index - 3) * 100);
+                }
             });
             
-            // Hide the load more button
+            // Hide the load more button after all cards are shown
             setTimeout(() => {
-                loadMoreBtn.classList.add('hidden');
-                console.log('Button hidden');
-            }, hiddenCards.length * 100 + 300);
+                loadMoreBtn.style.display = 'none';
+                console.log('Load More button hidden');
+            }, (allCards.length - 3) * 100 + 500);
         });
     }
 });
