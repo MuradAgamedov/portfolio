@@ -154,7 +154,7 @@
     position: relative;
     background: #212428;
     border-radius: 15px;
-    width: 280px;
+    width: 350px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -316,7 +316,7 @@
     }
 
     .popup-content {
-        width: 260px;
+        width: 320px;
     }
 
     .popup-header {
