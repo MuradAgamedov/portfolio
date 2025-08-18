@@ -169,12 +169,15 @@ class FrontController extends Controller
      */
     public function pricing()
     {
-        $pricingPlans = PricingPlan::with('activeFeatures')
-            ->where('status', true)
-            ->orderBy('order')
-            ->get();
+        $data = [
+            'pricingPlans' => PricingPlan::with('activeFeatures')
+                ->where('status', true)
+                ->orderBy('order')
+                ->get(),
+            'socials' => $this->getSocials(),
+        ];
 
-        return view('front.pricing.index', compact('pricingPlans'));
+        return view('front.pricing.index', $data);
     }
 
     /**
