@@ -165,6 +165,19 @@ class FrontController extends Controller
     }
 
     /**
+     * Show pricing page with all plans
+     */
+    public function pricing()
+    {
+        $pricingPlans = PricingPlan::with('activeFeatures')
+            ->where('status', true)
+            ->orderBy('order')
+            ->get();
+
+        return view('front.pricing.index', compact('pricingPlans'));
+    }
+
+    /**
      * Get pricing plans for Load More functionality
      */
     public function getPricingPlans(Request $request)

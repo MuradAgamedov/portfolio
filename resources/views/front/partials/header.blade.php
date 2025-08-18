@@ -28,6 +28,7 @@
                     <ul class="primary-menu">
                         <li class="nav-item"><a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ localized_route('home') }}" title="{{__("Go to homepage")}}">{{__("HOME")}}</a></li>
                         <li class="nav-item"><a class="nav-link {{ request()->routeIs('services.index') ? 'active' : '' }}" href="{{ localized_route('services.index') }}" title="{{__("View my services and what I offer")}}">{{__("Services")}}</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('pricing.index') ? 'active' : '' }}" href="{{ localized_route('pricing.index') }}" title="{{__("View all pricing plans")}}">{{__("PRICING")}}</a></li>
                         <li class="nav-item"><a class="nav-link {{ request()->routeIs('portfolios.index') ? 'active' : '' }}" href="{{ localized_route('portfolios.index') }}" title="{{__("View my portfolio projects")}}">{{__("PORTFOLIO")}}</a></li>
                         <li class="nav-item"><a class="nav-link {{ request()->routeIs('blogs.index') ? 'active' : '' }}" href="{{ localized_route('blogs.index') }}" title="{{__("Read my blog posts")}}">{{__("BLOG")}}</a></li>
                         <li class="nav-item"><a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ localized_route('contact') }}" title="{{__("Get in touch with me")}}">{{__("CONTACT")}}</a></li>
@@ -103,6 +104,7 @@
             <ul class="mobile-menu-list">
                 <li><a href="{{ localized_route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}" title="{{__("Go to homepage")}}">{{__("HOME")}}</a></li>
                 <li><a href="{{ localized_route('services.index') }}" class="{{ request()->routeIs('services.index') ? 'active' : '' }}" title="{{__("View my services and what I offer")}}">{{__("SERVICES")}}</a></li>
+                <li><a href="{{ localized_route('pricing.index') }}" class="{{ request()->routeIs('pricing.index') ? 'active' : '' }}" title="{{__("View all pricing plans")}}">{{__("PRICING")}}</a></li>
                 <li><a href="{{ localized_route('portfolios.index') }}" class="{{ request()->routeIs('portfolios.index') ? 'active' : '' }}" title="{{__("View my portfolio projects")}}">{{__("PORTFOLIO")}}</a></li>
                 <li><a href="{{ localized_route('blogs.index') }}" class="{{ request()->routeIs('blogs.index') ? 'active' : '' }}" title="{{__("Read my blog posts")}}">{{__("BLOG")}}</a></li>
                 <li><a href="{{ localized_route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}" title="{{__("Get in touch with me")}}">{{__("CONTACT")}}</a></li>

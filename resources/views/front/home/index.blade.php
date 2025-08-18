@@ -311,6 +311,41 @@
         opacity: 1;
     }
 }
+
+/* View All Pricing Button Styles */
+.view-all-pricing-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #ff014f, #ff6b9d);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
+}
+
+.view-all-pricing-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 1, 79, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.view-all-pricing-btn i {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.view-all-pricing-btn:hover i {
+    transform: translateX(3px);
+}
 </style>
 @endsection
 
@@ -760,7 +795,7 @@ $seoSettings = \App\Models\SeoSite::first();
             </div>
         </div>
 
-        <div class="row mt--50 pricing-area" id="pricingCardsContainer" data-total="{{ $pricingPlans->count() }}">
+        <div class="row mt--50 pricing-area" id="pricingCardsContainer">
         @foreach($pricingPlans->take(3) as $index => $plan)
         <div class="col-lg-4 col-md-6 col-sm-12 pricing-card-wrapper" data-index="{{ $index }}">
             <div class="pricing-card {{ $index == 1 ? 'pricing-card-hover' : '' }}">
@@ -801,9 +836,10 @@ $seoSettings = \App\Models\SeoSite::first();
     @if($pricingPlans->count() > 3)
     <div class="row mt--30">
         <div class="col-lg-12 text-center">
-            <button id="loadMorePricing" class="load-more-btn" data-page="1" data-total="{{ $pricingPlans->count() }}">
-                <i data-feather="chevron-down"></i>
-            </button>
+            <a href="{{ localized_route('pricing.index') }}" class="rn-btn view-all-pricing-btn">
+                <span>{{__("View All Pricing Plans")}}</span>
+                <i data-feather="arrow-right"></i>
+            </a>
         </div>
     </div>
     @endif

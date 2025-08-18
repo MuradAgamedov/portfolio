@@ -58,6 +58,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-z]{2}'])->middleware(['setloca
     Route::get('/portfolios', [App\Http\Controllers\PortfolioController::class, 'index'])->name('portfolios.index');
     Route::get('/about', [FrontController::class, 'about'])->name('about');
     Route::get('/contact', [FrontController::class, 'contactPage'])->name('contact');
+    Route::get('/pricing', [FrontController::class, 'pricing'])->name('pricing.index');
     Route::post('/service-request', [ServiceRequestController::class, 'store'])->name('service-request.store');
     Route::post('/newsletter', [FrontController::class, 'newsletter'])->name('newsletter');
     Route::post('/quick-contact', [FrontController::class, 'quickContact'])->name('quick-contact');
