@@ -146,19 +146,16 @@
 
     /* Tab Content Styles */
     .rn-nav-content .tab-pane {
-        transition: opacity 0.3s ease;
+        transition: all 0.3s ease;
         opacity: 0;
         display: none;
+        visibility: hidden;
     }
 
-    .rn-nav-content .tab-pane.show {
+    .rn-nav-content .tab-pane.show.active {
         opacity: 1;
-        display: block;
-    }
-
-    .rn-nav-content .tab-pane.active {
-        opacity: 1;
-        display: block;
+        display: block !important;
+        visibility: visible;
     }
 
     /* Prevent scroll jumping */
@@ -173,13 +170,11 @@
     }
 
     .rn-nav-content .tab-pane {
-        position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s ease;
+        position: relative;
     }
 
     .rn-nav-content .tab-pane.show.active {
@@ -454,16 +449,16 @@ $seoSettings = \App\Models\SeoSite::first();
             <div class="col-lg-12">
                 <ul class="rn-nav-list nav nav-tabs" id="myTabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="about-tab" data-bs-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="true">{{__("About")}}</a>
+                        <a class="nav-link active" id="about-tab" href="#about" role="tab" aria-controls="about" aria-selected="true">{{__("About")}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="education-tab" data-bs-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="false">{{__("Education")}}</a>
+                        <a class="nav-link" id="education-tab" href="#education" role="tab" aria-controls="education" aria-selected="false">{{__("Education")}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="experience-tab" data-bs-toggle="tab" href="#experience" role="tab" aria-controls="experience" aria-selected="false">{{__("Experience")}}</a>
+                        <a class="nav-link" id="experience-tab" href="#experience" role="tab" aria-controls="experience" aria-selected="false">{{__("Experience")}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="skills-tab" data-bs-toggle="tab" href="#skills" role="tab" aria-controls="skills" aria-selected="false">{{__("Skills")}}</a>
+                        <a class="nav-link" id="skills-tab" href="#skills" role="tab" aria-controls="skills" aria-selected="false">{{__("Skills")}}</a>
                     </li>
                 </ul>
 
@@ -1686,8 +1681,47 @@ $seoSettings = \App\Models\SeoSite::first();
 <script src="{{ asset('assets/js/contact-form.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Tab scroll prevention
+    // Tab switching functionality
     const tabLinks = document.querySelectorAll('#myTabs .nav-link');
+    const tabContents = document.querySelectorAll('#myTabContents .tab-pane');
+    
+    // Initialize first tab as active
+    function initializeTabs() {
+        // Hide all tab contents except the first one
+        tabContents.forEach((content, index) => {
+            if (index === 0) {
+                content.classList.add('show', 'active');
+                content.style.display = 'block';
+            } else {
+                content.classList.remove('show', 'active');
+                content.style.display = 'none';
+            }
+        });
+        
+        // Set first tab as active
+        tabLinks.forEach((link, index) => {
+            if (index === 0) {
+                link.classList.add('active');
+                link.setAttribute('aria-selected', 'true');
+            } else {
+                link.classList.remove('active');
+                link.setAttribute('aria-selected', 'false');
+            }
+        });
+    }
+    
+    // Initialize tabs on page load
+    initializeTabs();
+    
+    // Function to switch tabs programmatically
+    function switchTab(tabId) {
+        const targetLink = document.querySelector(`#${tabId}`);
+        if (targetLink) {
+            targetLink.click();
+        }
+    }
+    
+    // Tab click handler
     tabLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -1701,13 +1735,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetTab = document.getElementById(targetId);
             
             if (targetTab) {
-                // Remove active class from all tabs and content
-                document.querySelectorAll('#myTabs .nav-link').forEach(tab => {
+                // Remove active class from all tabs
+                tabLinks.forEach(tab => {
                     tab.classList.remove('active');
                     tab.setAttribute('aria-selected', 'false');
                 });
                 
-                document.querySelectorAll('#myTabContents .tab-pane').forEach(content => {
+                // Hide all tab contents
+                tabContents.forEach(content => {
                     content.classList.remove('show', 'active');
                     content.style.display = 'none';
                 });
@@ -1718,34 +1753,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Show target content
                 targetTab.classList.add('show', 'active');
+                targetTab.style.display = 'block';
                 
-                // Restore scroll position and prevent any automatic scrolling
-                requestAnimationFrame(() => {
+                // Restore scroll position
+                setTimeout(() => {
                     window.scrollTo({
                         top: currentScrollPos,
                         behavior: 'instant'
                     });
-                });
-                
-                // Additional scroll position restoration
-                setTimeout(() => {
-                    if (window.pageYOffset !== currentScrollPos) {
-                        window.scrollTo({
-                            top: currentScrollPos,
-                            behavior: 'instant'
-                        });
-                    }
-                }, 100);
-                
-                // Final scroll position check
-                setTimeout(() => {
-                    if (window.pageYOffset !== currentScrollPos) {
-                        window.scrollTo({
-                            top: currentScrollPos,
-                            behavior: 'instant'
-                        });
-                    }
-                }, 200);
+                }, 50);
             }
         });
     });
