@@ -13,41 +13,56 @@
                 <div class="card-body">
                     @if($serviceRequests->count() > 0)
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead>
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead class="table-dark">
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Service</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Subject</th>
-                                        <th>Status</th>
-                                        <th>Date</th>
-                                        <th>Actions</th>
+                                        <th scope="col" class="text-center" style="width: 60px;">ID</th>
+                                        <th scope="col">Service</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Subject</th>
+                                        <th scope="col" class="text-center" style="width: 100px;">Status</th>
+                                        <th scope="col" class="text-center" style="width: 120px;">Date</th>
+                                        <th scope="col" class="text-center" style="width: 200px;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($serviceRequests as $request)
                                     <tr>
-                                        <td>{{ $request->id }}</td>
-                                        <td>{{ $request->service ? $request->service->getTitle() : '' }}</td>
-                                        <td>{{ $request->email }}</td>
-                                        <td>{{ $request->phone ?: 'N/A' }}</td>
-                                        <td>{{ Str::limit($request->subject, 50) }}</td>
-                                        <td>{!! $request->status_badge !!}</td>
-                                        <td>{{ $request->created_at->format('d.m.Y H:i') }}</td>
+                                        <td class="text-center fw-bold">{{ $request->id }}</td>
+                                        <td class="fw-semibold">{{ $request->service ? $request->service->getTitle() : '' }}</td>
                                         <td>
-                                            <div class="btn-group">
-                                                <a href="{{ route('admin.service-requests.show', $request) }}" class="btn btn-sm btn-info">
-                                                    <i class="fas fa-eye"></i> View
+                                            <a href="mailto:{{ $request->email }}" class="text-decoration-none">
+                                                {{ $request->email }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @if($request->phone)
+                                                <a href="tel:{{ $request->phone }}" class="text-decoration-none">
+                                                    {{ $request->phone }}
+                                                </a>
+                                            @else
+                                                <span class="text-muted">N/A</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ Str::limit($request->subject, 50) }}</td>
+                                        <td class="text-center">{!! $request->status_badge !!}</td>
+                                        <td class="text-center text-muted">
+                                            <small>{{ $request->created_at->format('d.m.Y H:i') }}</small>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group" role="group" aria-label="Service request actions">
+                                                <a href="{{ route('admin.service-requests.show', $request) }}" 
+                                                   class="btn btn-sm btn-info" title="View Request">
+                                                    <i class="fas fa-eye"></i>
                                                 </a>
                                                 @if($request->isUnread())
                                                 <form action="{{ route('admin.service-requests.mark-as-read', $request) }}" 
                                                       method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" class="btn btn-sm btn-warning">
-                                                        <i class="fas fa-check"></i> Mark Read
+                                                    <button type="submit" class="btn btn-sm btn-warning" title="Mark as Read">
+                                                        <i class="fas fa-check"></i>
                                                     </button>
                                                 </form>
                                                 @endif
@@ -56,8 +71,8 @@
                                                       onsubmit="return confirm('Are you sure you want to delete this service request?')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">
-                                                        <i class="fas fa-trash"></i> Delete
+                                                    <button type="submit" class="btn btn-sm btn-danger" title="Delete Request">
+                                                        <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>
                                             </div>
@@ -68,13 +83,21 @@
                             </table>
                         </div>
                         
-                        <div class="d-flex justify-content-center mt-3">
-                            {{ $serviceRequests->links() }}
+                        <!-- Pagination with Bootstrap 5 -->
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <div class="text-muted">
+                                Showing {{ $serviceRequests->firstItem() ?? 0 }} to {{ $serviceRequests->lastItem() ?? 0 }} of {{ $serviceRequests->total() }} results
+                            </div>
+                            <div>
+                                {{ $serviceRequests->links('vendor.pagination.bootstrap-5') }}
+                            </div>
                         </div>
                     @else
-                        <div class="text-center py-4">
-                            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                            <h5 class="text-muted">No service requests found</h5>
+                        <div class="text-center py-5">
+                            <div class="mb-3">
+                                <i class="fas fa-inbox fa-3x text-muted"></i>
+                            </div>
+                            <h4 class="text-muted">No service requests found</h4>
                             <p class="text-muted">Service requests will appear here when users submit them.</p>
                         </div>
                     @endif
