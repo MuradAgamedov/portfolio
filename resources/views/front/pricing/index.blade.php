@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title text-center">
-                    <span class="subtitle">{{__("Pricing")}}</span>
+                    <span class="subtitle">{{__("Pricingg")}}</span>
                     <h2 class="title">{{__("My Pricing Plans")}}</h2>
                     <p class="description">{{__("Choose the perfect plan for your website needs. All plans include professional design and development.")}}</p>
                 </div>
@@ -111,6 +111,158 @@
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* Pricing Card Styles - Same as Home Page */
+.pricing-card-hover {
+    transition: all 0.3s ease;
+    transform: scale(1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.pricing-card-hover:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border: 2px solid var(--color-primary);
+    background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.05) 0%, rgba(var(--color-primary-rgb), 0.1) 100%);
+}
+
+.pricing-card-hover:hover .pricing-badge {
+    background: var(--color-primary);
+    color: white;
+}
+
+.pricing-card-hover:hover .pricing-title {
+    color: var(--color-primary);
+}
+
+.pricing-card-hover:hover .rn-btn {
+    background: var(--color-primary);
+    color: white;
+}
+
+/* Pricing Features Styling */
+.pricing-features {
+    padding: 0;
+    margin: 0;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.feature-item:last-child {
+    border-bottom: none;
+}
+
+.feature-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    padding-left: 10px;
+    border-radius: 8px;
+}
+
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.feature-icon i {
+    width: 14px;
+    height: 14px;
+    color: white;
+    stroke-width: 3;
+}
+
+.feature-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    line-height: 1.4;
+    flex: 1;
+}
+
+.pricing-card-hover:hover .feature-icon {
+    background: var(--color-primary);
+    transform: scale(1.1);
+}
+
+.pricing-card-hover:hover .feature-text {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Pricing Card Wrapper */
+.pricing-card-wrapper {
+    transition: all 0.6s ease-out;
+    opacity: 1;
+    transform: translateY(0);
+    margin-bottom: 30px;
+}
+
+/* Basic Pricing Card Styles */
+.pricing-card {
+    background: linear-gradient(135deg, #212428 0%, #1d1f23 100%);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing-card-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.pricing-badge {
+    display: inline-block;
+    background: rgba(255, 1, 79, 0.1);
+    color: var(--color-primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 1, 79, 0.3);
+}
+
+.pricing-price {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-bottom: 15px;
+}
+
+.pricing-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-heading);
+    margin: 0;
+}
+
+.pricing-card-body {
+    margin-bottom: 25px;
+}
+
+.pricing-card-footer {
+    text-align: center;
+}
+
+.pricing-card-footer .rn-btn {
+    width: 100%;
+    justify-content: center;
 }
 
 /* CTA Area Styles */
