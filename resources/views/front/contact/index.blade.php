@@ -13,7 +13,7 @@
 
 @push('scripts')
 <!-- Contact Form JavaScript -->
-<script src="{{ asset('assets/js/contact-form.js') }}"></script>
+        <script src="{{ asset('assets/js/contact-form.js') }}?v={{ time() }}"></script>
 @endpush
 
 @push('styles')

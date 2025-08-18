@@ -1714,7 +1714,7 @@ $seoSettings = \App\Models\SeoSite::first();
 
 @push('scripts')
 <!-- Contact Form JavaScript -->
-<script src="{{ asset('assets/js/contact-form.js') }}"></script>
+        <script src="{{ asset('assets/js/contact-form.js') }}?v={{ time() }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Tab switching functionality
