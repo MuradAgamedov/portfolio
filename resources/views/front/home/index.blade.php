@@ -1598,6 +1598,37 @@ $seoSettings = \App\Models\SeoSite::first();
 <script src="{{ asset('assets/js/contact-form.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Tab scroll prevention
+    const tabLinks = document.querySelectorAll('#myTabs .nav-link');
+    tabLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get the target tab
+            const targetId = this.getAttribute('href').substring(1);
+            const targetTab = document.getElementById(targetId);
+            
+            if (targetTab) {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('#myTabs .nav-link').forEach(tab => {
+                    tab.classList.remove('active');
+                    tab.setAttribute('aria-selected', 'false');
+                });
+                
+                document.querySelectorAll('#myTabContents .tab-pane').forEach(content => {
+                    content.classList.remove('show', 'active');
+                });
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                this.setAttribute('aria-selected', 'true');
+                
+                // Show target content
+                targetTab.classList.add('show', 'active');
+            }
+        });
+    });
+
     const loadMoreBtn = document.getElementById('loadMorePricing');
     const container = document.getElementById('pricingCardsContainer');
     
