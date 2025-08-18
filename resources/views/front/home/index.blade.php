@@ -1,32 +1,6 @@
 @extends('front.layouts.master')
 
-@section('title')
-@php
-$seoSettings = \App\Models\SeoSite::first();
-@endphp
-@if($seoSettings && $seoSettings->getTranslation('seo_title', app()->getLocale()))
-{{ $seoSettings->getTranslation('seo_title', app()->getLocale()) }}
-@else
-{{ __('seo_home_title') }}
-@endif
-@endsection
-
-@section('meta')
-@php
-$seoSettings = \App\Models\SeoSite::first();
-@endphp
-@if($seoSettings)
-@if($seoSettings->getTranslation('seo_description', app()->getLocale()))
-<meta name="description" content="{{ $seoSettings->getTranslation('seo_description', app()->getLocale()) }}">
-@endif
-
-@if($seoSettings->getTranslation('seo_keywords', app()->getLocale()))
-<meta name="keywords" content="{{ $seoSettings->getTranslation('seo_keywords', app()->getLocale()) }}">
-@endif
-@endif
-@endsection
-
-@section('content')
+@section('styles')
 <style>
 .pricing-card-hover {
     transition: all 0.3s ease;
@@ -125,10 +99,94 @@ $seoSettings = \App\Models\SeoSite::first();
     animation: fadeInUp 0.6s ease-out forwards;
 }
 
-/* Additional styling for newly loaded cards */
-.pricing-card-wrapper.animated .pricing-card {
-    animation: cardGlow 0.8s ease-out 0.3s forwards;
-}
+    /* Additional styling for newly loaded cards */
+    .pricing-card-wrapper.animated .pricing-card {
+        animation: cardGlow 0.8s ease-out 0.3s forwards;
+    }
+
+    /* Tab Navigation Styles */
+    .rn-nav-list {
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 0;
+    }
+
+    .rn-nav-list .nav-link {
+        border: none;
+        background: transparent;
+        color: var(--color-body);
+        padding: 15px 25px;
+        margin-right: 5px;
+        border-radius: 8px 8px 0 0;
+        transition: all 0.3s ease;
+        position: relative;
+        font-weight: 500;
+    }
+
+    .rn-nav-list .nav-link:hover {
+        color: var(--color-primary);
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .rn-nav-list .nav-link.active {
+        color: var(--color-primary);
+        background: rgba(255, 255, 255, 0.1);
+        border-bottom: 2px solid var(--color-primary);
+    }
+
+    .rn-nav-list .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--color-primary);
+        border-radius: 2px;
+    }
+
+    /* Tab Content Styles */
+    .rn-nav-content .tab-pane {
+        transition: opacity 0.3s ease;
+        opacity: 0;
+        display: none;
+    }
+
+    .rn-nav-content .tab-pane.show {
+        opacity: 1;
+        display: block;
+    }
+
+    .rn-nav-content .tab-pane.active {
+        opacity: 1;
+        display: block;
+    }
+
+    /* Prevent scroll jumping */
+    html {
+        scroll-behavior: auto;
+    }
+
+    /* Smooth tab transitions */
+    .rn-nav-content {
+        min-height: 400px;
+        position: relative;
+    }
+
+    .rn-nav-content .tab-pane {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .rn-nav-content .tab-pane.show.active {
+        opacity: 1;
+        visibility: visible;
+        position: relative;
+    }
 
 
 
@@ -259,6 +317,36 @@ $seoSettings = \App\Models\SeoSite::first();
     }
 }
 </style>
+@endsection
+
+@section('title')
+@php
+$seoSettings = \App\Models\SeoSite::first();
+@endphp
+@if($seoSettings && $seoSettings->getTranslation('seo_title', app()->getLocale()))
+{{ $seoSettings->getTranslation('seo_title', app()->getLocale()) }}
+@else
+{{ __('seo_home_title') }}
+@endif
+@endsection
+
+@section('meta')
+@php
+$seoSettings = \App\Models\SeoSite::first();
+@endphp
+@if($seoSettings)
+@if($seoSettings->getTranslation('seo_description', app()->getLocale()))
+<meta name="description" content="{{ $seoSettings->getTranslation('seo_description', app()->getLocale()) }}">
+@endif
+
+@if($seoSettings->getTranslation('seo_keywords', app()->getLocale()))
+<meta name="keywords" content="{{ $seoSettings->getTranslation('seo_keywords', app()->getLocale()) }}">
+@endif
+@endif
+@endsection
+
+@section('content')
+
 
 <!-- SEO Display Section -->
 @php
@@ -1603,6 +1691,10 @@ document.addEventListener('DOMContentLoaded', function() {
     tabLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
+            
+            // Store current scroll position
+            const currentScrollPos = window.pageYOffset || document.documentElement.scrollTop;
             
             // Get the target tab
             const targetId = this.getAttribute('href').substring(1);
@@ -1617,6 +1709,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 document.querySelectorAll('#myTabContents .tab-pane').forEach(content => {
                     content.classList.remove('show', 'active');
+                    content.style.display = 'none';
                 });
                 
                 // Add active class to clicked tab
@@ -1625,6 +1718,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Show target content
                 targetTab.classList.add('show', 'active');
+                
+                // Restore scroll position and prevent any automatic scrolling
+                requestAnimationFrame(() => {
+                    window.scrollTo({
+                        top: currentScrollPos,
+                        behavior: 'instant'
+                    });
+                });
+                
+                // Additional scroll position restoration
+                setTimeout(() => {
+                    if (window.pageYOffset !== currentScrollPos) {
+                        window.scrollTo({
+                            top: currentScrollPos,
+                            behavior: 'instant'
+                        });
+                    }
+                }, 100);
+                
+                // Final scroll position check
+                setTimeout(() => {
+                    if (window.pageYOffset !== currentScrollPos) {
+                        window.scrollTo({
+                            top: currentScrollPos,
+                            behavior: 'instant'
+                        });
+                    }
+                }, 200);
             }
         });
     });
