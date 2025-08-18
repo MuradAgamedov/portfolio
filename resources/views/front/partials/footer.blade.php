@@ -114,10 +114,10 @@
 
 <!-- JS  -->
 <!-- <script src="{{ asset('assets/js/vendor/jquery.js') }}"></script> -->
-<script src="{{ asset('assets/js/vendor/modernizer.min.js') }}"></script>
-<script src="{{ asset('assets/js/vendor/feather.min.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/modernizer.min.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('assets/js/vendor/feather.min.js') }}?v={{ time() }}"></script>
 <!-- <script src="{{ asset('assets/js/vendor/slick.min.js') }}"></script> -->
-<script src="{{ asset('assets/js/vendor/bootstrap.js') }}"></script>
+<script src="{{ asset('assets/js/vendor/bootstrap.js') }}?v={{ time() }}"></script>
 <!-- Custom typing animation instead of text-type.js -->
 <!-- <script src="{{ asset('assets/js/vendor/text-type.js') }}"></script> -->
 <!-- <script src="{{ asset('assets/js/vendor/wow.js') }}"></script>
@@ -127,7 +127,7 @@
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <!-- main JS -->
-<script src="{{ asset('assets/js/main.js') }}"></script> <!-- script end -->
+<script src="{{ asset('assets/js/main.js') }}?v={{ time() }}"></script> <!-- script end -->
 
 
 

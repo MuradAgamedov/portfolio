@@ -106,7 +106,7 @@
     @stack('scripts')
     
     <!-- Floating Contact JavaScript -->
-    <script src="{{ asset('assets/js/floating-contact.js') }}"></script>
+    <script src="{{ asset('assets/js/floating-contact.js') }}?v={{ time() }}"></script>
     
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>

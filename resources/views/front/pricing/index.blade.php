@@ -1,10 +1,7 @@
 @extends('front.layouts.master')
 
-@section('title', __('seo_pricing_title'))
-
-@section('meta')
-<meta name="description" content="{{ __('seo_pricing_description') }}">
-<meta name="keywords" content="{{ __('seo_pricing_keywords') }}">
+@section('title')
+{{__("Pricing Plans")}} - {{__("My Services")}}
 @endsection
 
 @section('meta')
@@ -19,7 +16,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title text-center">
-                    <span class="subtitle">{{__("Pricingg")}}</span>
+                    <span class="subtitle">{{__("Pricing")}}</span>
                     <h2 class="title">{{__("My Pricing Plans")}}</h2>
                     <p class="description">{{__("Choose the perfect plan for your website needs. All plans include professional design and development.")}}</p>
                 </div>

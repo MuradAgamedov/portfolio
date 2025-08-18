@@ -35,11 +35,11 @@
 <!-- SweetAlert2 CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <!-- Custom CSS -->
-<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ time() }}">
 <!-- Blog Cards CSS -->
-<link rel="stylesheet" href="{{ asset('assets/css/blog-cards.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/blog-cards.css') }}?v={{ time() }}">
 <!-- Floating Contact CSS -->
-<link rel="stylesheet" href="{{ asset('assets/css/floating-contact.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/floating-contact.css') }}?v={{ time() }}">
 
 @yield('styles')
 @stack('styles')

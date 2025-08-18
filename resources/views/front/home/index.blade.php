@@ -1910,7 +1910,7 @@ document.addEventListener('DOMContentLoaded', function() {
 @endpush
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('assets/css/contact-form.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/contact-form.css') }}?v={{ time() }}">
 <style>
     /* Portfolio Service Card Styles */
     .form-group {
