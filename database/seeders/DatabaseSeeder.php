@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             LanguageSeeder::class,
             AdminSeeder::class,
+            PricingPlanSeeder::class,
             PricingPlanFeatureSeeder::class
         ]);
     }
