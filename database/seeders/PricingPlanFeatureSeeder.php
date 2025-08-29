@@ -284,13 +284,14 @@ class PricingPlanFeatureSeeder extends Seeder
             ]
         ];
 
-        foreach ($features as $planId => $planFeatures) {
-            $pricingPlan = PricingPlan::find($planId);
+        foreach ($features as $planOrder => $planFeatures) {
+            // Find pricing plan by order field instead of ID
+            $pricingPlan = PricingPlan::where('order', $planOrder)->first();
             
             if ($pricingPlan) {
                 foreach ($planFeatures as $index => $feature) {
                     PricingPlanFeature::create([
-                        'pricing_plan_id' => $planId,
+                        'pricing_plan_id' => $pricingPlan->id, // Use actual database ID
                         'title' => $feature['title'],
                         'status' => true,
                         'order' => $index + 1
