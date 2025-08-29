@@ -13,8 +13,8 @@ class PricingPlanFeatureSeeder extends Seeder
      */
     public function run(): void
     {
-        // Clear existing features first
-        PricingPlanFeature::truncate();
+        // Don't truncate to avoid database connection issues
+        // PricingPlanFeature::truncate();
 
         $features = [
             // 1. Micro Site (ID: 1)
