@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Portfolio;
 
 class OptimizePortfolioImages extends Command
 {
@@ -194,19 +195,28 @@ class OptimizePortfolioImages extends Command
                 $webpPath = $directory . '/' . $filename . '.webp';
                 $webpTempPath = tempnam(sys_get_temp_dir(), 'webp_');
                 
-                if (imagewebp($newImage, $webpTempPath, 85)) {
-                    $webpContent = file_get_contents($webpTempPath);
-                    Storage::disk('public')->put($webpPath, $webpContent);
-                    
-                    $webpSize = strlen($webpContent);
-                    $webpSavings = $optimizedSize - $webpSize;
-                    $webpSavingsPercent = round(($webpSavings / $optimizedSize) * 100, 2);
-                    
-                    $this->line("WebP created: {$webpPath} - " . $this->formatBytes($webpSize) . " (Additional savings: {$webpSavingsPercent}%)");
+                // Check if WebP version already exists
+                if (Storage::disk('public')->exists($webpPath)) {
+                    $this->line("WebP already exists: {$webpPath} - checking database");
                     $webpCreated = true;
-                    
-                    unlink($webpTempPath);
+                } else {
+                    if (imagewebp($newImage, $webpTempPath, 85)) {
+                        $webpContent = file_get_contents($webpTempPath);
+                        Storage::disk('public')->put($webpPath, $webpContent);
+                        
+                        $webpSize = strlen($webpContent);
+                        $webpSavings = $optimizedSize - $webpSize;
+                        $webpSavingsPercent = round(($webpSavings / $optimizedSize) * 100, 2);
+                        
+                        $this->line("WebP created: {$webpPath} - " . $this->formatBytes($webpSize) . " (Additional savings: {$webpSavingsPercent}%)");
+                        $webpCreated = true;
+                        
+                        unlink($webpTempPath);
+                    }
                 }
+                
+                // Always update database with WebP path (even if WebP already exists)
+                $this->updatePortfolioImageInDatabase($filePath, $webpPath);
             }
             
             // Clean up temp file
@@ -218,6 +228,37 @@ class OptimizePortfolioImages extends Command
         imagedestroy($newImage);
         
         return ['webp_created' => $webpCreated];
+    }
+    
+    private function updatePortfolioImageInDatabase($originalPath, $webpPath)
+    {
+        try {
+            // Find portfolio with this image (try both original and WebP paths)
+            $portfolio = Portfolio::where('image', $originalPath)
+                ->orWhere('image', $webpPath)
+                ->first();
+            
+            if ($portfolio) {
+                // Check if already using WebP
+                if ($portfolio->image === $webpPath) {
+                    $this->line("Portfolio ID {$portfolio->id} already uses WebP image: {$webpPath}");
+                } else {
+                    // Update to WebP version
+                    $portfolio->update(['image' => $webpPath]);
+                    $this->line("Database updated: Portfolio ID {$portfolio->id} now uses WebP image");
+                    
+                    // Delete original image if WebP exists and they're different
+                    if ($originalPath !== $webpPath && Storage::disk('public')->exists($webpPath)) {
+                        Storage::disk('public')->delete($originalPath);
+                        $this->line("Original image deleted: {$originalPath}");
+                    }
+                }
+            } else {
+                $this->warn("No portfolio found with image: {$originalPath}");
+            }
+        } catch (\Exception $e) {
+            $this->error("Error updating database: " . $e->getMessage());
+        }
     }
     
     private function formatBytes($bytes, $precision = 2)
