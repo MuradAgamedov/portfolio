@@ -19,7 +19,7 @@ class OptimizePortfolioImages extends Command
             $this->info('WebP conversion enabled');
         }
         
-        $portfolioPath = 'portfolios/images';
+        $portfolioPath = 'storage/portfolios/images';
         $files = Storage::files($portfolioPath);
         
         $totalFiles = count($files);
