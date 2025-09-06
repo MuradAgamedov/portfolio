@@ -1805,8 +1805,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadMoreBtn = document.getElementById('loadMorePricing');
     const container = document.getElementById('pricingCardsContainer');
     
-    console.log('Load More button found:', loadMoreBtn);
-    console.log('Container found:', container);
     
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', function() {

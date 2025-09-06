@@ -155,8 +155,6 @@
             // Custom Certificates Slider
             imJs.customCertificatesSlider();
             
-            // Initialize other sliders if needed
-            console.log('Slick sliders disabled - using custom implementations');
         },
 
         featherAtcivation: function () {
@@ -168,7 +166,6 @@
         customCertificatesSlider: function () {
             const slider = document.querySelector('.custom-certificates-slider');
             if (!slider) {
-                console.log('Certificate slider not found');
                 return;
             }
 
@@ -186,7 +183,6 @@
             let autoplayInterval;
 
             function showSlide(index) {
-                console.log('Showing slide:', index);
                 
                 // Hide all slides
                 slides.forEach(slide => {
@@ -261,7 +257,6 @@
             // Start autoplay
             startAutoplay();
             
-            console.log('Certificate slider initialized with', slides.length, 'slides');
         },
 
         certificateModal: function () {
@@ -338,7 +333,6 @@
         stickyHeader: function (e) {
             const stickyHeader = document.querySelector('.header--sticky');
             if (!stickyHeader) {
-                console.log('Sticky header element not found');
                 return;
             }
             
