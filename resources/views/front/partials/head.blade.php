@@ -26,20 +26,173 @@
     {!! $seoSettings->page_header !!}
 @endif
 
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Flag Icons CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css">
-<!-- SweetAlert2 CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-<!-- Custom CSS -->
-<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ time() }}">
-<!-- Blog Cards CSS -->
-<link rel="stylesheet" href="{{ asset('assets/css/blog-cards.css') }}?v={{ time() }}">
-<!-- Floating Contact CSS -->
-<link rel="stylesheet" href="{{ asset('assets/css/floating-contact.css') }}?v={{ time() }}">
+<!-- Preload critical resources -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<!-- Critical CSS - Above the fold styles -->
+<style>
+/* Critical CSS for initial render */
+:root {
+  --color-primary: #ff014f;
+  --color-secondary: #f4f5f6;
+  --color-tertiary: #0d1013;
+  --color-gray: #f6f6f6;
+  --color-subtitle: #f9004d;
+  --background-color-1: linear-gradient(145deg, #1e2024, #23272b);
+  --background-color-2: #212428;
+  --color-heading: #ffffff;
+  --color-body: #878e99;
+  --color-lightn: #c4cfde;
+  --font-primary: "Poppins", sans-serif;
+  --font-secondary: "Montserrat", sans-serif;
+  --transition: 0.4s;
+}
+
+* { box-sizing: border-box; }
+body { 
+  margin: 0; 
+  font-family: var(--font-primary); 
+  background: var(--background-color-2);
+  color: var(--color-lightn);
+  line-height: 1.6;
+}
+
+.rn-header { 
+  position: relative; 
+  z-index: 999; 
+  background: var(--background-color-2);
+  transition: all 0.3s ease;
+}
+
+.template-color-1 { 
+  background: var(--background-color-2); 
+  color: var(--color-lightn); 
+}
+
+.main-page-wrapper { 
+  min-height: 100vh; 
+}
+
+/* Header critical styles */
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  min-height: 80px;
+  padding: 0 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.logo-text {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: var(--font-secondary);
+  letter-spacing: 1px;
+}
+
+.logo img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Navigation critical styles */
+.primary-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.primary-menu .nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+}
+
+.primary-menu .nav-link:hover {
+  color: #dc3545;
+}
+
+/* Mobile menu toggle */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 25px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 1199px) {
+  .mobile-menu-toggle { display: flex; }
+  .primary-menu { display: none; }
+}
+
+@media (min-width: 1200px) {
+  .mobile-menu-toggle { display: none; }
+  .primary-menu { display: flex; }
+}
+
+/* Loading state */
+.loading { opacity: 0.7; }
+</style>
+
+<!-- Non-critical CSS - Load asynchronously -->
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{ asset('assets/css/style.css') }}?v={{ time() }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{ asset('assets/css/blog-cards.css') }}?v={{ time() }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" href="{{ asset('assets/css/floating-contact.css') }}?v={{ time() }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+<!-- Fallback for browsers that don't support preload -->
+<noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/blog-cards.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/floating-contact.css') }}?v={{ time() }}">
+</noscript>
 
 @yield('styles')
 @stack('styles')

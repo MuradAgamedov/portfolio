@@ -106,10 +106,10 @@
     @stack('scripts')
     
     <!-- Floating Contact JavaScript -->
-    <script src="{{ asset('assets/js/floating-contact.js') }}?v={{ time() }}"></script>
+    <script src="{{ asset('assets/js/floating-contact.js') }}?v={{ time() }}" defer></script>
     
     <!-- Feather Icons -->
-    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://unpkg.com/feather-icons" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof feather !== 'undefined') {

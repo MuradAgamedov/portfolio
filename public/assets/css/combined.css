@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*---------------------------
  CSS Index  
 ****************************
@@ -12444,7 +12444,7 @@ p.has-drop-cap:not(:focus):first-letter {
   margin-bottom: 10px;
 }
 .hr-dots-area .wp-block-separator.is-style-dots::before {
-  content: "···";
+  content: "Â·Â·Â·";
   padding-left: 21px;
   color: #121214;
   font-size: 21px;
@@ -19978,3 +19978,1016 @@ body.white-version .rn-btn-ulderline {
 }
 
 /*# sourceMappingURL=../maps/style.css.map */
+/* Blog Card Styles */
+.rn-blog {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 15px;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.rn-blog:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.rn-blog .inner {
+    background: var(--background-color-1);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-1);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.rn-blog:hover .inner {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.rn-blog .thumbnail {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    width: 100% !important;
+    height: 220px !important;
+    max-height: 220px !important;
+    min-height: 220px !important;
+    background: #f8f9fa;
+}
+
+.rn-blog .thumbnail img {
+    transition: transform 0.4s ease;
+    width: 100% !important;
+    height: 220px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    max-height: 220px !important;
+    min-height: 220px !important;
+}
+
+.rn-blog:hover .thumbnail img {
+    transform: scale(1.1);
+}
+
+.rn-blog .thumbnail::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 1, 79, 0.8), rgba(209, 20, 20, 0.8));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.rn-blog:hover .thumbnail::after {
+    opacity: 0.3;
+}
+
+.rn-blog .content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 120px;
+}
+
+.rn-blog .title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rn-blog .meta {
+    font-size: 14px;
+    color: var(--color-body);
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+.rn-blog .meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.rn-blog .meta i {
+    width: 16px;
+    height: 16px;
+}
+
+.rn-blog .title a {
+    color: var(--color-heading);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    word-wrap: break-word;
+}
+
+.rn-blog .title a:hover {
+    color: var(--color-primary);
+}
+
+.rn-blog .title a i {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.rn-blog:hover .title a i {
+    transform: translateX(5px) translateY(-5px);
+}
+
+/* Ensure equal height cards */
+.rn-blog-area .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rn-blog-area .row > div {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.rn-blog-area .row > div > .rn-blog {
+    width: 100%;
+}
+
+/* Force all images to be exactly the same size */
+.rn-blog .thumbnail img,
+.rn-blog .thumbnail a img {
+    width: 100% !important;
+    height: 220px !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    max-height: 220px !important;
+    min-height: 220px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+}
+
+/* Override any other CSS that might affect image sizes */
+.rn-blog .thumbnail img[src*="blog"],
+.rn-blog .thumbnail a img[src*="blog"] {
+    width: 100% !important;
+    height: 220px !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    max-height: 220px !important;
+    min-height: 220px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+}
+
+/* Responsive */
+@media only screen and (max-width: 767px) {
+    .rn-blog .content {
+        padding: 20px;
+        min-height: 100px;
+    }
+    
+    .rn-blog .title {
+        font-size: 16px;
+        -webkit-line-clamp: 2;
+    }
+    
+    .rn-blog .thumbnail {
+        height: 180px !important;
+        max-height: 180px !important;
+        min-height: 180px !important;
+    }
+    
+    .rn-blog .thumbnail img {
+        height: 180px !important;
+        max-height: 180px !important;
+        min-height: 180px !important;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .rn-blog .title {
+        font-size: 15px;
+        -webkit-line-clamp: 2;
+    }
+    
+    .rn-blog .content {
+        padding: 15px;
+    }
+    
+    .rn-blog .thumbnail {
+        height: 160px !important;
+        max-height: 160px !important;
+        min-height: 160px !important;
+    }
+    
+    .rn-blog .thumbnail img {
+        height: 160px !important;
+        max-height: 160px !important;
+        min-height: 160px !important;
+    }
+} 
+/* Floating Contact Button */
+.floating-contact-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9998;
+    animation: float 3s ease-in-out infinite;
+    opacity: 0.7;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.contact-float-btn {
+    width: 60px;
+    height: 60px;
+    background: #25d366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+}
+
+.contact-float-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.contact-float-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+    color: white;
+}
+
+.contact-float-btn:hover::before {
+    opacity: 1;
+}
+
+.contact-float-btn i {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.contact-float-btn:hover i {
+    transform: scale(1.1);
+}
+
+.tooltip-text {
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.tooltip-text::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left: 5px solid rgba(0, 0, 0, 0.8);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+}
+
+.contact-float-btn:hover .tooltip-text {
+    opacity: 1;
+    visibility: visible;
+    right: 75px;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Pulse animation for attention */
+.contact-float-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    border: 2px solid #25d366;
+    animation: pulse 2s infinite;
+    opacity: 0;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Contact Popup Modal */
+.contact-popup-modal {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    z-index: 99999;
+    display: none;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform-origin: bottom right;
+}
+
+.contact-popup-modal.show {
+    display: block !important;
+    transform: scale(1);
+    opacity: 1;
+}
+
+.popup-content {
+    position: relative;
+    background: #212428;
+    border-radius: 15px;
+    width: 351px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, #ff014f 0%, #ff6b9d 100%);
+}
+
+.popup-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.popup-close {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.popup-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.popup-close i {
+    width: 16px;
+    height: 16px;
+}
+
+.popup-body {
+    padding: 15px;
+}
+
+.contact-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-option {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    text-decoration: none;
+    color: #c4cfde;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.contact-option:hover::before {
+    left: 100%;
+}
+
+.contact-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.option-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    background: linear-gradient(135deg, #ff014f 0%, #ff6b9d 100%);
+    flex-shrink: 0;
+}
+
+.option-icon.whatsapp-icon {
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+}
+
+.option-icon i {
+    width: 18px;
+    height: 18px;
+    color: white;
+}
+
+.option-content {
+    flex: 1;
+}
+
+.option-content h4 {
+    margin: 0 0 3px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: inherit;
+}
+
+.option-content p {
+    margin: 0;
+    font-size: 11px;
+    opacity: 0.8;
+    color: inherit;
+}
+
+/* Responsive */
+@media only screen and (max-width: 768px) {
+    .floating-contact-btn {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .contact-float-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .contact-float-btn i {
+        width: 24px;
+        height: 24px;
+    }
+
+    .tooltip-text {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .contact-popup-modal {
+        bottom: 90px;
+        right: 20px;
+    }
+
+    .popup-content {
+        width: 320px;
+    }
+
+    .popup-header {
+        padding: 12px 15px;
+    }
+
+    .popup-body {
+        padding: 12px;
+    }
+
+    .contact-option {
+        padding: 10px 12px;
+    }
+
+    .option-icon {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+
+    .option-icon i {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Email Form View */
+.email-form-view {
+    width: 100%;
+}
+
+.form-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateX(-2px);
+}
+
+.back-btn i {
+    width: 14px;
+    height: 14px;
+}
+
+.form-header h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #c4cfde;
+    margin-bottom: 2px;
+}
+
+.form-control {
+    padding: 12px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    color: black;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #ff014f;
+    background: rgba(0, 0, 0, 0.5);
+    color: black;
+    box-shadow: 0 0 0 3px rgba(255, 1, 79, 0.1);
+}
+
+.form-control::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.form-control:focus::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #ff014f 0%, #ff6b9d 100%);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 1, 79, 0.4);
+    background: linear-gradient(135deg, #ff014f 0%, #ff4d7d 100%);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.submit-btn i {
+    width: 16px;
+    height: 16px;
+}
+
+/* reCAPTCHA in Modal */
+.email-form .g-recaptcha {
+    transform: scale(0.85);
+    transform-origin: left top;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 480px) {
+    .email-form .g-recaptcha {
+        transform: scale(0.75);
+    }
+}
+
+/* Success Modal */
+.success-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    animation: fadeIn 0.3s ease;
+}
+
+.success-modal {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: slideInUp 0.3s ease;
+}
+
+.success-modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.success-icon {
+    color: #28a745;
+    font-size: 48px;
+    animation: checkmark 0.6s ease;
+}
+
+.success-icon i {
+    width: 48px;
+    height: 48px;
+}
+
+.success-modal h4 {
+    color: #28a745;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.success-modal p {
+    color: #666;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.success-modal-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.success-modal-btn:hover {
+    background: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.success-modal-btn i {
+    width: 16px;
+    height: 16px;
+}
+
+/* Error Modal */
+.error-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    animation: fadeIn 0.3s ease;
+}
+
+.error-modal {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: slideInUp 0.3s ease;
+}
+
+.error-modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.error-icon {
+    color: #dc3545;
+    font-size: 48px;
+    animation: shake 0.6s ease;
+}
+
+.error-icon i {
+    width: 48px;
+    height: 48px;
+}
+
+.error-modal h4 {
+    color: #dc3545;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.error-modal p {
+    color: #666;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.error-modal-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.error-modal-btn:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.error-modal-btn i {
+    width: 16px;
+    height: 16px;
+}
+
+/* Modal Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes checkmark {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+} 
+/**
+ * Contact Form CSS
+ * Styles for contact form validation and button styling
+ */
+
+/* Contact form button styling */
+.contact-form-wrapper .rn-btn {
+    width: 100% !important;
+    display: block !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+}
+
+.contact-form-wrapper .rn-btn span {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+}
+
+/* Ensure consistent button styling across contact pages */
+.rn-contact-area .contact-form-wrapper .rn-btn {
+    width: 100% !important;
+    display: block !important;
+    text-align: center !important;
+    padding: 15px 35px !important;
+    border-radius: 6px !important;
+    background: linear-gradient(145deg, #1e2024, #23272b) !important;
+    box-shadow: var(--shadow-1) !important;
+    transition: var(--transition) !important;
+    position: relative !important;
+    z-index: 2 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    border: 0 none !important;
+    color: var(--color-primary) !important;
+}
+
+.rn-contact-area .contact-form-wrapper .rn-btn:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+.rn-contact-area .contact-form-wrapper .rn-btn::before {
+    content: "" !important;
+    position: absolute !important;
+    transition: var(--transition) !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 6px !important;
+    top: 0 !important;
+    left: 0 !important;
+    background: linear-gradient(to right bottom, #212428, #16181c) !important;
+    opacity: 0 !important;
+    z-index: -1 !important;
+}
+
+.rn-contact-area .contact-form-wrapper .rn-btn:hover::before {
+    opacity: 1 !important;
+}
+
+/* Custom styling for form validation */
+.is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+    color: #dc3545;
+}
+
+/* Loading spinner for button */
+.fa-spinner {
+    margin-right: 5px;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 767px) {
+    .contact-form-wrapper .rn-btn {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+}
+
+@media only screen and (max-width: 479px) {
+    .contact-form-wrapper .rn-btn {
+        width: 100% !important;
+        display: block !important;
+        text-align: center !important;
+    }
+} 
