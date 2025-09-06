@@ -19,8 +19,8 @@ class OptimizePortfolioImages extends Command
             $this->info('WebP conversion enabled');
         }
         
-        $portfolioPath = 'storage/portfolios/images';
-        $files = Storage::files($portfolioPath);
+        $portfolioPath = 'portfolios/images';
+        $files = Storage::disk('public')->files($portfolioPath);
         
         $totalFiles = count($files);
         $this->info("Found {$totalFiles} images to optimize");
@@ -76,7 +76,7 @@ class OptimizePortfolioImages extends Command
         }
         
         // Get full file path
-        $fullPath = Storage::path($filePath);
+        $fullPath = Storage::disk('public')->path($filePath);
         
         // Get original image info
         $imageInfo = getimagesize($fullPath);
@@ -179,7 +179,7 @@ class OptimizePortfolioImages extends Command
         if ($saved) {
             // Replace original file
             $optimizedContent = file_get_contents($tempPath);
-            Storage::put($filePath, $optimizedContent);
+            Storage::disk('public')->put($filePath, $optimizedContent);
             
             // Get optimized file size
             $optimizedSize = strlen($optimizedContent);
@@ -196,7 +196,7 @@ class OptimizePortfolioImages extends Command
                 
                 if (imagewebp($newImage, $webpTempPath, 85)) {
                     $webpContent = file_get_contents($webpTempPath);
-                    Storage::put($webpPath, $webpContent);
+                    Storage::disk('public')->put($webpPath, $webpContent);
                     
                     $webpSize = strlen($webpContent);
                     $webpSavings = $optimizedSize - $webpSize;
