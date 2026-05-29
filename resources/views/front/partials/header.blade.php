@@ -7,13 +7,13 @@
                 <div class="logo">
                     <a href="{{ localized_route('home') }}" title="{{__("Sayt hazırlanması")}}">
                         @php
-                            $headerLogo = \App\Models\SiteSetting::getByKey('header_logo');
-                            $headerLogoAlt = \App\Models\SiteSetting::getByKey('header_logo_alt');
+                        $headerLogo = \App\Models\SiteSetting::getByKey('header_logo');
+                        $headerLogoAlt = \App\Models\SiteSetting::getByKey('header_logo_alt');
                         @endphp
                         @if($headerLogo)
-                            <img src="{{ asset('storage/' . $headerLogo) }}" alt="{{ $headerLogoAlt ?: 'Logo' }}">
+                        <img src="{{ asset('storage/' . $headerLogo) }}" alt="{{ $headerLogoAlt ?: 'Logo' }}">
                         @else
-                            <img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo">
+                        <img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo">
                         @endif
                         <span class="logo-text">Murad Agamedov</span>
                     </a>
@@ -45,13 +45,13 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="languageDropdown">
                                 @foreach(get_available_languages() as $language)
-                                    <li>
-                                        <a class="dropdown-item {{ app()->getLocale() == $language->lang_code ? 'active' : '' }}" 
-                                           href="{{ switch_language_url($language->lang_code) }}">
-                                            <span class="flag-icon flag-icon-{{ $language->lang_code }}"></span>
-                                            {{ strtoupper($language->lang_code) }}
-                                        </a>
-                                    </li>
+                                <li>
+                                    <a class="dropdown-item {{ app()->getLocale() == $language->lang_code ? 'active' : '' }}"
+                                        href="{{ switch_language_url($language->lang_code) }}">
+                                        <span class="flag-icon flag-icon-{{ $language->lang_code }}"></span>
+                                        {{ strtoupper($language->lang_code) }}
+                                    </a>
+                                </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -83,13 +83,13 @@
             <div class="mobile-logo">
                 <a href="{{ localized_route('home') }}" title="{{__("Go to homepage")}}">
                     @php
-                        $headerLogo = \App\Models\SiteSetting::getByKey('header_logo');
-                        $headerLogoAlt = \App\Models\SiteSetting::getByKey('header_logo_alt');
+                    $headerLogo = \App\Models\SiteSetting::getByKey('header_logo');
+                    $headerLogoAlt = \App\Models\SiteSetting::getByKey('header_logo_alt');
                     @endphp
                     @if($headerLogo)
-                        <img src="{{ asset('storage/' . $headerLogo) }}" alt="{{ $headerLogoAlt ?: 'Logo' }}">
+                    <img src="{{ asset('storage/' . $headerLogo) }}" alt="{{ $headerLogoAlt ?: 'Logo' }}">
                     @else
-                        <img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo">
+                    <img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo">
                     @endif
                     <span class="mobile-logo-text">Murad Agamedov</span>
                 </a>
@@ -99,42 +99,44 @@
                 <span></span>
             </button>
         </div>
-        
+
         <nav class="mobile-nav">
             <ul class="mobile-menu-list">
                 <li><a href="{{ localized_route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}" title="{{__("Go to homepage")}}">{{__("HOME")}}</a></li>
                 <li><a href="{{ localized_route('services.index') }}" class="{{ request()->routeIs('services.index') ? 'active' : '' }}" title="{{__("View my services and what I offer")}}">{{__("SERVICES")}}</a></li>
-                <li><a href="{{ localized_route('pricing.index') }}" class="{{ request()->routeIs('pricing.index') ? 'active' : '' }}" title="{{__("View all pricing plans")}}">{{__("PRICING")}}</a></li>
+                {{--
+                 <li><a href="{{ localized_route('pricing.index') }}" class="{{ request()->routeIs('pricing.index') ? 'active' : '' }}" title="{{__("View all pricing plans")}}">{{__("PRICING")}}</a></li>
+                --}}
                 <li><a href="{{ localized_route('portfolios.index') }}" class="{{ request()->routeIs('portfolios.index') ? 'active' : '' }}" title="{{__("View my portfolio projects")}}">{{__("PORTFOLIO")}}</a></li>
                 <li><a href="{{ localized_route('blogs.index') }}" class="{{ request()->routeIs('blogs.index') ? 'active' : '' }}" title="{{__("Read my blog posts")}}">{{__("BLOG")}}</a></li>
                 <li><a href="{{ localized_route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}" title="{{__("Get in touch with me")}}">{{__("CONTACT")}}</a></li>
             </ul>
         </nav>
-        
+
         <!-- Mobile Language Switcher -->
         <div class="mobile-language-switcher">
             <h4>{{__("Language")}}</h4>
             <div class="mobile-lang-options">
                 @foreach(get_available_languages() as $language)
-                    <a href="{{ switch_language_url($language->lang_code) }}" 
-                       class="mobile-lang-option {{ app()->getLocale() == $language->lang_code ? 'active' : '' }}">
-                        <span class="flag-icon flag-icon-{{ $language->lang_code }}"></span>
-                        <span>{{ strtoupper($language->lang_code) }}</span>
-                    </a>
+                <a href="{{ switch_language_url($language->lang_code) }}"
+                    class="mobile-lang-option {{ app()->getLocale() == $language->lang_code ? 'active' : '' }}">
+                    <span class="flag-icon flag-icon-{{ $language->lang_code }}"></span>
+                    <span>{{ strtoupper($language->lang_code) }}</span>
+                </a>
                 @endforeach
             </div>
         </div>
-        
+
         <div class="mobile-social">
             <h4>{{__("find with me")}}</h4>
             <div class="social-links">
                 @foreach($socials as $social)
-                    <a href="{{ $social->url }}" target="_blank" rel="noopener noreferrer" class="social-link" title="{{__("Visit my")}} {{ ucfirst($social->platform) }} {{__("profile")}}">
-                        <i data-feather="{{ $social->platform }}"></i>
-                        <span>{{ ucfirst($social->platform) }}</span>
-                    </a>
+                <a href="{{ $social->url }}" target="_blank" rel="noopener noreferrer" class="social-link" title="{{__("Visit my")}} {{ ucfirst($social->platform) }} {{__("profile")}}">
+                    <i data-feather="{{ $social->platform }}"></i>
+                    <span>{{ ucfirst($social->platform) }}</span>
+                </a>
                 @endforeach
             </div>
         </div>
     </div>
-</div> 
+</div>

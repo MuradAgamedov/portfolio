@@ -2,102 +2,102 @@
 
 @section('styles')
 <style>
-.pricing-card-hover {
-    transition: all 0.3s ease;
-    transform: scale(1);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
+    .pricing-card-hover {
+        transition: all 0.3s ease;
+        transform: scale(1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
 
-.pricing-card-hover:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    border: 2px solid var(--color-primary);
-    background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.05) 0%, rgba(var(--color-primary-rgb), 0.1) 100%);
-}
+    .pricing-card-hover:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        border: 2px solid var(--color-primary);
+        background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.05) 0%, rgba(var(--color-primary-rgb), 0.1) 100%);
+    }
 
-.pricing-card-hover:hover .pricing-badge {
-    background: var(--color-primary);
-    color: white;
-}
+    .pricing-card-hover:hover .pricing-badge {
+        background: var(--color-primary);
+        color: white;
+    }
 
-.pricing-card-hover:hover .pricing-title {
-    color: var(--color-primary);
-}
+    .pricing-card-hover:hover .pricing-title {
+        color: var(--color-primary);
+    }
 
-.pricing-card-hover:hover .rn-btn {
-    background: var(--color-primary);
-    color: white;
-}
+    .pricing-card-hover:hover .rn-btn {
+        background: var(--color-primary);
+        color: white;
+    }
 
-/* Pricing Features Styling */
-.pricing-features {
-    padding: 0;
-    margin: 0;
-}
+    /* Pricing Features Styling */
+    .pricing-features {
+        padding: 0;
+        margin: 0;
+    }
 
-.feature-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-}
+    .feature-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
 
-.feature-item:last-child {
-    border-bottom: none;
-}
+    .feature-item:last-child {
+        border-bottom: none;
+    }
 
-.feature-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    padding-left: 10px;
-    border-radius: 8px;
-}
+    .feature-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+        padding-left: 10px;
+        border-radius: 8px;
+    }
 
-.feature-icon {
-    width: 24px;
-    height: 24px;
-    background: var(--color-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-    flex-shrink: 0;
-}
+    .feature-icon {
+        width: 24px;
+        height: 24px;
+        background: var(--color-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
 
-.feature-icon i {
-    width: 14px;
-    height: 14px;
-    color: white;
-    stroke-width: 3;
-}
+    .feature-icon i {
+        width: 14px;
+        height: 14px;
+        color: white;
+        stroke-width: 3;
+    }
 
-.feature-text {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 14px;
-    line-height: 1.4;
-    flex: 1;
-}
+    .feature-text {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+        line-height: 1.4;
+        flex: 1;
+    }
 
-.pricing-card-hover:hover .feature-icon {
-    background: var(--color-primary);
-    transform: scale(1.1);
-}
+    .pricing-card-hover:hover .feature-icon {
+        background: var(--color-primary);
+        transform: scale(1.1);
+    }
 
-.pricing-card-hover:hover .feature-text {
-    color: rgba(255, 255, 255, 0.9);
-}
+    .pricing-card-hover:hover .feature-text {
+        color: rgba(255, 255, 255, 0.9);
+    }
 
-/* Load More Pricing Cards */
-.pricing-card-wrapper {
-    transition: all 0.6s ease-out;
-    opacity: 1;
-    transform: translateY(0);
-}
+    /* Load More Pricing Cards */
+    .pricing-card-wrapper {
+        transition: all 0.6s ease-out;
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-.pricing-card-wrapper.animated {
-    animation: fadeInUp 0.6s ease-out forwards;
-}
+    .pricing-card-wrapper.animated {
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
 
     /* Additional styling for newly loaded cards */
     .pricing-card-wrapper.animated .pricing-card {
@@ -185,167 +185,174 @@
 
 
 
-/* Smooth transition for new cards */
-.pricing-card-wrapper {
-    animation: fadeInUp 0.6s ease-out forwards;
-}
+    /* Smooth transition for new cards */
+    .pricing-card-wrapper {
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
 
-@keyframes cardGlow {
-    0% {
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    50% {
-        box-shadow: 0 15px 35px rgba(255, 1, 79, 0.2);
-    }
-    100% {
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-}
+    @keyframes cardGlow {
+        0% {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
 
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
+        50% {
+            box-shadow: 0 15px 35px rgba(255, 1, 79, 0.2);
+        }
+
+        100% {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
     }
-    50% {
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+        }
+
+        50% {
+            opacity: 0.7;
+            transform: translateY(15px) scale(0.98);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .load-more-btn {
+        width: 60px;
+        height: 60px;
+        background: var(--color-primary);
+        color: white;
+        border: 2px solid var(--color-primary);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .load-more-btn:hover {
+        background: transparent;
+        color: var(--color-primary);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(255, 1, 79, 0.4);
+    }
+
+    .load-more-btn.hidden {
+        display: none !important;
+    }
+
+    .load-more-btn i {
+        width: 24px;
+        height: 24px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .load-more-btn:hover i {
+        transform: translate(-50%, calc(-50% + 3px));
+    }
+
+    .load-more-btn:disabled {
         opacity: 0.7;
-        transform: translateY(15px) scale(0.98);
+        cursor: not-allowed;
+        transform: none;
     }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
+
+    .load-more-btn:disabled:hover {
+        transform: none;
+        box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
     }
-}
 
-.load-more-btn {
-    width: 60px;
-    height: 60px;
-    background: var(--color-primary);
-    color: white;
-    border: 2px solid var(--color-primary);
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    margin: 0 auto;
-}
-
-.load-more-btn:hover {
-    background: transparent;
-    color: var(--color-primary);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(255, 1, 79, 0.4);
-}
-
-.load-more-btn.hidden {
-    display: none !important;
-}
-
-.load-more-btn i {
-    width: 24px;
-    height: 24px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.load-more-btn:hover i {
-    transform: translate(-50%, calc(-50% + 3px));
-}
-
-.load-more-btn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.load-more-btn:disabled:hover {
-    transform: none;
-    box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
-}
-
-.load-more-btn.loading {
-    pointer-events: none;
-    opacity: 0.7;
-}
-
-.load-more-btn i[data-feather="loader"] {
-    animation: spin 1s linear infinite;
-}
-
-.load-more-btn i[data-feather="check"] {
-    color: #28a745;
-    animation: checkmark 0.5s ease-in-out;
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
+    .load-more-btn.loading {
+        pointer-events: none;
+        opacity: 0.7;
     }
-    to {
-        transform: rotate(360deg);
+
+    .load-more-btn i[data-feather="loader"] {
+        animation: spin 1s linear infinite;
     }
-}
 
-@keyframes checkmark {
-    0% {
-        transform: scale(0);
-        opacity: 0;
+    .load-more-btn i[data-feather="check"] {
+        color: #28a745;
+        animation: checkmark 0.5s ease-in-out;
     }
-    50% {
-        transform: scale(1.2);
-        opacity: 1;
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
     }
-    100% {
-        transform: scale(1);
-        opacity: 1;
+
+    @keyframes checkmark {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        50% {
+            transform: scale(1.2);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
     }
-}
 
-/* View All Pricing Button Styles */
-.view-all-pricing-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 30px;
-    background: linear-gradient(45deg, #ff014f, #ff6b9d);
-    color: white;
-    text-decoration: none;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
-}
+    /* View All Pricing Button Styles */
+    .view-all-pricing-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 30px;
+        background: linear-gradient(45deg, #ff014f, #ff6b9d);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(255, 1, 79, 0.3);
+    }
 
-.view-all-pricing-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(255, 1, 79, 0.4);
-    color: white;
-    text-decoration: none;
-}
+    .view-all-pricing-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(255, 1, 79, 0.4);
+        color: white;
+        text-decoration: none;
+    }
 
-.view-all-pricing-btn i {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.3s ease;
-}
+    .view-all-pricing-btn i {
+        width: 16px;
+        height: 16px;
+        transition: transform 0.3s ease;
+    }
 
-.view-all-pricing-btn:hover i {
-    transform: translateX(3px);
-}
+    .view-all-pricing-btn:hover i {
+        transform: translateX(3px);
+    }
 </style>
 @endsection
 
@@ -394,7 +401,7 @@ $seoSettings = \App\Models\SeoSite::first();
                         <div class="inner">
                             <span class="subtitle">{{$heroData->label}}</span>
                             <h1 class="title">{!! $heroData->title !!}<br>
-                           
+
                             </h1>
 
                             <div>
@@ -783,6 +790,8 @@ $seoSettings = \App\Models\SeoSite::first();
 </div>
 <!-- End Portfolio Area -->
 
+{{--
+
 <!-- Pricing Area -->
 <div class="rn-pricing-area rn-section-gap section-separator" id="pricing">
     <div class="container">
@@ -790,62 +799,63 @@ $seoSettings = \App\Models\SeoSite::first();
             <div class="col-lg-12">
                 <div class="section-title text-center">
                     <span class="subtitle">{{__("Pricing")}}</span>
-                    <h2 class="title">{{__("My Pricing Plans")}}</h2>
+<h2 class="title">{{__("My Pricing Plans")}}</h2>
+</div>
+</div>
+</div>
+
+<div class="row mt--50 pricing-area" id="pricingCardsContainer">
+    @foreach($pricingPlans->take(3) as $index => $plan)
+    <div class="col-lg-4 col-md-6 col-sm-12 pricing-card-wrapper" data-index="{{ $index }}">
+        <div class="pricing-card {{ $index == 1 ? 'pricing-card-hover' : '' }}">
+            <div class="pricing-card-header">
+                <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
+                <div class="pricing-price">
+                    {!! $plan->getTranslation('price', app()->getLocale()) !!}
                 </div>
+                <h3 class="pricing-title">{{ $plan->getTranslation('title', app()->getLocale()) }}</h3>
             </div>
-        </div>
 
-        <div class="row mt--50 pricing-area" id="pricingCardsContainer">
-        @foreach($pricingPlans->take(3) as $index => $plan)
-        <div class="col-lg-4 col-md-6 col-sm-12 pricing-card-wrapper" data-index="{{ $index }}">
-            <div class="pricing-card {{ $index == 1 ? 'pricing-card-hover' : '' }}">
-                <div class="pricing-card-header">
-                    <div class="pricing-badge">{{ $index == 1 ? 'Popular' : ($index == 0 ? 'Basic' : ($index == 2 ? 'Premium' : 'Enterprise')) }}</div>
-                    <div class="pricing-price">
-                        {!! $plan->getTranslation('price', app()->getLocale()) !!}
-                    </div>
-                    <h3 class="pricing-title">{{ $plan->getTranslation('title', app()->getLocale()) }}</h3>
-                </div>
-
-                <div class="pricing-card-body">
-                    <div class="pricing-features">
-                        @foreach($plan->activeFeatures as $feature)
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i data-feather="check"></i>
-                            </div>
-                            <span class="feature-text">{{ $feature->getTranslation('title', app()->getLocale()) }}</span>
+            <div class="pricing-card-body">
+                <div class="pricing-features">
+                    @foreach($plan->activeFeatures as $feature)
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i data-feather="check"></i>
                         </div>
-                        @endforeach
+                        <span class="feature-text">{{ $feature->getTranslation('title', app()->getLocale()) }}</span>
                     </div>
-                </div>
-                @php
-                $phone = \App\Models\SiteSetting::getByKey('phone');
-                @endphp
-                <div class="pricing-card-footer">
-                    <a href="https://wa.me/{{ $phone ?: '01941043264' }}?text=Salam! Mən {{ $plan->getTranslation('title', app()->getLocale()) }} planı haqqında məlumat almaq istəyirəm." class="rn-btn d-block" target="_blank">
-                        <span>{{__("Get Started")}}</span>
-                        <i data-feather="arrow-right"></i>
-                    </a>
+                    @endforeach
                 </div>
             </div>
-        </div>
-        @endforeach
-    </div>
-    
-    @if($pricingPlans->count() > 3)
-    <div class="row mt--30">
-        <div class="col-lg-12 text-center">
-            <a href="{{ localized_route('pricing.index') }}" class="rn-btn view-all-pricing-btn">
-                <span>{{__("View All Pricing Plans")}}</span>
-                <i data-feather="arrow-right"></i>
-            </a>
+            @php
+            $phone = \App\Models\SiteSetting::getByKey('phone');
+            @endphp
+            <div class="pricing-card-footer">
+                <a href="https://wa.me/{{ $phone ?: '01941043264' }}?text=Salam! Mən {{ $plan->getTranslation('title', app()->getLocale()) }} planı haqqında məlumat almaq istəyirəm." class="rn-btn d-block" target="_blank">
+                    <span>{{__("Get Started")}}</span>
+                    <i data-feather="arrow-right"></i>
+                </a>
+            </div>
         </div>
     </div>
-    @endif
+    @endforeach
+</div>
+
+@if($pricingPlans->count() > 3)
+<div class="row mt--30">
+    <div class="col-lg-12 text-center">
+        <a href="{{ localized_route('pricing.index') }}" class="rn-btn view-all-pricing-btn">
+            <span>{{__("View All Pricing Plans")}}</span>
+            <i data-feather="arrow-right"></i>
+        </a>
+    </div>
+</div>
+@endif
 </div>
 </div>
 <!-- End Pricing Area -->
+--}}
 
 <!-- Start News Area -->
 <div class="rn-blog-area rn-section-gap section-separator" id="blog">
@@ -909,201 +919,199 @@ $seoSettings = \App\Models\SeoSite::first();
 
 @push('scripts')
 <!-- Contact Form JavaScript -->
-        <script src="{{ asset('assets/js/contact-form.js') }}?v={{ time() }}"></script>
+<script src="{{ asset('assets/js/contact-form.js') }}?v={{ time() }}"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Tab switching functionality
-    const tabLinks = document.querySelectorAll('#myTabs .nav-link');
-    const tabContents = document.querySelectorAll('#myTabContents .tab-pane');
-    
-    // Initialize first tab as active
-    function initializeTabs() {
-        // Hide all tab contents except the first one
-        tabContents.forEach((content, index) => {
-            if (index === 0) {
-                content.classList.add('show', 'active');
-                content.style.display = 'block';
-            } else {
-                content.classList.remove('show', 'active');
-                content.style.display = 'none';
-            }
-        });
-        
-        // Set first tab as active
-        tabLinks.forEach((link, index) => {
-            if (index === 0) {
-                link.classList.add('active');
-                link.setAttribute('aria-selected', 'true');
-            } else {
-                link.classList.remove('active');
-                link.setAttribute('aria-selected', 'false');
-            }
-        });
-    }
-    
-    // Initialize tabs on page load
-    initializeTabs();
-    
-    // Function to switch tabs programmatically
-    function switchTab(tabId) {
-        const targetLink = document.querySelector(`#${tabId}`);
-        if (targetLink) {
-            targetLink.click();
-        }
-    }
-    
-    // Tab click handler
-    tabLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Store current scroll position
-            const currentScrollPos = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Get the target tab
-            const targetId = this.getAttribute('href').substring(1);
-            const targetTab = document.getElementById(targetId);
-            
-            if (targetTab) {
-                // Remove active class from all tabs
-                tabLinks.forEach(tab => {
-                    tab.classList.remove('active');
-                    tab.setAttribute('aria-selected', 'false');
-                });
-                
-                // Hide all tab contents
-                tabContents.forEach(content => {
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab switching functionality
+        const tabLinks = document.querySelectorAll('#myTabs .nav-link');
+        const tabContents = document.querySelectorAll('#myTabContents .tab-pane');
+
+        // Initialize first tab as active
+        function initializeTabs() {
+            // Hide all tab contents except the first one
+            tabContents.forEach((content, index) => {
+                if (index === 0) {
+                    content.classList.add('show', 'active');
+                    content.style.display = 'block';
+                } else {
                     content.classList.remove('show', 'active');
                     content.style.display = 'none';
-                });
-                
-                // Add active class to clicked tab
-                this.classList.add('active');
-                this.setAttribute('aria-selected', 'true');
-                
-                // Show target content
-                targetTab.classList.add('show', 'active');
-                targetTab.style.display = 'block';
-                
-                // Restore scroll position
-                setTimeout(() => {
-                    window.scrollTo({
-                        top: currentScrollPos,
-                        behavior: 'instant'
-                    });
-                }, 50);
-            }
-        });
-    });
-
-    const loadMoreBtn = document.getElementById('loadMorePricing');
-    const container = document.getElementById('pricingCardsContainer');
-    
-    
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', function() {
-            const currentPage = parseInt(loadMoreBtn.getAttribute('data-page')) || 1;
-            const totalPlans = parseInt(loadMoreBtn.getAttribute('data-total')) || 0;
-            
-            console.log('Load More clicked! Page:', currentPage, 'Total:', totalPlans);
-            
-            // Add loading state to button
-            const originalIcon = loadMoreBtn.querySelector('i');
-            loadMoreBtn.innerHTML = '<i data-feather="loader"></i>';
-            loadMoreBtn.disabled = true;
-            loadMoreBtn.classList.add('loading');
-            
-            // Make API request
-            const currentLocale = window.location.pathname.split('/')[1];
-            fetch(`/${currentLocale}/api/pricing-plans?page=${currentPage + 1}`, {
-                method: 'GET',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'application/json',
                 }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('API Response:', data);
-                
-                if (data.success && data.html) {
-                    // Add new cards to container
-                    container.insertAdjacentHTML('beforeend', data.html);
-                    
-                    // Update button data
-                    loadMoreBtn.setAttribute('data-page', currentPage + 1);
-                    
-                    // Hide button if no more plans
-                    if (!data.hasMore) {
-                        loadMoreBtn.classList.add('hidden');
-                        console.log('No more plans, hiding button');
-                    } else {
-                        // Reset button
+            });
+
+            // Set first tab as active
+            tabLinks.forEach((link, index) => {
+                if (index === 0) {
+                    link.classList.add('active');
+                    link.setAttribute('aria-selected', 'true');
+                } else {
+                    link.classList.remove('active');
+                    link.setAttribute('aria-selected', 'false');
+                }
+            });
+        }
+
+        // Initialize tabs on page load
+        initializeTabs();
+
+        // Function to switch tabs programmatically
+        function switchTab(tabId) {
+            const targetLink = document.querySelector(`#${tabId}`);
+            if (targetLink) {
+                targetLink.click();
+            }
+        }
+
+        // Tab click handler
+        tabLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Store current scroll position
+                const currentScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Get the target tab
+                const targetId = this.getAttribute('href').substring(1);
+                const targetTab = document.getElementById(targetId);
+
+                if (targetTab) {
+                    // Remove active class from all tabs
+                    tabLinks.forEach(tab => {
+                        tab.classList.remove('active');
+                        tab.setAttribute('aria-selected', 'false');
+                    });
+
+                    // Hide all tab contents
+                    tabContents.forEach(content => {
+                        content.classList.remove('show', 'active');
+                        content.style.display = 'none';
+                    });
+
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    this.setAttribute('aria-selected', 'true');
+
+                    // Show target content
+                    targetTab.classList.add('show', 'active');
+                    targetTab.style.display = 'block';
+
+                    // Restore scroll position
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: currentScrollPos,
+                            behavior: 'instant'
+                        });
+                    }, 50);
+                }
+            });
+        });
+
+        const loadMoreBtn = document.getElementById('loadMorePricing');
+        const container = document.getElementById('pricingCardsContainer');
+
+
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', function() {
+                const currentPage = parseInt(loadMoreBtn.getAttribute('data-page')) || 1;
+                const totalPlans = parseInt(loadMoreBtn.getAttribute('data-total')) || 0;
+
+                console.log('Load More clicked! Page:', currentPage, 'Total:', totalPlans);
+
+                // Add loading state to button
+                const originalIcon = loadMoreBtn.querySelector('i');
+                loadMoreBtn.innerHTML = '<i data-feather="loader"></i>';
+                loadMoreBtn.disabled = true;
+                loadMoreBtn.classList.add('loading');
+
+                // Make API request
+                const currentLocale = window.location.pathname.split('/')[1];
+                fetch(`/${currentLocale}/api/pricing-plans?page=${currentPage + 1}`, {
+                        method: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json',
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('API Response:', data);
+
+                        if (data.success && data.html) {
+                            // Add new cards to container
+                            container.insertAdjacentHTML('beforeend', data.html);
+
+                            // Update button data
+                            loadMoreBtn.setAttribute('data-page', currentPage + 1);
+
+                            // Hide button if no more plans
+                            if (!data.hasMore) {
+                                loadMoreBtn.classList.add('hidden');
+                                console.log('No more plans, hiding button');
+                            } else {
+                                // Reset button
+                                loadMoreBtn.innerHTML = '<i data-feather="chevron-down"></i>';
+                                loadMoreBtn.disabled = false;
+                                loadMoreBtn.classList.remove('loading');
+
+                                // Initialize Feather icons
+                                if (typeof feather !== 'undefined') {
+                                    feather.replace();
+                                }
+                            }
+
+                            // Initialize Feather icons for new cards
+                            if (typeof feather !== 'undefined') {
+                                feather.replace();
+                            }
+
+                            // Add animation to new cards
+                            const newCards = container.querySelectorAll('.pricing-card-wrapper:not(.animated)');
+                            newCards.forEach((card, index) => {
+                                card.classList.add('animated');
+                                card.style.opacity = '0';
+                                card.style.transform = 'translateY(30px)';
+
+                                setTimeout(() => {
+                                    card.style.transition = 'all 0.6s ease-out';
+                                    card.style.opacity = '1';
+                                    card.style.transform = 'translateY(0)';
+                                }, index * 150);
+                            });
+
+                        } else {
+                            console.error('API Error:', data.message || 'Unknown error');
+                            // Reset button on error
+                            loadMoreBtn.innerHTML = '<i data-feather="chevron-down"></i>';
+                            loadMoreBtn.disabled = false;
+                            loadMoreBtn.classList.remove('loading');
+
+                            // Initialize Feather icons
+                            if (typeof feather !== 'undefined') {
+                                feather.replace();
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch Error:', error);
+                        // Reset button on error
                         loadMoreBtn.innerHTML = '<i data-feather="chevron-down"></i>';
                         loadMoreBtn.disabled = false;
                         loadMoreBtn.classList.remove('loading');
-                        
+
                         // Initialize Feather icons
                         if (typeof feather !== 'undefined') {
                             feather.replace();
                         }
-                    }
-                    
-                    // Initialize Feather icons for new cards
-                    if (typeof feather !== 'undefined') {
-                        feather.replace();
-                    }
-                    
-                    // Add animation to new cards
-                    const newCards = container.querySelectorAll('.pricing-card-wrapper:not(.animated)');
-                    newCards.forEach((card, index) => {
-                        card.classList.add('animated');
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(30px)';
-                        
-                        setTimeout(() => {
-                            card.style.transition = 'all 0.6s ease-out';
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, index * 150);
                     });
-                    
-                } else {
-                    console.error('API Error:', data.message || 'Unknown error');
-                    // Reset button on error
-                    loadMoreBtn.innerHTML = '<i data-feather="chevron-down"></i>';
-                    loadMoreBtn.disabled = false;
-                    loadMoreBtn.classList.remove('loading');
-                    
-                    // Initialize Feather icons
-                    if (typeof feather !== 'undefined') {
-                        feather.replace();
-                    }
-                }
-            })
-            .catch(error => {
-                console.error('Fetch Error:', error);
-                // Reset button on error
-                loadMoreBtn.innerHTML = '<i data-feather="chevron-down"></i>';
-                loadMoreBtn.disabled = false;
-                loadMoreBtn.classList.remove('loading');
-                
-                // Initialize Feather icons
-                if (typeof feather !== 'undefined') {
-                    feather.replace();
-                }
             });
-        });
-    }
+        }
     });
-
-
 </script>
 @endpush
 
 @push('styles')
-        <link rel="stylesheet" href="{{ asset('assets/css/contact-form.css') }}?v={{ time() }}">
+<link rel="stylesheet" href="{{ asset('assets/css/contact-form.css') }}?v={{ time() }}">
 <style>
     /* Portfolio Service Card Styles */
     .form-group {
@@ -1539,7 +1547,7 @@ document.addEventListener('DOMContentLoaded', function() {
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
         opacity: 0;
         transition: opacity 0.3s ease;
     }
@@ -1602,9 +1610,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     @keyframes float {
-        0%, 100% {
+
+        0%,
+        100% {
             transform: translateY(0px);
         }
+
         50% {
             transform: translateY(-10px);
         }
@@ -1629,6 +1640,7 @@ document.addEventListener('DOMContentLoaded', function() {
             transform: scale(1);
             opacity: 1;
         }
+
         100% {
             transform: scale(1.5);
             opacity: 0;
